@@ -1,0 +1,20 @@
+{
+  "name": "wcd",
+  "version": "0.1.0",
+  "description": "Woman Calendar.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "woman",
+    "calendar",
+    "desktop"
+  ],
+  "author": "Pavel Malokhatko",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "electron": "^19.0.8"
+  }
+}
