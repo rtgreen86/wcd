@@ -15,6 +15,8 @@
   "author": "Pavel Malokhatko",
   "license": "UNLICENSED",
   "devDependencies": {
-    "electron": "^19.0.8"
+    "electron": "^19.0.8",
+    "eslint": "^8.19.0",
+    "eslint-plugin-react": "^7.30.1"
   }
 }
