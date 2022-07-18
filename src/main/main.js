@@ -5,7 +5,7 @@ const createWindow = () => {
     width: 800,
     height: 600,
   })
-  win.loadFile('index.html');
+  win.loadFile('app/index.html');
 }
 
 app.on('window-all-closed', () => {

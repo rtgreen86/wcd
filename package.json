@@ -2,10 +2,11 @@
   "name": "wcd",
   "version": "0.1.0",
   "description": "Woman Calendar.",
-  "main": "main.js",
+  "main": "src/main/main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
   "keywords": [
     "woman",
