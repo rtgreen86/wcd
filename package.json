@@ -2,9 +2,10 @@
   "name": "wcd",
   "version": "0.1.0",
   "description": "Woman Calendar.",
-  "main": "src/main/main.js",
+  "main": "app/main/main.js",
   "scripts": {
     "lint": "eslint .",
+    "compile": "babel src --out-dir app",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ."
   },
@@ -16,6 +17,9 @@
   "author": "Pavel Malokhatko",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@babel/cli": "^7.18.9",
+    "@babel/core": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
     "electron": "^19.0.8",
     "eslint": "^8.19.0",
     "eslint-plugin-react": "^7.30.1"
