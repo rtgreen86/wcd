@@ -16,6 +16,7 @@
   "plugins": [
     "react"
   ],
+  "ignorePatterns": ["app/*.app.js", "app/main", "app/renderer"],
   "rules": {
   },
   "settings": {

@@ -131,4 +131,4 @@ dist
 
 #compiled application
 app/main/**
-app/renderer/**
+app/renderer.app.js
