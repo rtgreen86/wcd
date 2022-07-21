@@ -4,7 +4,8 @@ const path = require('path');
 const nodeExternals = require("webpack-node-externals");
 
 const common = {
-  mode: 'production'
+  mode: 'development',
+  devtool: 'inline-source-map'
 };
 
 const main = {
