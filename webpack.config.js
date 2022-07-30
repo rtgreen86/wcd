@@ -21,6 +21,20 @@ const main = {
 const renderer = {
   target: 'electron-renderer',
   entry: './src/renderer/index.js',
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        options: { presets: ['@babel/env'] }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  },
   output: {
     filename: 'renderer.app.js',
     path: path.resolve(__dirname, 'app')

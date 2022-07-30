@@ -18,10 +18,5 @@
   ],
   "ignorePatterns": ["app/*.app.js", "app/main", "app/renderer"],
   "rules": {
-  },
-  "settings": {
-    "react": {
-      "version": "18.2"
-    }
   }
 }
