@@ -30,8 +30,11 @@ const renderer = {
         options: { presets: ['@babel/env'] }
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        test: /\.css$/i,
+        use: [
+          { loader: "style-loader", options: { attributes: { nonce: "wcd" } } },
+          'css-loader'
+        ],
       }
     ]
   },
