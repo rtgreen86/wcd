@@ -1,10 +1,21 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+
+const MockStorage = require('./MockStorage');
 
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
-  })
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  });
+
+  ipcMain.handle('load', (event, name) => {
+    return MockStorage.load(name);
+  });
+
   win.loadFile('app/index.html');
 }
 

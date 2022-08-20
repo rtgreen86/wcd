@@ -1,9 +1,10 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import { MonthCalendar, YearCalendar } from './features/calendar';
 import Status from './Status';
 
 const initialState = {
   records: {},
+  isLoading: true,
 };
 
 const defaultColor = 'red';
@@ -21,20 +22,40 @@ const remove = (state, record) => {
   return {...state};
 }
 
+const onLoaded = (state, records) => {
+  return {
+    ...state,
+    records: records,
+    isLoading: false
+  };
+}
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'add':
       return add(state, action.payload);
     case 'remove':
       return remove(state, action.payload);
+    case 'loaded':
+      return onLoaded(state, action.payload);
     default:
       return state;
   }
 }
 
 export default function App() {
-  const [date, setDate] = useState('nothing clicked');
+  const version = `Node: ${Records.node()}; Chrome: ${Records.chrome()}; Electron: ${Records.electron()}`;
+
+  const [date, setDate] = useState(version);
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    (async () => {
+      const result = await Records.load('User');
+      const records = JSON.parse(result);
+      dispatch({ type: 'loaded', payload: records });
+    })();
+  }, []);
 
   const handleClick = (date) => {
     setDate(`Clicked: ${date}`);
@@ -44,6 +65,10 @@ export default function App() {
     } else {
       dispatch({ type: 'add', payload: date });
     }
+  }
+
+  if (state.isLoading) {
+    return <div>loading...</div>
   }
 
   return (<>
