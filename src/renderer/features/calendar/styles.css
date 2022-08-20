@@ -1,3 +1,7 @@
+.calendar {
+  user-select: none;
+}
+
 .calendar td {
   width: 30px;
   height: 30px;
