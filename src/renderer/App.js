@@ -6,15 +6,27 @@ const initialState = {
   records: {},
 };
 
+const defaultColor = 'red';
+
+const add = (state, record) => ({
+  ...state,
+  records: {
+    ...state.records,
+    [record]: defaultColor
+  }
+});
+
+const remove = (state, record) => {
+  delete state.records[record];
+  return {...state};
+}
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'add':
-      return {
-        records: {
-          ...state.records,
-          [action.payload]: 'blue'
-        }
-      };
+      return add(state, action.payload);
+    case 'remove':
+      return remove(state, action.payload);
     default:
       return state;
   }
@@ -26,10 +38,12 @@ export default function App() {
 
   const handleClick = (date) => {
     setDate(`Clicked: ${date}`);
-    dispatch({
-      type: 'add',
-      payload: date
-    });
+
+    if (state.records[date]) {
+      dispatch({ type: 'remove', payload: date });
+    } else {
+      dispatch({ type: 'add', payload: date });
+    }
   }
 
   return (<>
