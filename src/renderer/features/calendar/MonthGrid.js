@@ -25,7 +25,7 @@ export default function MonthGrid({
         <tr key={index}>{row.map(({cellNo, caption, isWeekend, marks, date}) => (
           <td
             key={cellNo}
-            className={(isWeekend ? 'weekend' : '') + marks}
+            className={(isWeekend ? 'weekend ' : '') + marks}
             data-date={date}
             onClick={() => handleDayClick(date)}
           >{caption}</td>
