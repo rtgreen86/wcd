@@ -78,6 +78,11 @@ export default function App() {
     electronAPI.saveRecords(content);
   }
 
+  const handleAboutClick = (event) => {
+    event.preventDefault();
+    electronAPI.showAbout();
+  }
+
   if (state.isLoading) {
     return <div>loading...</div>
   }
@@ -86,6 +91,7 @@ export default function App() {
     <Status message={date} />
     <div>{sysinfo}</div>
     <button onClick={handleSaveClick}>Save!</button>
+    <button onClick={handleAboutClick}>About!</button>
     <YearCalendar year={1986} firstDayOfWeek={1} marks={state.records} onClick={handleClick} />
     <MonthCalendar year={1986} month={1} firstDayOfWeek={1} marks={state.records} onClick={handleClick} />
   </>);
