@@ -1,8 +1,8 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
+import { app, BrowserWindow, ipcMain } from 'electron';
+import path from 'node:path';
 
-const MockStorage = require('./MockStorage');
-const Storage = require('./Storage');
+import MockStorage from './MockStorage';
+import Storage from './Storage';
 
 const handleLoadRecords = () => {
   return MockStorage.load();

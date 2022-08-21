@@ -1,6 +1,8 @@
 {
   "env": {
     "node": true,
-    "commonjs": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
   }
 }

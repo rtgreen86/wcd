@@ -1,11 +1,11 @@
-const { app } = require('electron');
-const path = require('path');
-const fs = require('fs');
+import { app } from 'electron';
+import path from 'node:path';
+import fs from 'node:fs/promises';
 
-module.exports = class Storage {
+export default class Storage {
   static put(payload) {
     const folder = app.getPath('userData');
     const filePath = path.join(folder, 'data.json');
-    return fs.writeFileSync(filePath, payload, 'utf8');
+    return fs.writeFile(filePath, payload, 'utf8');
   }
 }
