@@ -131,4 +131,4 @@ dist
 
 #compiled application
 app/*.app.js
-app/*.html
+app/index.html
