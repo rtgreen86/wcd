@@ -46,12 +46,19 @@ const reducer = (state, action) => {
 export default function App() {
   const [date, setDate] = useState('');
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [sysinfo, setSysinfo] = useState('loading...');
 
   useEffect(() => {
     (async () => {
       const result = await electronAPI.loadRecords();
       const records = JSON.parse(result);
       dispatch({ type: 'loaded', payload: records });
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      setSysinfo(await electronAPI.getSysInfo());
     })();
   }, []);
 
@@ -77,7 +84,7 @@ export default function App() {
 
   return (<>
     <Status message={date} />
-    <div>{electronAPI.getSysInfo()}</div>
+    <div>{sysinfo}</div>
     <button onClick={handleSaveClick}>Save!</button>
     <YearCalendar year={1986} firstDayOfWeek={1} marks={state.records} onClick={handleClick} />
     <MonthCalendar year={1986} month={1} firstDayOfWeek={1} marks={state.records} onClick={handleClick} />

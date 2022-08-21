@@ -2,14 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
 
 import Storage from './Storage';
-
-const handleLoadRecords = () => {
-  return Storage.get();
-};
-
-const handleSaveRecords = (event, payload) => {
-  return Storage.put(payload);
-};
+import SysInfo from './SysInfo';
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -20,8 +13,9 @@ const createWindow = () => {
     }
   });
 
-  ipcMain.handle('load-records', handleLoadRecords);
-  ipcMain.handle('save-records', handleSaveRecords);
+  ipcMain.handle('load-records', () => Storage.get());
+  ipcMain.handle('save-records', (event, payload) => Storage.put(payload));
+  ipcMain.handle('get-sysinfo', () => SysInfo.get());
 
   win.loadFile('app/index.html');
 }

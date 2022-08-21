@@ -1,5 +1,6 @@
 {
   "name": "wcd",
+  "productName": "WCalendar",
   "version": "0.1.0",
   "description": "Woman Calendar.",
   "main": "app/main.app.js",

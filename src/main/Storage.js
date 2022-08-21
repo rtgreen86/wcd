@@ -11,9 +11,14 @@ export default class Storage {
     return fs.writeFile(filePath, payload, 'utf8');
   }
 
-  static get() {
+  static async get() {
     const folder = app.getPath('userData');
     const filePath = path.join(folder, filename);
-    return fs.readFile(filePath, 'utf8');
+    try {
+      return await fs.readFile(filePath, 'utf8');
+    } catch (err) {
+      if (err.code === 'ENOENT') return '{}';
+      throw err;
+    }
   }
 }
