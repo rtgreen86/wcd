@@ -2,10 +2,18 @@ import { app } from 'electron';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 
+const filename = 'data.json';
+
 export default class Storage {
   static put(payload) {
     const folder = app.getPath('userData');
-    const filePath = path.join(folder, 'data.json');
+    const filePath = path.join(folder, filename);
     return fs.writeFile(filePath, payload, 'utf8');
+  }
+
+  static get() {
+    const folder = app.getPath('userData');
+    const filePath = path.join(folder, filename);
+    return fs.readFile(filePath, 'utf8');
   }
 }

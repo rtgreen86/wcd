@@ -1,11 +1,10 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
 
-import MockStorage from './MockStorage';
 import Storage from './Storage';
 
 const handleLoadRecords = () => {
-  return MockStorage.load();
+  return Storage.get();
 };
 
 const handleSaveRecords = (event, payload) => {
