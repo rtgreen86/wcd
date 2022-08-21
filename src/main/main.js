@@ -9,7 +9,7 @@ const handleLoadRecords = () => {
 };
 
 const handleSaveRecords = (event, payload) => {
-  return Storage.put('records', payload);
+  return Storage.put(payload);
 };
 
 const createWindow = () => {
