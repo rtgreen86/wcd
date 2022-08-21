@@ -130,5 +130,4 @@ dist
 .pnp.*
 
 #compiled application
-app/main.app.js
-app/renderer.app.js
+app/*.app.js

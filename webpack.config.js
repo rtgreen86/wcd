@@ -44,7 +44,18 @@ const renderer = {
   }
 };
 
+const preload = {
+  target: "electron-main",
+  externals: [nodeExternals()],
+  entry: './src/preload/preload.js',
+  output: {
+    filename: 'preload.app.js',
+    path: path.resolve(__dirname, 'app')
+  }
+};
+
 module.exports = [
   Object.assign({}, common, main),
+  Object.assign({}, common, preload),
   Object.assign({}, common, renderer)
 ];
