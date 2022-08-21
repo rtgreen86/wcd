@@ -131,3 +131,4 @@ dist
 
 #compiled application
 app/*.app.js
+app/*.html

@@ -2,6 +2,7 @@
 
 const path = require('path');
 const nodeExternals = require("webpack-node-externals");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const common = {
   mode: 'development',
@@ -38,6 +39,11 @@ const renderer = {
       }
     ]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'assets/index.html'
+    })
+  ],
   output: {
     filename: 'renderer.app.js',
     path: path.resolve(__dirname, 'app')
