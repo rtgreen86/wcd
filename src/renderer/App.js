@@ -44,14 +44,12 @@ const reducer = (state, action) => {
 }
 
 export default function App() {
-  const version = `Node: ${Records.node()}; Chrome: ${Records.chrome()}; Electron: ${Records.electron()}`;
-
-  const [date, setDate] = useState(version);
+  const [date, setDate] = useState('');
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     (async () => {
-      const result = await Records.load('User');
+      const result = await electronAPI.loadRecords();
       const records = JSON.parse(result);
       dispatch({ type: 'loaded', payload: records });
     })();
