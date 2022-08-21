@@ -2,12 +2,15 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 const MockStorage = require('./MockStorage');
+const Storage = require('./Storage');
 
 const handleLoadRecords = () => {
   return MockStorage.load();
 };
 
-const handleSaveRecords = () => { };
+const handleSaveRecords = (event, payload) => {
+  return Storage.put('records', payload);
+};
 
 const createWindow = () => {
   const win = new BrowserWindow({

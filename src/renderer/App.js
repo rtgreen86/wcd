@@ -65,12 +65,19 @@ export default function App() {
     }
   }
 
+  const handleSaveClick = (event) => {
+    event.preventDefault();
+    const content = JSON.stringify(state.records);
+    electronAPI.saveRecords(content);
+  }
+
   if (state.isLoading) {
     return <div>loading...</div>
   }
 
   return (<>
     <Status message={date} />
+    <button onClick={handleSaveClick}>Save!</button>
     <YearCalendar year={1986} firstDayOfWeek={1} marks={state.records} onClick={handleClick} />
     <MonthCalendar year={1986} month={1} firstDayOfWeek={1} marks={state.records} onClick={handleClick} />
   </>);
