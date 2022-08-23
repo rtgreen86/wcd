@@ -1,4 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { MonthCalendar, YearCalendar } from './features/calendar';
 import Status from './Status';
 
@@ -47,6 +48,7 @@ export default function App() {
   const [date, setDate] = useState('');
   const [state, dispatch] = useReducer(reducer, initialState);
   const [sysinfo, setSysinfo] = useState('loading...');
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -61,6 +63,10 @@ export default function App() {
       setSysinfo(await electronAPI.getSysInfo());
     })();
   }, []);
+
+  useEffect(() => {
+    setUrl(window.location.href);
+  });
 
   const handleClick = (date) => {
     setDate(`Clicked: ${date}`);
@@ -88,6 +94,19 @@ export default function App() {
   }
 
   return (<>
+    <div>{url}</div>
+    <div>
+      <h1>Bookkeeper!</h1>
+      <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem"
+        }}
+      >
+        <Link to="/invoices">Invoices</Link> |{" "}
+        <Link to="/expenses">Expenses</Link>
+      </nav>
+    </div>
     <Status message={date} />
     <div>{sysinfo}</div>
     <button onClick={handleSaveClick}>Save!</button>
