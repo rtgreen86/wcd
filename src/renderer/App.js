@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { MonthCalendar, YearCalendar } from './features/calendar';
 import Status from './Status';
 
@@ -106,6 +106,7 @@ export default function App() {
         <Link to="/invoices">Invoices</Link> |{" "}
         <Link to="/expenses">Expenses</Link>
       </nav>
+      <Outlet />
     </div>
     <Status message={date} />
     <div>{sysinfo}</div>
