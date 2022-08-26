@@ -10,8 +10,6 @@ import Invoice from "./routes/Invoice.jsx";
 const container = document.getElementById('app');
 const root = ReactDOM.createRoot(container);
 
-// TODO: https://reactrouter.com/docs/en/v6/getting-started/tutorial#listing-the-invoices
-
 root.render(
   <MemoryRouter>
     <Routes>
