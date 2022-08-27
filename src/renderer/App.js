@@ -12,7 +12,7 @@ import Expenses from "./routes/Expenses.jsx";
 import Invoices from "./routes/Invoices.jsx";
 import Invoice from "./routes/Invoice.jsx";
 import Navigation from './Navigation';
-import { useAuth } from './features/auth/auth';
+import { useAuth } from './features/auth/ProvideAuth';
 
 const ProtectedRoute = ({ children }) => {
   const { token } = useAuth();
