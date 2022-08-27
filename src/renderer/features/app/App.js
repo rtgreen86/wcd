@@ -1,7 +1,7 @@
 import React, { useState, useReducer, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { MonthCalendar, YearCalendar } from './features/calendar';
-import Status from './Status';
+import { MonthCalendar, YearCalendar } from '../calendar';
+import Status from '../../Status';
 
 const initialState = {
   records: {},
