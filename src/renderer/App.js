@@ -39,24 +39,25 @@ export default function App() {
     <>
       <Navigation token={auth.token} onLogout={handleLogout} />
       <Routes>
-        <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="lock" element={<Lock token={auth.token} onLogin={handleLogin} />} />
-        <Route path="home" element={<ProtectedRoute><Home /></ProtectedRoute>}>
-          <Route path="expenses" element={<Expenses />} />
-          <Route path="invoices" element={<Invoices />}>
-            <Route path=":invoiceId" element={<Invoice />} />
-            <Route
-              index
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>Select an invoice</p>
-                </main>
-              }
-            />
+        {auth.token && (<>
+          <Route path="home" element={<ProtectedRoute><Home /></ProtectedRoute>}>
+            <Route path="expenses" element={<Expenses />} />
+            <Route path="invoices" element={<Invoices />}>
+              <Route path=":invoiceId" element={<Invoice />} />
+              <Route
+                index
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p>Select an invoice</p>
+                  </main>
+                }
+              />
+            </Route>
           </Route>
-
-          <Route path="*" element={<NoMatch />} />
-        </Route>
+          <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        </>)}
+        <Route path="*" element={<NoMatch />} />
       </Routes>
     </>
   );
