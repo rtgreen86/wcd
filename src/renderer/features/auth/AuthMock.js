@@ -2,8 +2,8 @@ const token = '100';
 
 const AuthMock = {
   getToken() {
-    return new Promise(() => setTimeout(() => {
-      return token;
+    return new Promise((resolve) => setTimeout(() => {
+      resolve(token);
     }, 100)); // fake async
   },
 };

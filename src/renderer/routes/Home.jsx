@@ -2,7 +2,6 @@ import React, { useState, useReducer, useEffect } from 'react';
 import { Link, Outlet } from "react-router-dom";
 import { MonthCalendar, YearCalendar } from '../features/calendar';
 import Status from '../Status';
-import Navigation from '../Navigation';
 
 const initialState = {
   records: {},
@@ -96,7 +95,6 @@ export default function Home() {
 
   return (<>
     <div>{url}</div>
-    <Navigation />
     <div>
       <h1>Bookkeeper!</h1>
       <nav
@@ -105,8 +103,8 @@ export default function Home() {
           paddingBottom: "1rem"
         }}
       >
-        <Link to="/invoices">Invoices</Link> |{" "}
-        <Link to="/expenses">Expenses</Link>
+        <Link to="/home/invoices">Invoices</Link> |{" "}
+        <Link to="/home/expenses">Expenses</Link>
       </nav>
       <Outlet />
     </div>

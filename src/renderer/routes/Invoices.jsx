@@ -43,7 +43,7 @@ export default function Invoices() {
                   color: isActive ? "red" : "",
                 };
               }}
-              to={`/invoices/${invoice.number}`}
+              to={`/home/invoices/${invoice.number}`}
               key={invoice.number}
             >
               {invoice.name}
