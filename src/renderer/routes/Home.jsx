@@ -2,6 +2,7 @@ import React, { useState, useReducer, useEffect } from 'react';
 import { Link, Outlet } from "react-router-dom";
 import { MonthCalendar, YearCalendar } from '../features/calendar';
 import Status from '../Status';
+import Navigation from '../Navigation';
 
 const initialState = {
   records: {},
@@ -95,6 +96,7 @@ export default function Home() {
 
   return (<>
     <div>{url}</div>
+    <Navigation />
     <div>
       <h1>Bookkeeper!</h1>
       <nav

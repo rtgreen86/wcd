@@ -1,6 +1,7 @@
 import React from 'react';
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 import Home from './routes/Home.jsx';
+import Lock from './routes/Lock.jsx';
 import NoMatch from './routes/NoMatch.jsx';
 import Expenses from "./routes/Expenses.jsx";
 import Invoices from "./routes/Invoices.jsx";
@@ -12,6 +13,7 @@ export default function App() {
     <ProvideAuth>
       <MemoryRouter>
         <Routes>
+          <Route path="lock" element={<Lock />} />
           <Route path="/" element={<Home />}>
             <Route path="expenses" element={<Expenses />} />
             <Route path="invoices" element={<Invoices />}>
@@ -25,6 +27,7 @@ export default function App() {
                 }
               />
             </Route>
+
             <Route path="*" element={<NoMatch />} />
           </Route>
         </Routes>
