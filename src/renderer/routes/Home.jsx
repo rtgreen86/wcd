@@ -1,7 +1,7 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { MonthCalendar, YearCalendar } from '../calendar';
-import Status from '../../Status';
+import { Link, Outlet } from "react-router-dom";
+import { MonthCalendar, YearCalendar } from '../features/calendar';
+import Status from '../Status';
 
 const initialState = {
   records: {},
@@ -44,7 +44,7 @@ const reducer = (state, action) => {
   }
 }
 
-export default function App() {
+export default function Home() {
   const [date, setDate] = useState('');
   const [state, dispatch] = useReducer(reducer, initialState);
   const [sysinfo, setSysinfo] = useState('loading...');
