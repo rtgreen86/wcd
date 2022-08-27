@@ -103,8 +103,8 @@ export default function Home() {
           paddingBottom: "1rem"
         }}
       >
-        <Link to="/home/invoices">Invoices</Link> |{" "}
-        <Link to="/home/expenses">Expenses</Link>
+        <Link to="/invoices">Invoices</Link> |{" "}
+        <Link to="/expenses">Expenses</Link>
       </nav>
       <Outlet />
     </div>

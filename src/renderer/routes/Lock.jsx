@@ -1,11 +1,17 @@
 import React from 'react';
+import { useAuth } from '../features/auth';
 
-export default function Lock({ token, onLogin }) {
+export default function Lock() {
+  const { signin } = useAuth();
+
+  const handleLogin = async () => {
+    await signin();
+  }
+
   return (
     <>
       <div>Application is locked</div>
-      <div>Token is {token}</div>
-      <button type="button" onClick={onLogin}>
+      <button type="button" onClick={handleLogin}>
         Sign In
       </button>
     </>
