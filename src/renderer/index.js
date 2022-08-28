@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import { ProvideAuth } from './features/auth/ProvideAuth';
-import store from './store';
+import store from './app/store';
 
 // TODO: https://redux.js.org/introduction/why-rtk-is-redux-today
 
