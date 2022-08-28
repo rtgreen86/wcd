@@ -2,6 +2,7 @@ import React, { useState, useReducer, useEffect } from 'react';
 import { Link, Outlet } from "react-router-dom";
 import { MonthCalendar, YearCalendar } from '../features/calendar';
 import Status from '../Status';
+import Counter from '../features/counter/Counter';
 
 const initialState = {
   records: {},
@@ -110,6 +111,7 @@ export default function Home() {
     </div>
     <Status message={date} />
     <div>{sysinfo}</div>
+    <Counter />
     <button onClick={handleSaveClick}>Save!</button>
     <button onClick={handleAboutClick}>About!</button>
     <YearCalendar year={1986} firstDayOfWeek={1} marks={state.records} onClick={handleClick} />
