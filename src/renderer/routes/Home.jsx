@@ -3,6 +3,8 @@ import { Link, Outlet } from "react-router-dom";
 import { MonthCalendar, YearCalendar } from '../features/calendar';
 import Status from '../Status';
 import Counter from '../features/counter/Counter';
+import PostsList from '../features/posts/PostsList';
+import AddPostForm from '../features/posts/AddPostForm';
 
 const initialState = {
   records: {},
@@ -112,6 +114,8 @@ export default function Home() {
     <Status message={date} />
     <div>{sysinfo}</div>
     <Counter />
+    <PostsList />
+    <AddPostForm />
     <button onClick={handleSaveClick}>Save!</button>
     <button onClick={handleAboutClick}>About!</button>
     <YearCalendar year={1986} firstDayOfWeek={1} marks={state.records} onClick={handleClick} />
