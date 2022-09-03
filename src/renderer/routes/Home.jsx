@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { MonthCalendar, YearCalendar } from '../features/calendar';
 import Status from '../Status';
 import Counter from '../features/counter/Counter';
@@ -52,6 +52,7 @@ export default function Home() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [sysinfo, setSysinfo] = useState('loading...');
   const [url, setUrl] = useState('');
+  const location = useLocation();
 
   useEffect(() => {
     (async () => {
@@ -98,6 +99,7 @@ export default function Home() {
 
   return (<>
     <div>{url}</div>
+    <div>{location.pathname}</div>
     <div>
       <h1>Bookkeeper!</h1>
       <nav
