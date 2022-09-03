@@ -11,6 +11,8 @@ import Invoices from "./routes/Invoices.jsx";
 import Invoice from "./routes/Invoice.jsx";
 import Navigation from './Navigation';
 import { useAuth } from './features/auth/ProvideAuth';
+import PostsList from './features/posts/PostsList.js';
+import { SinglePostPage } from './features/posts/SinglePostPage.js';
 
 export default function App() {
   const { token, signout } = useAuth();
@@ -38,6 +40,8 @@ export default function App() {
                   }
                 />
               </Route>
+              <Route path="posts" element={<PostsList />} />
+              <Route path="posts/:postId" element={<SinglePostPage />} />
             </Route>
           </>
         ) : (

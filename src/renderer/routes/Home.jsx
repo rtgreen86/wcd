@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useMatch } from "react-router-dom";
 import { MonthCalendar, YearCalendar } from '../features/calendar';
 import Status from '../Status';
 import Counter from '../features/counter/Counter';
@@ -53,6 +53,7 @@ export default function Home() {
   const [sysinfo, setSysinfo] = useState('loading...');
   const [url, setUrl] = useState('');
   const location = useLocation();
+  const match = useMatch('postId');
 
   useEffect(() => {
     (async () => {
@@ -100,6 +101,7 @@ export default function Home() {
   return (<>
     <div>{url}</div>
     <div>{location.pathname}</div>
+    <div>{match}</div>
     <div>
       <h1>Bookkeeper!</h1>
       <nav
@@ -109,14 +111,14 @@ export default function Home() {
         }}
       >
         <Link to="/invoices">Invoices</Link> |{" "}
-        <Link to="/expenses">Expenses</Link>
+        <Link to="/expenses">Expenses</Link> |{" "}
+        <Link to="/posts">Posts</Link>
       </nav>
       <Outlet />
     </div>
     <Status message={date} />
     <div>{sysinfo}</div>
     <Counter />
-    <PostsList />
     <AddPostForm />
     <button onClick={handleSaveClick}>Save!</button>
     <button onClick={handleAboutClick}>About!</button>
