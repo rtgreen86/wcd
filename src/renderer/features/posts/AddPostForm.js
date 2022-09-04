@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
 import { postAdded } from './postsSlice';
 
 export default function AddPostForm() {
@@ -15,11 +14,7 @@ export default function AddPostForm() {
   const handleSavePostClick = () => {
     if (title && content) {
       dispatch(
-        postAdded({
-          id: nanoid(),
-          title,
-          content
-        })
+        postAdded(title, content)
       );
       setTitle('');
       setContent('');
