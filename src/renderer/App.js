@@ -13,6 +13,7 @@ import Navigation from './Navigation';
 import { useAuth } from './features/auth/ProvideAuth';
 import PostsList from './features/posts/PostsList.js';
 import { SinglePostPage } from './features/posts/SinglePostPage.js';
+import { EditPostForm } from './features/posts/EditPostsForm.js';
 
 export default function App() {
   const { token, signout } = useAuth();
@@ -42,6 +43,7 @@ export default function App() {
               </Route>
               <Route path="posts" element={<PostsList />} />
               <Route path="posts/:postId" element={<SinglePostPage />} />
+              <Route path="editPost/:postId" element={<EditPostForm />} />
             </Route>
           </>
         ) : (
