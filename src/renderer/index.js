@@ -6,7 +6,7 @@ import App from './App';
 import { ProvideAuth } from './features/auth/ProvideAuth';
 import store from './app/store';
 
-// TODO: https://redux.js.org/tutorials/essentials/part-4-using-data
+// TODO: https://redux.js.org/tutorials/essentials/part-5-async-logic
 
 const container = document.getElementById('app');
 const root = ReactDOM.createRoot(container);
