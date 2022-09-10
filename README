@@ -1,0 +1,3 @@
+Known bugs
+
+React and Redux dev tools don't work. https://github.com/electron/electron/issues/32133
