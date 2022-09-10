@@ -1,7 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
-import postsSlice from "../posts/postsSlice";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  marks: {},
+  status: 'idle',
+  error: null,
+};
+
+export const fetchMarks = createAsyncThunk('marks/fetchMarks', () => {
+  return new Promise(resolve => {
+    setTimeout(() => resolve({ '2022-09-30': 'red' }), 1000);
+  });
+});
 
 const marksSlice = createSlice({
   name: 'marks',
@@ -9,13 +18,27 @@ const marksSlice = createSlice({
   reducers: {
     markSetted(state, action) {
       const { date, mark } = action.payload;
-      state[date] = mark;
+      state.marks[date] = mark;
     },
 
     markRemoved(state, action) {
       const { date } = action.payload;
-      delete state[date];
+      delete state.marks[date];
     }
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchMarks.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchMarks.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.marks = action.payload;
+      })
+      .addCase(fetchMarks.rejected, (state, action) => {
+        state.status = 'error';
+        state.error = action.payload.error.message;
+      });
   }
 });
 

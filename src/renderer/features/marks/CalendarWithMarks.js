@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { markSetted, markRemoved } from './marksSlice';
+import { markSetted, markRemoved, fetchMarks } from './marksSlice';
 import { MonthCalendar } from '../calendar';
 
 export default function CalendarWithMarks() {
@@ -10,7 +10,17 @@ export default function CalendarWithMarks() {
   const year = date.getFullYear();
   const month = date.getMonth();
 
-  const marks = useSelector(state => state.marks);
+  const { status, marks } = useSelector(state => state.marks);
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchMarks());
+    }
+  }, [dispatch, status])
+
+  if (status !== 'succeeded') {
+    return <div>Loading...</div>;
+  }
 
   const handleClick = (date) => {
     if (!marks[date]) {
