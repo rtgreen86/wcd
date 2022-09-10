@@ -112,7 +112,8 @@ export default function Home() {
       >
         <Link to="/invoices">Invoices</Link> |{" "}
         <Link to="/expenses">Expenses</Link> |{" "}
-        <Link to="/posts">Posts</Link>
+        <Link to="/posts">Posts</Link> |{" "}
+        <Link to="/calendar">Calendar</Link>
       </nav>
       <Outlet />
     </div>
