@@ -12,6 +12,13 @@ export const fetchMarks = createAsyncThunk('marks/fetchMarks', () => {
   });
 });
 
+export const setMark = createAsyncThunk('marks/setMark', mark => {
+  return new Promise(resolve => {
+    console.log(mark);
+    resolve(mark);
+  });
+});
+
 const marksSlice = createSlice({
   name: 'marks',
   initialState,
@@ -38,7 +45,11 @@ const marksSlice = createSlice({
       .addCase(fetchMarks.rejected, (state, action) => {
         state.status = 'error';
         state.error = action.payload.error.message;
-      });
+      })
+      .addCase(setMark.fulfilled, (state, action) => {
+        const { date, mark } = action.payload;
+        state.marks[date] = mark;
+      })
   }
 });
 

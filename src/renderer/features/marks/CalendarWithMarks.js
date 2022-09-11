@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { markSetted, markRemoved, fetchMarks } from './marksSlice';
+import { markSetted, markRemoved, fetchMarks, setMark } from './marksSlice';
 import { MonthCalendar } from '../calendar';
 
 export default function CalendarWithMarks() {
@@ -22,9 +22,13 @@ export default function CalendarWithMarks() {
     return <div>Loading...</div>;
   }
 
-  const handleClick = (date) => {
+  const handleClick = async (date) => {
     if (!marks[date]) {
-      dispatch(markSetted({ date, mark: 'red' }));
+      try {
+        await dispatch(setMark({ date, mark: 'red' })).unwrap();
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       dispatch(markRemoved({ date }));
     }
