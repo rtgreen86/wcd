@@ -19,6 +19,13 @@ export const setMark = createAsyncThunk('marks/setMark', mark => {
   });
 });
 
+export const removeMark = createAsyncThunk('marks/removeMark', mark => {
+  return new Promise(resolve => {
+    console.log(mark);
+    resolve(mark);
+  })
+})
+
 const marksSlice = createSlice({
   name: 'marks',
   initialState,
@@ -50,6 +57,10 @@ const marksSlice = createSlice({
         const { date, mark } = action.payload;
         state.marks[date] = mark;
       })
+      .addCase(removeMark.fulfilled, (state, action) => {
+        const { date } = action.payload;
+        delete state.marks[date];
+      });
   }
 });
 
