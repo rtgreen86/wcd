@@ -16,6 +16,12 @@ module.exports = [
       },
     },
   },
+  {
+    test: /\.(js|jsx)$/,
+    exclude: /(node_modules|bower_components)/,
+    loader: 'babel-loader',
+    options: { presets: ['@babel/env'] }
+  }
   // Put your webpack loader rules in this array.  This is where you would put
   // your ts-loader configuration for instance:
   /**
