@@ -132,3 +132,9 @@ dist
 #compiled application
 app/*.app.js
 app/index.html
+
+# Webpack
+.webpack/
+
+# Electron-Forge
+out/
