@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar</title>
+</head>
+<body>
+
+<button>Статистика</button>
+<button>Настройки</button>
+<button>Блокировка</button>
+
+<div id="calendar">Календарь</div>
+
+<script>
+
+const columns = [];
+const rows = [];
+
+rows.push('<tr><th colspan="7">Январь</th></tr>');
+
+rows.push(`<tr>${['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map(item => `<td>${item}</td>`).join('')}</tr>`);
+
+for (let i = 0; i < 31; i++) {
+  columns.push(`<td>${i + 1}</td>`);
+  if (columns.length === 7) {
+    rows.push(`<tr>${columns.join('')}</tr>`);
+    columns.length = 0;
+  }
+}
+
+if (columns.length !== 0) {
+  rows.push(`<tr>${columns.join('')}</tr>`);
+}
+
+const calendar = [];
+
+for (let i = 0; i < 12; i++) {
+  calendar.push(`<div><table>
+    ${rows.join('')}
+  </table></div>`);
+}
+
+
+
+
+document.getElementById('calendar').innerHTML = calendar.join('');
+
+</script>
+
+<button>&lt;</button><span>2023</span><button>&gt;</button>
+
+</body>
+</html>
