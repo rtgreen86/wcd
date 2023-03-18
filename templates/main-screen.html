@@ -38,7 +38,7 @@ if (columns.length !== 0) {
 const calendar = [];
 
 for (let i = 0; i < 12; i++) {
-  calendar.push(`<div><table>
+  calendar.push(`<div style="float:left;margin:20px"><table>
     ${rows.join('')}
   </table></div>`);
 }
@@ -50,7 +50,7 @@ document.getElementById('calendar').innerHTML = calendar.join('');
 
 </script>
 
-<button>&lt;</button><span>2023</span><button>&gt;</button>
+<div style="clear:both"><button>&lt;</button><span>2023</span><button>&gt;</button></div>
 
 </body>
 </html>
