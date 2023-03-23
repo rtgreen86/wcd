@@ -5,12 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendar</title>
+  <link rel="stylesheet" href="main-screen.css">
 </head>
 <body>
 
-<button>Статистика</button>
-<button>Настройки</button>
-<button>Блокировка</button>
+  <div class="top-panel">
+    <button>Статистика</button>
+    <button>Настройки</button>
+    <button>Блокировка</button>
+  </div>
+
 
 <div id="calendar">Календарь</div>
 
@@ -21,10 +25,15 @@ const rows = [];
 
 rows.push('<tr><th colspan="7">Январь</th></tr>');
 
-rows.push(`<tr>${['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map(item => `<td>${item}</td>`).join('')}</tr>`);
+rows.push(`<tr>${['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((item, index) => `<td ${index > 4 ? 'class="weekend"' : ""}>${item}</td>`).join('')}</tr>`);
 
 for (let i = 0; i < 31; i++) {
-  columns.push(`<td>${i + 1}</td>`);
+  if (columns.length > 4) {
+    columns.push(`<td class="weekend">${i + 1}</td>`);
+  } else {
+    columns.push(`<td>${i + 1}</td>`);
+  }
+
   if (columns.length === 7) {
     rows.push(`<tr>${columns.join('')}</tr>`);
     columns.length = 0;

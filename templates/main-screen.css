@@ -1,0 +1,50 @@
+/* hex colors */
+
+/*
+
+Colors
+
+  #F1E3D4   hsl(31, 51%, 89%)
+  #D88C9A 	hsl(349, 49%, 70%)
+  #F2D0A9   hsl(32, 74%, 81%)
+  #99C1B9   hsl(168, 24%, 68%)
+  #8E7DBE   hsl(256, 33%, 62%)
+
+  More standard HTML colors
+
+  Tomato
+  Orange
+  DodgerBlue
+  MediumSeaGreen
+  Gray
+  SlateBlue
+  Violet
+  LightGray
+
+*/
+
+:root {
+  --default-bg-color: hsl(31, 51%, 89%);
+  --panel-bg-color: hsl(349, 49%, 70%);
+  --panel-button-backgroun: hsl(32, 74%, 81%);
+  --cambridge-blue: hsl(168, 24%, 68%);
+  --tropical-indigo: hsl(256, 33%, 62%);
+  --text-color: hsl(0, 0%, 10%);
+}
+
+body {
+  background-color: var(--default-bg-color);
+  color: var(--text-color);
+}
+
+.top-panel {
+  background-color: var(--panel-bg-color);
+}
+
+button {
+  background-color: var(--panel-button-backgroun);
+}
+
+.weekend {
+  color: Tomato;
+}
