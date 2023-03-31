@@ -51,6 +51,12 @@ body {
   margin: 0px;
 }
 
+.clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 button {
   background-color: var(--default-bg);
   border: 1px solid gray;
@@ -98,7 +104,6 @@ button.main-btn:active {
   list-style: none inside;
   position: sticky;
   top: 0px;
-  margin-bottom: 5px;
 }
 
 .top-panel li {
@@ -107,12 +112,6 @@ button.main-btn:active {
 
 .top-panel li.right {
   float: right;
-}
-
-.clearfix:after {
-  content: "";
-  clear: both;
-  display: table;
 }
 
 .top-panel button {
@@ -131,10 +130,7 @@ button.main-btn:active {
 .main-content {
   max-width: 600px;
   margin: auto;
-}
-
-.calendar-panel button {
-  border: none;
+  padding: 10px;
 }
 
 .calendar {
@@ -149,8 +145,4 @@ button.main-btn:active {
   float: left;
   margin-right: 15px;
   margin-bottom: 15px;
-}
-
-.calendar-panel {
-  text-align: left;
 }
