@@ -1,0 +1,156 @@
+/* hex colors */
+
+/*
+
+Colors
+
+  #F1E3D4   hsl(31, 51%, 89%)
+  #D88C9A 	hsl(349, 49%, 70%)
+  #F2D0A9   hsl(32, 74%, 81%)
+  #99C1B9   hsl(168, 24%, 68%)
+  #8E7DBE   hsl(256, 33%, 62%)
+
+  More standard HTML colors
+
+  Tomato
+  Orange
+  DodgerBlue
+  MediumSeaGreen
+  Gray
+  SlateBlue
+  Violet
+  LightGray
+
+*/
+
+:root {
+  --text-color: hsl(0, 0%, 10%);
+
+  --default-bg: hsl(31, 51%, 89%);
+  --panel-bg: hsl(349, 49%, 70%);
+
+  --default-button-hover-bg: hsl(31, 51%, 86%);
+  --default-button-active-bg: hsl(31, 51%, 83%);
+
+  --main-button-bg: hsl(32, 74%, 81%);
+  --main-button-hover-bg: hsl(32, 74%, 78%);
+  --main-button-active-bg: hsl(32, 74%, 74%);
+
+  --panel-button-hover-bg: hsl(349, 49%, 64%);
+  --panel-button-active-bg: hsl(349, 49%, 67%);
+
+  --cambridge-blue: hsl(168, 24%, 68%);
+  --tropical-indigo: hsl(256, 33%, 62%);
+}
+
+body {
+  font: 16px system-ui, -apple-system, sans-serif;
+  user-select: none;
+  background-color: var(--default-bg);
+  color: var(--text-color);
+  margin: 0px;
+}
+
+button {
+  background-color: var(--default-bg);
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+button:hover {
+  background-color: var(--default-button-hover-bg);
+}
+
+button:active {
+  background-color: var(--default-button-active-bg);
+}
+
+button.main-btn {
+  background-color: var(--main-button-bg);
+}
+
+button.main-btn:hover {
+  background-color: var(--main-button-hover-bg);
+}
+
+button.main-btn:active {
+  background-color: var(--main-button-active-bg);
+}
+
+.panel {
+  padding: 3px;
+}
+
+.panel button {
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.panel button,
+.panel span {
+  margin: 0px 5px;
+}
+
+.top-panel {
+  background-color: var(--panel-bg);
+  margin: 0px;
+  list-style: none inside;
+  position: sticky;
+  top: 0px;
+  margin-bottom: 5px;
+}
+
+.top-panel li {
+  float: left;
+}
+
+.top-panel li.right {
+  float: right;
+}
+
+.clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.top-panel button {
+  border: none;
+  background-color: transparent;
+}
+
+.top-panel button:hover {
+  background-color: var(--panel-button-hover-bg);
+}
+
+.top-panel button:active {
+  background-color: var(--panel-button-active-bg);
+}
+
+.main-content {
+  max-width: 600px;
+  margin: auto;
+}
+
+.calendar-panel button {
+  border: none;
+}
+
+.calendar {
+  font-size: 12px;
+}
+
+.weekend {
+  color: Tomato;
+}
+
+.month {
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.calendar-panel {
+  text-align: left;
+}
