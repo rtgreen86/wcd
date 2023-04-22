@@ -24,7 +24,7 @@ Colors
 */
 
 :root {
-  /* colors */
+  /* Colors */
 
   --background: hsl(31, 51%, 89%);
   --accent: hsl(349, 49%, 70%);
@@ -33,25 +33,34 @@ Colors
   --tropical-indigo: hsl(256, 33%, 62%);
   --text-color: hsl(0, 0%, 10%);
 
-  /* UI elements */
+  /* UI Elements Colors */
 
-  --button: --default;
-  --button-hover: hsl(32, 74%, 78%);
-  --button-active: hsl(32, 74%, 74%);
+  --panel: var(--accent);
 
-  --accent-button: --accent;
+  --button-default: var(--background);
+  --button-hover: hsl(31, 51%, 86%);
+  --button-active: hsl(31, 51%, 83%);
+  --button-border: gray;
+
+  --accent-button: var(--accent);
   --accent-button-hover: hsl(349, 49%, 64%);
   --accent-button-active: hsl(349, 49%, 67%);
 
-  --panel-button: --accent;
+  --panel-button: var(--accent);
   --panel-button-hover: hsl(349, 49%, 64%);
   --panel-button-active: hsl(349, 49%, 67%);
 
   --input: hsl(31, 51%, 92%);
+
+  /* Font */
+
+  --system: system-ui, -apple-system, sans-serif;
 }
 
+/* Main */
+
 body {
-  font: 16px system-ui, -apple-system, sans-serif;
+  font: 16px var(--system);
   user-select: none;
   background-color: var(--background);
   color: var(--text-color);
@@ -64,40 +73,80 @@ body {
   display: table;
 }
 
-input {
-  background-color: var(--input);
-  color: var(--tropical-indigo);
+main {
+  max-width: 600px;
+  margin: auto;
+  padding: 10px;
 }
 
+/* Buttons */
+
 button {
-  background-color: var(--background);
-  border: 1px solid gray;
+  background-color: var(--button-default);
+  border: 1px solid var(--button-border);
   border-radius: 5px;
   padding: 5px 10px;
+  font: 0.9em var(--system);
 }
 
 button:hover {
-  background-color: var(--default-button-hover-bg);
+  background-color: var(--button-hover);
 }
 
 button:active {
-  background-color: var(--default-button-active-bg);
+  background-color: var(--button-active);
 }
 
-button.main-btn {
-  background-color: var(--default);
+button[disabled]:hover,
+button[disabled]:active {
+  background-color: var(--background);
 }
 
-button.main-btn:hover {
-  background-color: var(--main-button-hover-bg);
+button.accent {
+  background-color: var(--accent-button);
 }
 
-button.main-btn:active {
-  background-color: var(--main-button-active-bg);
+button.accent:hover {
+  background-color: var(--accent-button-hover);
 }
+
+button.accent:active {
+  background-color: var(--accent-button-active);
+}
+
+button[disabled],
+button[disabled]:hover,
+button[disabled]:active {
+  background-color: var(--background);
+}
+
+/* Menu */
+
+.menu {
+  list-style: none inside;
+  padding: 0px;
+  margin: 0px;
+}
+
+.menu li {
+  float: left;
+}
+
+.menu li.right {
+  float: right;
+}
+
+.menu button,
+.menu span {
+  margin: 0px 5px;
+}
+
+/* Panel */
 
 .panel {
-  padding: 3px;
+  margin: 0px;
+  padding: 3px 10px;
+  background-color: var(--panel);
 }
 
 .panel button {
@@ -105,45 +154,39 @@ button.main-btn:active {
   min-height: 32px;
 }
 
-.panel button,
-.panel span {
-  margin: 0px 5px;
-}
-
-.top-panel {
-  background-color: var(--accent);
-  margin: 0px;
-  list-style: none inside;
-  position: sticky;
-  top: 0px;
-}
-
-.top-panel li {
-  float: left;
-}
-
-.top-panel li.right {
-  float: right;
-}
-
-.top-panel button {
+.panel .menu button {
+  background-color: var(--accent-button);
   border: none;
-  background-color: transparent;
 }
 
-.top-panel button:hover {
-  background-color: var(--panel-button-hover-bg);
+.panel .menu button:hover {
+  background-color: var(--accent-button-hover);
 }
 
-.top-panel button:active {
-  background-color: var(--panel-button-active-bg);
+.panel .menu button:active {
+  background-color: var(--accent-button-active);
 }
 
-.main-content {
-  max-width: 600px;
-  margin: auto;
-  padding: 10px;
+/* Top Panel */
+
+
+
+
+
+
+
+
+
+
+
+
+input {
+  background-color: var(--input);
+  color: var(--tropical-indigo);
 }
+
+
+
 
 .calendar {
   font-size: 12px;
