@@ -24,30 +24,36 @@ Colors
 */
 
 :root {
-  --text-color: hsl(0, 0%, 10%);
+  /* colors */
 
-  --default-bg: hsl(31, 51%, 89%);
-  --default-bg-lighter: hsl(31, 51%, 92%);
-  --panel-bg: hsl(349, 49%, 70%);
-
-  --default-button-hover-bg: hsl(31, 51%, 86%);
-  --default-button-active-bg: hsl(31, 51%, 83%);
-
-  --main-button-bg: hsl(32, 74%, 81%);
-  --main-button-hover-bg: hsl(32, 74%, 78%);
-  --main-button-active-bg: hsl(32, 74%, 74%);
-
-  --panel-button-hover-bg: hsl(349, 49%, 64%);
-  --panel-button-active-bg: hsl(349, 49%, 67%);
-
+  --background: hsl(31, 51%, 89%);
+  --accent: hsl(349, 49%, 70%);
+  --default: hsl(32, 74%, 81%);
   --cambridge-blue: hsl(168, 24%, 68%);
   --tropical-indigo: hsl(256, 33%, 62%);
+  --text-color: hsl(0, 0%, 10%);
+
+  /* UI elements */
+
+  --button: --default;
+  --button-hover: hsl(32, 74%, 78%);
+  --button-active: hsl(32, 74%, 74%);
+
+  --accent-button: --accent;
+  --accent-button-hover: hsl(349, 49%, 64%);
+  --accent-button-active: hsl(349, 49%, 67%);
+
+  --panel-button: --accent;
+  --panel-button-hover: hsl(349, 49%, 64%);
+  --panel-button-active: hsl(349, 49%, 67%);
+
+  --input: hsl(31, 51%, 92%);
 }
 
 body {
   font: 16px system-ui, -apple-system, sans-serif;
   user-select: none;
-  background-color: var(--default-bg);
+  background-color: var(--background);
   color: var(--text-color);
   margin: 0px;
 }
@@ -58,8 +64,13 @@ body {
   display: table;
 }
 
+input {
+  background-color: var(--input);
+  color: var(--tropical-indigo);
+}
+
 button {
-  background-color: var(--default-bg);
+  background-color: var(--background);
   border: 1px solid gray;
   border-radius: 5px;
   padding: 5px 10px;
@@ -74,7 +85,7 @@ button:active {
 }
 
 button.main-btn {
-  background-color: var(--main-button-bg);
+  background-color: var(--default);
 }
 
 button.main-btn:hover {
@@ -100,7 +111,7 @@ button.main-btn:active {
 }
 
 .top-panel {
-  background-color: var(--panel-bg);
+  background-color: var(--accent);
   margin: 0px;
   list-style: none inside;
   position: sticky;
@@ -147,3 +158,5 @@ button.main-btn:active {
   margin-right: 15px;
   margin-bottom: 15px;
 }
+
+
