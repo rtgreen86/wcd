@@ -27,6 +27,7 @@ Colors
   --text-color: hsl(0, 0%, 10%);
 
   --default-bg: hsl(31, 51%, 89%);
+  --default-bg-lighter: hsl(31, 51%, 92%);
   --panel-bg: hsl(349, 49%, 70%);
 
   --default-button-hover-bg: hsl(31, 51%, 86%);

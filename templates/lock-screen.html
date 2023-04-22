@@ -5,14 +5,65 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lock Screen</title>
-  <link rel="stylesheet" href="main-screen.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .login-form-container {
+      width: 300px;
+      position: 300px;
+      margin: auto;
+      text-align: center;
+      margin-top: 10%;
+    }
+
+    .login-form-container input[type=password] {
+      width: 250px;
+      text-align: center;
+      font-size: 3em;
+      margin: 25px;
+      border: white;
+      background-color: var(--default-bg-lighter);
+      color: var(--tropical-indigo);
+
+    }
+
+    .login-form-container input[type=password]:focus {
+      border-color: aqua;
+      outline: none;
+    }
+  </style>
+
+  <script>
+    function handleInput(element) {
+      var value = element.value;
+      if (value.length === 4) {
+        handleUnlock(value);
+      }
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      var element = event.target;
+      var value = element.value;
+      handleUnlock(value);
+    }
+
+    function handleUnlock() {
+      location.href='main-screen.html';
+    }
+  </script>
+
 </head>
 <body>
 
-<form>
-  <input type="text">
-  <button onclick="event.preventDefault();location.href='main-screen.html'">unlock</button>
-</form>
+<div class="login-form-container">
+  Доступ ограничен.<br>
+  Пожалуйста введите ПИН-код.
+  <form name="login-form" action="#" onsubmit="handleSubmit(event)">
+    <input type="password" maxlength="4" pattern="\d{4}" autofocus oninput="handleInput(this)" autocomplete="off" readonly
+    onfocus="this.removeAttribute('readonly');"><br>
+  </form>
+</div>
 
 </body>
 </html>
