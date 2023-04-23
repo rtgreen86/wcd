@@ -12,21 +12,7 @@
       width: 300px;
       position: 300px;
       margin: auto;
-      text-align: center;
       margin-top: 10%;
-    }
-
-    .login-form-container input[type=password] {
-      width: 250px;
-      text-align: center;
-      font-size: 3em;
-      margin: 25px;
-      border: white;
-    }
-
-    .login-form-container input[type=password]:focus {
-      border-color: aqua;
-      outline: none;
     }
   </style>
 
@@ -53,14 +39,21 @@
 </head>
 <body>
 
-<div class="login-form-container">
-  Доступ ограничен.<br>
-  Пожалуйста введите ПИН-код.
-  <form name="login-form" action="#" onsubmit="handleSubmit(event)">
+<section class="login-form-container">
+  <form class="login-form" name="login-form" action="#" onsubmit="handleSubmit(event)">
+    <div>
+      Доступ ограничен.<br>
+      Пожалуйста введите ПИН-код.
+    </div>
     <input type="password" maxlength="4" pattern="\d{4}" autofocus oninput="handleInput(this)" autocomplete="off" readonly
-    onfocus="this.removeAttribute('readonly');"><br>
+      onfocus="this.removeAttribute('readonly');"><br>
   </form>
-</div>
+</section>
+
+
+
+
+
 
 </body>
 </html>

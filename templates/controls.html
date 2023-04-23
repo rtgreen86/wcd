@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="panel"><ul class="menu clearfix">
-    <button onclick="location.href='main-screen.html'">&lt;</button>
+  <header class="panel top-panel"><ul class="menu clearfix">
+    <button type="button" onclick="location.href='main-screen.html'">&lt;</button>
   </ul></header>
 
   <main>
@@ -23,10 +23,10 @@
 
     <section>
       <h3>Buttons</h3>
-      <button class="accent">Accent</button>
-      <button class="accent" disabled>Accent</button>
-      <button>Button</button>
-      <button disabled>Button</button>
+      <button type="button" class="accent">Accent</button>
+      <button type="button" class="accent" disabled>Accent</button>
+      <button type="button">Button</button>
+      <button type="button" disabled>Button</button>
       <a href="#">Link</a>
     </section>
 
@@ -34,15 +34,15 @@
       <h3>Panel</h3>
       <header class="panel">
         <span>Span</span>
-        <button>Button</button>
+        <button type="button">Button</button>
       </header>
     </section>
 
     <section>
       <h3>Menu</h3>
       <ul class="menu clearfix">
-        <li><button>&lt;</button><span>2023</span><button>&gt;</button></li>
-        <li><button>Button</button></li>
+        <li><button type="button">&lt;</button><span>2023</span><button>&gt;</button></li>
+        <li><button type="button">Button</button></li>
         <li class="right"><button>Button</button></li>
         <li class="right"><button>Button</button></li>
       </ul>
@@ -51,11 +51,40 @@
     <section>
       <h3>Panel with menu</h3>
       <header class="panel"><ul class="menu clearfix">
-        <li><button>&lt;</button><span>2023</span><button>&gt;</button></li>
-        <li><button>Button</button></li>
-        <li class="right"><button>Button</button></li>
-        <li class="right"><button>Button</button></li>
+        <li><button type="button">&lt;</button><span>2023</span><button>&gt;</button></li>
+        <li><button type="button">Button</button></li>
+        <li class="right"><button type="button">Button</button></li>
+        <li class="right"><button type="button">Button</button></li>
       </ul></header>
+    </section>
+
+    <section>
+      <form>
+        <header><h3>Form</h3></header>
+        <section>
+          <label for="add-date-field">Укажите дату:</label><br>
+          <input type="date" id="add-date-field"><br>
+          <input type="radio" id="period-auto-detect" name="period-type"><label for="period-auto-detect">Автоматическое определение</label><br>
+          <input type="radio" id="period-manual" name="period-type"><label for="period-manual">Вручную</label><br>
+          <label for="period">Дней в цикле:</label><br>
+          <input type="number" id="period" value="28"><br>
+          <label for="period-disabled">Дней в цикле:</label><br>
+          <input type="number" id="period-disabled" disabled value="28"><br>
+        </section>
+        <footer style="margin: 5px 0px"><input type="submit" value="Добавить"> <input type="button" value="Отмена"></footer>
+      </form>
+    </section>
+
+    <section>
+      <h3>Login Form</h3>
+      <form class="login-form">
+        <div>
+          Доступ ограничен.<br>
+          Пожалуйста введите ПИН-код.
+        </div>
+        <input type="password" maxlength="4" pattern="\d{4}" autocomplete="off" readonly
+          onfocus="this.removeAttribute('readonly');"><br>
+      </form>
     </section>
 
   </main>

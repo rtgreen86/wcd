@@ -9,12 +9,13 @@
 </head>
 <body>
 
-  <header class="panel"><ul class="menu clearfix">
-    <li><button>&lt;</button><span>2023</span><button>&gt;</button></li>
-    <li class="right"><button onclick="location.href='lock-screen.html'">Блокировка</button></li>
-    <li class="right"><button onclick="location.href='settings-screen.html'">Параметры</button></li>
-    <li class="right"><button onclick="location.href='settings-screen.html'">?</button></li>
-    <li class="right"><button onclick="location.href='controls.html'">Контролы</button></li>
+  <header class="panel top-panel"><ul class="menu clearfix">
+    <li><button type="button">&lt;</button><span>2023</span><button>&gt;</button></li>
+    <li><button type="button">Отметить</button></li>
+    <li><button type="button" onclick="location.href='controls.html'">Контролы</button></li>
+    <li class="right"><button type="button" onclick="location.href='lock-screen.html'">Блокировка</button></li>
+    <li class="right"><button type="button" onclick="location.href='settings-screen.html'">Параметры</button></li>
+    <li class="right"><button type="button" onclick="location.href='settings-screen.html'">?</button></li>
   </ul></header>
 
   <main class="main-content">
@@ -54,13 +55,8 @@ for (let i = 0; i < 12; i++) {
   </table></div>`);
 }
 
-
-
-
 document.getElementById('calendar').innerHTML = calendar.join('');
 
 </script>
-
-
 </body>
 </html>
