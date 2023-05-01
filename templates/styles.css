@@ -109,7 +109,6 @@ button[disabled] {
   color: rgba(16, 16, 16, 0.3);
 }
 
-
 input[type=submit][disabled]:hover,
 input[type=submit][disabled]:active,
 input[type=button][disabled]:hover,
@@ -145,6 +144,8 @@ button[disabled]:active {
   list-style: none inside;
   padding: 0px;
   margin: 0px;
+  height: 36px;
+  line-height: 36px;
 }
 
 .menu li {
