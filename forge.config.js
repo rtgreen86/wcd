@@ -9,7 +9,15 @@ module.exports = {
     {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
-    }
+    },
+    {
+      name: '@electron-forge/maker-deb',
+      config: {},
+    },
+    {
+      name: '@electron-forge/maker-rpm',
+      config: {},
+    },
   ],
   plugins: [
     {
@@ -20,11 +28,11 @@ module.exports = {
           config: './webpack.renderer.config.js',
           entryPoints: [
             {
-              html: './assets/index.html',
-              js: './src/render/renderer.js',
+              html: './src/renderer/index.html',
+              js: './src/renderer/index.js',
               name: 'main_window',
               preload: {
-                js: './src/preload/preload.js',
+                js: './src/preload/index.js',
               },
             },
           ],

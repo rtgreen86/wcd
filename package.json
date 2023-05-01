@@ -3,22 +3,25 @@
   "productName": "WCalendar",
   "version": "0.1.0",
   "description": "Woman Calendar.",
-  "main": "app/main.app.js",
+  "main": ".webpack/main",
   "private": true,
   "scripts": {
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electorn-forge make",
-    "publish": "electorn-forge publish"
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
   },
   "keywords": [
     "woman",
     "calendar",
     "desktop"
   ],
-  "author": "Pavel Malokhatko",
+  "author": {
+    "name": "rtgreen86",
+    "email": "21133365+rtgreen86@users.noreply.github.com"
+  },
   "license": "UNLICENSED",
   "devDependencies": {
     "@babel/cli": "^7.18.9",
@@ -43,7 +46,9 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
-    "style-loader": "^3.3.1"
+    "style-loader": "^3.3.1",
+    "@electron-forge/maker-deb": "^6.1.1",
+    "@electron-forge/maker-rpm": "^6.1.1"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
