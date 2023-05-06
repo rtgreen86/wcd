@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function MenuItem({ align, children }) {
-  console.log('ALIGN', align);
-
   return (<li className={align === 'right' ? 'right': ''}>{children}</li>);
 }
 
