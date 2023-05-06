@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Link({ href, children }) {
-  return (<a href={href}>{children}</a>);
+export default function Panel({ children }) {
+  return <header className="panel">{ children }</header>
 }
 
-Link.propTypes = {
-  href: PropTypes.string.isRequired,
+Panel.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
