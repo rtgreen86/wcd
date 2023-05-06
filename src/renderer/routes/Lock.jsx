@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../features/auth';
-import {Button, Main} from '../common/ui';
+import {Button, Main, Link} from '../common/ui';
 
 export default function Lock() {
   const { signin } = useAuth();
@@ -26,9 +26,7 @@ export default function Lock() {
 
       <section>
         <h1>Buttons</h1>
-
-        <Button isAccent>Accent</Button> <Button isAaccent isDisabled>Accent</Button> <Button>Button</Button> <Button isDisabled>Button</Button>
-
+        <Button isAccent>Accent</Button> <Button isAaccent isDisabled>Accent</Button> <Button>Button</Button> <Button isDisabled>Button</Button> <Link href="#">Link</Link>
       </section>
 
 

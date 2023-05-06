@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Main({children}) {
-  return <main>{children}</main>;
+export default function Link({ href, children }) {
+  return (<a href={href}>{children}</a>);
 }
 
-Main.propTypes = {
+Link.propTypes = {
+  href: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ])
+  ]),
 }
