@@ -1,10 +1,11 @@
 import React from 'react';
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import MainPanel from './MainPanel.jsx';
 
 export default function HomeScreen() {
   return (
     <>
-      <div>Main toolbar here</div>
+      <MainPanel />
       <Outlet />
     </>
   );
