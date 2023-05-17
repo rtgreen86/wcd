@@ -16,7 +16,8 @@ import { SinglePostPage } from './features/posts/SinglePostPage.js';
 import { EditPostForm } from './features/posts/EditPostsForm.js';
 import CalendarScreen from './routes/CalendarScreen.jsx';
 
-import MainScreen from './components/HomeScreen.jsx';
+import MainScreen from './components/MainScreen.jsx';
+import HomeScreen from './components/HomeScreen.jsx';
 
 export default function App() {
   // const { token, signout } = useAuth();
@@ -47,7 +48,9 @@ export default function App() {
         <Route path="posts/:postId" element={<SinglePostPage />} />
         <Route path="editPost/:postId" element={<EditPostForm />} />
       </Route>
-      <Route path="/" element={<MainScreen />} />
+      <Route path="/" element={<MainScreen />}>
+        <Route path="/" element={<HomeScreen />} />
+      </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
