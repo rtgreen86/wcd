@@ -21,41 +21,6 @@
   margin: 0px 5px;
 }
 
-/* Panel */
-
-.panel {
-  margin: 0px;
-  padding: 3px 10px;
-  background-color: var(--panel);
-  color: var(--background);
-}
-
-.panel button {
-  min-width: 36px;
-  min-height: 36px;
-}
-
-.panel .menu button {
-  background-color: var(--accent-button);
-  border: none;
-  color: var(--background);
-}
-
-.panel .menu button:hover {
-  background-color: var(--accent-button-hover);
-}
-
-.panel .menu button:active {
-  background-color: var(--accent-button-active);
-}
-
-/* Top Panel */
-
-.top-panel {
-  position: sticky;
-  top: 0;
-}
-
 /* Form */
 
 input {

@@ -16,12 +16,6 @@ export default function Lock() {
         Sign In
       </button>
 
-      <section>
-        <h1>Panel</h1>
-        <Panel>
-          <span>Span</span> <Button>Button</Button>
-        </Panel>
-      </section>
 
       <section>
         <h3>Menu</h3>

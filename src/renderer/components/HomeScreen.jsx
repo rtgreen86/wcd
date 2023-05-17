@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from './UIKit';
+import { Button, Panel } from './UIKit';
 
 export default function HomeScreen() {
   return (
@@ -21,6 +21,14 @@ export default function HomeScreen() {
         <Button isDisabled>Button</Button><span> </span>
         <a href="#">Link</a><span> </span>
       </section>
+
+      <section>
+        <h1>Panel</h1>
+        <Panel>
+          <span>Span</span> <Button>Button</Button>
+        </Panel>
+      </section>
+
 
 
 
