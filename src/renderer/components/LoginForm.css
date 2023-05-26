@@ -1,0 +1,16 @@
+.login-form {
+  text-align: center;
+}
+
+.login-form input[type=password] {
+  width: 250px;
+  text-align: center;
+  font-size: 3em;
+  margin: 25px;
+  border: none;
+  color: var(--tropical-indigo);
+}
+
+.login-form input[type=password]:focus {
+  outline: 1px solid var(--tropical-indigo);
+}

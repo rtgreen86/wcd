@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Button, Panel, Menu, MenuItem } from './UIKit';
+import LoginForm from './LoginForm.jsx';
 
 export default function HomeScreen() {
+  const [pin, setPin] = useState('');
+
   return (
     <main>
       <section>
@@ -39,11 +42,37 @@ export default function HomeScreen() {
         </Menu>
       </section>
 
+      <section>
+        <h1>Panel with menu</h1>
+        <Panel><Menu>
+          <MenuItem><Button>&lt;</Button><span>2023</span><Button>&gt;</Button></MenuItem>
+          <MenuItem><Button>Button</Button></MenuItem>
+          <MenuItem align="right"><Button>Button</Button></MenuItem>
+          <MenuItem align="right"><Button>Button</Button></MenuItem>
+        </Menu></Panel>
+      </section>
 
+      <section>
+        <form>
+          <header><h3>Form</h3></header>
+          <section>
+            <label htmlFor="add-date-field">Укажите дату:</label><br />
+            <input type="date" id="add-date-field" /><br />
+            <input type="radio" id="period-auto-detect" name="period-type" /><label htmlFor="period-auto-detect">Автоматическое определение</label><br />
+            <input type="radio" id="period-manual" name="period-type" /><label htmlFor="period-manual">Вручную</label><br />
+            <label htmlFor="period">Дней в цикле:</label><br />
+            <input type="number" id="period" defaultValue="28" /><br />
+            <label htmlFor="period-disabled">Дней в цикле:</label><br />
+            <input type="number" id="period-disabled" disabled value="28" /><br />
+          </section>
+          <footer style={{ margin: "5px 0px" }}><input type="submit" value="Добавить" /> <input type="button" value="Отмена" /></footer>
+        </form>
+      </section>
 
-
-
-
+      <section>
+        <h3>Login Form</h3>
+        <LoginForm value={pin} onChangeValue={setPin} />
+      </section>
     </main>
   );
 }
