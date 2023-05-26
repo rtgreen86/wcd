@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import { Button, Panel, Menu, MenuItem } from './UIKit';
 import LoginForm from './LoginForm.jsx';
 
 export default function HomeScreen() {
   const [pin, setPin] = useState('');
+
+  const navigate = useNavigate();
 
   return (
     <main>
@@ -73,6 +76,11 @@ export default function HomeScreen() {
         <h3>Login Form</h3>
         <LoginForm value={pin} onChangeValue={setPin} />
       </section>
+
+      <section>
+        <Button onClick={() => navigate('/controls')}>Controls</Button>
+      </section>
+
     </main>
   );
 }

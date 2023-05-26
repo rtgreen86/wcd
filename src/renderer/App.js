@@ -18,6 +18,7 @@ import CalendarScreen from './routes/CalendarScreen.jsx';
 
 import MainScreen from './components/MainScreen.jsx';
 import HomeScreen from './components/HomeScreen.jsx';
+import ControlsScreen from './components/ControlsScreen.jsx';
 
 export default function App() {
   // const { token, signout } = useAuth();
@@ -48,6 +49,7 @@ export default function App() {
         <Route path="posts/:postId" element={<SinglePostPage />} />
         <Route path="editPost/:postId" element={<EditPostForm />} />
       </Route>
+      <Route path="/controls" element={<ControlsScreen />} />
       <Route path="/" element={<MainScreen />}>
         <Route path="/" element={<HomeScreen />} />
       </Route>
