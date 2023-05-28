@@ -1,10 +1,22 @@
 import React from 'react';
-import { Panel, Button } from './UIKit';
+import { useNavigate } from "react-router-dom";
+import { Panel, Button, Menu, MenuItem } from './UIKit';
 
 export default function MainPanel() {
+  const navigate = useNavigate();
   return (
     <Panel top>
-      <span>Span</span> <Button>Button</Button>
+      <Menu>
+        <MenuItem><Button>&lt;</Button><span>2023</span><Button>&gt;</Button></MenuItem>
+        <MenuItem><Button>Отметить</Button></MenuItem>
+        <MenuItem><Button onClick={() => navigate('/controls')}>Контролы</Button></MenuItem>
+        <MenuItem align="right"><Button>Блокировка</Button></MenuItem>
+        <MenuItem align="right"><Button>Параметры</Button></MenuItem>
+        <MenuItem align="right"><Button>?</Button></MenuItem>
+      </Menu>
+
+
+
     </Panel>
   );
 }

@@ -1,68 +1,17 @@
 .calendar {
-  user-select: none;
-}
-
-.calendar td {
-  width: 30px;
-  height: 30px;
-  background: lightgray;
-  text-align: center;
-}
-
-.calendar thead td {
-  background: gray;
-  color: white;
+  font-size: 12px;
 }
 
 .calendar caption {
-  background: gray;
-  color: white;
-  padding: 10px;
-  margin: 2px;
+  font-weight: bold;
 }
 
-.calendar .caption {
-  background: gray;
-  color: white;
-  padding: 10px;
-  margin: 0px 2px;
-  text-align: center;
-}
-
-.calendar td.weekend {
-  color: red;
-}
-
-.calendar td.red {
-  background: pink;
-  color: red;
-}
-
-.calendar td.green {
-  background: lightgreen;
-  color: green;
-}
-
-.calendar td.blue {
-  background: lightblue;
-  color: blue;
-}
-
-.calendar.container {
-  width: 100%;
-  display: grid;
-  justify-content: center;
-  grid-template: auto auto / auto;
-  gap: 10px;
-}
-
-.calendar.container .year {
-  display: grid;
-  grid-template: auto auto auto / auto auto auto auto;
-  gap: 10px;
-  cursor: default;
+.calendar .weekend {
+  color: Tomato;
 }
 
 .calendar .month {
-  min-width: 224px;
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 15px;
 }

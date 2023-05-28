@@ -14,10 +14,10 @@ import Invoice from "./routes/Invoice.jsx";
 import PostsList from './features/posts/PostsList.js';
 import { SinglePostPage } from './features/posts/SinglePostPage.js';
 import { EditPostForm } from './features/posts/EditPostsForm.js';
-import CalendarScreen from './routes/CalendarScreen.jsx';
+// import CalendarScreen from './routes/CalendarScreen.jsx';
 
 import MainScreen from './components/MainScreen.jsx';
-import HomeScreen from './components/HomeScreen.jsx';
+import CalendarScreen from './components/CalendarScreen.jsx';
 import ControlsScreen from './components/ControlsScreen.jsx';
 
 export default function App() {
@@ -51,7 +51,7 @@ export default function App() {
       </Route>
       <Route path="/controls" element={<ControlsScreen />} />
       <Route path="/" element={<MainScreen />}>
-        <Route path="/" element={<HomeScreen />} />
+        <Route path="/" element={<CalendarScreen />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 
-import { Button, Panel, Menu, MenuItem } from './UIKit';
-import LoginForm from './LoginForm.jsx';
+import { Button } from './UIKit';
 
-export default function HomeScreen() {
-  const [pin, setPin] = useState('');
+import { YearCalendar } from '../features/calendar';
 
+export default function CalendarScreen() {
   const navigate = useNavigate();
-
   return (
     <main>
       <section>
         <Button onClick={() => navigate('/controls')}>Controls</Button>
       </section>
 
+      <section>
+        <YearCalendar />
+      </section>
     </main>
   );
 }
