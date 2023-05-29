@@ -31,12 +31,9 @@ import './index.css'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+
 import App from './App';
 import { ProvideAuth } from './features/auth/ProvideAuth';
-import store from './app/store';
-
-import './common/ui';
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
 
@@ -45,11 +42,9 @@ console.log('👋 This message is being logged by "renderer.js", included via we
 const container = document.getElementById('app');
 const root = ReactDOM.createRoot(container);
 root.render(
-  <Provider store={store}>
-    <ProvideAuth>
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    </ProvideAuth>
-  </Provider>
+  <ProvideAuth>
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  </ProvideAuth>
 );

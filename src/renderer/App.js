@@ -5,7 +5,6 @@ import {
   Navigate
 } from "react-router-dom";
 
-
 import Invoices from "./routes/Invoices.jsx";
 import Invoice from "./routes/Invoice.jsx";
 import MainScreen from './components/MainScreen.jsx';
