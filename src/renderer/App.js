@@ -5,7 +5,7 @@ import {
   Navigate
 } from "react-router-dom";
 
-import Home from './routes/Home.jsx';
+
 import Invoices from "./routes/Invoices.jsx";
 import Invoice from "./routes/Invoice.jsx";
 import MainScreen from './components/MainScreen.jsx';
@@ -15,20 +15,8 @@ import SettingsScreen from './components/SettingsScreen.jsx';
 import LockScreen from './components/LockScreen.jsx';
 
 export default function App() {
-  // const { token, signout } = useAuth();
-
-  // const handleLogout = () => {
-  //   signout();
-  // }
-
-  // const nav = <Navigation token={token} onLogout={handleLogout} />;
-
   return (
     <Routes>
-      <Route path="old" element={<Home />}>
-
-
-      </Route>
       <Route path="/lock" element={<LockScreen />} />
       <Route path="/controls" element={<ControlsScreen />} />
       <Route path="/settings" element={<SettingsScreen />} />
