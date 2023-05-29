@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 
 import { Button, Panel, Menu, MenuItem } from './UIKit';
 import LoginForm from './LoginForm.jsx';
@@ -7,8 +6,6 @@ import BackPanel from './BackPanel.jsx';
 
 export default function ControlsScreen() {
   const [pin, setPin] = useState('');
-
-  const navigate = useNavigate();
 
   return (
     <>

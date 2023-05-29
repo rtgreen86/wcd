@@ -19,6 +19,7 @@ import { EditPostForm } from './features/posts/EditPostsForm.js';
 import MainScreen from './components/MainScreen.jsx';
 import CalendarScreen from './components/CalendarScreen.jsx';
 import ControlsScreen from './components/ControlsScreen.jsx';
+import SettingsScreen from './components/SettingsScreen.jsx';
 
 export default function App() {
   // const { token, signout } = useAuth();
@@ -50,6 +51,7 @@ export default function App() {
         <Route path="editPost/:postId" element={<EditPostForm />} />
       </Route>
       <Route path="/controls" element={<ControlsScreen />} />
+      <Route path="/settings" element={<SettingsScreen />} />
       <Route path="/" element={<MainScreen />}>
         <Route path="/" element={<CalendarScreen />} />
       </Route>
