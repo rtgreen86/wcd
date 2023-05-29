@@ -10,7 +10,7 @@ export default function MainPanel() {
         <MenuItem><Button>&lt;</Button><span>2023</span><Button>&gt;</Button></MenuItem>
         <MenuItem><Button>Отметить</Button></MenuItem>
         <MenuItem><Button onClick={() => navigate('/controls')}>Контролы</Button></MenuItem>
-        <MenuItem align="right"><Button>Блокировка</Button></MenuItem>
+        <MenuItem align="right"><Button onClick={() => navigate('/lock')}>Блокировка</Button></MenuItem>
         <MenuItem align="right"><Button onClick={() => navigate('/settings')}>Параметры</Button></MenuItem>
         <MenuItem align="right"><Button>?</Button></MenuItem>
       </Menu>

@@ -20,6 +20,7 @@ import MainScreen from './components/MainScreen.jsx';
 import CalendarScreen from './components/CalendarScreen.jsx';
 import ControlsScreen from './components/ControlsScreen.jsx';
 import SettingsScreen from './components/SettingsScreen.jsx';
+import LockScreen from './components/LockScreen.jsx';
 
 export default function App() {
   // const { token, signout } = useAuth();
@@ -50,6 +51,7 @@ export default function App() {
         <Route path="posts/:postId" element={<SinglePostPage />} />
         <Route path="editPost/:postId" element={<EditPostForm />} />
       </Route>
+      <Route path="/lock" element={<LockScreen />} />
       <Route path="/controls" element={<ControlsScreen />} />
       <Route path="/settings" element={<SettingsScreen />} />
       <Route path="/" element={<MainScreen />}>
