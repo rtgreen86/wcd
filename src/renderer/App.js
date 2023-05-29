@@ -4,18 +4,10 @@ import {
   Route,
   Navigate
 } from "react-router-dom";
+
 import Home from './routes/Home.jsx';
-// import Lock from './routes/Lock.jsx';
-import Expenses from "./routes/Expenses.jsx";
 import Invoices from "./routes/Invoices.jsx";
 import Invoice from "./routes/Invoice.jsx";
-// import Navigation from './Navigation';
-// import { useAuth } from './features/auth/ProvideAuth';
-import PostsList from './features/posts/PostsList.js';
-import { SinglePostPage } from './features/posts/SinglePostPage.js';
-import { EditPostForm } from './features/posts/EditPostsForm.js';
-// import CalendarScreen from './routes/CalendarScreen.jsx';
-
 import MainScreen from './components/MainScreen.jsx';
 import CalendarScreen from './components/CalendarScreen.jsx';
 import ControlsScreen from './components/ControlsScreen.jsx';
@@ -34,26 +26,23 @@ export default function App() {
   return (
     <Routes>
       <Route path="old" element={<Home />}>
-        <Route path="expenses" element={<Expenses />} />
-        <Route path="invoices" element={<Invoices />}>
-          <Route path=":invoiceId" element={<Invoice />} />
-          <Route
-            index
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>Select an invoice</p>
-              </main>
-            }
-          />
-        </Route>
-        <Route path="calendar" element={<CalendarScreen />} />
-        <Route path="posts" element={<PostsList />} />
-        <Route path="posts/:postId" element={<SinglePostPage />} />
-        <Route path="editPost/:postId" element={<EditPostForm />} />
+
+
       </Route>
       <Route path="/lock" element={<LockScreen />} />
       <Route path="/controls" element={<ControlsScreen />} />
       <Route path="/settings" element={<SettingsScreen />} />
+      <Route path="invoices" element={<Invoices />}>
+        <Route path=":invoiceId" element={<Invoice />} />
+        <Route
+          index
+          element={
+            <main style={{ padding: "1rem" }}>
+              <p>Select an invoice</p>
+            </main>
+          }
+        />
+      </Route>
       <Route path="/" element={<MainScreen />}>
         <Route path="/" element={<CalendarScreen />} />
       </Route>

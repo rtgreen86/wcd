@@ -3,7 +3,6 @@ import { Link, Outlet, useLocation, useMatch } from "react-router-dom";
 import { MonthCalendar, YearCalendar } from '../features/calendar';
 import Status from '../Status';
 import Counter from '../features/counter/Counter';
-import PostsList from '../features/posts/PostsList';
 import AddPostForm from '../features/posts/AddPostForm';
 
 const initialState = {
