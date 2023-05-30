@@ -1,4 +1,6 @@
 .menu {
+  display: flex;
+  flex-wrap: wrap;
   list-style: none inside;
   padding: 0px;
   margin: 0px;
@@ -6,15 +8,11 @@
   line-height: 36px;
 }
 
-.menu li {
-  float: left;
-}
-
-.menu li.right {
-  float: right;
-}
-
 .menu button,
 .menu span {
   margin: 0px 5px;
+}
+
+.menu .extender {
+  flex: 1;
 }
