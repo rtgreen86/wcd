@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Panel, Button, Menu, MenuItem } from './UIKit';
+import { Panel, Menu, MenuItem } from './UIKit';
+import { Button } from '../Lib/UIKit';
 
 export default function BackPanel() {
   const navigate = useNavigate();

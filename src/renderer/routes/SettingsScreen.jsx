@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BackPanel from '../components/BackPanel.jsx';
+import BackPanel from '../Components/BackPanel.jsx';
 
 export default function SettingsScreen() {
   return (
