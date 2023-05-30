@@ -7,11 +7,11 @@ import {
 
 import Invoices from "./routes/Invoices.jsx";
 import Invoice from "./routes/Invoice.jsx";
-import MainScreen from './components/MainScreen.jsx';
-import CalendarScreen from './components/CalendarScreen.jsx';
-import ControlsScreen from './components/ControlsScreen.jsx';
-import SettingsScreen from './components/SettingsScreen.jsx';
-import LockScreen from './components/LockScreen.jsx';
+import MainScreen from './routes/MainScreen.jsx';
+import CalendarScreen from './routes/CalendarScreen.jsx';
+import ControlsScreen from './routes/ControlsScreen.jsx';
+import SettingsScreen from './routes/SettingsScreen.jsx';
+import LockScreen from './routes/LockScreen.jsx';
 
 export default function App() {
   return (

@@ -1,6 +1,12 @@
 import React from 'react';
-import CalendarWithMarks from '../features/marks/CalendarWithMarks';
+import { YearCalendar } from '../features/calendar';
 
 export default function CalendarScreen() {
-  return <CalendarWithMarks />;
-};
+  return (
+    <main>
+      <section>
+        <YearCalendar />
+      </section>
+    </main>
+  );
+}
