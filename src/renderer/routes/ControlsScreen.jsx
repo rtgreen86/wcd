@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, Panel, Menu, MenuItem } from '../Components/UIKit';
+import { Button, Panel, Menu, MenuItem } from '../Lib/UIKit';
 import LoginForm from '../Components/LoginForm.jsx';
 import BackPanel from '../Components/BackPanel.jsx';
 

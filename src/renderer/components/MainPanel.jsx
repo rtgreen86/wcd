@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Panel, Button, Menu, MenuItem } from './UIKit';
+import { Panel, Button, Menu, MenuItem } from '../Lib/UIKit';
 
 export default function MainPanel() {
   const navigate = useNavigate();
@@ -15,9 +15,6 @@ export default function MainPanel() {
         <MenuItem align="right"><Button onClick={() => navigate('/settings')}>Параметры</Button></MenuItem>
         <MenuItem align="right"><Button>?</Button></MenuItem>
       </Menu>
-
-
-
     </Panel>
   );
 }
