@@ -7,17 +7,22 @@ export default function MainPanel() {
   return (
     <Panel top>
       <Menu>
-        <MenuItem><Button>&lt;</Button></MenuItem>
+        <MenuItem><Button><i className="material-icons">arrow_back_ios</i></Button></MenuItem>
         <MenuItem><span>2023</span></MenuItem>
-        <MenuItem><Button>&gt;</Button></MenuItem>
+        <MenuItem><Button><i className="material-icons">arrow_forward_ios</i></Button></MenuItem>
         <MenuItem><Button>Отметить</Button></MenuItem>
         <MenuItem><Button onClick={() => navigate('/controls')}>Контролы</Button></MenuItem>
         <MenuItem><Button onClick={() => navigate('/invoices')}>Invoices</Button></MenuItem>
         <MenuExtender />
-        <MenuItem><Button>?</Button></MenuItem>
-        <MenuItem><Button onClick={() => navigate('/settings')}>Параметры</Button></MenuItem>
-        <MenuItem><Button onClick={() => navigate('/lock')}>Блокировка</Button></MenuItem>
+        <MenuItem><Button><i className="material-icons">help</i></Button></MenuItem>
+        <MenuItem><Button onClick={() => navigate('/settings')}><i className="material-icons">settings</i></Button></MenuItem>
+        <MenuItem><Button onClick={() => navigate('/lock')}><i className="material-icons">lock</i></Button></MenuItem>
       </Menu>
     </Panel>
   );
 }
+
+
+
+
+
