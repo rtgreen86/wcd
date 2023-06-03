@@ -35,6 +35,12 @@ Colors Schema
   --panel-button-active: hsl(349, 49%, 67%);
   --input: hsl(31, 51%, 98%);
 
+  /* UIKit color schema */
+
+  --toolbar-background: var(--accent);
+  --toolbar-button-hover: hsl(349, 49%, 64%);
+  --toolbar-button-active: hsl(349, 49%, 67%);
+
   /* Font */
 
   --system: system-ui, -apple-system, sans-serif;

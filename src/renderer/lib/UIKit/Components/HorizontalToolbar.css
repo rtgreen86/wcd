@@ -1,0 +1,13 @@
+.uikit-toolbar.horizontal li {
+  float: left;
+}
+
+.uikit-toolbar.horizontal li.right {
+  float: right;
+}
+
+.uikit-toolbar.clearfix ul::after {
+  content: "";
+  display: table;
+  clear: both;
+}

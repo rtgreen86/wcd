@@ -1,0 +1,47 @@
+.uikit-toolbar ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  background-color: var(--toolbar-background);
+}
+
+.uikit-toolbar a:link,
+.uikit-toolbar button,
+.uikit-toolbar input[type="button"],
+.uikit-toolbar input[type="submit"],
+.uikit-toolbar span {
+  display: block;
+  text-align: center;
+  padding: 5px 10px;
+  margin: 2px;
+  text-decoration: none;
+  height: 34px;
+  box-sizing: border-box;
+  line-height: 24px;
+  border: none;
+  background-color: transparent;
+}
+
+.uikit-toolbar a:hover,
+.uikit-toolbar button:hover,
+.uikit-toolbar input[type="button"]:hover,
+.uikit-toolbar input[type="submit"]:hover {
+  background-color: var(--toolbar-button-hover);
+}
+
+.uikit-toolbar a:active,
+.uikit-toolbar button:active,
+.uikit-toolbar input[type="button"]:active,
+.uikit-toolbar input[type="submit"]:active {
+  background-color: var(--toolbar-button-active);
+}
+
+
+
+.uikit-toolbar,
+.uikit-toolbar a,
+.uikit-toolbar button,
+.uikit-toolbar input[type="button"],
+.uikit-toolbar input[type="submit"] {
+  color: white;
+}
