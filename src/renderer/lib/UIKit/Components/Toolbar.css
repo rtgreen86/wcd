@@ -20,6 +20,7 @@
   line-height: 24px;
   border: none;
   background-color: transparent;
+  border-radius: 5px;
 }
 
 .uikit-toolbar a:hover,
@@ -35,8 +36,6 @@
 .uikit-toolbar input[type="submit"]:active {
   background-color: var(--toolbar-button-active);
 }
-
-
 
 .uikit-toolbar,
 .uikit-toolbar a,
