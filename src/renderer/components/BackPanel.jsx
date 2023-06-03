@@ -1,14 +1,12 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Button, Panel, Menu, MenuItem } from '../Lib/UIKit';
+import { Button, MenuItem, TopToolbar } from '../Lib/UIKit';
 
 export default function BackPanel() {
   const navigate = useNavigate();
   return (
-    <Panel top>
-      <Menu>
-        <MenuItem><Button onClick={() => navigate('/')}>&lt;</Button></MenuItem>
-      </Menu>
-    </Panel>
+    <TopToolbar>
+      <MenuItem><Button onClick={() => navigate('/')}><i className="material-icons">keyboard_arrow_left</i></Button></MenuItem>
+    </TopToolbar>
   );
 }
