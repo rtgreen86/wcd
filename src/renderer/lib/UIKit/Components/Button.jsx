@@ -18,10 +18,7 @@ Button.propTypes = {
   accent: PropTypes.bool,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
+  children: PropTypes.node,
 }
 
 Button.defaultProps = {

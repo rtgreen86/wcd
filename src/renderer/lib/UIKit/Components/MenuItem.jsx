@@ -7,10 +7,7 @@ export default function MenuItem({ position, children }) {
 
 MenuItem.propTypes = {
   position: PropTypes.oneOf(['Left', 'Right', 'None']),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
+  children: PropTypes.node
 };
 
 MenuItem.defaultProps = {
