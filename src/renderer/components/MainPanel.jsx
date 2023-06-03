@@ -8,9 +8,9 @@ export default function MainPanel() {
 
   return (
     <TopToolbar>
-      <MenuItem><Button><i className="material-icons">arrow_back_ios</i></Button></MenuItem>
+      <MenuItem><Button><i className="material-icons">keyboard_arrow_up</i></Button></MenuItem>
       <MenuItem><span>2023</span></MenuItem>
-      <MenuItem><Button><i className="material-icons">arrow_forward_ios</i></Button></MenuItem>
+      <MenuItem><Button><i className="material-icons">keyboard_arrow_down</i></Button></MenuItem>
       <MenuItem><Button>Отметить</Button></MenuItem>
       <MenuItem><Button onClick={() => navigate('/controls')}>Контролы</Button></MenuItem>
       <MenuItem><NavLink to="/invoices">Invoices</NavLink></MenuItem>
