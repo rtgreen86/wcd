@@ -74,7 +74,7 @@ body {
 }
 
 main {
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
   padding: 10px;
 }
@@ -240,14 +240,30 @@ input[type=submit] {
 
 .calendar {
   font-size: 12px;
+  display: grid;
+  gap: 2em;
+  grid-template-columns: 12em;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 26em) {
+  .calendar {
+    grid-template-columns: 12em 12em;
+  }
+}
+
+@media only screen and (min-width: 40em) {
+  .calendar {
+    grid-template-columns: 12em 12em 12em;
+  }
+}
+
+@media only screen and (min-width: 54em) {
+  .calendar {
+    grid-template-columns: 12em 12em 12em 12em;
+  }
 }
 
 .weekend {
   color: Tomato;
-}
-
-.month {
-  float: left;
-  margin-right: 15px;
-  margin-bottom: 15px;
 }
