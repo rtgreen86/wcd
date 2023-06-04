@@ -1,8 +1,4 @@
 export default class Formatter {
-  static fixed(format, value) {
-    return format.substring(value.toString().length).concat(value.toString());
-  }
-
   static isoDate(date) {
     return [
       date.getFullYear().toString().padStart(4, '0'),
