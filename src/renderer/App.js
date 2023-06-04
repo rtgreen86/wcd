@@ -5,13 +5,13 @@ import {
   Navigate
 } from "react-router-dom";
 
-import Invoices from "./Routes/Invoices.jsx";
-import Invoice from "./Routes/Invoice.jsx";
-import MainScreen from './Routes/MainScreen.jsx';
-import CalendarScreen from './Routes/CalendarScreen.jsx';
-import ControlsScreen from './Routes/ControlsScreen.jsx';
-import SettingsScreen from './Routes/SettingsScreen.jsx';
-import LockScreen from './Routes/LockScreen.jsx';
+import Invoices from "./routes/Invoices.jsx";
+import Invoice from "./routes/Invoice.jsx";
+import MainScreen from './routes/MainScreen.jsx';
+import CalendarScreen from './routes/CalendarScreen.jsx';
+import ControlsScreen from './routes/ControlsScreen.jsx';
+import SettingsScreen from './routes/SettingsScreen.jsx';
+import LockScreen from './routes/LockScreen.jsx';
 
 export default function App() {
   return (

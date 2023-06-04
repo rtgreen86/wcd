@@ -1,5 +1,5 @@
 import React from 'react';
-import { YearCalendar } from '../Components/Calendar';
+import { YearCalendar } from '../components/Calendar';
 
 export default function CalendarScreen() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Button, MenuItem, TopToolbar } from '../Lib/UIKit';
+import { Button, MenuItem, TopToolbar } from '../lib/UIKit';
 
 export default function BackPanel() {
   const navigate = useNavigate();

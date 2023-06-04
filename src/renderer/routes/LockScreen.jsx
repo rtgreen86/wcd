@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import LoginForm from '../Components/LoginForm.jsx';
+import LoginForm from '../components/LoginForm.jsx';
 
 import './LockScreen.css';
 

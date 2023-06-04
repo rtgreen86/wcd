@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { Button, Panel, Menu, MenuItem } from '../Lib/UIKit';
-import LoginForm from '../Components/LoginForm.jsx';
-import BackPanel from '../Components/BackPanel.jsx';
+import { Button, Panel, Menu, MenuItem } from '../lib/UIKit';
+import LoginForm from '../components/LoginForm.jsx';
+import BackPanel from '../components/BackPanel.jsx';
 
 export default function ControlsScreen() {
   const [pin, setPin] = useState('');
