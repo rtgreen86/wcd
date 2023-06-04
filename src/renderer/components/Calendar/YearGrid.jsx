@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './YearGrid.css';
 
 export default function YearGrid({ children }) {
-  return <div className="cal-gird">{ children }</div>;
+  return <div className="cal-grid">{ children }</div>;
 }
 
 YearGrid.propTypes = {

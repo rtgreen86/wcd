@@ -1,24 +1,28 @@
-.cal-gird {
+.cal-grid {
   display: grid;
   gap: 2em;
-  grid-template-columns: 12em;
+  grid-template-columns: 14em;
   justify-content: center;
 }
 
-@media only screen and (min-width: 26em) {
-  .cal-gird {
-    grid-template-columns: 12em 12em;
+@media only screen and (min-width: 30em) {
+  .cal-grid {
+    grid-template-columns: 14em 14em;
   }
 }
 
-@media only screen and (min-width: 40em) {
-  .cal-gird {
-    grid-template-columns: 12em 12em 12em;
+@media only screen and (min-width: 46em) {
+  .cal-grid {
+    grid-template-columns: 14em 14em 14em;
   }
 }
 
-@media only screen and (min-width: 54em) {
-  .cal-gird {
-    grid-template-columns: 12em 12em 12em 12em;
+@media only screen and (min-width: 62em) {
+  .cal-grid {
+    grid-template-columns: 14em 14em 14em 14em;
   }
+}
+
+.cal-grid td {
+  text-align: center;
 }
