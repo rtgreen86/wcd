@@ -7,7 +7,7 @@ export function getDaysOfWeekCaptions(locale) {
   for (let i = 1; i <= 7; i++) {
     date.setDate(i);
     const day = date.getDay();
-    weekdays[day] = intl.format(date);
+    weekdays[day] = capitalizeFirstLetter(intl.format(date));
   }
   return weekdays;
 }
@@ -22,7 +22,11 @@ export function getMonthesCaptions(locale) {
   const monthes = [];
   for (let i = 0; i < 12; i++) {
     date.setMonth(i)
-    monthes[i] = intl.format(date);
+    monthes[i] = capitalizeFirstLetter(intl.format(date));
   }
   return monthes;
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
