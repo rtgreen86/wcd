@@ -1,0 +1,24 @@
+.cal-gird {
+  display: grid;
+  gap: 2em;
+  grid-template-columns: 12em;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 26em) {
+  .cal-gird {
+    grid-template-columns: 12em 12em;
+  }
+}
+
+@media only screen and (min-width: 40em) {
+  .cal-gird {
+    grid-template-columns: 12em 12em 12em;
+  }
+}
+
+@media only screen and (min-width: 54em) {
+  .cal-gird {
+    grid-template-columns: 12em 12em 12em 12em;
+  }
+}
