@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { capitalizeFirstLetter } from './utils';
 
 const locale = 'en-US';
 
@@ -14,8 +15,4 @@ function getCaptions(locale) {
     date.setMonth(index);
     return capitalizeFirstLetter(formatter.format(date));
   });
-}
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
 }

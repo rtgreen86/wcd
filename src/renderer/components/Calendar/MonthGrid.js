@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MonthFactory from './MonthFactory';
 import useMonthsCaptions from './useMonthsCaptions';
+import useDaysOfWeekCaptions from './useDaysOfWeekCaptions';
 
 export default function MonthGrid({
   year,
@@ -12,10 +13,12 @@ export default function MonthGrid({
   onClick,
 }) {
   const factory = new MonthFactory({ firstDayOfWeek, weekendDays, marks });
-  const {daysWeek, grid} = factory.buildMonth(year, month);
+  const {grid} = factory.buildMonth(year, month);
 
   const all = useMonthsCaptions();
   const current = all[month];
+
+  const daysWeek = useDaysOfWeekCaptions();
 
   const handleDayClick = (date) => {
     if (date && onClick) onClick(date);
