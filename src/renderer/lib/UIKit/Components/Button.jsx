@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { classNameFromDictionary } from '../lib/classNameUtils';
 
 export default function Button({ accent, disabled, onClick, children }) {
   return (
     <button
       type="button"
-      className={accent ? 'accent' : ''}
+      className={classNameFromDictionary({ accent })}
       disabled={disabled}
       onClick={onClick}
     >
