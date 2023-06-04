@@ -30,3 +30,6 @@ export function getMonthesCaptions(locale) {
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+// new Intl.Locale(navigator.language).weekInfo
+// Intl.getCanonicalLocales('EN-US')
