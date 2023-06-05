@@ -1,14 +1,15 @@
 import { useMemo } from 'react';
+import useWeekInfo from './useWeekInfo';
 import { capitalizeFirstLetter } from './utils';
 
 const locale = 'en-US';
 
 export default function useDaysOfWeek() {
-  return useMemo(() => getDaysOfWeek(locale), [locale]);
+  const weekInfo = useWeekInfo(locale);
+  return useMemo(() => getDaysOfWeek(locale, weekInfo), [locale, weekInfo]);
 }
 
-function getDaysOfWeek(locale) {
-  const { firstDay, weekend } = getWeekInfo(locale);
+function getDaysOfWeek(locale, { firstDay, weekend }) {
   const captions = getCaptions(locale);
   return Array.from({ length: 7 }, (val, index) => {
     const day = firstDay + index > 7 ? index : firstDay + index;
@@ -17,12 +18,6 @@ function getDaysOfWeek(locale) {
       isWeekend: weekend.includes(day)
     };
   });
-}
-
-function getWeekInfo(locale) {
-  const localeObj = new Intl.Locale(locale);
-  if (typeof localeObj.getWeekInfo === 'function') return localeObj.getWeekInfo();
-  return localeObj.weekInfo;
 }
 
 function getCaptions(locale) {
@@ -37,5 +32,3 @@ function getCaptions(locale) {
     return result;
   }, {});
 }
-
-
