@@ -8,6 +8,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "jest",
+    "update-snapshot": "jest -u",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
