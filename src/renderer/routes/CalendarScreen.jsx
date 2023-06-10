@@ -5,7 +5,7 @@ export default function CalendarScreen() {
   return (
     <main>
       <section>
-        <YearCalendar />
+        <YearCalendar year={2023} />
       </section>
     </main>
   );

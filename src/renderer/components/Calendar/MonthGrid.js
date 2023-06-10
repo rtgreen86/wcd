@@ -1,43 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MonthFactory from './MonthFactory';
 import useMonthsCaptions from './useMonthsCaptions';
 import useDaysOfWeek from './useDaysOfWeek';
+import DaysGrid from './DaysGrid';
 
 export default function MonthGrid({
   year,
   month,
-  firstDayOfWeek,
-  weekendDays,
-  marks,
-  onClick,
 }) {
-  const factory = new MonthFactory({ firstDayOfWeek, weekendDays, marks });
-  const {grid} = factory.buildMonth(year, month);
-
   const all = useMonthsCaptions();
   const current = all[month];
 
   const daysWeek = useDaysOfWeek();
 
-  const handleDayClick = (date) => {
-    if (date && onClick) onClick(date);
-  }
-
   return (
     <table>
       <caption>{current}</caption>
       <thead><tr>{daysWeek.map((value) => <td key={value.caption} className={(value.isWeekend ? 'weekend ' : '')}>{value.caption}</td>)}</tr></thead>
-      <tbody>{grid.map((row, index) => (
-        <tr key={index}>{row.map(({cellNo, caption, isWeekend, marks, date}) => (
-          <td
-            key={cellNo}
-            className={(isWeekend ? 'weekend ' : '') + marks}
-            data-date={date}
-            onClick={() => handleDayClick(date)}
-          >{caption}</td>
-        ))}</tr>
-      ))}</tbody>
+      <tbody>
+        <DaysGrid year={year} month={month + 1} />
+      </tbody>
     </table>
   );
 }
