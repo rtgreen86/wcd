@@ -1,73 +1,72 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import useWeekInfo from './useWeekInfo';
 
 export default function DaysGrid({ year, month }) {
   const { weekend, firstDay } = useWeekInfo();
 
-  const lastDay = new Date(year, month, 0).getDate();
+  const normalizeDay = day => day === 0 ? 7 : day;
 
-  const days = Array.from({ length: lastDay }, (item, index) => {
-    const dateObj = new Date(Date.UTC(year, month - 1, index + 1))
-    const date = dateObj.getUTCDate();
-    const caption = date.toString();
-    const day = dateObj.getDay();
-    const normalizeDay = day === 0 ? 7 : day;
-    const isoDateTime = dateObj.toISOString();
-    const [isoDate] = isoDateTime.split('T');
-    const marks = [];
-    if (weekend.includes(normalizeDay)) marks.push('weekend');
-    return {
-      isoDate,
-      month,
-      date,
-      year,
-      caption,
-      day: normalizeDay,
-      marks: marks.join(' ')
-    }
+  const getISODate = dateObj => dateObj.toISOString()[0];
+
+  const getDate = (utcYear, utcMonth, utcDate, dateObj = new Date(Date.UTC(utcYear, utcMonth, utcDate))) => ({
+    date: dateObj.getUTCDate(),
+    day: normalizeDay(dateObj.getUTCDay()),
+    isoDate: getISODate(dateObj),
   });
 
-  const firstDay1 = days[0].day;
+  const { date: firstMDate, day: firstMDay } = getDate(year, month - 1, 1);
+  const { date: lastMDate } = getDate(year, month, 0);
 
+  const gridRows = 6;
+  const gridColumns = 7;
+  const gridCellsCount = gridRows * gridColumns;
+  const offset = (7 + firstMDay - firstDay) % 7;
 
-  let cellNum = 0;
-  const offset = (7 + firstDay1 - firstDay) % 7;
-  const grid = new Array(6);
+  return useMemo(() => Array.from({ length: gridCellsCount }, (item, index) => ({cellNumber: index, marks: []}))
 
+    .map(({cellNumber, ...rest}) => ({
+      cellNumber,
+      date: cellNumber + 1 - offset,
+      ...rest
+    }))
 
-  for (let i = 0; i < 6; i++) {
-    grid[i] = new Array(7);
-    for (let j = 0; j < 7; j++) {
-      const data = days[cellNum - offset];
-      grid[i][j] = {
-        cellNum: cellNum,
-        caption: '',
-        marks: ''
+    .map(({date, ...rest}) => ({
+      date,
+      visible: date >= firstMDate && date <= lastMDate,
+      ...rest
+    }))
+
+    .map(({date, ...rest}) => ({ ...getDate(year, month - 1, date), ...rest }))
+
+    .map(({marks, day, ...rest}) => ({
+      marks: weekend.includes(day)
+        ? ['weekend', ...marks]
+        : marks,
+      day,
+      ...rest
+    }))
+
+    .map(({ date, ...rest }) => ({
+      date,
+      text: date.toString(),
+      ...rest
+    }))
+
+    .map(({ visible, cellNumber, text, marks }) => (
+      visible
+        ? <td key={cellNumber} className={marks.join(' ')}>{text}</td>
+        : <td key={cellNumber}></td>
+    ))
+
+    .reduce(({ rows, columns }, item, index, { length }) => {
+      columns.push(item);
+      if (index !== 0 && (index + 1) % 7 === 0 || index === length - 1) {
+        rows.push(<tr key={rows.length}>{columns}</tr>);
+        columns = [];
       }
+      return { rows, columns };
+    }, { rows: [], columns: []}).rows,
 
-      if (data) {
-        grid[i][j].isoDate = data.isoDate;
-        grid[i][j].month = data.month;
-        grid[i][j].date = data.date;
-        grid[i][j].year = data.year;
-        grid[i][j].caption = data.caption;
-        grid[i][j].day = data.day;
-        grid[i][j].marks = data.marks;
-      }
-
-      cellNum++;
-    }
-  }
-
-  const columns = [];
-  for (let i = 0; i < grid.length; i++) {
-    const row = [];
-    for (let j = 0; j < grid[i].length; j++) {
-      row.push(<td key={grid[i][j].cellNum}>{grid[i][j].caption}</td>);
-    }
-    columns.push(<tr key={grid[i][0].cellNum}>{row}</tr>);
-  }
-
-  return columns;
+  [year, month, gridCellsCount, offset, weekend]);
 }
