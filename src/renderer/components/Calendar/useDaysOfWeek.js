@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import useWeekInfo from './useWeekInfo';
+import useWeekInfo from '../../lib/Calendar/hooks/useWeekInfo';
 import useDaysOfWeekCaptions from './useDaysOfWeekCaptions';
 
 const locale = 'en-US';

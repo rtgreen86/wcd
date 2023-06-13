@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import useWeekInfo from './useWeekInfo';
-import { gridCellsCount } from './Const';
+import { gridCellsCount } from '../lib/Const';
 
 /**
  * Days of month grid
@@ -23,7 +23,7 @@ import { gridCellsCount } from './Const';
  * @returns {Days[]}
  */
 
-export const useDays = (year, month) => {
+export default function useDays(year, month) {
   const { weekend, firstDay } = useWeekInfo();
 
   return useMemo(() => {
@@ -58,4 +58,4 @@ export const useDays = (year, month) => {
         ...rest
       }));
   }, [year, month, weekend, firstDay]);
-};
+}

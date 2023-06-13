@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { useDays } from './useDays';
-import { gridColumns } from './Const';
+import useDays from '../hooks/useDays';
+import { gridColumns } from '../lib/Const';
 
 export default function DaysGrid({ year, month }) {
   const days = useDays(year, month);

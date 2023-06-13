@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import useMonthsCaptions from './useMonthsCaptions';
 import useDaysOfWeek from './useDaysOfWeek';
-import DaysGrid from './DaysGrid';
+import DaysGrid from '../../lib/Calendar/components/DaysGrid';
 
 export default function MonthGrid({
   year,
