@@ -15,9 +15,7 @@ export default function MonthGrid({
     <table>
       <caption>{current}</caption>
       <thead><WeekDays /></thead>
-      <tbody>
-        <DaysGrid year={year} month={month + 1} />
-      </tbody>
+      <tbody><DaysGrid year={year} month={month + 1} /></tbody>
     </table>
   );
 }
