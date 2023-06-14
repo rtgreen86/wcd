@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { capitalizeFirstLetter } from './utils';
+import { capitalizeFirstLetter } from '../../lib/Calendar/lib/utils';
 
 const locale = 'en-US';
 

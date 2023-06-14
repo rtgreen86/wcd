@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { capitalizeFirstLetter } from './utils';
+import { capitalizeFirstLetter } from '../lib/utils';
 
 const locale = 'en-US';
 
@@ -11,8 +11,7 @@ export default function useDaysOfWeekCaptions() {
       dateObj.setDate(index + 1);
       const day = dateObj.getDay();
       const caption = capitalizeFirstLetter(formatter.format(dateObj));
-      const position = day === 0 ? 7 : day;
-      result[position] = caption;
+      result[day] = caption;
       return result;
     }, {});
   }, [locale]);

@@ -5,7 +5,7 @@ const locale = 'en-US';
 /**
  * Week Information
  * @typedef {object} weekInfo
- * @property {number} firstDay
+ * @property {number} firstDay - [1..7] where 1 is monday
  * @property {number[]} weekend
  */
 

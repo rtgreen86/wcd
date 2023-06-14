@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useMonthsCaptions from './useMonthsCaptions';
-import useDaysOfWeek from './useDaysOfWeek';
 import DaysGrid from '../../lib/Calendar/components/DaysGrid';
+import WeekDays from '../../lib/Calendar/components/WeekDays';
 
 export default function MonthGrid({
   year,
@@ -11,12 +11,10 @@ export default function MonthGrid({
   const all = useMonthsCaptions();
   const current = all[month];
 
-  const daysWeek = useDaysOfWeek();
-
   return (
     <table>
       <caption>{current}</caption>
-      <thead><tr>{daysWeek.map((value) => <td key={value.caption} className={(value.isWeekend ? 'weekend ' : '')}>{value.caption}</td>)}</tr></thead>
+      <thead><WeekDays /></thead>
       <tbody>
         <DaysGrid year={year} month={month + 1} />
       </tbody>
