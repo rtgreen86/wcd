@@ -1,0 +1,24 @@
+.calendar-year {
+  display: grid;
+  gap: 2em;
+  grid-template-columns: 12em;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 30em) {
+  .calendar-year {
+    grid-template-columns: 12em 12em;
+  }
+}
+
+@media only screen and (min-width: 46em) {
+  .calendar-year {
+    grid-template-columns: 12em 12em 12em;
+  }
+}
+
+@media only screen and (min-width: 62em) {
+  .calendar-year {
+    grid-template-columns: 12em 12em 12em 12em;
+  }
+}

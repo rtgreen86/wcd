@@ -7,11 +7,11 @@ import WeekDays from './WeekDays.jsx';
 export default function MonthCalendar({ year, month }) {
   const monthCaptions = useMonthsCaptions();
   return (
-    <div className="calendar-month"><table>
+    <table className="calendar-month">
       <caption>{monthCaptions[month - 1]}</caption>
       <thead><WeekDays /></thead>
       <tbody><DaysGrid year={year} month={month} /></tbody>
-    </table></div>
+    </table>
   );
 }
 
