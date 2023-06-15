@@ -95,12 +95,3 @@ input[type=submit] {
   outline: 1px solid var(--tropical-indigo);
 }
 
-/* Other */
-
-.calendar {
-  font-size: 12px;
-}
-
-.weekend {
-  color: Tomato;
-}

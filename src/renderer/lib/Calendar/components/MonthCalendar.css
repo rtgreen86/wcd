@@ -1,0 +1,17 @@
+.calendar-month {
+  font-size: 12px;
+}
+
+.calendar-month td {
+  box-sizing: border-box;
+  min-width: 26px;
+  text-align: center;
+}
+
+.calendar-month caption {
+  font-weight: bold;
+}
+
+.calendar-month .weekend {
+  color: Tomato;
+}
