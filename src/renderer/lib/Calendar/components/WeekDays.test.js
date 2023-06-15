@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import WeekDays from './WeekDays';
+import WeekDays from './WeekDays.jsx';
 
 describe('WeekDays', () => {
   describe('rendered', () => {

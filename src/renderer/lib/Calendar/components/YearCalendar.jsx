@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MonthCalendar from './MonthCalendar';
+import MonthCalendar from './MonthCalendar.jsx';
 
 export default function YearCalendar({year}) {
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import DaysGrid from './DaysGrid';
+import DaysGrid from './DaysGrid.jsx';
 
 describe('DaysGrid', () => {
   describe.each([
