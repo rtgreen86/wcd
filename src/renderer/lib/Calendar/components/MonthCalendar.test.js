@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Month from './MonthCalendar';
+import MonthCalendar from './MonthCalendar';
 
-describe('DaysGrid', () => {
+describe('MonthCalendar', () => {
   describe.each([
     [2000, 1],
     [2000, 2],
@@ -13,7 +13,7 @@ describe('DaysGrid', () => {
     [2001, 4],
   ])('rendered with %i-%i', (year, month) => {
     test('match snapshot', function () {
-      const { asFragment } = render(<Month year={year} month={month} />);
+      const { asFragment } = render(<MonthCalendar year={year} month={month} />);
       expect(asFragment()).toMatchSnapshot();
     });
   });
