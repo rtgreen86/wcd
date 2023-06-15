@@ -1,11 +1,11 @@
 import React from 'react';
-import { YearCalendar } from '../lib/Calendar';
+import { CalendarLocale, YearCalendar } from '../lib/Calendar';
 
 export default function CalendarScreen() {
   return (
     <main>
       <section>
-        <YearCalendar />
+        <CalendarLocale locale="en-EN"><YearCalendar /></CalendarLocale>
       </section>
     </main>
   );

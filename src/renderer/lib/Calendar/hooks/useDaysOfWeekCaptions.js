@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
+import { useMemo, useContext } from 'react';
 import { capitalizeFirstLetter } from '../lib/utils';
-
-const locale = 'en-US';
+import { LocaleContext } from '../context/LocaleContext';
 
 export default function useDaysOfWeekCaptions() {
+  const locale = useContext(LocaleContext);
   return useMemo(() => {
     const formatter = new Intl.DateTimeFormat(locale, { weekday: 'short' });
     return Array.from({ length: 7 }).reduce((result, value, index) => {

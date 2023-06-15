@@ -1,6 +1,5 @@
-import { useMemo } from 'react';
-
-const locale = 'en-US';
+import { useMemo, useContext } from 'react';
+import { LocaleContext } from '../context/LocaleContext';
 
 /**
  * Week Information
@@ -16,6 +15,7 @@ const locale = 'en-US';
  */
 
 export default function useWeekInfo() {
+  const locale = useContext(LocaleContext);
   return useMemo(() => {
     const localeObj = new Intl.Locale(locale);
     if (typeof localeObj.getWeekInfo === 'function') return localeObj.getWeekInfo();

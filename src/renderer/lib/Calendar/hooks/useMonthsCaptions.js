@@ -1,7 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useContext } from 'react';
 import { capitalizeFirstLetter } from '../lib/utils';
-
-const locale = 'en-US';
+import { LocaleContext } from '../context/LocaleContext';
 
 /**
  * Get localized month caption
@@ -9,6 +8,7 @@ const locale = 'en-US';
  */
 
 export default function getMonthsCaption() {
+  const locale = useContext(LocaleContext);
   return useMemo(() => {
     const formatter = new Intl.DateTimeFormat(locale, { month: 'long' });
     return Array.from({ length: 12 }, (value, index) => {
