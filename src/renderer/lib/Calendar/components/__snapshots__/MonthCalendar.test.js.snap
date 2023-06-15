@@ -49,13 +49,19 @@ exports[`DaysGrid rendered with 2000-1 match snapshot 1`] = `
       <tr>
         <td />
         <td />
+        <td />
+        <td />
+        <td />
+        <td />
         <td
-          class=""
+          class="weekend"
         >
           1
         </td>
+      </tr>
+      <tr>
         <td
-          class=""
+          class="weekend"
         >
           2
         </td>
@@ -70,14 +76,12 @@ exports[`DaysGrid rendered with 2000-1 match snapshot 1`] = `
           4
         </td>
         <td
-          class="weekend"
+          class=""
         >
           5
         </td>
-      </tr>
-      <tr>
         <td
-          class="weekend"
+          class=""
         >
           6
         </td>
@@ -87,12 +91,14 @@ exports[`DaysGrid rendered with 2000-1 match snapshot 1`] = `
           7
         </td>
         <td
-          class=""
+          class="weekend"
         >
           8
         </td>
+      </tr>
+      <tr>
         <td
-          class=""
+          class="weekend"
         >
           9
         </td>
@@ -107,14 +113,12 @@ exports[`DaysGrid rendered with 2000-1 match snapshot 1`] = `
           11
         </td>
         <td
-          class="weekend"
+          class=""
         >
           12
         </td>
-      </tr>
-      <tr>
         <td
-          class="weekend"
+          class=""
         >
           13
         </td>
@@ -124,12 +128,14 @@ exports[`DaysGrid rendered with 2000-1 match snapshot 1`] = `
           14
         </td>
         <td
-          class=""
+          class="weekend"
         >
           15
         </td>
+      </tr>
+      <tr>
         <td
-          class=""
+          class="weekend"
         >
           16
         </td>
@@ -144,14 +150,12 @@ exports[`DaysGrid rendered with 2000-1 match snapshot 1`] = `
           18
         </td>
         <td
-          class="weekend"
+          class=""
         >
           19
         </td>
-      </tr>
-      <tr>
         <td
-          class="weekend"
+          class=""
         >
           20
         </td>
@@ -161,12 +165,14 @@ exports[`DaysGrid rendered with 2000-1 match snapshot 1`] = `
           21
         </td>
         <td
-          class=""
+          class="weekend"
         >
           22
         </td>
+      </tr>
+      <tr>
         <td
-          class=""
+          class="weekend"
         >
           23
         </td>
@@ -181,14 +187,12 @@ exports[`DaysGrid rendered with 2000-1 match snapshot 1`] = `
           25
         </td>
         <td
-          class="weekend"
+          class=""
         >
           26
         </td>
-      </tr>
-      <tr>
         <td
-          class="weekend"
+          class=""
         >
           27
         </td>
@@ -198,18 +202,22 @@ exports[`DaysGrid rendered with 2000-1 match snapshot 1`] = `
           28
         </td>
         <td
-          class=""
+          class="weekend"
         >
           29
         </td>
-        <td />
-        <td />
-        <td />
-        <td />
       </tr>
       <tr>
-        <td />
-        <td />
+        <td
+          class="weekend"
+        >
+          30
+        </td>
+        <td
+          class=""
+        >
+          31
+        </td>
         <td />
         <td />
         <td />
@@ -270,7 +278,6 @@ exports[`DaysGrid rendered with 2000-2 match snapshot 1`] = `
       <tr>
         <td />
         <td />
-        <td />
         <td
           class=""
         >
@@ -287,19 +294,19 @@ exports[`DaysGrid rendered with 2000-2 match snapshot 1`] = `
           3
         </td>
         <td
-          class="weekend"
+          class=""
         >
           4
         </td>
-      </tr>
-      <tr>
         <td
           class="weekend"
         >
           5
         </td>
+      </tr>
+      <tr>
         <td
-          class=""
+          class="weekend"
         >
           6
         </td>
@@ -324,19 +331,19 @@ exports[`DaysGrid rendered with 2000-2 match snapshot 1`] = `
           10
         </td>
         <td
-          class="weekend"
+          class=""
         >
           11
         </td>
-      </tr>
-      <tr>
         <td
           class="weekend"
         >
           12
         </td>
+      </tr>
+      <tr>
         <td
-          class=""
+          class="weekend"
         >
           13
         </td>
@@ -361,19 +368,19 @@ exports[`DaysGrid rendered with 2000-2 match snapshot 1`] = `
           17
         </td>
         <td
-          class="weekend"
+          class=""
         >
           18
         </td>
-      </tr>
-      <tr>
         <td
           class="weekend"
         >
           19
         </td>
+      </tr>
+      <tr>
         <td
-          class=""
+          class="weekend"
         >
           20
         </td>
@@ -398,19 +405,19 @@ exports[`DaysGrid rendered with 2000-2 match snapshot 1`] = `
           24
         </td>
         <td
-          class="weekend"
+          class=""
         >
           25
         </td>
-      </tr>
-      <tr>
         <td
           class="weekend"
         >
           26
         </td>
+      </tr>
+      <tr>
         <td
-          class=""
+          class="weekend"
         >
           27
         </td>
@@ -424,16 +431,9 @@ exports[`DaysGrid rendered with 2000-2 match snapshot 1`] = `
         >
           29
         </td>
-        <td
-          class=""
-        >
-          30
-        </td>
-        <td
-          class=""
-        >
-          31
-        </td>
+        <td />
+        <td />
+        <td />
         <td />
       </tr>
       <tr>
@@ -498,6 +498,231 @@ exports[`DaysGrid rendered with 2000-4 match snapshot 1`] = `
     <tbody>
       <tr>
         <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td
+          class="weekend"
+        >
+          1
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="weekend"
+        >
+          2
+        </td>
+        <td
+          class=""
+        >
+          3
+        </td>
+        <td
+          class=""
+        >
+          4
+        </td>
+        <td
+          class=""
+        >
+          5
+        </td>
+        <td
+          class=""
+        >
+          6
+        </td>
+        <td
+          class=""
+        >
+          7
+        </td>
+        <td
+          class="weekend"
+        >
+          8
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="weekend"
+        >
+          9
+        </td>
+        <td
+          class=""
+        >
+          10
+        </td>
+        <td
+          class=""
+        >
+          11
+        </td>
+        <td
+          class=""
+        >
+          12
+        </td>
+        <td
+          class=""
+        >
+          13
+        </td>
+        <td
+          class=""
+        >
+          14
+        </td>
+        <td
+          class="weekend"
+        >
+          15
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="weekend"
+        >
+          16
+        </td>
+        <td
+          class=""
+        >
+          17
+        </td>
+        <td
+          class=""
+        >
+          18
+        </td>
+        <td
+          class=""
+        >
+          19
+        </td>
+        <td
+          class=""
+        >
+          20
+        </td>
+        <td
+          class=""
+        >
+          21
+        </td>
+        <td
+          class="weekend"
+        >
+          22
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="weekend"
+        >
+          23
+        </td>
+        <td
+          class=""
+        >
+          24
+        </td>
+        <td
+          class=""
+        >
+          25
+        </td>
+        <td
+          class=""
+        >
+          26
+        </td>
+        <td
+          class=""
+        >
+          27
+        </td>
+        <td
+          class=""
+        >
+          28
+        </td>
+        <td
+          class="weekend"
+        >
+          29
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="weekend"
+        >
+          30
+        </td>
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DaysGrid rendered with 2001-1 match snapshot 1`] = `
+<DocumentFragment>
+  <table>
+    <caption>
+      January
+    </caption>
+    <thead>
+      <tr>
+        <td
+          class="weekend"
+        >
+          Sun
+        </td>
+        <td
+          class=""
+        >
+          Mon
+        </td>
+        <td
+          class=""
+        >
+          Tue
+        </td>
+        <td
+          class=""
+        >
+          Wed
+        </td>
+        <td
+          class=""
+        >
+          Thu
+        </td>
+        <td
+          class=""
+        >
+          Fri
+        </td>
+        <td
+          class="weekend"
+        >
+          Sat
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td />
         <td
           class=""
         >
@@ -660,223 +885,6 @@ exports[`DaysGrid rendered with 2000-4 match snapshot 1`] = `
           class=""
         >
           31
-        </td>
-        <td />
-        <td />
-        <td />
-      </tr>
-      <tr>
-        <td />
-        <td />
-        <td />
-        <td />
-        <td />
-        <td />
-        <td />
-      </tr>
-    </tbody>
-  </table>
-</DocumentFragment>
-`;
-
-exports[`DaysGrid rendered with 2001-1 match snapshot 1`] = `
-<DocumentFragment>
-  <table>
-    <caption>
-      January
-    </caption>
-    <thead>
-      <tr>
-        <td
-          class="weekend"
-        >
-          Sun
-        </td>
-        <td
-          class=""
-        >
-          Mon
-        </td>
-        <td
-          class=""
-        >
-          Tue
-        </td>
-        <td
-          class=""
-        >
-          Wed
-        </td>
-        <td
-          class=""
-        >
-          Thu
-        </td>
-        <td
-          class=""
-        >
-          Fri
-        </td>
-        <td
-          class="weekend"
-        >
-          Sat
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td />
-        <td />
-        <td />
-        <td />
-        <td
-          class=""
-        >
-          1
-        </td>
-        <td
-          class=""
-        >
-          2
-        </td>
-        <td
-          class="weekend"
-        >
-          3
-        </td>
-      </tr>
-      <tr>
-        <td
-          class="weekend"
-        >
-          4
-        </td>
-        <td
-          class=""
-        >
-          5
-        </td>
-        <td
-          class=""
-        >
-          6
-        </td>
-        <td
-          class=""
-        >
-          7
-        </td>
-        <td
-          class=""
-        >
-          8
-        </td>
-        <td
-          class=""
-        >
-          9
-        </td>
-        <td
-          class="weekend"
-        >
-          10
-        </td>
-      </tr>
-      <tr>
-        <td
-          class="weekend"
-        >
-          11
-        </td>
-        <td
-          class=""
-        >
-          12
-        </td>
-        <td
-          class=""
-        >
-          13
-        </td>
-        <td
-          class=""
-        >
-          14
-        </td>
-        <td
-          class=""
-        >
-          15
-        </td>
-        <td
-          class=""
-        >
-          16
-        </td>
-        <td
-          class="weekend"
-        >
-          17
-        </td>
-      </tr>
-      <tr>
-        <td
-          class="weekend"
-        >
-          18
-        </td>
-        <td
-          class=""
-        >
-          19
-        </td>
-        <td
-          class=""
-        >
-          20
-        </td>
-        <td
-          class=""
-        >
-          21
-        </td>
-        <td
-          class=""
-        >
-          22
-        </td>
-        <td
-          class=""
-        >
-          23
-        </td>
-        <td
-          class="weekend"
-        >
-          24
-        </td>
-      </tr>
-      <tr>
-        <td
-          class="weekend"
-        >
-          25
-        </td>
-        <td
-          class=""
-        >
-          26
-        </td>
-        <td
-          class=""
-        >
-          27
-        </td>
-        <td
-          class=""
-        >
-          28
         </td>
         <td />
         <td />
@@ -1095,21 +1103,9 @@ exports[`DaysGrid rendered with 2001-2 match snapshot 1`] = `
         >
           28
         </td>
-        <td
-          class=""
-        >
-          29
-        </td>
-        <td
-          class=""
-        >
-          30
-        </td>
-        <td
-          class="weekend"
-        >
-          31
-        </td>
+        <td />
+        <td />
+        <td />
       </tr>
       <tr>
         <td />
@@ -1172,10 +1168,8 @@ exports[`DaysGrid rendered with 2001-4 match snapshot 1`] = `
     </thead>
     <tbody>
       <tr>
-        <td />
-        <td />
         <td
-          class=""
+          class="weekend"
         >
           1
         </td>
@@ -1195,24 +1189,24 @@ exports[`DaysGrid rendered with 2001-4 match snapshot 1`] = `
           4
         </td>
         <td
-          class="weekend"
+          class=""
         >
           5
+        </td>
+        <td
+          class=""
+        >
+          6
+        </td>
+        <td
+          class="weekend"
+        >
+          7
         </td>
       </tr>
       <tr>
         <td
           class="weekend"
-        >
-          6
-        </td>
-        <td
-          class=""
-        >
-          7
-        </td>
-        <td
-          class=""
         >
           8
         </td>
@@ -1232,24 +1226,24 @@ exports[`DaysGrid rendered with 2001-4 match snapshot 1`] = `
           11
         </td>
         <td
-          class="weekend"
+          class=""
         >
           12
+        </td>
+        <td
+          class=""
+        >
+          13
+        </td>
+        <td
+          class="weekend"
+        >
+          14
         </td>
       </tr>
       <tr>
         <td
           class="weekend"
-        >
-          13
-        </td>
-        <td
-          class=""
-        >
-          14
-        </td>
-        <td
-          class=""
         >
           15
         </td>
@@ -1269,24 +1263,24 @@ exports[`DaysGrid rendered with 2001-4 match snapshot 1`] = `
           18
         </td>
         <td
-          class="weekend"
+          class=""
         >
           19
+        </td>
+        <td
+          class=""
+        >
+          20
+        </td>
+        <td
+          class="weekend"
+        >
+          21
         </td>
       </tr>
       <tr>
         <td
           class="weekend"
-        >
-          20
-        </td>
-        <td
-          class=""
-        >
-          21
-        </td>
-        <td
-          class=""
         >
           22
         </td>
@@ -1306,24 +1300,24 @@ exports[`DaysGrid rendered with 2001-4 match snapshot 1`] = `
           25
         </td>
         <td
-          class="weekend"
+          class=""
         >
           26
+        </td>
+        <td
+          class=""
+        >
+          27
+        </td>
+        <td
+          class="weekend"
+        >
+          28
         </td>
       </tr>
       <tr>
         <td
           class="weekend"
-        >
-          27
-        </td>
-        <td
-          class=""
-        >
-          28
-        </td>
-        <td
-          class=""
         >
           29
         </td>
@@ -1332,11 +1326,9 @@ exports[`DaysGrid rendered with 2001-4 match snapshot 1`] = `
         >
           30
         </td>
-        <td
-          class=""
-        >
-          31
-        </td>
+        <td />
+        <td />
+        <td />
         <td />
         <td />
       </tr>
