@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useMonthsCaptions from './useMonthsCaptions';
+import useMonthsCaptions from '../../lib/Calendar/hooks/useMonthsCaptions';
 import DaysGrid from '../../lib/Calendar/components/DaysGrid';
 import WeekDays from '../../lib/Calendar/components/WeekDays';
 

@@ -1,7 +1,12 @@
 import { useMemo } from 'react';
-import { capitalizeFirstLetter } from '../../lib/Calendar/lib/utils';
+import { capitalizeFirstLetter } from '../lib/utils';
 
 const locale = 'en-US';
+
+/**
+ * Get localized month caption
+ * @returns {string[]} Month captions
+ */
 
 export default function getMonthsCaption() {
   return useMemo(() => {
