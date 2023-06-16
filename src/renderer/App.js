@@ -30,9 +30,7 @@ export default function App() {
           }
         />
       </Route>
-      <Route path="/" element={<MainScreen />}>
-        <Route path="/" element={<CalendarScreen />} />
-      </Route>
+      <Route path="/" element={<CalendarScreen />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
