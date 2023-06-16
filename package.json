@@ -1,8 +1,8 @@
 {
   "name": "wcd",
-  "productName": "WCalendar",
+  "productName": "Календарь",
   "version": "0.1.0",
-  "description": "Woman Calendar.",
+  "description": "Календарь, 2023 год.",
   "main": ".webpack/main",
   "private": true,
   "scripts": {

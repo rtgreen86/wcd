@@ -1,6 +1,6 @@
 import React from 'react';
-
 import BackPanel from '../components/BackPanel.jsx';
+import packageInfo from '../../../package.json';
 
 export default function SettingsScreen() {
   return (
@@ -20,7 +20,7 @@ export default function SettingsScreen() {
         </section>
         <section>
           <h1>О программе</h1>
-          <p>Календарь, версия 1.0.0. 2023.</p>
+          <p>{packageInfo.productName}<br/>Версия {packageInfo.version}<br/>{packageInfo.description}</p>
         </section>
       </main>
     </>
