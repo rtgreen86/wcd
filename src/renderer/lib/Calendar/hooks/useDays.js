@@ -29,7 +29,7 @@ export default function useDays(year, month) {
   return useMemo(() => {
     const normalizeDay = day => day === 0 ? 7 : day;
 
-    const getISODate = dateObj => dateObj.toISOString()[0];
+    const getISODate = dateObj => dateObj.toISOString().split('T')[0];
 
     const getDate = (year, month, date, dateObj = new Date(Date.UTC(year, month - 1, date))) => ({
       day: normalizeDay(dateObj.getUTCDay()),
@@ -46,15 +46,14 @@ export default function useDays(year, month) {
     return Array.from({ length: gridCellsCount }, (item, index) => ({
       cellNumber: index,
       ...getDate(year, month, index + 1 - offset),
-      marks: []
     }))
       .map(item => ({
         visible: item.month === month,
         ...item
       }))
-      .map(({ day, marks, ...rest }) => ({
+      .map(({ day, ...rest }) => ({
         day,
-        marks: weekend.includes(day) ? ['weekend', ...marks] : marks,
+        marks: weekend.includes(day) ? ['weekend'] : [],
         ...rest
       }));
   }, [year, month, weekend, firstDay]);

@@ -15,3 +15,8 @@
 .calendar-month .weekend {
   color: Tomato;
 }
+
+.calendar-month .red {
+  background-color: red;
+  color: white;
+}

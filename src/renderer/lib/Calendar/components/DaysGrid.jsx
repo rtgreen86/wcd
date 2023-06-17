@@ -3,10 +3,19 @@ import PropTypes from 'prop-types';
 import useDays from '../hooks/useDays';
 import { gridColumns } from '../lib/Const';
 
-export default function DaysGrid({ year, month }) {
+export default function DaysGrid({ year, month, marks = {} }) {
   const days = useDays(year, month);
 
-  return days.reduce((grid, day, index, { length }) => {
+  const marksMap = new Map(Object.entries(marks));
+
+  const markedDays = days.map(day => {
+    if (marksMap.has(day.isoDate)) {
+      day.marks = [...day.marks, ...marksMap.get(day.isoDate)]
+    }
+    return day;
+  });
+
+  return markedDays.reduce((grid, day, index, { length }) => {
     const { visible, cellNumber, marks, date } = day;
     const className = marks.join(' ');
 
@@ -28,4 +37,5 @@ export default function DaysGrid({ year, month }) {
 DaysGrid.propTypes = {
   year: PropTypes.number,
   month: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+  marks: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string))
 }
