@@ -1,5 +1,6 @@
 .calendar-month {
   font-size: 12px;
+  border-collapse: collapse;
 }
 
 .calendar-month td {
@@ -19,4 +20,9 @@
 .calendar-month .red {
   background-color: red;
   color: white;
+}
+
+.calendar-month td[data-date]:hover {
+  outline: medium ridge var(--accent);
+  outline-offset: 3px;
 }
