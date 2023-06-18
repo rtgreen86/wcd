@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useDays from '../hooks/useDays';
 import { gridColumns } from '../lib/Const';
 
-export default function DaysGrid({ year, month, marks = {} }) {
+export default function DaysGrid({ year, month, marks, onClick }) {
   const days = useDays(year, month);
 
   const marksMap = new Map(Object.entries(marks));
@@ -15,14 +15,18 @@ export default function DaysGrid({ year, month, marks = {} }) {
     return day;
   });
 
+  const handleClick = useCallback((event) => {
+    onClick(event.currentTarget.dataset.date);
+  }, [onClick]);
+
   return markedDays.reduce((grid, day, index, { length }) => {
-    const { visible, cellNumber, marks, date } = day;
+    const { visible, cellNumber, marks, date, isoDate } = day;
     const className = marks.join(' ');
 
     const row = grid[grid.length - 1];
 
     row.push(visible
-      ? <td key={`cell-${cellNumber}`} className={className}>{date.toString()}</td>
+      ? <td key={`cell-${cellNumber}`} className={className} data-date={isoDate} onClick={handleClick} >{date.toString()}</td>
       : <td key={cellNumber}></td>);
 
     if ((index + 1) % gridColumns === 0 || index === length - 1) {
@@ -37,5 +41,11 @@ export default function DaysGrid({ year, month, marks = {} }) {
 DaysGrid.propTypes = {
   year: PropTypes.number,
   month: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
-  marks: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string))
-}
+  marks: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+  onClick: PropTypes.func
+};
+
+DaysGrid.defaultProps = {
+  marks: {},
+  onClick: () => {}
+};

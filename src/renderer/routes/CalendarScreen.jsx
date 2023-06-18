@@ -30,7 +30,7 @@ export default function CalendarScreen() {
   return (
     <>
       <MainPanel year={state} onChangeYear={dispatch} />
-      <main><section><CalendarLocale locale="ru-RU"><YearCalendar year={state} marks={marks} /></CalendarLocale></section></main>
+      <main><section><CalendarLocale locale="ru-RU"><YearCalendar year={state} marks={marks} onClick={(date) => alert(date)} /></CalendarLocale></section></main>
     </>
   );
 }
