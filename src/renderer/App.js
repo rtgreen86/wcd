@@ -7,7 +7,6 @@ import {
 
 import Invoices from "./routes/Invoices.jsx";
 import Invoice from "./routes/Invoice.jsx";
-import MainScreen from './routes/MainScreen.jsx';
 import CalendarScreen from './routes/CalendarScreen.jsx';
 import ControlsScreen from './routes/ControlsScreen.jsx';
 import SettingsScreen from './routes/SettingsScreen.jsx';

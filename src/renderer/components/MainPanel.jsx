@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { useNavigate, NavLink } from "react-router-dom";
 import { Button, MenuItem, TopToolbar } from '../lib/UIKit';
 
-export default function MainPanel({ year, onChangeYear }) {
+export default function MainPanel({ year, onDispatch = () => {} }) {
   const navigate = useNavigate();
 
   return (
     <TopToolbar>
-      <MenuItem><Button onClick={() => { onChangeYear({ type: 'increment' }) }}><i className="material-icons">keyboard_arrow_up</i></Button></MenuItem>
+      <MenuItem><Button onClick={() => { onDispatch({ type: 'year/increment' }) }}><i className="material-icons">keyboard_arrow_up</i></Button></MenuItem>
       <MenuItem><span>{year}</span></MenuItem>
-      <MenuItem><Button onClick={() => { onChangeYear({ type: 'decrement' }) }}><i className="material-icons">keyboard_arrow_down</i></Button></MenuItem>
+      <MenuItem><Button onClick={() => { onDispatch({ type: 'year/decrement' }) }}><i className="material-icons">keyboard_arrow_down</i></Button></MenuItem>
       <MenuItem><Button>Отметить</Button></MenuItem>
       <MenuItem><Button onClick={() => navigate('/controls')}>Контролы</Button></MenuItem>
       <MenuItem><NavLink to="/invoices">Invoices</NavLink></MenuItem>
@@ -23,9 +23,5 @@ export default function MainPanel({ year, onChangeYear }) {
 
 MainPanel.propTypes = {
   year: PropTypes.number.isRequired,
-  onChangeYear: PropTypes.func.isRequired
-}
-
-MainPanel.defaultProps = {
-  onChangeYear: () => {}
+  onDispatch: PropTypes.func.isRequired
 }
