@@ -9,10 +9,10 @@ export default function DaysGrid({ year, month, marks, onClick }) {
   const marksMap = new Map(Object.entries(marks));
 
   const markedDays = days.map(day => {
-    if (marksMap.has(day.isoDate)) {
-      day.marks = [...day.marks, ...marksMap.get(day.isoDate)]
-    }
-    return day;
+    return marksMap.has(day.isoDate) ? {
+      ...day,
+      marks: [...day.marks, ...marksMap.get(day.isoDate)]
+    } : day
   });
 
   const handleClick = useCallback((event) => {
