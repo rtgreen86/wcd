@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MonthCalendar } from '../../lib/Calendar';
-import YearGrid from './YearGrid.jsx';
+import YearGrid from './YearGrid';
 
 export default function YearCalendar({year, ...props}) {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import YearCalendar from './YearCalendar.jsx';
+import YearCalendar from './YearCalendar';
 
 describe('YearCalendar', () => {
   describe('rendered', () => {

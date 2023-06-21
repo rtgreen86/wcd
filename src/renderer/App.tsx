@@ -5,12 +5,12 @@ import {
   Navigate
 } from "react-router-dom";
 
-import Invoices from "./routes/Invoices.jsx";
-import Invoice from "./routes/Invoice.jsx";
-import CalendarScreen from './routes/CalendarScreen.jsx';
-import ControlsScreen from './routes/ControlsScreen.jsx';
-import SettingsScreen from './routes/SettingsScreen.jsx';
-import LockScreen from './routes/LockScreen.jsx';
+import Invoices from "./routes/Invoices";
+import Invoice from "./routes/Invoice";
+import CalendarScreen from './routes/CalendarScreen';
+import ControlsScreen from './routes/ControlsScreen';
+import SettingsScreen from './routes/SettingsScreen';
+import LockScreen from './routes/LockScreen';
 
 export default function App() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MonthCalendar from './MonthCalendar.jsx';
+import MonthCalendar from './MonthCalendar';
 
 export default function YearCalendar({year, marks, onClick}) {
   return (

@@ -1,6 +1,6 @@
 import React, { useReducer, useCallback } from 'react';
 import { CalendarLocale, YearCalendar } from '../lib/Calendar';
-import MainPanel from '../components/MainPanel.jsx';
+import MainPanel from '../components/MainPanel';
 
 const initialArg = {
   year: null,

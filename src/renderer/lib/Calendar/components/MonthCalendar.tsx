@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useMonthsCaptions from '../hooks/useMonthsCaptions';
-import DaysGrid from './DaysGrid.jsx';
-import WeekDays from './WeekDays.jsx';
+import DaysGrid from './DaysGrid';
+import WeekDays from './WeekDays';
 
 export default function MonthCalendar({ year, month, marks, onClick }) {
   const monthCaptions = useMonthsCaptions();

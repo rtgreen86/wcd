@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Toolbar from './Toolbar.jsx';
+import Toolbar from './Toolbar';
 
 import './HorizontalToolbar.css';
 
