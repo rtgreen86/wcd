@@ -1,3 +1,4 @@
+import './MonthCalendar.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import useMonthsCaptions from '../hooks/useMonthsCaptions';
