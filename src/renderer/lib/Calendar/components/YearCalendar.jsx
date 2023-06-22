@@ -4,7 +4,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MonthCalendar from './MonthCalendar';
 
-export default function YearCalendar({year, marks, onClick}) {
+export default function YearCalendar({
+  year = new Date().getUTCFullYear(),
+  marks,
+  onClick
+}) {
   return (
     <div className="calendar-year">{
       Array.from({length: 12}, (el, idx) => (
@@ -18,8 +22,4 @@ YearCalendar.propTypes = {
   year: PropTypes.number,
   marks: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   onClick: PropTypes.func
-};
-
-YearCalendar.defaultProps = {
-  year: new Date().getUTCFullYear()
 };

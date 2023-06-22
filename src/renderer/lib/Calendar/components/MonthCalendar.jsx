@@ -4,8 +4,14 @@ import PropTypes from 'prop-types';
 import useMonthsCaptions from '../hooks/useMonthsCaptions';
 import DaysGrid from './DaysGrid';
 import WeekDays from './WeekDays';
+import { noop } from '../lib/utils';
 
-export default function MonthCalendar({ year, month, marks, onClick }) {
+export default function MonthCalendar({
+  year = new Date().getUTCFullYear(),
+  month = new Date().getUTCMonth() + 1,
+  marks,
+  onClick = noop
+}) {
   const monthCaptions = useMonthsCaptions();
   return (
     <table className="calendar-month">
@@ -22,8 +28,3 @@ MonthCalendar.propTypes = {
   marks: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   onClick: PropTypes.func
 };
-
-MonthCalendar.defaultProps = {
-  year: new Date().getUTCFullYear(),
-  month: new Date().getUTCMonth() + 1,
-}
