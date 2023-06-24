@@ -1,7 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import path from 'node:path';
-import Storage from './Storage';
 import SysInfo from './SysInfo';
+import { handleIpc as handleStorageIpc } from './Storage'
 
 const fillAboutPanel = () => {
   app.setAboutPanelOptions({
@@ -12,8 +11,7 @@ const fillAboutPanel = () => {
 };
 
 const handleIpc = () => {
-  ipcMain.handle('load-records', () => Storage.get());
-  ipcMain.handle('save-records', (event, payload) => Storage.put(payload));
+  handleStorageIpc();
   ipcMain.handle('get-sysinfo', () => SysInfo.get());
   ipcMain.handle('show-about', () => app.showAboutPanel());
 }
