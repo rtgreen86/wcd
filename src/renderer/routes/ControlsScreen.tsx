@@ -12,6 +12,20 @@ export default function ControlsScreen() {
       <BackPanel />
       <main>
         <section>
+          <button onClick={() => {
+            const URL = 'test';
+            electronAPI.request({
+              uri: URL,
+              params: {
+                admins: true,
+                count: 10,
+                page: 2,
+              }
+            })
+          }}>Send</button>
+        </section>
+
+        <section>
           <h1>Header 1</h1>
           <h2>Header 2</h2>
           <h3>Header 3</h3>
