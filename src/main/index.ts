@@ -14,18 +14,18 @@ const fillAboutPanel = () => {
   });
 };
 
-const requestProcessor = createRequestProcessor<string, string>();
+const requestProcessor = createRequestProcessor<string, Promise<string>>();
 
-requestProcessor.use((req, res) => {
+requestProcessor.use((req) => {
   console.log(req);
-  res('Hello World');
+  return Promise.resolve('Hello World');
 });
 
 const handleIpc = () => {
   handleStorageIpc();
   ipcMain.handle('get-sysinfo', () => SysInfo.get());
   ipcMain.handle('show-about', () => app.showAboutPanel());
-  ipcMain.handle('request', (event, request) => new Promise(resolve => requestProcessor.handle(JSON.stringify(request), resolve)));
+  ipcMain.handle('request', (event, request) => requestProcessor.handle(JSON.stringify(request)));
 }
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
