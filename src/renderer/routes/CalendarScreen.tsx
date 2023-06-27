@@ -33,24 +33,19 @@ type MarksLoadedAction = {
 
 type MarksSetAction = {
   type: 'marks/set',
-  payload: {
-    date: string,
-    marks: string[]
-  }
+  payload: Marks
 }
 
 type MarksUnsetAction = {
   type: 'marks/unset',
-  payload: {
-    date: string
-  }
+  payload: string
 }
 
 type MarksToggleAction = {
   type: 'marks/toggle',
   payload: {
-    date: string
-    marks: string[]
+    date: string,
+    marks: Marks[keyof Marks]
   }
 }
 
@@ -104,7 +99,7 @@ function reducer(state: State, action: Action): State {
       ...state,
       marks: {
         ...state.marks,
-        data: { ...state.marks.data, [action.payload.date]: action.payload.marks }
+        data: { ...state.marks.data, ...action.payload }
       }
     }
 
@@ -112,13 +107,13 @@ function reducer(state: State, action: Action): State {
       ...state,
       marks: {
         ...state.marks,
-        data: unsetMark(state.marks.data, action.payload.date)
+        data: unsetMark(state.marks.data, action.payload)
       }
     }
 
     case 'marks/toggle': return state.marks.data[action.payload.date]
-      ? reducer(state, { type: 'marks/unset', payload: action.payload })
-      : reducer(state, { type: 'marks/set', payload: action.payload })
+      ? reducer(state, { type: 'marks/unset', payload: action.payload.date })
+      : reducer(state, { type: 'marks/set', payload: {[action.payload.date]: action.payload.marks} })
   }
 }
 
