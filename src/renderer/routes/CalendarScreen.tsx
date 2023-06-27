@@ -2,22 +2,76 @@ import React, { useReducer, useCallback } from 'react';
 import { CalendarLocale, YearCalendar } from '../lib/Calendar';
 import MainPanel from '../components/MainPanel';
 
-const initialArg = {
-  year: null,
+type Marks = {
+  [date: string]: string[]
+}
+
+type State = {
+  year: number,
+  marks: {
+    isLoading: boolean,
+    data: Marks
+  }
+}
+
+type YearIncrementAction = {
+  type: 'year/increment'
+}
+
+type YearDecrementAction = {
+  type: 'year/decrement'
+}
+
+type MarksLoadingAction = {
+  type: 'marks/loading'
+}
+
+type MarksLoadedAction = {
+  type: 'marks/loaded',
+  payload: Marks
+}
+
+type MarksSetAction = {
+  type: 'marks/set',
+  payload: {
+    date: string,
+    marks: string[]
+  }
+}
+
+type MarksUnsetAction = {
+  type: 'marks/unset',
+  payload: {
+    date: string
+  }
+}
+
+type MarksToggleAction = {
+  type: 'marks/toggle',
+  payload: {
+    date: string
+    marks: string[]
+  }
+}
+
+type Action = YearIncrementAction | YearDecrementAction | MarksLoadingAction | MarksLoadedAction | MarksSetAction | MarksUnsetAction | MarksToggleAction;
+
+const initialArg: State = {
+  year: 0,
   marks: {
     isLoading: true,
     data: {}
   },
 };
 
-function init(initialArg) {
+function init(initialArg: State) {
   return {
     ...initialArg,
     year: new Date().getFullYear(),
   };
 }
 
-function reducer(state, action) {
+function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'year/increment': return {
       ...state,
@@ -58,12 +112,7 @@ function reducer(state, action) {
       ...state,
       marks: {
         ...state.marks,
-        data: Object.entries(state.marks.data)
-          .filter(([key]) => key !== action.payload.date)
-          .reduce((acc, [key, value]) => {
-            acc[key] = value;
-            return acc;
-          }, {})
+        data: unsetMark(state.marks.data, action.payload.date)
       }
     }
 
@@ -73,10 +122,18 @@ function reducer(state, action) {
   }
 }
 
+const unsetMark = (marks: Marks, date: string) => Object.entries(marks)
+  .filter(([key]) => key !== date)
+  .reduce((acc, [key, value]) => {
+    acc[key] = value;
+    return acc;
+  }, {} as Marks);
+
+
 export default function CalendarScreen() {
   const [state, dispatch] = useReducer(reducer, initialArg, init);
 
-  const handleDateClick = useCallback((date) => {
+  const handleDateClick = useCallback((date: string) => {
     dispatch({ type: 'marks/toggle', payload: {date, marks: ['red']}});
   }, [dispatch]);
 

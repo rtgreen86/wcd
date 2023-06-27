@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate, NavLink } from "react-router-dom";
 import { Button, MenuItem, TopToolbar } from '../lib/UIKit';
 
-export default function MainPanel({ year, onDispatch = () => {} }) {
+export default function MainPanel({ year, onDispatch = () => {} }: { year: number, onDispatch: (arg: any) => void}) {
   const navigate = useNavigate();
 
   return (
