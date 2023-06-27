@@ -21,7 +21,7 @@ export default function ControlsScreen() {
                 count: 10,
                 page: 2,
               }
-            })
+            }).then((res) => console.log(res));
           }}>Send</button>
         </section>
 

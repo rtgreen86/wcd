@@ -6,5 +6,5 @@ declare namespace electronAPI {
 }
 
 declare namespace electronAPI {
-    function request(request: Request): void;
+    function request(request: Request): Promise<string>;
 }
