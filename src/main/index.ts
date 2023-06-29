@@ -1,7 +1,8 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
 import { handleIpc as handleStorageIpc } from './Storage';
-import { createRequestProcessor } from './lib/RequestProcessor'
+import { createRequestProcessor } from './lib/RequestProcessor';
+import { Request, Response } from '../lib/Request';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -14,18 +15,18 @@ const fillAboutPanel = () => {
   });
 };
 
-const requestProcessor = createRequestProcessor<string, Promise<string>>();
+const requestProcessor = createRequestProcessor<Request, Promise<Response>>();
 
 requestProcessor.use((req) => {
   console.log(req);
-  return Promise.resolve('Hello World');
+  return Promise.resolve({success: true, body: 'Hello World'});
 });
 
 const handleIpc = () => {
   handleStorageIpc();
   ipcMain.handle('get-sysinfo', () => SysInfo.get());
   ipcMain.handle('show-about', () => app.showAboutPanel());
-  ipcMain.handle('request', (event, request) => requestProcessor.handle(JSON.stringify(request)));
+  ipcMain.handle('request', (event, request) => requestProcessor.handle(request));
 }
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

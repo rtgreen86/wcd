@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button, Panel, Menu, MenuItem } from '../lib/UIKit';
 import LoginForm from '../components/LoginForm';
 import BackPanel from '../components/BackPanel';
-import { Method } from '../../preload/Method';
+import { Method } from '../../lib/Request';
 
 export default function ControlsScreen() {
   const [pin, setPin] = useState('');
@@ -22,9 +22,8 @@ export default function ControlsScreen() {
                 count: 10,
                 page: 2,
               },
-              body: '',
-              method: Method.Get
-            }).then((res) => console.log(res));
+              method: Method.GET
+            }).then((res) => console.log(res.body));
           }}>Send</button>
         </section>
 
