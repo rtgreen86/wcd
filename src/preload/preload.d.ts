@@ -1,13 +1,7 @@
 declare namespace electronAPI {
-    enum Method {
-        Get = 'GET',
-        Post = 'POST',
-        Put = 'PUT'
-    }
-
     type Request = {
         uri: string,
-        method: Method,
+        method: import('./Method').Method,
         params: unknown,
         body: unknown
     }
