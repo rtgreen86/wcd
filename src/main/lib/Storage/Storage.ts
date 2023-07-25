@@ -1,10 +1,4 @@
-type Key = {
-  id: number,
-}
-
-type Record = Partial<Key> & {
-  [key: string]: unknown,
-};
+import {Key, Record} from './Record';
 
 export default class Storage<Type extends Record> {
   readonly version = 1;
