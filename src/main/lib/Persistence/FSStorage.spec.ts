@@ -1,6 +1,6 @@
-import {jest} from '@jest/globals';
+import { jest } from '@jest/globals';
 
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -12,7 +12,7 @@ function isMock<Type extends (...args: Array<unknown>) => unknown>(method: Type)
   return 'mock' in method;
 }
 
-describe.only('FSStorage', function () {
+describe('FSStorage', () => {
   let temp: string;
 
   beforeAll(async () => {
@@ -20,7 +20,7 @@ describe.only('FSStorage', function () {
   })
 
   afterAll(async () => {
-    await rm(temp, {recursive: true})
+    await rm(temp, { recursive: true })
   });
 
   beforeAll(() => {
@@ -30,8 +30,24 @@ describe.only('FSStorage', function () {
     }
   });
 
+  type TestData = { content: string };
+
+  const filename = 'test-data.json';
+
+  const items = [
+    {
+      content: 'test content',
+    }
+  ];
+
+  let filePath: string;
+
+  beforeAll(() => {
+    filePath = join(temp, 'test-data.json');
+  });
+
   it('should persist data', async function () {
-    const storage = new FSStorage<{content: string}>(join(temp, 'test-data.json'));
+    const storage = new FSStorage<TestData>(filePath);
     await storage.put({
       version: 1,
       items: [
@@ -40,6 +56,7 @@ describe.only('FSStorage', function () {
         }
       ]
     });
+    await expect(stat(filePath)).resolves.toBeTruthy();
     await expect(storage.get()).resolves.toEqual({
       version: 1,
       items: [
