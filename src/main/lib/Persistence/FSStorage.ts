@@ -1,12 +1,13 @@
 import fs from 'node:fs/promises';
 import PersistentStorage from './PersistentStorage';
-import {PersistentData} from './PersistentData';
+import { PersistentData } from './PersistentData';
+import { getFilePath } from './FilePath';
 
 export default class FSStorage<Type> implements PersistentStorage<Type> {
   private filename: string;
 
   constructor(filename: string) {
-    this.filename = filename;
+    this.filename = getFilePath(filename);
   }
 
   async get() {
@@ -14,8 +15,11 @@ export default class FSStorage<Type> implements PersistentStorage<Type> {
     return JSON.parse(content) as PersistentData<Type>;
   }
 
-  async put(data: PersistentData<Type>) {
-    const content = JSON.stringify(data);
+  async put(items: Type[]) {
+    const content = JSON.stringify({
+      version: 1,
+      items
+    } as PersistentData<Type>);
     await fs.writeFile(this.filename, content,  'utf8');
   }
 }

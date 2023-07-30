@@ -5,33 +5,18 @@ import { app } from 'electron';
 import FSStorage from './FSStorage';
 
 describe('FSStorage', () => {
-  type TestData = { content: string };
-
-  let filePath: string;
+  let storage: FSStorage<{ content: string }>;
 
   beforeAll(() => {
-    filePath = join(app.getPath('appData'), 'test-data.json');
-  });
-
-  let storage: FSStorage<TestData>;
-
-  beforeAll(() => {
-    storage = new FSStorage<TestData>(filePath)
+    storage = new FSStorage<{ content: string }>('test-data.json')
   });
 
   beforeAll(async () => {
-    await storage.put({
-      version: 1,
-      items: [
-        {
-          content: 'test content',
-        }
-      ]
-    });
-  })
+    await storage.put([{ content: 'test content' }]);
+  });
 
   it('should create file with data', async () => {
-    await expect(stat(filePath)).resolves.toBeTruthy();
+    await expect(stat(join(app.getPath('userData'), 'test-data.json'))).resolves.toBeTruthy();
   });
 
   it('should persist data', async function () {
