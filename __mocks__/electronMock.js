@@ -11,7 +11,7 @@ export const app = {
 const directories = {};
 
 beforeAll(async () => {
-  directories.appData = await createAppData();
+  directories.userData = await createUserData();
 });
 
 afterAll(async () => {
@@ -25,6 +25,6 @@ beforeAll(async () => {
   app.getPath.mockImplementation((dir) => directories[dir]);
 });
 
-async function createAppData() {
-  return await mkdtemp(join(tmpdir(), 'wc-test-appdata-'), 'utf8');
+async function createUserData() {
+  return await mkdtemp(join(tmpdir(), 'wc-test-userdata-'), 'utf8');
 }

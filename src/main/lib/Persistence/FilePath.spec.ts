@@ -4,10 +4,10 @@ import { getFilePath } from './FilePath';
 
 
 describe('FilePath', () => {
-  let appData: string;
+  let userData: string;
 
   beforeAll(() => {
-    appData = app.getPath('appData');
+    userData = app.getPath('userData');
   });
 
   it.each([
@@ -17,6 +17,6 @@ describe('FilePath', () => {
     ['/test-file.json', 'test-file.json'],
     ['subfolder/test-file.json', 'test-file.json'],
   ])('should build path to Application Data folder for %s', (filename, expected) => {
-    expect(getFilePath(filename)).toContain(join(appData, expected));
+    expect(getFilePath(filename)).toContain(join(userData, expected));
   });
 });
