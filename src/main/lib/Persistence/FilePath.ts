@@ -3,15 +3,7 @@ import path from 'node:path';
 
 export function getFilePath(filename: string) {
   return path.join(
-    getUserData(),
-    getBase(filename)
+    app.getPath('userData'),
+    path.parse(filename).base
   );
-}
-
-function getUserData() {
-  return app.getPath('userData');
-}
-
-function getBase(filePath: string) {
-  return path.parse(filePath).base;
 }
