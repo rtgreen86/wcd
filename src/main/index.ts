@@ -35,12 +35,6 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = () => {
-  const appData = app.getPath('appData');
-  const userData = app.getPath('userData');
-
-  console.log(appData);
-  console.log(userData);
-
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
