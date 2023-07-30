@@ -1,6 +1,6 @@
 {
   "name": "wcd",
-  "productName": "Календарь",
+  "productName": "WCalendar",
   "version": "0.1.0",
   "description": "Календарь, 2023 год.",
   "main": ".webpack/main",
