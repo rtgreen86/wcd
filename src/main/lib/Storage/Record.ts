@@ -1,7 +1,4 @@
-export type Key = {
-  id: number,
-}
-
-export type Record = Partial<Key> & {
-  [key: string]: unknown,
+export type Record<Type> = {
+  key: string,
+  value: Type,
 };
