@@ -1,7 +1,4 @@
-export default interface File {
-  content: string,
+import Savable from './Savable';
+import Container from './Container';
 
-  get path(): string;
-
-  save(): Promise<void>;
-}
+export default interface File<Type> extends Savable, Container<Type> { }
