@@ -1,6 +1,6 @@
 import { app } from 'electron';
 import { join } from 'node:path';
-import TextFile from './TextFile';
+import FileFactory from './FileFactory';
 
 const { getPath } = app;
 
@@ -15,19 +15,19 @@ describe('TextFile', () => {
   });
 
   it('should contain path to file', () => {
-    const file = new TextFile(pathToFile);
+    const file = FileFactory.createTextFile(pathToFile);
     expect(file.path).toEqual(pathToFile);
   });
 
   describe('save file', () => {
     beforeEach(async () => {
-      const file = new TextFile(pathToFile);
+      const file = FileFactory.createTextFile(pathToFile);
       await file.setContent(content).save();
     });
 
     describe('load file', () => {
       it('should load content', async () => {
-        const file = await TextFile.load(pathToFile);
+        const file = await FileFactory.loadTextFile(pathToFile);
         expect(file.content).toEqual(content);
       });
     });

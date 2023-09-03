@@ -1,10 +1,9 @@
 import { app } from 'electron';
 import { join } from 'node:path';
 
-import File from './File';
 import Directory from './Directory';
 import UserData from './UserData';
-import { FileType } from './FileType';
+import { FileType } from '../files/FileType';
 
 const { getPath } = app;
 

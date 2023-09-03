@@ -4,8 +4,13 @@ import AbstractFile from './AbstractFile';
 import { FileType } from './FileType';
 
 export default class BinFile extends AbstractFile<Buffer> {
+  readonly fileType = FileType.BIN;
+
+  readonly path: string;
+
   constructor(path: string) {
-    super(path, FileType.BIN);
+    super();
+    this.path = path;
   }
 
   async save() {

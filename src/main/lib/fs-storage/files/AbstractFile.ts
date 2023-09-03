@@ -1,4 +1,4 @@
-import { FileType } from "./FileType";
+import { FileType } from './FileType';
 import File from './File';
 
 export default abstract class Abstractfile<Type> implements File<Type> {
@@ -6,12 +6,7 @@ export default abstract class Abstractfile<Type> implements File<Type> {
 
   content: Type;
 
-  readonly path: string;
-
-  constructor(path: string, fileType: FileType) {
-    this.fileType = fileType;
-    this.path = path;
-  }
+  abstract get path(): string;
 
   setContent(content: Type) {
     this.content = content;

@@ -1,5 +1,5 @@
-import { FileType } from './FileType';
-import File from './File';
+import { FileType } from '../files/FileType';
+import File from '../files/File';
 
 export default interface Directory {
   create(filename: string, type: FileType.TEXT): File<string>;

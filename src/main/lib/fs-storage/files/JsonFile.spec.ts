@@ -1,7 +1,6 @@
 import { app } from 'electron';
 import { join } from 'node:path';
-import JsonFile from './JsonFile';
-import TextFile from './TextFile';
+import FileFactory from './FileFactory';
 
 const { getPath } = app;
 
@@ -15,22 +14,19 @@ describe('JsonFile', () => {
   const pathToFile = (fileName: string) => join(getPath('userData'), fileName);
 
   it('should contain path to file', () => {
-    const textFile = new TextFile(pathToFile('test-file.json'));
-    const jsonFile = new JsonFile(textFile);
+    const jsonFile = FileFactory.createJsonFile(pathToFile('test-file.json'));
     expect(jsonFile.path).toEqual(pathToFile('test-file.json'));
   });
 
   describe('save file', () => {
     beforeEach(async () => {
-      const textFile = new TextFile(pathToFile('test-file.json'));
-      const jsonFile = new JsonFile(textFile);
+      const jsonFile = FileFactory.createJsonFile(pathToFile('test-file.json'));
       await jsonFile.setContent(content).save();
     });
 
     describe('load file', () => {
       it('should load content', async () => {
-        const textFile = await TextFile.load(pathToFile('test-file.json'));
-        const jsonFile = JsonFile.load(textFile);
+        const jsonFile = await FileFactory.loadJsonFile(pathToFile('test-file.json'));
         expect(jsonFile.content).toEqual(content);
       });
     });

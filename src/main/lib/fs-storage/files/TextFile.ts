@@ -1,21 +1,15 @@
 import fs from 'node:fs/promises';
-import File from './File';
+import AbstractFile from './AbstractFile';
 import { FileType } from './FileType';
 
-export default class TextFile implements File<string> {
+export default class TextFile extends AbstractFile<string> {
   readonly fileType: FileType.TEXT;
-
-  content = '';
 
   readonly path: string;
 
   constructor(path: string) {
+    super();
     this.path = path;
-  }
-
-  setContent(content: string) {
-    this.content = content;
-    return this;
   }
 
   async save() {

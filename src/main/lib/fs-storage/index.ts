@@ -1,9 +1,9 @@
-export * from './FileType';
+export * from './files/FileType';
 
-export { default as File } from './File';
-export { default as BinFile } from './BinFile';
-export { default as TextFile } from './TextFile';
-export { default as JsonFile } from './JsonFile';
+export { default as File } from './files/File';
+export { default as BinFile } from './files/BinFile';
+export { default as TextFile } from './files/TextFile';
+export { default as JsonFile } from './files/JsonFile';
 
-export { default as Directory } from './Directory';
-export { default as UserData } from './UserData';
+export { default as Directory } from './directories/Directory';
+export { default as UserData } from './directories/UserData';
