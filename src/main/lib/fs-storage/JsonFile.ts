@@ -31,7 +31,7 @@ export default class JsonFile<Type> implements File<Type> {
     return this;
   }
 
-  static async load(path: string) {
-    return new JsonFile(await TextFile.load(path)).parse();
+  static async load<Type>(path: string) {
+    return new JsonFile<Type>(await TextFile.load(path)).parse();
   }
 }
