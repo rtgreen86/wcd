@@ -1,6 +1,9 @@
 import { app } from 'electron';
 import { join } from 'node:path';
+import TextFile from './TextFile';
 import UserFile from './UserFile';
+
+const { getPath } = app;
 
 describe('UserFile', () => {
   describe('path', () => {

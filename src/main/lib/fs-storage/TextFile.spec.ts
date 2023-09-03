@@ -15,13 +15,13 @@ describe('TextFile', () => {
   });
 
   it('should contain path to file', () => {
-    const file = TextFile.create(pathToFile);
+    const file = new TextFile(pathToFile);
     expect(file.path).toEqual(pathToFile);
   });
 
   describe('save file', () => {
     beforeEach(async () => {
-      const file = TextFile.create(pathToFile);
+      const file = new TextFile(pathToFile);
       await file.setContent(content).save();
     });
 
