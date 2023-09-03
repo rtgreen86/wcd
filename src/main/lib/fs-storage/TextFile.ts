@@ -1,7 +1,10 @@
-import File from './File';
 import fs from 'node:fs/promises';
+import File from './File';
+import { FileType } from './FileType';
 
 export default class TextFile implements File<string> {
+  readonly fileType: FileType.TEXT;
+
   content = '';
 
   readonly path: string;

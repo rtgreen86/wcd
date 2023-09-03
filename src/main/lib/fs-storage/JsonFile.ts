@@ -1,7 +1,10 @@
 import File from "./File";
+import { FileType } from "./FileType";
 import TextFile from "./TextFile";
 
 export default class JsonFile<Type> implements File<Type> {
+  readonly fileType: FileType.JOSN;
+
   content: Type;
 
   private readonly file: TextFile;
