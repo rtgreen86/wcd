@@ -20,7 +20,7 @@ export default class UserData implements Directory {
   create<Type>(filename: string, type: FileType) {
     switch (type) {
       case FileType.JOSN:
-        return new JsonFile<Type>(this.getAbsolutePath(filename));
+        return new JsonFile<Type>(this.create(this.getAbsolutePath(filename), FileType.TEXT));
       default:
         return new TextFile(this.getAbsolutePath(filename));
     }
@@ -31,9 +31,9 @@ export default class UserData implements Directory {
   async load<Type>(filename: string, type: FileType) {
     switch (type) {
       case FileType.JOSN:
-        return await JsonFile.load<Type>(this.getAbsolutePath(filename));
+        return JsonFile.load<Type>(await this.load(this.getAbsolutePath(filename), FileType.TEXT));
       default:
-        return new TextFile(this.getAbsolutePath(filename));
+        return await TextFile.load(this.getAbsolutePath(filename));
     }
   }
 }

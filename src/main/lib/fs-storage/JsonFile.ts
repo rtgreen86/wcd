@@ -1,22 +1,19 @@
 import File from "./File";
 import { FileType } from "./FileType";
-import TextFile from "./TextFile";
 
 export default class JsonFile<Type> implements File<Type> {
   readonly fileType: FileType.JOSN;
 
   content: Type;
 
-  private readonly file: TextFile;
+  private readonly file: File<string>;
 
   get path() {
     return this.file.path;
   }
 
-  constructor(pathOrFile: string | TextFile) {
-    this.file = typeof pathOrFile === 'string'
-      ? pathOrFile = new TextFile(pathOrFile)
-      : pathOrFile;
+  constructor(file: File<string>) {
+    this.file = file;
   }
 
   setContent(content: Type) {
@@ -34,7 +31,7 @@ export default class JsonFile<Type> implements File<Type> {
     return this;
   }
 
-  static async load<Type>(path: string) {
-    return new JsonFile<Type>(await TextFile.load(path)).parse();
+  static load<Type>(file: File<string>) {
+    return new JsonFile<Type>(file).parse();
   }
 }
