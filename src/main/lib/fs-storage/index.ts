@@ -1,6 +1,7 @@
 export * from './FileType';
 
 export { default as File } from './File';
+export { default as BinFile } from './BinFile';
 export { default as TextFile } from './TextFile';
 export { default as JsonFile } from './JsonFile';
 
