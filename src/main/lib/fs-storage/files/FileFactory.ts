@@ -1,10 +1,20 @@
 import BinFile from './BinFile';
 import JsonFile from './JsonFile';
 import TextFile from './TextFile';
+import EncryptedFile from './EncryptedFile';
 
 export default class FileFactory {
   static createBinFile(path: string) {
     return new BinFile(path);
+  }
+
+  static createEncryptedFile(path: string) {
+    return new EncryptedFile(path);
+  }
+
+  static createEncryptedJsonFile<Type>(path: string) {
+    const encryptedFile = FileFactory.createEncryptedFile(path);
+    return new JsonFile<Type>(encryptedFile);
   }
 
   static createTextFile(path: string) {
@@ -17,6 +27,14 @@ export default class FileFactory {
 
   static loadBinFile(path: string) {
     return BinFile.load(path);
+  }
+
+  static async loadEncryptedFile(path: string) {
+    return await EncryptedFile.load(path);
+  }
+
+  static loadEncryptedJsonFile(path: string) {
+
   }
 
   static loadTextFile(path: string) {
