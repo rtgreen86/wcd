@@ -1,1 +1,1 @@
-export { default as KeyGen } from './KeyGen';
+export { default as KeyGenerator } from './KeyGenerator';
