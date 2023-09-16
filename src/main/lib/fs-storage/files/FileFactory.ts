@@ -8,8 +8,8 @@ export default class FileFactory {
     return new BinFile(path);
   }
 
-  static createEncryptedFile(path: string) {
-    return new EncryptedFile(path);
+  static createEncryptedFile(path: string, hexKey: string) {
+    return new EncryptedFile(path, hexKey);
   }
 
   static createEncryptedJsonFile<Type>(path: string) {
@@ -29,8 +29,8 @@ export default class FileFactory {
     return BinFile.load(path);
   }
 
-  static async loadEncryptedFile(path: string) {
-    return await EncryptedFile.load(path);
+  static async loadEncryptedFile(path: string, hexKey: string) {
+    return await EncryptedFile.load(path, hexKey);
   }
 
   static loadEncryptedJsonFile(path: string) {
