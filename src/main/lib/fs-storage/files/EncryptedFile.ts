@@ -3,8 +3,9 @@ import AbstractFile from './AbstractFile';
 import { FileType } from './FileType';
 import { createWriteStream, createReadStream } from 'node:fs';
 import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
-import { pipeline } from 'node:stream';
+import { pipeline, finished } from 'node:stream/promises';
 import { Buffer } from 'node:buffer';
+import { Writable } from 'node:stream';
 
 const algorithm = 'aes-192-cbc';
 
@@ -23,20 +24,12 @@ export default class EncryptedFile extends AbstractFile<string> {
     this.hexKey = hexKey;
   }
 
-  save() {
-    return new Promise<void>((reslove, reject) => {
-        const key = Buffer.alloc(keySize, this.hexKey, 'hex');
-        const iv = randomBytes(16);
-        const cipher = createCipheriv(algorithm, key, iv);
-        const output = createWriteStream(this.path);
-        output.write(iv);
-        pipeline(cipher, output, (err) => {
-          if (err) return reject(err);
-        });
-        cipher.on('end', () => reslove());
-        cipher.write(this.content);
-        cipher.end();
-      });
+  async save() {
+    const output = createWriteStream(this.path);
+    const encrypter = createEncrypter(output, this.hexKey);
+    encrypter.write(this.content);
+    encrypter.end();
+    return finished(encrypter);
   }
 
   static load(path: string, hexKey: string): Promise<File<string>> {
@@ -74,4 +67,13 @@ export default class EncryptedFile extends AbstractFile<string> {
       });
     }) as Promise<File<string>>;
   }
+}
+
+function createEncrypter(writable: Writable, hexKey: string) {
+  const key = Buffer.alloc(keySize, hexKey, 'hex');
+  const iv = randomBytes(16);
+  const cipher = createCipheriv(algorithm, key, iv);
+  writable.write(iv);
+  pipeline(cipher, writable);
+  return cipher;
 }
