@@ -40,7 +40,7 @@ export default class EncryptedFile extends AbstractFile<string> {
   }
 
   static load(path: string, hexKey: string): Promise<File<string>> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const key = Buffer.alloc(keySize, hexKey, 'hex');
 
       const input = createReadStream(path);
@@ -48,6 +48,8 @@ export default class EncryptedFile extends AbstractFile<string> {
       input.once('readable', () => {
         const iv = input.read(16);
         const decipher = createDecipheriv(algorithm, key, iv);
+
+        decipher.on('error', reject);
 
         let decrypted = '';
 
