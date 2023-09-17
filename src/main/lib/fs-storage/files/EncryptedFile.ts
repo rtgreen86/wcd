@@ -60,10 +60,6 @@ export default class EncryptedFile extends AbstractFile<string> {
         });
 
         input.pipe(decipher)
-        let chunk;
-        while (null !== (chunk = decipher.read())) {
-          decrypted += chunk.toString('utf8');
-        }
       });
     }) as Promise<File<string>>;
   }
