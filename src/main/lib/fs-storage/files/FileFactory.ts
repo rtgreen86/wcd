@@ -12,11 +12,6 @@ export default class FileFactory {
     return new EncryptedFile(path, hexKey);
   }
 
-  static createEncryptedJsonFile<Type>(path: string) {
-    const encryptedFile = FileFactory.createEncryptedFile(path);
-    return new JsonFile<Type>(encryptedFile);
-  }
-
   static createTextFile(path: string) {
     return new TextFile(path);
   }
@@ -31,10 +26,6 @@ export default class FileFactory {
 
   static async loadEncryptedFile(path: string, hexKey: string) {
     return await EncryptedFile.load(path, hexKey);
-  }
-
-  static loadEncryptedJsonFile(path: string) {
-
   }
 
   static loadTextFile(path: string) {
