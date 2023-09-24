@@ -3,6 +3,7 @@ import SysInfo from './SysInfo';
 import { handleIpc as handleStorageIpc } from './Storage';
 import { createRequestProcessor } from './lib/RequestProcessor';
 import { Request, Response } from '../lib/Request';
+import './server';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
