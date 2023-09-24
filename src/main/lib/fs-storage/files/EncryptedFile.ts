@@ -35,33 +35,47 @@ export default class EncryptedFile extends AbstractFile<string> {
   static load(path: string, hexKey: string): Promise<File<string>> {
     return new Promise((resolve, reject) => {
       const key = Buffer.alloc(keySize, hexKey, 'hex');
+      const stream = createReadStream(path);
 
-      const input = createReadStream(path);
+      let iv: Buffer;
+      const chunks: string[] = [];
 
-      input.once('readable', () => {
-        const iv = input.read(16);
+      function onEnd() {
+        const file = new EncryptedFile(path, hexKey);
+        file.content = chunks.join('');
+        resolve(file);
+      }
+
+      function onReadable() {
+        if (!iv) {
+          iv = stream.read(16);
+        }
+        if (!iv) return;
+
+        stream.off('readable', onReadable);
+        stream.off('end', onEnd);
+
         const decipher = createDecipheriv(algorithm, key, iv);
-
-        decipher.on('error', reject);
-
-        let decrypted = '';
 
         decipher.on('readable', () => {
           let chunk;
-          while (null !== (chunk = decipher.read())) {
-            decrypted += chunk.toString('utf8');
-          }
+          do {
+            chunk = decipher.read();
+            if (chunk) chunks.push(chunk);
+          } while (chunk);
         });
 
-        decipher.on('end', () => {
-          const file = new EncryptedFile(path, hexKey);
-          file.content = decrypted;
-          resolve(file);
-        });
+        decipher.on('end', onEnd);
+        decipher.on('error', reject);
 
-        input.pipe(decipher)
-      });
-    }) as Promise<File<string>>;
+        decipher.setEncoding('utf8');
+        stream.pipe(decipher);
+      }
+
+      stream.on('error', reject);
+      stream.on('end', onEnd);
+      stream.on('readable', onReadable);
+    });
   }
 }
 
