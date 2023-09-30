@@ -8,14 +8,36 @@ import { Method } from '../../lib/Request';
 export default function ControlsScreen() {
   const [pin, setPin] = useState('');
 
+  const [text, setText] = useState('');
+
+  const handleTextInput = (input) => {
+    setText(input.currentTarget.value);
+  };
+
+  const handleSaveClick = () => {
+    window.electronAPI.saveFile(text);
+  };
+
+  const handleLoadClick = async () => {
+    const data = await window.electronAPI.loadFile();
+    setText(data);
+  }
+
   return (
     <>
       <BackPanel />
       <main>
+        <settings>
+          <h1>File System Connection</h1>
+          <div>Save next field content to FS</div>
+          <div><input type="text" value={text} onChange={handleTextInput}></input></div>
+          <div><Button onClick={handleSaveClick}>Save</Button> <Button onClick={handleLoadClick}>Load</Button></div>
+        </settings>
+
         <section>
           <button onClick={() => {
             const URL = 'test';
-            electronAPI.request({
+            window.electronAPI.request({
               uri: URL,
               params: {
                 admins: true,

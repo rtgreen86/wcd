@@ -5,5 +5,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   storagePut: (filename, content) => ipcRenderer.invoke('storage-put', filename, content),
   getSysInfo: () => ipcRenderer.invoke('get-sysinfo'),
   showAbout: () => ipcRenderer.invoke('show-about'),
-  request: (request) => ipcRenderer.invoke('request', request)
+  request: (request) => ipcRenderer.invoke('request', request),
+  saveFile: (content) => ipcRenderer.invoke('saveFile', content),
+  loadFile: () => ipcRenderer.invoke('loadFile')
 });

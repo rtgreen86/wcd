@@ -4,6 +4,25 @@ import { handleIpc as handleStorageIpc } from './Storage';
 import { createRequestProcessor } from './lib/RequestProcessor';
 import { Request, Response } from '../lib/Request';
 import { server } from './server';
+import { writeFile, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+
+const filename = 'test.txt';
+
+async function writeText(content: string) {
+  const dir = app.getPath('userData');
+  const filePath = join(dir, filename);
+  console.log('Write files to:', filePath);
+  console.log('Write content:', content);
+  await writeFile(filePath, content, 'utf-8');
+}
+
+async function readText() {
+  const dir = app.getPath('userData');
+  const filePath = join(dir, filename);
+  console.log('Read file from:', filePath);
+  return await readFile(filePath, 'utf-8');
+}
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -28,6 +47,9 @@ const handleIpc = () => {
   ipcMain.handle('get-sysinfo', () => SysInfo.get());
   ipcMain.handle('show-about', () => app.showAboutPanel());
   ipcMain.handle('request', (event, request) => requestProcessor.handle(request));
+
+  ipcMain.handle('saveFile', (event, content) => writeText(content));
+  ipcMain.handle('loadFile', () => readText());
 }
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
