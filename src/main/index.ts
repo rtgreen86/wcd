@@ -3,7 +3,7 @@ import SysInfo from './SysInfo';
 import { handleIpc as handleStorageIpc } from './Storage';
 import { createRequestProcessor } from './lib/RequestProcessor';
 import { Request, Response } from '../lib/Request';
-import './server';
+import { server } from './server';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -69,9 +69,24 @@ app.whenReady().then(async () => {
 
   fillAboutPanel();
   handleIpc();
-  createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+
+  server.listen({
+    host: 'localhost',
+    port: 0,
+  }, () => {
+    console.log('Started');
+
+    const address = server.address();
+
+    if (typeof address === 'object') {
+      console.log(address.port);
+    }
+
+    createWindow();
+
   });
 });
 
