@@ -27,12 +27,12 @@ export default function ControlsScreen() {
     <>
       <BackPanel />
       <main>
-        <settings>
+        <section>
           <h1>File System Connection</h1>
           <div>Save next field content to FS</div>
           <div><input type="text" value={text} onChange={handleTextInput}></input></div>
           <div><Button onClick={handleSaveClick}>Save</Button> <Button onClick={handleLoadClick}>Load</Button></div>
-        </settings>
+        </section>
 
         <section>
           <button onClick={() => {
