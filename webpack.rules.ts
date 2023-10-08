@@ -18,12 +18,6 @@ export const rules: Required<ModuleOptions>['rules'] = [
       },
     },
   },
-  // {
-  //   test: /\.(js|jsx)$/,
-  //   exclude: /(node_modules|bower_components)/,
-  //   loader: 'babel-loader',
-  //   options: { presets: ['@babel/env', '@babel/preset-react', '@babel/preset-typescript'] }
-  // },
   {
     test: /\.tsx?$/,
     exclude: /(node_modules|\.webpack)/,
