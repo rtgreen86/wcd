@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Button, Panel, Menu, MenuItem } from '../lib/UIKit';
 import LoginForm from '../components/LoginForm';
 import BackPanel from '../components/BackPanel';
 import { Method } from '../../lib/Request';
+
+import {DispatchContext, StateContext} from '../App';
 
 export default function ControlsScreen() {
   const [pin, setPin] = useState('');
@@ -23,10 +25,24 @@ export default function ControlsScreen() {
     setText(data);
   }
 
+  const state = useContext(StateContext);
+
+  const dispatch = useContext(DispatchContext);
+
+  const onBtnClick = () => {
+    dispatch({type: 'increment'});
+  }
+
   return (
     <>
       <BackPanel />
       <main>
+
+        <section>
+          <h1>Global State</h1>
+          <button value={state} onClick={onBtnClick}>State: {state}</button>
+        </section>
+
         <section>
           <h1>File System Connection</h1>
           <div>Save next field content to FS</div>

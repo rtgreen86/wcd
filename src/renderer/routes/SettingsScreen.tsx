@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import BackPanel from '../components/BackPanel';
 import packageInfo from '../../../package.json';
 
+import { DispatchContext, StateContext } from '../App';
+
 export default function SettingsScreen() {
+  const state = useContext(StateContext);
+
+  const dispatch = useContext(DispatchContext);
+
+  const onBtnClick = () => {
+    dispatch({ type: 'increment' });
+  }
+
   return (
     <>
       <BackPanel />
       <main>
+
+        <section>
+          <h1>Global State</h1>
+          <button value={state} onClick={onBtnClick}>State: {state}</button>
+        </section>
+
         <section>
           <form>
             <h1>Настройки</h1>
@@ -20,7 +36,7 @@ export default function SettingsScreen() {
         </section>
         <section>
           <h1>О программе</h1>
-          <p>{packageInfo.productName}<br/>Версия {packageInfo.version}<br/>{packageInfo.description}</p>
+          <p>{packageInfo.productName}<br />Версия {packageInfo.version}<br />{packageInfo.description}</p>
         </section>
       </main>
     </>
