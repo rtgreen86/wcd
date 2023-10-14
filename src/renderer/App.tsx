@@ -5,6 +5,8 @@ import {
   Navigate
 } from "react-router-dom";
 
+import { Provider } from './features/store';
+
 import Invoices from "./routes/Invoices";
 import Invoice from "./routes/Invoice";
 import CalendarScreen from './routes/CalendarScreen';
@@ -48,26 +50,28 @@ export default function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
+        <Provider>
 
-        <Routes>
-          <Route path="/lock" element={<LockScreen />} />
-          <Route path="/controls" element={<ControlsScreen />} />
-          <Route path="/settings" element={<SettingsScreen />} />
-          <Route path="invoices" element={<Invoices />}>
-            <Route path=":invoiceId" element={<Invoice />} />
-            <Route
-              index
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>Select an invoice</p>
-                </main>
-              }
-            />
-          </Route>
-          <Route path="/" element={<CalendarScreen />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+          <Routes>
+            <Route path="/lock" element={<LockScreen />} />
+            <Route path="/controls" element={<ControlsScreen />} />
+            <Route path="/settings" element={<SettingsScreen />} />
+            <Route path="invoices" element={<Invoices />}>
+              <Route path=":invoiceId" element={<Invoice />} />
+              <Route
+                index
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p>Select an invoice</p>
+                  </main>
+                }
+              />
+            </Route>
+            <Route path="/" element={<CalendarScreen />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
 
+        </Provider>
       </StateContext.Provider>
     </DispatchContext.Provider>
   );

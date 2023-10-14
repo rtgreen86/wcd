@@ -1,6 +1,7 @@
 import React, { useReducer, useCallback } from 'react';
 import { CalendarLocale, YearCalendar } from '../lib/Calendar';
 import MainPanel from '../components/MainPanel';
+import { useStore } from '../features/store';
 
 type Marks = {
   [date: string]: string[]
@@ -132,10 +133,12 @@ export default function CalendarScreen() {
     dispatch({ type: 'marks/toggle', payload: {date, marks: ['red']}});
   }, [dispatch]);
 
+  const store = useStore();
+
   return (
     <>
-      <MainPanel year={ state.year } onDispatch={ dispatch } />
-      <main><section><CalendarLocale locale="ru-RU"><YearCalendar year={ state.year } marks={ state.marks.data } onClick={handleDateClick} /></CalendarLocale></section></main>
+      <MainPanel year={ store.year } onDispatch={ dispatch } />
+      <main><section><CalendarLocale locale="ru-RU"><YearCalendar year={ store.year } marks={ state.marks.data } onClick={handleDateClick} /></CalendarLocale></section></main>
     </>
   );
 }
