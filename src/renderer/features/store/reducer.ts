@@ -1,5 +1,6 @@
 import { Action } from "./Action";
 import { State } from "./State";
+import { union, diff, symDiff } from '../../../lib/set-op';
 
 export default function reducer(state: State, action: Action): State {
   switch(action.type) {
@@ -13,12 +14,62 @@ export default function reducer(state: State, action: Action): State {
       year: state.year - 1,
     };
 
-    case "marks/loaded":
-    case "marks/set":
-    case "marks/unset":
-    case "marks/toggle":
+    case "marks/set": return setMarks(state, action);
+
+    case "marks/unset": return unsetMarks(state, action);
+
+    case "marks/toggle": return toggleMarks(state, action);
+
+    case "marks/loaded": return state;
     default:
       return state;
   }
 }
 
+function setMarks(state: State, action: Extract<Action, {type: 'marks/set'}>): State {
+  const marks = { ...state.marks };
+
+  for (const date of Object.keys(action.payload)) {
+    const dayMarks = new Set(marks[date]);
+    const newDayMarks = new Set(action.payload[date]);
+    marks[date] = [...union(dayMarks, newDayMarks)];
+  }
+
+  return { ...state, marks };
+}
+
+function unsetMarks(state: State, action: Extract<Action, {type: 'marks/unset'}>): State {
+  const marks = { ...state.marks };
+
+  for (const date of Object.keys(action.payload)) {
+    const dayMarks = new Set(marks[date]);
+    const removeDayMarks = new Set(action.payload[date]);
+    marks[date] = [...diff(dayMarks, removeDayMarks)];
+  }
+
+  for (const date of Object.keys(marks)) {
+    if (!marks[date].length) {
+      delete marks[date];
+    }
+  }
+
+  return { ...state, marks };
+}
+
+function toggleMarks(state: State, action: Extract<Action, {type: 'marks/toggle'}>): State {
+  const marks = { ...state.marks };
+
+  for (const date of Object.keys(action.payload)) {
+    const dayMarks = new Set(marks[date]);
+    const removeDayMarks = new Set(action.payload[date]);
+    marks[date] = [...symDiff(dayMarks, removeDayMarks)];
+  }
+
+  for (const date of Object.keys(marks)) {
+    if (!marks[date].length) {
+      delete marks[date];
+    }
+  }
+
+  return { ...state, marks };
+}
