@@ -1,18 +1,18 @@
 import React, { createContext, useReducer } from 'react';
-import {
-  Routes,
-  Route,
-  Navigate
-} from "react-router-dom";
-
 import { Provider } from './features/store';
-
 import Invoices from "./routes/Invoices";
 import Invoice from "./routes/Invoice";
 import CalendarScreen from './routes/CalendarScreen';
 import ControlsScreen from './routes/ControlsScreen';
 import SettingsScreen from './routes/SettingsScreen';
 import LockScreen from './routes/LockScreen';
+
+import {
+  Routes,
+  Route,
+  Navigate,
+  MemoryRouter
+} from "react-router-dom";
 
 // State and Reducer
 
@@ -38,7 +38,7 @@ function reducer(state: State, action: Action) {
 
 export const StateContext = createContext(0);
 
-const f: React.Dispatch<Action> = () => {/* empty */};
+const f: React.Dispatch<Action> = () => {/* empty */ };
 
 export const DispatchContext = createContext(f);
 
@@ -51,26 +51,28 @@ export default function App() {
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
         <Provider>
+          <MemoryRouter>
 
-          <Routes>
-            <Route path="/lock" element={<LockScreen />} />
-            <Route path="/controls" element={<ControlsScreen />} />
-            <Route path="/settings" element={<SettingsScreen />} />
-            <Route path="invoices" element={<Invoices />}>
-              <Route path=":invoiceId" element={<Invoice />} />
-              <Route
-                index
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>Select an invoice</p>
-                  </main>
-                }
-              />
-            </Route>
-            <Route path="/" element={<CalendarScreen />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+            <Routes>
+              <Route path="/lock" element={<LockScreen />} />
+              <Route path="/controls" element={<ControlsScreen />} />
+              <Route path="/settings" element={<SettingsScreen />} />
+              <Route path="invoices" element={<Invoices />}>
+                <Route path=":invoiceId" element={<Invoice />} />
+                <Route
+                  index
+                  element={
+                    <main style={{ padding: "1rem" }}>
+                      <p>Select an invoice</p>
+                    </main>
+                  }
+                />
+              </Route>
+              <Route path="/" element={<CalendarScreen />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
 
+          </MemoryRouter>
         </Provider>
       </StateContext.Provider>
     </DispatchContext.Provider>
