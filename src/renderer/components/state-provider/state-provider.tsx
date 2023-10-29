@@ -1,13 +1,12 @@
 import React, { useReducer, ReactNode } from "react";
-import reducer from "./reducer";
-import { initState } from "./State";
-import { DispatchContext, StateContext } from "./Contextes";
+import reducer from "../../reducers";
+import { initState, DispatchContext, StateContext } from "../../contexts/state-context";
 
 type StorageProps = {
   children: ReactNode
 };
 
-export default function Provider({ children }: StorageProps) {
+export default function StateProvider({ children }: StorageProps) {
   const [state, dispatch] = useReducer(reducer, {}, initState);
 
   return (

@@ -1,7 +1,8 @@
 import React from 'react';
 import { CalendarLocale, YearCalendar } from '../lib/Calendar';
 import MainPanel from '../components/MainPanel';
-import { marksToggle, useDispatch, useStore } from '../features/store';
+import { marksToggle } from '../actions';
+import { useDispatch, useStore } from '../hooks';
 
 export default function CalendarScreen() {
   const store = useStore();

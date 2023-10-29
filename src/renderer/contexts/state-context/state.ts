@@ -1,4 +1,4 @@
-export type Marks = {[date: string]: string[]};
+import {Marks} from '../../actions';
 
 export type State = {
   year: number,
@@ -11,4 +11,3 @@ export const initState = () => ({
   isMarksLoaded: false,
   marks: {},
 } as State);
-

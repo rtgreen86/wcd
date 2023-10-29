@@ -1,5 +1,5 @@
-import { Action } from "./Action";
-import { State } from "./State";
+import { Action } from "../actions";
+import { State } from "../contexts/state-context";
 import reducer from "./reducer";
 
 describe('reducer', () => {

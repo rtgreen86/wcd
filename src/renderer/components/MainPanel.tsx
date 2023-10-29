@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, NavLink } from "react-router-dom";
 import { Button, MenuItem, TopToolbar } from '../lib/UIKit';
-import { yearDecrement, yearIncrement, useDispatch } from '../features/store';
+import { yearDecrement, yearIncrement } from '../actions';
+import { useDispatch } from '../hooks';
 
 export default function MainPanel({ year, onDispatch = () => {/* */} }: { year: number, onDispatch: (arg: any) => void}) {
   const navigate = useNavigate();

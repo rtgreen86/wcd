@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { Provider } from './features/store';
+import StateProvder from './components/state-provider';
 import Invoices from "./routes/Invoices";
 import Invoice from "./routes/Invoice";
 import CalendarScreen from './routes/CalendarScreen';
@@ -50,7 +50,7 @@ export default function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
-        <Provider>
+        <StateProvder>
           <MemoryRouter>
 
             <Routes>
@@ -73,7 +73,7 @@ export default function App() {
             </Routes>
 
           </MemoryRouter>
-        </Provider>
+        </StateProvder>
       </StateContext.Provider>
     </DispatchContext.Provider>
   );

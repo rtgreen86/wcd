@@ -1,6 +1,6 @@
-import { Action } from "./Action";
-import { State } from "./State";
-import { union, diff, symDiff } from '../../../lib/set-op';
+import { Action } from "../actions";
+import { State } from "../contexts/state-context";
+import { union, diff, symDiff } from '../../lib/set-op';
 
 export default function reducer(state: State, action: Action): State {
   switch(action.type) {

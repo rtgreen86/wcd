@@ -1,4 +1,4 @@
-import * as ACTIONS from './ActionCreators';
+import * as ACTIONS from './action-creators';
 
 export type Action = ReturnType<typeof ACTIONS[keyof typeof ACTIONS]>;
 
