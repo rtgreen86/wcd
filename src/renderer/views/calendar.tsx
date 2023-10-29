@@ -4,7 +4,7 @@ import MainPanel from '../components/MainPanel';
 import { marksToggle } from '../actions';
 import { useDispatch, useStore } from '../hooks';
 
-export default function CalendarScreen() {
+export default function Calendar() {
   const store = useStore();
   const dispatch = useDispatch();
 

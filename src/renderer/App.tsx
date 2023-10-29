@@ -1,11 +1,11 @@
 import React, { createContext, useReducer } from 'react';
 import StateProvder from './components/state-provider';
-import Invoices from "./routes/Invoices";
-import Invoice from "./routes/Invoice";
-import CalendarScreen from './routes/CalendarScreen';
-import ControlsScreen from './routes/ControlsScreen';
-import SettingsScreen from './routes/SettingsScreen';
-import LockScreen from './routes/LockScreen';
+import Invoices from "./views/Invoices";
+import Invoice from "./views/Invoice";
+import Calendar from './views/calendar';
+import ControlsScreen from './views/ControlsScreen';
+import SettingsScreen from './views/SettingsScreen';
+import LockScreen from './views/LockScreen';
 
 import {
   Routes,
@@ -68,7 +68,7 @@ export default function App() {
                   }
                 />
               </Route>
-              <Route path="/" element={<CalendarScreen />} />
+              <Route path="/" element={<Calendar />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
 
