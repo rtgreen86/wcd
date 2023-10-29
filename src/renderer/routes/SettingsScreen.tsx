@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import BackPanel from '../components/BackPanel';
 import packageInfo from '../../../package.json';
 
-import { DispatchContext, StateContext } from '../App';
+import { DispatchContext, StateContext } from '../app';
 
 export default function SettingsScreen() {
   const state = useContext(StateContext);

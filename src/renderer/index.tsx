@@ -32,7 +32,7 @@ import './lib/GoogleIcons';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import App from './App';
+import App from './app';
 import { ProvideAuth } from './features/auth/ProvideAuth';
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');

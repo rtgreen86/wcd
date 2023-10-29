@@ -5,7 +5,7 @@ import LoginForm from '../components/LoginForm';
 import BackPanel from '../components/BackPanel';
 import { Method } from '../../lib/Request';
 
-import {DispatchContext, StateContext} from '../App';
+import {DispatchContext, StateContext} from '../app';
 
 export default function ControlsScreen() {
   const [pin, setPin] = useState('');
