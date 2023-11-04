@@ -7,5 +7,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   showAbout: () => ipcRenderer.invoke('show-about'),
   request: (request) => ipcRenderer.invoke('request', request),
   saveFile: (content) => ipcRenderer.invoke('saveFile', content),
-  loadFile: () => ipcRenderer.invoke('loadFile')
+  loadFile: () => ipcRenderer.invoke('loadFile'),
+
+  fs: {
+    saveUserFile: (payload) => ipcRenderer.invoke('fs-save-user-file', payload),
+    loadUserFile: (payload) => ipcRenderer.invoke('fs-load-user-file', payload)
+  }
 });

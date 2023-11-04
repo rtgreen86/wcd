@@ -4,6 +4,8 @@ import packageInfo from '../../../package.json';
 
 import { DispatchContext, StateContext } from '../app';
 
+import TestFsApi from '../components/TestFsApi';
+
 export default function SettingsScreen() {
   const state = useContext(StateContext);
 
@@ -21,6 +23,11 @@ export default function SettingsScreen() {
         <section>
           <h1>Global State</h1>
           <button value={state} onClick={onBtnClick}>State: {state}</button>
+        </section>
+
+        <section>
+          <h1>Save / Load</h1>
+          <TestFsApi></TestFsApi>
         </section>
 
         <section>
