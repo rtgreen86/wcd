@@ -2,6 +2,7 @@ import { createWriteStream, createReadStream } from 'node:fs';
 import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
 import { pipeline, finished } from 'node:stream/promises';
 import { Buffer } from 'node:buffer';
+import { Readable } from 'node:stream';
 
 const KEY_SIZE = 24;
 
@@ -24,46 +25,50 @@ export function encryptedSave(filename: string, hexKey: string, content: string)
   return finished(cipher);
 }
 
-export function encryptedLoad(filename: string, hexKey: string) {
+export async function encryptedLoad(filename: string, hexKey: string) {
+  const key = Buffer.alloc(KEY_SIZE, hexKey, 'hex');
+  const stream = createReadStream(filename);
+  const iv = await readIV(stream);
+  const decipher = createDecipheriv(ALGORITHM, key, iv);
+  stream.pipe(decipher);
+  return readContent(decipher);
+}
+
+
+function readIV(stream: Readable): Promise<Buffer> | null {
   return new Promise((resolve, reject) => {
-    const key = Buffer.alloc(KEY_SIZE, hexKey, 'hex');
-    const stream = createReadStream(filename);
+    const handleReadable = () => {
+      const iv = stream.read(IV_SIZE);
 
-    let iv: Buffer;
-    const chunks: string[] = [];
-
-    function onEnd() {
-      resolve(chunks.join(''));
-    }
-
-    function onReadable() {
-      if (!iv) {
-        iv = stream.read(16);
+      if (iv === null) {
+        stream.once('readable', handleReadable);
+        return;
       }
-      if (!iv) return;
 
-      stream.off('readable', onReadable);
-      stream.off('end', onEnd);
+      resolve(iv);
+    };
 
-      const decipher = createDecipheriv(ALGORITHM, key, iv);
+    stream.once('readable', handleReadable);
+    stream.once('error', reject);
+    stream.once('end', () => resolve(null));
+  });
+}
 
-      decipher.on('readable', () => {
-        let chunk;
-        do {
-          chunk = decipher.read();
-          if (chunk) chunks.push(chunk);
-        } while (chunk);
-      });
-
-      decipher.on('end', onEnd);
-      decipher.on('error', reject);
-
-      decipher.setEncoding('utf8');
-      stream.pipe(decipher);
-    }
+function readContent(stream: Readable) {
+  return new Promise((resolve, reject) => {
+    const chunks = [] as string[];
 
     stream.on('error', reject);
-    stream.on('end', onEnd);
-    stream.on('readable', onReadable);
+
+    stream.on('end', () => {
+      resolve(chunks.join(''));
+    });
+
+    stream.on('readable', () => {
+      let chunk;
+      while (null !== (chunk = stream.read())) {
+        chunks.push(chunk);
+      }
+    });
   });
 }
