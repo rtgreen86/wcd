@@ -19,7 +19,12 @@ describe('fs-ops', () => {
   });
 
   it('should save and load text to fs', async () => {
-    await save(join(tmpDir, filename), content);
-    await expect(load(join(tmpDir, filename))).resolves.toEqual(content);
+    const pathToFile = join(tmpDir, filename);
+
+    await save(pathToFile, content);
+
+    const loadPromise = load(join(tmpDir, filename));
+
+    await expect(loadPromise).resolves.toEqual(content);
   });
 })
