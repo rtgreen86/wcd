@@ -1,7 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
 import { handleIpc as handleStorageIpc } from './Storage';
-import { createRequestProcessor } from './lib/RequestProcessor';
 import { server } from './server';
 import { writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -36,14 +35,10 @@ const fillAboutPanel = () => {
   });
 };
 
-const requestProcessor = createRequestProcessor<Request, Promise<Response>>();
-
 const handleIpc = () => {
   handleStorageIpc();
   ipcMain.handle('get-sysinfo', () => SysInfo.get());
   ipcMain.handle('show-about', () => app.showAboutPanel());
-  ipcMain.handle('request', (event, request) => requestProcessor.handle(request));
-
   ipcMain.handle('saveFile', (event, content) => writeText(content));
   ipcMain.handle('loadFile', () => readText());
 }
