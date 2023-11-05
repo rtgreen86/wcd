@@ -11,6 +11,20 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
   fs: {
     saveUserFile: (payload) => ipcRenderer.invoke('fs-save-user-file', payload),
-    loadUserFile: (payload) => ipcRenderer.invoke('fs-load-user-file', payload)
+    loadUserFile: (payload) => ipcRenderer.invoke('fs-load-user-file', payload),
+
+    put(filename, options) {
+      ipcRenderer.send('fs:put', filename, options);
+    },
+
+    get(filename, tokenOrOptions) {
+      const options = typeof tokenOrOptions === 'object'
+        ? tokenOrOptions
+        : {};
+      if (typeof tokenOrOptions === 'string') {
+        options.token = tokenOrOptions;
+      }
+      return ipcRenderer.invoke('fs:get', filename, options);
+    }
   }
 });

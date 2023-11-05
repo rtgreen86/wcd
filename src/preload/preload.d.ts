@@ -33,18 +33,18 @@ declare namespace electronAPI {
     function loadUserFile(payload: LoadPayload): Promise<string>;
 
     type SaveOptions = {
-      key?: string,
+      token?: string,
       body: string,
     }
 
     type LoadOptions = {
-      key?: string,
+      token?: string,
     }
 
-    function save(filename: string, options: SaveOptions): void;
+    function put(filename: string, options: SaveOptions): void;
 
-    function load(filename: string, key: string): Promise<string | null>
+    function get(filename: string, token: string): Promise<string | null>
 
-    function load(filename: string, options: LoadOptions): Promise<string | null>
+    function get(filename: string, options: LoadOptions): Promise<string | null>
   }
 }

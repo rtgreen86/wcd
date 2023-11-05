@@ -1,7 +1,7 @@
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { save, load } from './fs-ops';
+import { loadFile, saveFile } from './fs';
 
 describe('fs-ops', () => {
   const content = 'Hello World!';
@@ -21,9 +21,9 @@ describe('fs-ops', () => {
   it('should save and load text to fs', async () => {
     const pathToFile = join(tmpDir, filename);
 
-    await save(pathToFile, content);
+    await saveFile(pathToFile, content);
 
-    const loadPromise = load(join(tmpDir, filename));
+    const loadPromise = loadFile(join(tmpDir, filename));
 
     await expect(loadPromise).resolves.toEqual(content);
   });

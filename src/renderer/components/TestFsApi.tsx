@@ -6,12 +6,11 @@ export default function TestFsApi() {
   useEffect(() => {
     const load = async () => {
       try {
-        const content = await electronAPI.fs.loadUserFile({
-          name: 'test-data.dat',
-          token: ''
-        });
+        const content = await electronAPI.fs.get('test-data.dat', {});
         setState(content);
+        console.log('read file: OK');
       } catch (error) {
+        console.log('Catch Exception', error)
         /* do nothing */
       }
     };
@@ -23,10 +22,8 @@ export default function TestFsApi() {
   };
 
   const handleSaveClick = () => {
-    window.electronAPI.fs.saveUserFile({
-      name: 'test-data.dat',
-      token: '',
-      content: state
+    electronAPI.fs.put('test-data.dat', {
+      body: state
     });
   };
 

@@ -1,8 +1,8 @@
+import { randomBytes } from 'node:crypto';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { encryptedSave, encryptedLoad } from './fs-encrypted-ops';
-import { randomBytes } from 'node:crypto';
+import { loadEncryptedFile, saveEncryptedFile } from './fs-encrypted';
 
 describe('fs-encrypted-ops', () => {
   const content = 'Hello World! This is test clear text.';
@@ -30,9 +30,9 @@ describe('fs-encrypted-ops', () => {
   it('should save and load text to fs', async () => {
     const pathToFile = join(tmpDir, filename);
 
-    await encryptedSave(pathToFile, key, content);
+    await saveEncryptedFile(pathToFile, key, content);
 
-    const loadPromise = encryptedLoad(pathToFile, key);
+    const loadPromise = loadEncryptedFile(pathToFile, key);
 
     await expect(loadPromise).resolves.toEqual(content);
   });

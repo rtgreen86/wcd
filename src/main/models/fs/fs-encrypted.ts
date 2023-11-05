@@ -10,7 +10,7 @@ const IV_SIZE = 16;
 
 const ALGORITHM = 'aes-192-cbc';
 
-export function encryptedSave(filename: string, hexKey: string, content: string) {
+export function saveEncryptedFile(filename: string, hexKey: string, content: string) {
   const stream = createWriteStream(filename);
 
   const key = Buffer.alloc(KEY_SIZE, hexKey, 'hex');
@@ -25,7 +25,7 @@ export function encryptedSave(filename: string, hexKey: string, content: string)
   return finished(cipher);
 }
 
-export async function encryptedLoad(filename: string, hexKey: string) {
+export async function loadEncryptedFile(filename: string, hexKey: string) {
   const key = Buffer.alloc(KEY_SIZE, hexKey, 'hex');
   const stream = createReadStream(filename);
   const iv = await readIV(stream);

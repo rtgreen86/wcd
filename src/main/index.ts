@@ -7,6 +7,7 @@ import { server } from './server';
 import { writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import * as ipcApi from './ipc-api';
+import handleFsIpc from './controllers/fs-controller';
 
 const filename = 'test.txt';
 
@@ -92,6 +93,7 @@ app.whenReady().then(async () => {
 
   fillAboutPanel();
   handleIpc();
+  handleFsIpc();
   ipcApi.handleIpc();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
