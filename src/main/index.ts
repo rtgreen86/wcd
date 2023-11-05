@@ -1,9 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
-import { server } from './server';
 import { writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import * as ipcApi from './ipc-api';
 import handleFsIpc from './controllers/fs-controller';
 
 const filename = 'test.txt';
@@ -81,25 +79,9 @@ app.whenReady().then(async () => {
   fillAboutPanel();
   handleIpc();
   handleFsIpc();
-  ipcApi.handleIpc();
+
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-
-  server.listen({
-    host: 'localhost',
-    port: 0,
-  }, () => {
-    console.log('Started');
-
-    const address = server.address();
-
-    if (typeof address === 'object') {
-      console.log(address.port);
-    }
-
-    createWindow();
-
   });
 });
 
