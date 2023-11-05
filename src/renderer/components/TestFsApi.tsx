@@ -23,7 +23,7 @@ export default function TestFsApi() {
   };
 
   const handleSaveClick = () => {
-    electronAPI.fs.saveUserFile({
+    window.electronAPI.fs.saveUserFile({
       name: 'test-data.dat',
       token: '',
       content: state
