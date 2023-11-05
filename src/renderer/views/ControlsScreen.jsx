@@ -3,7 +3,6 @@ import React, { useState, useContext } from 'react';
 import { Button, Panel, Menu, MenuItem } from '../lib/UIKit';
 import LoginForm from '../components/LoginForm';
 import BackPanel from '../components/BackPanel';
-import { Method } from '../../lib/Request';
 
 import {DispatchContext, StateContext} from '../app';
 
@@ -60,7 +59,7 @@ export default function ControlsScreen() {
                 count: 10,
                 page: 2,
               },
-              method: Method.GET
+              method: ''
             }).then((res) => console.log(res.body));
           }}>Send</button>
         </section>

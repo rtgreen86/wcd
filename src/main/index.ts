@@ -2,7 +2,6 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
 import { handleIpc as handleStorageIpc } from './Storage';
 import { createRequestProcessor } from './lib/RequestProcessor';
-import { Request, Response } from '../lib/Request';
 import { server } from './server';
 import { writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -38,11 +37,6 @@ const fillAboutPanel = () => {
 };
 
 const requestProcessor = createRequestProcessor<Request, Promise<Response>>();
-
-requestProcessor.use((req) => {
-  console.log(req);
-  return Promise.resolve({success: true, body: 'Hello World'});
-});
 
 const handleIpc = () => {
   handleStorageIpc();
