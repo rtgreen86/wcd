@@ -1,1 +1,0 @@
-type Marks = any;

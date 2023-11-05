@@ -1,6 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
-import { handleIpc as handleStorageIpc } from './Storage';
 import { server } from './server';
 import { writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -36,7 +35,6 @@ const fillAboutPanel = () => {
 };
 
 const handleIpc = () => {
-  handleStorageIpc();
   ipcMain.handle('get-sysinfo', () => SysInfo.get());
   ipcMain.handle('show-about', () => app.showAboutPanel());
   ipcMain.handle('saveFile', (event, content) => writeText(content));
