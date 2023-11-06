@@ -22,8 +22,3 @@ export const marksUnset = (payload: Marks) => ({
   type: 'marks/unset' as const,
   payload,
 });
-
-export const marksToggle = (payload: Marks) => ({
-  type: 'marks/toggle' as const,
-  payload,
-});
