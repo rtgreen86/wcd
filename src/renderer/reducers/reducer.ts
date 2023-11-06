@@ -1,26 +1,45 @@
 import { Action } from "../actions";
-import { State } from "../contexts/state-context";
+import { State } from '../state';
 import { union, diff, symDiff } from '../../lib/set-op';
 
 export default function reducer(state: State, action: Action): State {
   switch(action.type) {
     case "year/increment": return {
       ...state,
-      year: state.year + 1,
+      year: state.year + 1
     };
 
     case "year/decrement": return {
       ...state,
-      year: state.year - 1,
+      year: state.year - 1
     };
 
-    case "marks/set": return setMarks(state, action);
+    case "marks/set": return {
+      ...setMarks(state, action),
+      isDirty: true
+    }
 
-    case "marks/unset": return unsetMarks(state, action);
+    case "marks/unset": return {
+      ...unsetMarks(state, action),
+      isDirty: true
+    }
 
-    case "marks/toggle": return toggleMarks(state, action);
+    case "marks/toggle": return {
+      ...toggleMarks(state, action),
+      isDirty: true
+    }
 
-    case "marks/loaded": return state;
+    case "marks/loaded": return {
+      ...state,
+      marks: action.payload,
+      isLoading: false
+    };
+
+    case "marks/saved": return {
+      ...state,
+      isDirty: false,
+    }
+
     default:
       return state;
   }

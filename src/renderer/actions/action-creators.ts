@@ -1,4 +1,4 @@
-import {Marks} from './marks';
+import {Marks} from '../state';
 
 export const yearIncrement = () => ({
   type: 'year/increment' as const

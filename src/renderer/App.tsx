@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import StateProvder from './components/state-provider';
 import Invoices from "./views/Invoices";
 import Invoice from "./views/Invoice";
-import Calendar from './views/calendar';
+import CalendarScreen from './views/calendar-screen';
 import ControlsScreen from './views/ControlsScreen';
 import SettingsScreen from './views/SettingsScreen';
 import LockScreen from './views/LockScreen';
@@ -68,7 +68,7 @@ export default function App() {
                   }
                 />
               </Route>
-              <Route path="/" element={<Calendar />} />
+              <Route path="/" element={<CalendarScreen />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
 

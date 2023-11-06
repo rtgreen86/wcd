@@ -1,6 +1,7 @@
 import React, { useReducer, ReactNode } from "react";
 import reducer from "../../reducers";
-import { initState, DispatchContext, StateContext } from "../../contexts/state-context";
+import { DispatchContext, StateContext } from "../../contexts/state-context";
+import { initState } from '../../state'
 
 type StorageProps = {
   children: ReactNode
