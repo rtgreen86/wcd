@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
 
+import './nav-item.css';
+
 type Props = {
   children: ReactNode,
   position?: string,

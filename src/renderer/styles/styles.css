@@ -23,6 +23,11 @@ Colors Schema
 
   /* UI Elements Colors */
 
+  --navbar-button-hover: hsl(349, 49%, 64%);
+  --navbar-button-active: hsl(349, 49%, 67%);
+
+
+
   /* --panel: var(--accent);
   --button-default: var(--background);
   --button-hover: hsl(31, 51%, 86%);
@@ -32,8 +37,6 @@ Colors Schema
   --accent-button-hover: hsl(349, 49%, 64%);
   --accent-button-active: hsl(349, 49%, 67%);
   --panel-button: var(--accent);
-  --panel-button-hover: hsl(349, 49%, 64%);
-  --panel-button-active: hsl(349, 49%, 67%);
   --input: hsl(31, 51%, 98%); */
 
   /* UIKit color schema */

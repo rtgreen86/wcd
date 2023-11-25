@@ -1,0 +1,13 @@
+.nav-item .btn {
+  color: buttontext;
+}
+
+.nav-item .btn:hover {
+  background-color: var(--navbar-button-hover);
+}
+
+.nav-item .btn:active {
+  color: buttontext;
+  border-color: transparent;
+  background-color: var(--navbar-button-active);
+}
