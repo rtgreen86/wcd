@@ -1,3 +1,7 @@
+.main-navbar {
+  min-width: 635px;
+}
+
 .main-navbar .navbar-nav {
   width: 100%;
   display: block;
