@@ -16,6 +16,7 @@ Colors Schema
   --background: hsl(31, 51%, 89%);
   --text-color: hsl(0, 0%, 10%);
   --accent: hsl(349, 49%, 70%);
+  --accent-rgb: 216, 141, 155;
   --default: hsl(32, 74%, 81%);
   --cambridge-blue: hsl(168, 24%, 68%);
   --tropical-indigo: hsl(256, 33%, 62%);
@@ -47,6 +48,8 @@ Colors Schema
 
   --bs-body-color: var(--text-color);
   --bs-body-bg: var(--background);
+  --bs-primary: var(--accent);
+  --bs-primary-rgb: var(--accent-rgb);
 
   /* Fonts */
 

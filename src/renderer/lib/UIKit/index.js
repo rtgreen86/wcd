@@ -7,3 +7,4 @@ export { default as MenuItem } from './components/MenuItem';
 export { default as Toolbar } from './components/Toolbar';
 export { default as HorizontalToolbar } from './components/HorizontalToolbar';
 export { default as TopToolbar } from './components/TopToolbar';
+export { default as NavBar } from './components/NavBar';
