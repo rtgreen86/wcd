@@ -14,15 +14,15 @@ Colors Schema
   /* Common Colors */
 
   --background: hsl(31, 51%, 89%);
+  --text-color: hsl(0, 0%, 10%);
   --accent: hsl(349, 49%, 70%);
   --default: hsl(32, 74%, 81%);
   --cambridge-blue: hsl(168, 24%, 68%);
   --tropical-indigo: hsl(256, 33%, 62%);
-  --text-color: hsl(0, 0%, 10%);
 
   /* UI Elements Colors */
 
-  --panel: var(--accent);
+  /* --panel: var(--accent);
   --button-default: var(--background);
   --button-hover: hsl(31, 51%, 86%);
   --button-active: hsl(31, 51%, 83%);
@@ -33,27 +33,28 @@ Colors Schema
   --panel-button: var(--accent);
   --panel-button-hover: hsl(349, 49%, 64%);
   --panel-button-active: hsl(349, 49%, 67%);
-  --input: hsl(31, 51%, 98%);
+  --input: hsl(31, 51%, 98%); */
 
   /* UIKit color schema */
 
-  --toolbar-background: var(--accent);
+  /* --toolbar-background: var(--accent);
   --toolbar-button-hover: hsl(349, 49%, 64%);
-  --toolbar-button-active: hsl(349, 49%, 67%);
+  --toolbar-button-active: hsl(349, 49%, 67%); */
 
   /* Font */
 
-  --system: system-ui, -apple-system, sans-serif;
+  /* --system: system-ui, -apple-system, sans-serif; */
 }
 
 body {
-  font: 16px var(--system);
+  font: 16px; /* var(--system); */
   user-select: none;
   background-color: var(--background);
   color: var(--text-color);
-  margin: 0px;
+  /* margin: 0px; */
 }
 
+/*
 .clearfix:after {
   content: "";
   clear: both;
@@ -64,4 +65,4 @@ main {
   max-width: 800px;
   margin: auto;
   padding: 2em;
-}
+} */
