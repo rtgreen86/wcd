@@ -41,17 +41,20 @@ Colors Schema
   --toolbar-button-hover: hsl(349, 49%, 64%);
   --toolbar-button-active: hsl(349, 49%, 67%); */
 
-  /* Font */
+  /* Bootstrap Theme */
 
-  /* --system: system-ui, -apple-system, sans-serif; */
+  /* Colors */
+
+  --bs-body-color: var(--text-color);
+  --bs-body-bg: var(--background);
+
+  /* Fonts */
+
+  --bs-body-font-size: 16px;
 }
 
 body {
-  font: 16px; /* var(--system); */
   user-select: none;
-  background-color: var(--background);
-  color: var(--text-color);
-  /* margin: 0px; */
 }
 
 /*
