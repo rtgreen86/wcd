@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, NavLink } from "react-router-dom";
-import { Button, NavBar, NavItem } from '../lib/UIKit';
+import { MainNavBar, NavItem } from '../lib/UIKit';
 import { yearDecrement, yearIncrement } from '../actions';
 import { useDispatch } from '../hooks';
 
@@ -10,17 +10,17 @@ export default function MainPanel({ year, onDispatch = () => {/* */} }: { year: 
   const dispatch = useDispatch();
 
   return (
-    <NavBar>
+    <MainNavBar>
       <NavItem><button className="btn" onClick={() => { dispatch(yearIncrement()) }}><i className="material-icons">keyboard_arrow_up</i></button></NavItem>
       <NavItem><span className="nav-link">{year}</span></NavItem>
       <NavItem><button className="btn" onClick={() => { dispatch(yearDecrement()) }}><i className="material-icons">keyboard_arrow_down</i></button></NavItem>
-      <NavItem><Button>Отметить</Button></NavItem>
-      <NavItem><Button onClick={() => navigate('/controls')}>Контролы</Button></NavItem>
-      <NavItem><NavLink to="/invoices">Invoices</NavLink></NavItem>
-      <NavItem position="Right"><NavLink to="/lock"><i className="material-icons">lock</i></NavLink></NavItem>
-      <NavItem position="Right"><NavLink to="/settings"><i className="material-icons">settings</i></NavLink></NavItem>
-      <NavItem position="Right"><Button><i className="material-icons">help</i></Button></NavItem>
-    </NavBar>
+      <NavItem><button className="btn">Отметить</button></NavItem>
+      <NavItem><button className="btn" onClick={() => navigate('/controls')}>Контролы</button></NavItem>
+      <NavItem><NavLink className="btn" to="/invoices">Invoices</NavLink></NavItem>
+      <NavItem position="right"><NavLink className="btn" to="/lock"><i className="material-icons">lock</i></NavLink></NavItem>
+      <NavItem position="right"><NavLink className="btn" to="/settings"><i className="material-icons">settings</i></NavLink></NavItem>
+      <NavItem position="right"><button className="btn"><i className="material-icons">help</i></button></NavItem>
+    </MainNavBar>
   );
 }
 

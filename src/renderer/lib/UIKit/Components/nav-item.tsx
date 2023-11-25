@@ -4,9 +4,9 @@ import './nav-item.css';
 
 type Props = {
   children: ReactNode,
-  position?: string,
+  position?: 'left' | 'right',
 }
 
-export default function NavItem({ children }: Props) {
-  return (<li className="nav-item">{children}</li>);
+export default function NavItem({ children, position = 'left' }: Props) {
+  return (<li className={`nav-item ${position}`}>{children}</li>);
 }
