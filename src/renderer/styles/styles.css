@@ -61,6 +61,7 @@ Colors Schema
 
 body {
   user-select: none;
+  min-width: 635px;
 }
 
 /*
