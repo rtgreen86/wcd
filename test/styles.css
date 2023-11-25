@@ -1,0 +1,23 @@
+:root {
+  --system: system-ui, -apple-system, sans-serif;
+
+  /* Common Colors */
+
+  --background: hsl(31, 51%, 89%);
+  --accent: hsl(349, 49%, 70%);
+  --default: hsl(32, 74%, 81%);
+  --cambridge-blue: hsl(168, 24%, 68%);
+  --tropical-indigo: hsl(256, 33%, 62%);
+  --text-color: hsl(0, 0%, 10%);
+}
+
+body {
+  font: 16px var(--system);
+  user-select: none;
+  background-color: var(--background);
+  color: var(--text-color);
+}
+
+.top-navbar {
+  background-color: var(--accent);
+}
