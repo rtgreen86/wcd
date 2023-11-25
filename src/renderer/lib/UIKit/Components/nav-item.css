@@ -1,4 +1,5 @@
-.nav-item .btn {
+.nav-item .btn,
+.nav-item .nav-link {
   color: buttontext;
 }
 
