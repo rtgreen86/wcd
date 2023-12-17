@@ -19,7 +19,6 @@ export default function MainPanel({ year, onDispatch = () => {/* */} }: { year: 
       <NavItem><NavLink className="btn" to="/invoices">Invoices</NavLink></NavItem>
       <NavItem position="right"><NavLink className="btn" to="/lock"><i className="material-icons">lock</i></NavLink></NavItem>
       <NavItem position="right"><NavLink className="btn" to="/settings"><i className="material-icons">settings</i></NavLink></NavItem>
-      <NavItem position="right"><button className="btn"><i className="material-icons">help</i></button></NavItem>
     </MainNavBar>
   );
 }
