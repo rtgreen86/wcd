@@ -1,12 +1,14 @@
 import React, { createContext, useReducer } from 'react';
+
 import StateProvder from './components/state-provider';
-import Invoices from "./views/Invoices";
-import Invoice from "./views/Invoice";
-import CalendarScreen from './views/calendar-screen';
-import ControlsScreen from './views/ControlsScreen';
-import SettingsScreen from './views/settings-screen';
+
 import LockScreen from './views/lock-screen';
 import MainScreen from './views/main-screen';
+import CalendarScreen from './views/calendar-screen';
+import SettingsScreen from './views/settings-screen';
+
+import Invoices from "./views/Invoices";
+import Invoice from "./views/Invoice";
 
 import {
   Routes,
@@ -60,7 +62,6 @@ export default function App() {
                 <Route index element={<CalendarScreen />} />
               </Route>
               <Route path="/settings" element={<SettingsScreen />} />
-              <Route path="/controls" element={<ControlsScreen />} />
               <Route path="invoices" element={<Invoices />}>
                 <Route path=":invoiceId" element={<Invoice />} />
                 <Route
