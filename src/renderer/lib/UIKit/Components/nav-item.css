@@ -20,3 +20,8 @@
   border-color: transparent;
   background-color: var(--navbar-button-active);
 }
+
+.nav-item .btn {
+  box-sizing: content-box;
+  height: 24px;
+}
