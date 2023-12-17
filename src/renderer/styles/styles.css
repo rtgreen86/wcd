@@ -26,25 +26,6 @@ Colors Schema
   --navbar-button-hover: hsl(349, 49%, 64%);
   --navbar-button-active: hsl(349, 49%, 67%);
 
-
-
-  /* --panel: var(--accent);
-  --button-default: var(--background);
-  --button-hover: hsl(31, 51%, 86%);
-  --button-active: hsl(31, 51%, 83%);
-  --button-border: gray;
-  --accent-button: var(--accent);
-  --accent-button-hover: hsl(349, 49%, 64%);
-  --accent-button-active: hsl(349, 49%, 67%);
-  --panel-button: var(--accent);
-  --input: hsl(31, 51%, 98%); */
-
-  /* UIKit color schema */
-
-  /* --toolbar-background: var(--accent);
-  --toolbar-button-hover: hsl(349, 49%, 64%);
-  --toolbar-button-active: hsl(349, 49%, 67%); */
-
   /* Bootstrap Theme */
 
   /* Colors */
@@ -63,16 +44,3 @@ body {
   user-select: none;
   min-width: 635px;
 }
-
-/*
-.clearfix:after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-main {
-  max-width: 800px;
-  margin: auto;
-  padding: 2em;
-} */
