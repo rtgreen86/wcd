@@ -1,9 +1,7 @@
+import './lock-screen.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import LoginForm from '../components/LoginForm';
-
-import './LockScreen.css';
+import LoginForm from '../components/login-form';
 
 export default function LockScreen() {
   const navigate = useNavigate();

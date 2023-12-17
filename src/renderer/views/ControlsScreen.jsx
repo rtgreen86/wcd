@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import { Button, Panel, Menu, MenuItem } from '../lib/UIKit';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/login-form';
 import BackPanel from '../components/BackPanel';
 
 import {DispatchContext, StateContext} from '../app';

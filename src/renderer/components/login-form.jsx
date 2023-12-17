@@ -1,7 +1,6 @@
+import './login-form.css';
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './LoginForm.css';
 
 export default function LoginForm({ value, autoFocus, onChange, onChangeValue, onPinEntered }) {
   const rxPartialPin = /^\d{1,4}$/;
