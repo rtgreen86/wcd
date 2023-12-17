@@ -6,6 +6,5 @@ export { default as Menu } from './components/Menu';
 export { default as MenuItem } from './components/MenuItem';
 export { default as Toolbar } from './components/Toolbar';
 export { default as HorizontalToolbar } from './components/HorizontalToolbar';
-export { default as TopToolbar } from './components/TopToolbar';
 export { default as MainNavBar } from './components/main-nav-bar';
 export { default as NavItem } from './components/nav-item';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import MainPanel from '../components/MainPanel';
+import MainPanel from '../components/main-panel';
 import { useDispatch, useStore } from '../hooks';
 
 export default function MainScreen() {

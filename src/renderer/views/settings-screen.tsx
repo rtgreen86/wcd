@@ -1,10 +1,7 @@
 import React, { useContext } from 'react';
-import BackPanel from '../components/BackPanel';
-import MainPanel from '../components/MainPanel';
+import BackPanel from '../components/back-panel';
 import packageInfo from '../../../package.json';
-
 import { DispatchContext, StateContext } from '../app';
-
 import TestFsApi from '../components/TestFsApi';
 
 export default function SettingsScreen() {
@@ -18,7 +15,6 @@ export default function SettingsScreen() {
 
   return (
     <>
-      <MainPanel year={ 2000 } onDispatch={ dispatch } />
       <BackPanel />
       <main>
 

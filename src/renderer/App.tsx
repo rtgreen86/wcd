@@ -59,8 +59,8 @@ export default function App() {
               <Route path="/app" element={<MainScreen />}>
                 <Route index element={<CalendarScreen />} />
               </Route>
-              <Route path="/controls" element={<ControlsScreen />} />
               <Route path="/settings" element={<SettingsScreen />} />
+              <Route path="/controls" element={<ControlsScreen />} />
               <Route path="invoices" element={<Invoices />}>
                 <Route path=":invoiceId" element={<Invoice />} />
                 <Route
