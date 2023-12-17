@@ -6,6 +6,7 @@ import CalendarScreen from './views/calendar-screen';
 import ControlsScreen from './views/ControlsScreen';
 import SettingsScreen from './views/settings-screen';
 import LockScreen from './views/lock-screen';
+import MainScreen from './views/main-screen';
 
 import {
   Routes,
@@ -55,6 +56,9 @@ export default function App() {
 
             <Routes>
               <Route path="/lock" element={<LockScreen />} />
+              <Route path="/app" element={<MainScreen />}>
+                <Route index element={<CalendarScreen />} />
+              </Route>
               <Route path="/controls" element={<ControlsScreen />} />
               <Route path="/settings" element={<SettingsScreen />} />
               <Route path="invoices" element={<Invoices />}>
@@ -68,8 +72,9 @@ export default function App() {
                   }
                 />
               </Route>
-              <Route path="/" element={<CalendarScreen />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              {/* <Route path="/" element={} /> */}
+
+              <Route path="*" element={<Navigate to="/app" replace />} />
             </Routes>
 
           </MemoryRouter>
