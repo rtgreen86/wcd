@@ -11,9 +11,9 @@ export default function MainPanel({ year, onDispatch = () => {/* */} }: { year: 
 
   return (
     <MainNavBar>
-      <NavItem><button className="btn" onClick={() => { dispatch(yearIncrement()) }}><i className="material-icons">keyboard_arrow_up</i></button></NavItem>
-      <NavItem><span className="nav-link">{year}</span></NavItem>
       <NavItem><button className="btn" onClick={() => { dispatch(yearDecrement()) }}><i className="material-icons">keyboard_arrow_down</i></button></NavItem>
+      <NavItem><span className="nav-link">{year}</span></NavItem>
+      <NavItem><button className="btn" onClick={() => { dispatch(yearIncrement()) }}><i className="material-icons">keyboard_arrow_up</i></button></NavItem>
       <NavItem><button className="btn">Отметить</button></NavItem>
       <NavItem><button className="btn" onClick={() => navigate('/controls')}>Контролы</button></NavItem>
       <NavItem><NavLink className="btn" to="/invoices">Invoices</NavLink></NavItem>

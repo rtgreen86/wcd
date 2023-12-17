@@ -4,7 +4,7 @@ import Invoices from "./views/Invoices";
 import Invoice from "./views/Invoice";
 import CalendarScreen from './views/calendar-screen';
 import ControlsScreen from './views/ControlsScreen';
-import SettingsScreen from './views/SettingsScreen';
+import SettingsScreen from './views/settings-screen';
 import LockScreen from './views/lock-screen';
 
 import {
