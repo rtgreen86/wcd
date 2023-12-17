@@ -1,3 +1,5 @@
+/* TODO: delete */
+
 .calendar {
   font-size: 12px;
 }
@@ -8,4 +10,8 @@
 
 .calendar .weekend {
   color: Tomato;
+}
+
+.calendar-month {
+  caption-side: top;
 }

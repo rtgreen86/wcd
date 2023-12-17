@@ -11,6 +11,7 @@
 
 .calendar-month caption {
   font-weight: bold;
+  text-align: center;
 }
 
 .calendar-month .weekend {
@@ -25,4 +26,8 @@
 .calendar-month td[data-date]:hover {
   outline: medium ridge var(--accent);
   outline-offset: 3px;
+}
+
+.calendar-month {
+  caption-side: top;
 }
