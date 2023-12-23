@@ -4,6 +4,8 @@ import { writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import handleFsIpc from './controllers/fs-controller';
 
+import {SecureStorageController} from './controllers';
+
 const filename = 'test.txt';
 
 async function writeText(content: string) {
@@ -37,6 +39,7 @@ const handleIpc = () => {
   ipcMain.handle('show-about', () => app.showAboutPanel());
   ipcMain.handle('saveFile', (event, content) => writeText(content));
   ipcMain.handle('loadFile', () => readText());
+  ipcMain.handle('get-pin', SecureStorageController.getPin);
 }
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

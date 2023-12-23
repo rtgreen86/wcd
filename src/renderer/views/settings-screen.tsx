@@ -3,6 +3,7 @@ import BackPanel from '../components/back-panel';
 import packageInfo from '../../../package.json';
 import { DispatchContext, StateContext } from '../app';
 import TestFsApi from '../components/TestFsApi';
+import ShowPinCode from '../components/show-pin-code';
 
 export default function SettingsScreen() {
   const state = useContext(StateContext);
@@ -21,6 +22,11 @@ export default function SettingsScreen() {
         <section>
           <h1>Global State</h1>
           <button value={state} onClick={onBtnClick}>State: {state}</button>
+        </section>
+
+        <section>
+          <h1>Pin Code</h1>
+          <ShowPinCode />
         </section>
 
         <section>

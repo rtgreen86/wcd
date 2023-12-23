@@ -15,4 +15,6 @@ declare namespace electronAPI {
 
     function get(filename: string, options: LoadOptions): Promise<string | null>
   }
+
+  function getPin(): Promise<string | null>;
 }

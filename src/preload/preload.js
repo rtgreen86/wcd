@@ -18,5 +18,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
       }
       return ipcRenderer.invoke('fs:get', filename, options);
     }
+  },
+
+  getPin() {
+    return ipcRenderer.invoke('get-pin');
   }
 });
