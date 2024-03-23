@@ -1,7 +1,2 @@
-import {SecureStorage} from '../models/SecureStorage';
-
-export class SecureStorageController {
-  static async getPin() {
-    return await new SecureStorage().getPinCode();
-  }
-}
+export { default as GetData } from './GetData';
+export { default as PutData } from './PutData';

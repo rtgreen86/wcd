@@ -5,7 +5,7 @@ export default function ShowPinCode() {
   const [pinCode, setPinCode] = useState(null);
 
   const loadCode = async () => {
-    const code = await electronAPI.getPin();
+    const code = '';
     setPinCode(code);
     setLoading(false);
   };

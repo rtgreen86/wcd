@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import BackPanel from '../components/back-panel';
 import packageInfo from '../../../package.json';
-import { DispatchContext, StateContext } from '../app';
+import { DispatchContext, StateContext } from '../App';
 import TestFsApi from '../components/TestFsApi';
 import ShowPinCode from '../components/show-pin-code';
 
@@ -18,7 +18,6 @@ export default function SettingsScreen() {
     <>
       <BackPanel />
       <main>
-
         <section>
           <h1>Global State</h1>
           <button value={state} onClick={onBtnClick}>State: {state}</button>

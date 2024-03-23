@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { CalendarLocale, YearCalendar } from '../lib/Calendar';
 import { useDispatch, useStore } from '../hooks';
+import * as Api from '../api';
 
 export default function CalendarContainer() {
   const store = useStore();
@@ -11,19 +12,15 @@ export default function CalendarContainer() {
     if (!store.isLoading) return;
 
     const asyncOp = async () => {
-      const raw = await electronAPI.fs.get('data', '');
+      const marks = await Api.getMarks();
 
-      if (raw === '') {
-        dispatch({ type: 'marks/loaded', payload: {} });
-        return;
+      const marks2 = {} as Record<string, string[]>;
+
+      for (const date of marks) {
+        marks2[date] = ['red'];
       }
 
-      try {
-        const marks = JSON.parse(raw);
-        dispatch({ type: 'marks/loaded', payload: marks });
-      } catch (err) {
-        console.log('Loading Error');
-      }
+      dispatch({ type: 'marks/loaded', payload: marks2 });
     }
 
     asyncOp();
@@ -34,14 +31,12 @@ export default function CalendarContainer() {
       return;
     }
 
-    const raw = JSON.stringify(store.marks);
+    const asyncOp = async () => {
+      await Api.putMarks(Object.keys(store.marks));
+      dispatch({ type: 'marks/saved' });
+    }
 
-    electronAPI.fs.put('data', {
-      body: raw,
-      token: ''
-    });
-
-    dispatch({ type: 'marks/saved' });
+    asyncOp();
   }, [ store.marks, store.isDirty ]);
 
   const handleClick = (date: string) => {

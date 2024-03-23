@@ -1,30 +1,19 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
-import { writeFile, readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import handleFsIpc from './controllers/fs-controller';
-
-import {SecureStorageController} from './controllers';
-
-const filename = 'test.txt';
-
-async function writeText(content: string) {
-  const dir = app.getPath('userData');
-  const filePath = join(dir, filename);
-  console.log('Write files to:', filePath);
-  console.log('Write content:', content);
-  await writeFile(filePath, content, 'utf-8');
-}
-
-async function readText() {
-  const dir = app.getPath('userData');
-  const filePath = join(dir, filename);
-  console.log('Read file from:', filePath);
-  return await readFile(filePath, 'utf-8');
-}
+import {ChainOfResponsibility} from '../lib/chain-of-responsibility';
+import {
+  GetData,
+  PutData
+} from './controllers';
+import { initializeKey } from './models/secure-storage';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
+
+const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Response>>([
+  new GetData(),
+  new PutData(),
+]);
 
 const fillAboutPanel = () => {
   app.setAboutPanelOptions({
@@ -35,11 +24,13 @@ const fillAboutPanel = () => {
 };
 
 const handleIpc = () => {
+  ipcMain.handle('send-request', (event, request: electronAPI.Request) => router.handle(request));
+
+  // TODO: delete old handlers
+
+  ipcMain.handle('request', (event, request: Request) => 'static text');
   ipcMain.handle('get-sysinfo', () => SysInfo.get());
   ipcMain.handle('show-about', () => app.showAboutPanel());
-  ipcMain.handle('saveFile', (event, content) => writeText(content));
-  ipcMain.handle('loadFile', () => readText());
-  ipcMain.handle('get-pin', SecureStorageController.getPin);
 }
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -79,14 +70,9 @@ app.whenReady().then(async () => {
   //       .then((name) => console.log(`Added Extension:  ${name}`))
   //       .catch((err) => console.log('An error occurred: ', err));
 
+  await initializeKey();
   fillAboutPanel();
   handleIpc();
-  handleFsIpc();
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-
   createWindow();
 });
 
