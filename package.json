@@ -1,8 +1,8 @@
 {
-  "name": "wcd",
-  "productName": "WCalendar",
+  "name": "@su.malokhatko/wcd",
+  "productName": "Woman Calendar",
   "version": "0.1.0",
-  "description": "Календарь, 2023 год.",
+  "description": "Woman calendar desktop application.",
   "main": ".webpack/main",
   "private": true,
   "scripts": {
