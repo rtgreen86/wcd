@@ -1,3 +1,4 @@
-export * from './CipheredTextFile';
 export * from './File';
-export * from './TextFile';
+export * from './Directory';
+export * from './FileEncryptedText';
+export * from './AppData';

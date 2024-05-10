@@ -1,3 +1,2 @@
-export { default as KeyGenerator } from './KeyGenerator';
-export { default as Secret } from './Secret';
-export * from './initializeKey';
+export { SecretKeytar as Secret } from './SecretKeytar';
+export * from './KeyGenerator';

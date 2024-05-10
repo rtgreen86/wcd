@@ -1,19 +1,17 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
-import {ChainOfResponsibility} from '../lib/chain-of-responsibility';
-import {
-  GetData,
-  PutData
-} from './controllers';
-import { initializeKey } from './models/secure-storage';
+
+import { initializeKey, Model } from './models';
+
+import { ChainOfResponsibility } from '../lib/chain-of-responsibility';
+
+import AuthenticateController from './controllers/AuthenticateController';
+import GetDataController from './controllers/GetDataController';
+import PutDataController from './controllers/PutDataController';
+import RemoveDataController from './controllers/RemoveDataController';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
-
-const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Response>>([
-  new GetData(),
-  new PutData(),
-]);
 
 const fillAboutPanel = () => {
   app.setAboutPanelOptions({
@@ -24,11 +22,7 @@ const fillAboutPanel = () => {
 };
 
 const handleIpc = () => {
-  ipcMain.handle('send-request', (event, request: electronAPI.Request) => router.handle(request));
-
   // TODO: delete old handlers
-
-  ipcMain.handle('request', (event, request: Request) => 'static text');
   ipcMain.handle('get-sysinfo', () => SysInfo.get());
   ipcMain.handle('show-about', () => app.showAboutPanel());
 }
@@ -71,6 +65,17 @@ app.whenReady().then(async () => {
   //       .catch((err) => console.log('An error occurred: ', err));
 
   await initializeKey();
+  const model = new Model();
+
+  const router = new ChainOfResponsibility<WCD.Request, Promise<WCD.Response>>([
+    new AuthenticateController(model),
+    new GetDataController(),
+    new PutDataController(),
+    new RemoveDataController()
+  ]);
+
+  ipcMain.handle('send-request', (event, request: WCD.Request) => router.handle(request));
+
   fillAboutPanel();
   handleIpc();
   createWindow();

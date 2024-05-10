@@ -1,15 +1,7 @@
-import keytar from 'keytar';
+export type Key = 'pin' | 'key';
 
-const service = 'su.malokhatko.wcalendar';
-
-type Account = 'pin' | 'key';
-
-export default class Secret {
-  static get(account: Account) {
-    return keytar.getPassword(service, account)
-  }
-
-  static put(account: Account, secret: string) {
-    return keytar.setPassword(service, account, secret);
-  }
-}
+export interface Secret {
+  get(key: string): Promise<string | null>;
+  put(key: string, secret: string): Promise<void>;
+  remove(key: string): Promise<boolean>;
+};

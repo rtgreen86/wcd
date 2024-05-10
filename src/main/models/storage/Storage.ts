@@ -1,37 +1,20 @@
-import { AppData } from '../../../lib/app-data';
+import { AppData } from '../../../lib/fs';
 import { Secret } from '../secure-storage';
 
-export default class Storage {
-  static async put(name: string, content: string) {
-    const file = AppData.getFile(name);
-    file.content = content;
-    await file.save();
-  }
-
-  static async get(name: string): Promise<string> {
-    try {
-      const file = AppData.getFile(name);
-      await file.load();
-      return file.content;
-    } catch (error) {
-      if (error.code === 'ENOENT') return '';
-      throw error;
-    }
-  }
-
-  static async cipheredPut(name: string, content: string) {
+export const Storage = {
+  async encryptPut(filename: string, content: string) {
     const hexKey = await Secret.get('key');
-    const file = AppData.getCipheredFile(name, hexKey);
-    file.content = content;
-    await file.save();
-  }
+    return AppData.getEncryptedFile(filename, hexKey).write(content);
+  },
 
-  static async cipheredGet(name: string): Promise<string> {
+  async encryptGet(filename: string) {
+    const hexKey = await Secret.get('key');
+    return AppData.getEncryptedFile(filename, hexKey).read();
+  },
+
+  async encryptGetSafe(filename: string) {
     try {
-      const hexKey = await Secret.get('key');
-      const file = AppData.getCipheredFile(name, hexKey);
-      await file.load();
-      return file.content;
+      return await Storage.encryptGet(filename);
     } catch (error) {
       if (error.code === 'ENOENT') return '';
       throw error;
