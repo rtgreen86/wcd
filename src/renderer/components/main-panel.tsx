@@ -5,6 +5,8 @@ import { MainNavBar, NavItem } from '../lib/UIKit';
 import { yearDecrement, yearIncrement } from '../actions';
 import { useDispatch } from '../hooks';
 
+import LockButton from './LockButton';
+
 export default function MainPanel({ year }: { year: number }) {
   const dispatch = useDispatch();
 
@@ -15,7 +17,7 @@ export default function MainPanel({ year }: { year: number }) {
       <NavItem><button className="btn" onClick={() => { dispatch(yearIncrement()) }}><i className="material-icons">keyboard_arrow_up</i></button></NavItem>
       <NavItem><button className="btn">Отметить</button></NavItem>
       <NavItem><NavLink className="btn" to="/invoices">Invoices</NavLink></NavItem>
-      <NavItem position="right"><NavLink className="btn" to="/lock"><i className="material-icons">lock</i></NavLink></NavItem>
+      <NavItem position="right"><LockButton /></NavItem>
       <NavItem position="right"><NavLink className="btn" to="/settings"><i className="material-icons">settings</i></NavLink></NavItem>
     </MainNavBar>
   );

@@ -53,8 +53,6 @@ export const DispatchContext = createContext(f);
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialArg);
 
-  const [token, setToken] = useState<string | null>(null);
-
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
