@@ -1,12 +1,12 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
 import {ChainOfResponsibility} from '../lib/chain-of-responsibility';
-import {
-  GetData,
-  PutData
-} from './controllers';
 import { initializeKey } from './models/secure-storage';
 import ModelFactory from './models/ModelFactory';
+
+import GetData from './controllers/GetData';
+import PutData from './controllers/PutData';
+import IsPinExists from './controllers/IsPinExists';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -66,9 +66,10 @@ app.whenReady().then(async () => {
 
   await initializeKey();
 
-  ModelFactory.createModel();
+  const model = ModelFactory.createModel();
 
   const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Response>>([
+    new IsPinExists(model),
     new GetData(),
     new PutData(),
   ]);

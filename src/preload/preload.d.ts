@@ -11,7 +11,7 @@ declare namespace electronAPI.Types {
 }
 
 declare namespace electronAPI.Types.Request {
-  type Type = 'get:data' | 'put:data' | 'remove:data' | 'set:pin' | 'get:token';
+  type Type = 'get:data' | 'put:data' | 'remove:data' | 'get:isPinExist' | 'set:pin' | 'get:token';
   interface Token {
     token?: string,
   }
@@ -30,13 +30,15 @@ declare namespace electronAPI {
     Types.Request.Template<'get:data', string> |
     Types.Request.Template<'put:data', Types.File> |
     Types.Request.Template<'remove:data', string> |
+    Types.Request.Template<'get:isPinExist', void> |
     Types.Request.Template<'set:pin' | 'get:token', Types.SetPin>;
 
-  type Response = Types.File | string | void;
+  type Response = Types.File | boolean | string | void;
 
   function sendRequest(request: Request<'get:data', string>): Promise<Types.File>;
   function sendRequest(request: Request<'put:data', Types.File>): Promise<void>;
   function sendRequest(request: Request<'remove:data', string>): Promise<void>;
+  function sendRequest(request: Request<'get:isPinExist', void>): Promise<boolean>;
   function sendRequest(request: Request<'set:pin' | 'get:token', Types.SetPin>): Promise<string>;
   function sendRequest(request: Request): Promise<Response>;
 }
