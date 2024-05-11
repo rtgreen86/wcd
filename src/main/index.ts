@@ -6,14 +6,10 @@ import {
   PutData
 } from './controllers';
 import { initializeKey } from './models/secure-storage';
+import ModelFactory from './models/ModelFactory';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
-
-const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Response>>([
-  new GetData(),
-  new PutData(),
-]);
 
 const fillAboutPanel = () => {
   app.setAboutPanelOptions({
@@ -24,8 +20,6 @@ const fillAboutPanel = () => {
 };
 
 const handleIpc = () => {
-  ipcMain.handle('send-request', (event, request: electronAPI.Request) => router.handle(request));
-
   // TODO: delete old handlers
 
   ipcMain.handle('request', (event, request: Request) => 'static text');
@@ -71,6 +65,16 @@ app.whenReady().then(async () => {
   //       .catch((err) => console.log('An error occurred: ', err));
 
   await initializeKey();
+
+  ModelFactory.createModel();
+
+  const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Response>>([
+    new GetData(),
+    new PutData(),
+  ]);
+
+  ipcMain.handle('send-request', (event, request: electronAPI.Request) => router.handle(request));
+
   fillAboutPanel();
   handleIpc();
   createWindow();
