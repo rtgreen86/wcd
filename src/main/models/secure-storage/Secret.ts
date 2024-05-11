@@ -12,4 +12,8 @@ export default class Secret {
   static put(account: Account, secret: string) {
     return keytar.setPassword(service, account, secret);
   }
+
+  static remove(account: Account) {
+    return keytar.deletePassword(service, account);
+  }
 }
