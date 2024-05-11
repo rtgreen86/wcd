@@ -13,7 +13,7 @@ export default class IsPinExists implements Handler<Request, Response> {
   }
 
   handle(request: Request, next: () => Response): Response {
-    if (request.type === 'get:isPinExist') {
+    if (request.type !== 'get:isPinExist') {
       return next();
     }
     return this.model.pin.checkIsPinSetted();

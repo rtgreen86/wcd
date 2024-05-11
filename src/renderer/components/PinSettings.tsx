@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as Api from '../api';
+import PinInput from './PinInput';
 
 export default function PinSettings() {
   const [error, setError] = useState<Error | null>(null);
@@ -25,5 +26,11 @@ export default function PinSettings() {
     return <span>PIN exists.</span>;
   }
 
-  return <span>PIN is not set.</span>
+  return (
+    <form>
+      <div>PIN code is not set. Set PIN code to protect application data.</div>
+      <div><label>Enter new PIN code: <PinInput /></label></div>
+      <div><input type="submit" onSubmit={ (event) => event.preventDefault() } /></div>
+    </form>
+  );
 }
