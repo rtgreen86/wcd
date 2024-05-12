@@ -3,9 +3,12 @@ import * as Api from '../api';
 import PinInput from './PinInput';
 
 export default function PinSettings() {
+  const pinSize = 4;
+
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [isPinExist, setPinExist] = useState(false);
+  const [newPin, setNewPin] = useState('');
 
   useEffect(() => {
     Api.isPinExist()
@@ -26,11 +29,15 @@ export default function PinSettings() {
     return <span>PIN exists.</span>;
   }
 
+  const isSubmitDisabled = newPin.length !== pinSize;
+
   return (
-    <form>
-      <div>PIN code is not set. Set PIN code to protect application data.</div>
-      <div><label>Enter new PIN code: <PinInput /></label></div>
-      <div><input type="submit" onSubmit={ (event) => event.preventDefault() } /></div>
+    <form  onSubmit={ (event) => event.preventDefault() } >
+      <p>
+        PIN code is not set. Set PIN code to protect application data.<br />
+        <label>Enter new PIN code: <PinInput name="pin-code" size={pinSize} onChange={(value) => setNewPin(value)} /></label>
+      </p>
+      <p><input className="btn btn-default" type="submit" disabled={isSubmitDisabled} /></p>
     </form>
   );
 }
