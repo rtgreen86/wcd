@@ -15,7 +15,4 @@ export default class Api {
 }
 
 export * from './marks';
-
-export async function isPinExist() {
-  return electronAPI.sendRequest({ type: 'get:isPinExist' }) as any as Promise<boolean>;
-}
+export * from './pin';

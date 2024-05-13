@@ -31,8 +31,22 @@ export default function PinSettings() {
 
   const isSubmitDisabled = newPin.length !== pinSize;
 
+  const handleSetPinCode = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+    setNewPin('');
+    try {
+      const result = await Api.setPin(null, newPin);
+      setPinExist(result);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
-    <form  onSubmit={ (event) => event.preventDefault() } >
+    <form  onSubmit={handleSetPinCode} >
       <p>
         PIN code is not set. Set PIN code to protect application data.<br />
         <label>Enter new PIN code: <PinInput name="pin-code" size={pinSize} onChange={(value) => setNewPin(value)} /></label>
