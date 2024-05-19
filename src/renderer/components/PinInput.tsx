@@ -2,28 +2,33 @@ import React, { useState, FormEvent } from 'react';
 
 type Props = {
   name?: string,
-  size?: number
+  maxLength?: number,
+  value?: string,
   onChange?: (value: string) => void;
+  onPinEntried?: (value: string) => void;
 };
+
+const noop = () => {};
 
 export default function PinInput({
   name = '',
-  size = 4,
-  onChange = () => {},
+  maxLength = 4,
+  value,
+  onChange = noop,
+  onPinEntried = noop,
 }: Props) {
-  const [value, setValue] = useState('');
+  const [entriedValue, setEntriedValue] = useState('');
+
+  const actualValue = value === undefined ? entriedValue : value;
 
   const handleChange = (e: FormEvent) => {
-    const _value = (e.target as HTMLInputElement).value;
-    if (!/^\d*$/.test(_value)) {
-      return;
-    }
-    if (_value.length > size) {
-      return;
-    }
-    setValue(_value);
-    onChange(_value);
+    const currentValue = (e.target as HTMLInputElement).value;
+    if (!/^\d*$/.test(currentValue)) return;
+    if (currentValue.length > maxLength) return;
+    setEntriedValue(currentValue);
+    onChange(currentValue);
+    if (actualValue.length < maxLength && currentValue.length === maxLength) onPinEntried(currentValue);
   };
 
-  return <input type="password" name={name} maxLength={size} value={value} onChange={handleChange}></input>;
+  return <input type="password" name={name} maxLength={maxLength} value={actualValue} onChange={handleChange}></input>;
 }

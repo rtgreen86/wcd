@@ -26,8 +26,8 @@ export default class PinController implements Handler<Request, Response> {
     return this.model.pin.checkIsPinSetted();
   }
 
-  setPin(oldPin: string, newPin: string) {
-    if (newPin !== '' && newPin.length !== 4) {
+  setPin(oldPin: string | null, newPin: string | null) {
+    if (newPin !== null && newPin.length !== 4) {
       throw new Error('Invalid PIN code');
     }
 

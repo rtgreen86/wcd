@@ -8,6 +8,7 @@ export default function PinSettings() {
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [isPinExist, setPinExist] = useState(false);
+  const [oldPin, setOldPin] = useState('');
   const [newPin, setNewPin] = useState('');
 
   useEffect(() => {
@@ -26,7 +27,30 @@ export default function PinSettings() {
   }
 
   if (isPinExist) {
-    return <span>PIN exists.</span>;
+    const handleRemovePin = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      setLoading(true);
+      setOldPin('');
+      setNewPin('');
+      try {
+        const result = await Api.setPin(oldPin, null);
+        setPinExist(!result);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    return (
+      <form onSubmit={handleRemovePin} >
+        <p>
+          Entrer your current PIN code:<br />
+          <label>Current PIN: <PinInput name="pin-code" maxLength={pinSize} onChange={value => setOldPin(value)} /></label>
+        </p>
+        <p><input className='btn' type="submit" value="Delete" /></p>
+      </form>
+    );
   }
 
   const isSubmitDisabled = newPin.length !== pinSize;
@@ -39,17 +63,17 @@ export default function PinSettings() {
       const result = await Api.setPin(null, newPin);
       setPinExist(result);
     } catch (error) {
-      setError(error.message);
+      setError(error);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <form  onSubmit={handleSetPinCode} >
+    <form onSubmit={handleSetPinCode} >
       <p>
         PIN code is not set. Set PIN code to protect application data.<br />
-        <label>Enter new PIN code: <PinInput name="pin-code" size={pinSize} onChange={(value) => setNewPin(value)} /></label>
+        <label>Enter new PIN code: <PinInput name="pin-code" maxLength={pinSize} onChange={(value) => setNewPin(value)} /></label>
       </p>
       <p><input className="btn btn-default" type="submit" disabled={isSubmitDisabled} /></p>
     </form>
