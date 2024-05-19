@@ -4,6 +4,7 @@ type Props = {
   name?: string,
   maxLength?: number,
   value?: string,
+  disabled?: boolean,
   onChange?: (value: string) => void;
   onPinEntried?: (value: string) => void;
 };
@@ -14,6 +15,7 @@ export default function PinInput({
   name = '',
   maxLength = 4,
   value,
+  disabled = false,
   onChange = noop,
   onPinEntried = noop,
 }: Props) {
@@ -30,5 +32,5 @@ export default function PinInput({
     if (actualValue.length < maxLength && currentValue.length === maxLength) onPinEntried(currentValue);
   };
 
-  return <input type="password" name={name} maxLength={maxLength} value={actualValue} onChange={handleChange}></input>;
+  return <input type="password" name={name} maxLength={maxLength} value={actualValue} disabled={disabled} onChange={handleChange}></input>;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as Api from '../api';
 import PinInput from './PinInput';
+import PinSetForm from './PinSetForm';
 
 export default function PinSettings() {
   const pinSize = 4;
@@ -53,14 +54,10 @@ export default function PinSettings() {
     );
   }
 
-  const isSubmitDisabled = newPin.length !== pinSize;
-
-  const handleSetPinCode = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSetPinSubmit = async (pin: string) => {
     setLoading(true);
-    setNewPin('');
     try {
-      const result = await Api.setPin(null, newPin);
+      const result = await Api.setPin(null, pin);
       setPinExist(result);
     } catch (error) {
       setError(error);
@@ -69,13 +66,9 @@ export default function PinSettings() {
     }
   }
 
-  return (
-    <form onSubmit={handleSetPinCode} >
-      <p>
-        PIN code is not set. Set PIN code to protect application data.<br />
-        <label>Enter new PIN code: <PinInput name="pin-code" maxLength={pinSize} onChange={(value) => setNewPin(value)} /></label>
-      </p>
-      <p><input className="btn btn-default" type="submit" disabled={isSubmitDisabled} /></p>
-    </form>
-  );
+  const isDisabled = isLoading || Boolean(error);
+
+  const actualMessage = error ? error.message : '';
+
+  return <PinSetForm pinSize={pinSize} message={actualMessage} disabled={isDisabled} onSubmit={handleSetPinSubmit} />;
 }
