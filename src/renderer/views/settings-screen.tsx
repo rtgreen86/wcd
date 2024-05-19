@@ -20,15 +20,13 @@ export default function SettingsScreen() {
       <BackPanel />
       <main>
         <section>
-          <h1>Modal</h1>
+          <h5>Modal</h5>
 
           <p>You can protect your application data by settings PIN code.</p>
 
-          <p>Information or status message.</p>
-
-          <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete-pin-modal">
+          <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-pin-modal">
             Delete PIN
-          </button> <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#set-pin-modal">
+          </button> <button type="button" className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#set-pin-modal">
             Set PIN
           </button>
 
@@ -61,11 +59,23 @@ export default function SettingsScreen() {
                     <h5 className="modal-title">Set PIN</h5>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div className="modal-body text-center">
-                    <p>Enter new PIN code to protect your application data.</p>
-                    <div><label>New PIN code: <input type="password" name="pin-1" maxLength={4}></input></label></div>
-                    <div><label>Reenter PIN code: <input type="password" name="pin-2" maxLength={4}></input></label></div>
-                    <p>Information or Error message.</p>
+                  <div className="modal-body">
+                    <div className="container-fluid text-center">
+                      <div className="row align-items-start"><div className="col">
+                        Enter new PIN code to protect your application data.
+                      </div></div>
+                      <div className="row align-items-start">
+                        <div className="col text-end"><label htmlFor="pin-1">New PIN code:</label></div>
+                        <div className="col text-start"><input type="password" id="pin-1" name="pin-1" maxLength={4}></input></div>
+                      </div>
+                      <div className="row align-items-start">
+                        <div className="col text-end"><label htmlFor="pin-2">Reenter PIN code:</label></div>
+                        <div className="col text-start"><input type="password" id="pin-2" name="pin-2" maxLength={4}></input></div>
+                      </div>
+                      <div className="row align-items-start">
+                        <div className="col">Information or Error message.</div>
+                      </div>
+                    </div>
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
