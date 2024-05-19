@@ -1,4 +1,4 @@
-input[type=submit],
+input[type=submit]:not(.btn),
 input[type=button],
 button {
   background-color: var(--button-default);
@@ -8,26 +8,26 @@ button {
   font: 1em var(--system);
 }
 
-input[type=submit]:hover,
+input[type=submit]:not(.btn):hover,
 input[type=button]:hover,
 button:hover {
   background-color: var(--button-hover);
 }
 
-input[type=submit]:active,
+input[type=submit]:not(.btn):active,
 input[type=button]:active,
 button:active {
   background-color: var(--button-active);
 }
 
-input[type=submit][disabled],
+input[type=submit][disabled]:not(.btn),
 input[type=button][disabled],
 button[disabled] {
   color: rgba(16, 16, 16, 0.3);
 }
 
-input[type=submit][disabled]:hover,
-input[type=submit][disabled]:active,
+input[type=submit][disabled]:not(.btn):hover,
+input[type=submit][disabled]:not(.btn):active,
 input[type=button][disabled]:hover,
 input[type=button][disabled]:active,
 button[disabled]:hover,

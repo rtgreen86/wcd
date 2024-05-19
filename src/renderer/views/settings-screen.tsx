@@ -22,43 +22,56 @@ export default function SettingsScreen() {
         <section>
           <h1>Modal</h1>
 
-          <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#example-modal">
-            Launch demo modal
+          <p>You can protect your application data by settings PIN code.</p>
+
+          <p>Information or status message.</p>
+
+          <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete-pin-modal">
+            Delete PIN
+          </button> <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#set-pin-modal">
+            Set PIN
           </button>
 
-          <div className="modal fade" id="example-modal" tabIndex={-1}  aria-hidden="true" aria-labelledby="exampleModalToggleLabel">
+          <div className="modal fade" id="delete-pin-modal" aria-hidden="true" tabIndex={-1}>
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Modal Title</h5>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                  <p>Modal body text goes here.</p>
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-primary" data-bs-target="#example-modal-2" data-bs-toggle="modal">Open second modal</button>
-                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" className="btn btn-primary">Save changes</button>
-                </div>
+                <form onSubmit={event => event.preventDefault()}>
+                  <div className="modal-header">
+                    <h5 className="modal-title">Delete PIN</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body text-center">
+                    <p>Enter current PIN code to remove.</p>
+                    <input type="password" name="pin-code" maxLength={4}></input>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <input type="submit" className="btn btn-danger" value="Delete" disabled/>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
 
-          <div className="modal fade" id="example-modal-2" tabIndex={-1} aria-hidden="true" aria-labelledby="exampleModalToggleLabel2">
+          <div className="modal fade" id="set-pin-modal" aria-hidden="true" tabIndex={-1}>
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Modal Title 2</h5>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                  This is second modal content.
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" className="btn btn-primary">Save changes</button>
-                </div>
+                <form onSubmit={event => event.preventDefault()}>
+                  <div className="modal-header">
+                    <h5 className="modal-title">Set PIN</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body text-center">
+                    <p>Enter new PIN code to protect your application data.</p>
+                    <div><label>New PIN code: <input type="password" name="pin-1" maxLength={4}></input></label></div>
+                    <div><label>Reenter PIN code: <input type="password" name="pin-2" maxLength={4}></input></label></div>
+                    <p>Information or Error message.</p>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <input type="submit" className="btn btn-primary" value="Set" disabled />
+                  </div>
+                </form>
               </div>
             </div>
           </div>

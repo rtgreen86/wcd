@@ -81,7 +81,7 @@ main {
 
 /* Buttons */
 
-input[type=submit],
+input[type=submit]:not(.btn),
 input[type=button],
 button {
   background-color: var(--button-default);
