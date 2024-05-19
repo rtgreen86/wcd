@@ -26,8 +26,8 @@ export default function SettingsScreen() {
             Launch demo modal
           </button>
 
-          <div className="modal" id="example-modal" tabIndex={-1}>
-            <div className="modal-dialog">
+          <div className="modal fade" id="example-modal" tabIndex={-1}  aria-hidden="true" aria-labelledby="exampleModalToggleLabel">
+            <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title">Modal Title</h5>
@@ -35,6 +35,25 @@ export default function SettingsScreen() {
                 </div>
                 <div className="modal-body">
                   <p>Modal body text goes here.</p>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-primary" data-bs-target="#example-modal-2" data-bs-toggle="modal">Open second modal</button>
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="modal fade" id="example-modal-2" tabIndex={-1} aria-hidden="true" aria-labelledby="exampleModalToggleLabel2">
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Modal Title 2</h5>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                  This is second modal content.
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
