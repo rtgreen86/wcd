@@ -5,6 +5,7 @@ import { DispatchContext, StateContext } from '../App';
 import TestFsApi from '../components/TestFsApi';
 import ShowPinCode from '../components/show-pin-code';
 import PinSettings from '../components/PinSettings';
+import Button, { ButtonStyle, ButtonType } from '../components/Button';
 
 export default function SettingsScreen() {
   const state = useContext(StateContext);
@@ -24,11 +25,11 @@ export default function SettingsScreen() {
 
           <p>You can protect your application data by settings PIN code.</p>
 
-          <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-pin-modal">
+          <Button buttonType={ButtonType.Modal} buttonStyle={ButtonStyle.Danger} modalTarget="#delete-pin-modal">
             Delete PIN
-          </button> <button type="button" className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#set-pin-modal">
+          </Button> <Button buttonType={ButtonType.Modal} buttonStyle={ButtonStyle.OutlineDark} modalTarget="#set-pin-modal">
             Set PIN
-          </button>
+          </Button>
 
           <div className="modal fade" id="delete-pin-modal" aria-hidden="true" tabIndex={-1}>
             <div className="modal-dialog modal-dialog-centered">
