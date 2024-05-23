@@ -5,7 +5,8 @@ import { DispatchContext, StateContext } from '../App';
 import TestFsApi from '../components/TestFsApi';
 import ShowPinCode from '../components/show-pin-code';
 import PinSettings from '../components/PinSettings';
-import Button, { ButtonStyle, ButtonType } from '../components/Button';
+import Button from '../components/Button';
+import Modal, {ModalHeader, ModalBody, ModalFooter} from '../components/Modal';
 
 export default function SettingsScreen() {
   const state = useContext(StateContext);
@@ -25,68 +26,11 @@ export default function SettingsScreen() {
 
           <p>You can protect your application data by settings PIN code.</p>
 
-          <Button buttonType={ButtonType.Modal} buttonStyle={ButtonStyle.Danger} modalTarget="#delete-pin-modal">
+          <Button buttonStyle='danger' onClick="modal-toggle" modalTarget="#delete-pin-modal">
             Delete PIN
-          </Button> <Button buttonType={ButtonType.Modal} buttonStyle={ButtonStyle.OutlineDark} modalTarget="#set-pin-modal">
+          </Button> <Button buttonStyle="outline-dark" onClick="modal-toggle" modalTarget="#set-pin-modal">
             Set PIN
           </Button>
-
-          <div className="modal fade" id="delete-pin-modal" aria-hidden="true" tabIndex={-1}>
-            <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content">
-                <form onSubmit={event => event.preventDefault()}>
-                  <div className="modal-header">
-                    <h5 className="modal-title">Delete PIN</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div className="modal-body text-center">
-                    <p>Enter current PIN code to remove.</p>
-                    <input type="password" name="pin-code" maxLength={4}></input>
-                  </div>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <input type="submit" className="btn btn-danger" value="Delete" disabled/>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div className="modal fade" id="set-pin-modal" aria-hidden="true" tabIndex={-1}>
-            <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content">
-                <form onSubmit={event => event.preventDefault()}>
-                  <div className="modal-header">
-                    <h5 className="modal-title">Set PIN</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div className="modal-body">
-                    <div className="container-fluid text-center">
-                      <div className="row align-items-start"><div className="col">
-                        Enter new PIN code to protect your application data.
-                      </div></div>
-                      <div className="row align-items-start">
-                        <div className="col text-end"><label htmlFor="pin-1">New PIN code:</label></div>
-                        <div className="col text-start"><input type="password" id="pin-1" name="pin-1" maxLength={4}></input></div>
-                      </div>
-                      <div className="row align-items-start">
-                        <div className="col text-end"><label htmlFor="pin-2">Reenter PIN code:</label></div>
-                        <div className="col text-start"><input type="password" id="pin-2" name="pin-2" maxLength={4}></input></div>
-                      </div>
-                      <div className="row align-items-start">
-                        <div className="col">Information or Error message.</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <input type="submit" className="btn btn-primary" value="Set" disabled />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
         </section>
 
         <section>
@@ -125,6 +69,55 @@ export default function SettingsScreen() {
           <p>{packageInfo.productName}<br />Версия {packageInfo.version}<br />{packageInfo.description}</p>
         </section>
       </main>
+
+      <Modal id="delete-pin-modal">
+        <form onSubmit={event => event.preventDefault()}>
+          <ModalHeader title='Delete PIN' />
+          <ModalBody>
+            <p>Enter current PIN code to remove.</p>
+            <input type="password" name="pin-code" maxLength={4}></input>
+          </ModalBody>
+          <ModalFooter>
+            <Button buttonStyle="outline-secondary" onClick="modal-dismiss">Cancel</Button>
+            <Button buttonType="submit" buttonStyle="danger" disabled>Delete</Button>
+          </ModalFooter>
+        </form>
+      </Modal>
+
+      <div className="modal fade" id="set-pin-modal" aria-hidden="true" tabIndex={-1}>
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <form onSubmit={event => event.preventDefault()}>
+              <div className="modal-header">
+                <h5 className="modal-title">Set PIN</h5>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                <div className="container-fluid text-center">
+                  <div className="row align-items-start"><div className="col">
+                    Enter new PIN code to protect your application data.
+                  </div></div>
+                  <div className="row align-items-start">
+                    <div className="col text-end"><label htmlFor="pin-1">New PIN code:</label></div>
+                    <div className="col text-start"><input type="password" id="pin-1" name="pin-1" maxLength={4}></input></div>
+                  </div>
+                  <div className="row align-items-start">
+                    <div className="col text-end"><label htmlFor="pin-2">Reenter PIN code:</label></div>
+                    <div className="col text-start"><input type="password" id="pin-2" name="pin-2" maxLength={4}></input></div>
+                  </div>
+                  <div className="row align-items-start">
+                    <div className="col">Information or Error message.</div>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <Button buttonStyle="secondary" onClick="modal-dismiss">Cancel</Button>
+                <Button buttonType="submit" buttonStyle="primary" disabled>Set</Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

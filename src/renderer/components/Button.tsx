@@ -1,68 +1,61 @@
 import React, { ReactNode } from 'react';
+import * as ButtonStyles from './ButtonStyles';
+import classNames from 'classnames';
 
-export enum ButtonType {
-  Button = 'button',
-  Submit = 'submit',
-  Reset = 'reset',
-  Modal = 'modal'
-};
+type ButtonStyle = typeof ButtonStyles[keyof typeof ButtonStyles];
 
-export enum ButtonStyle {
-  Primary = 'btn-primary',
-  Secondary = 'btn-secondary',
-  Success = 'btn-success',
-  Danger = 'btn-danger',
-  Warning = 'btn-warning',
-  Info = 'btn-info',
-  Light = 'btn-light',
-  Dark = 'btn-dark',
-  Link = 'btn-link',
-  OutlinePrimary = 'btn-outline-primary',
-  OutlineSecondary = 'btn-outline-secondary',
-  OutlineSuccess = 'btn-outline-success',
-  OutlineDanger = 'btn-outline-danger',
-  OutlineWarning = 'btn-outline-warning',
-  OutlineInfo = 'btn-outline-info',
-  OutlineLight = 'btn-outline-light',
-  OutlineDark = 'btn-outline-dark'
-};
+type ButtonSize = 'large' | 'small';
 
-export enum ButtonSize {
-  Large = 'btn-lg',
-  Normal = '',
-  Small = 'btn-sm'
-};
+type ButtonType = 'button' | 'submit' | 'reset';
 
-type Props = {
+type ButtonWithHandlerProps = {
   buttonType?: ButtonType,
   buttonStyle?: ButtonStyle,
   buttonSize?: ButtonSize,
   disabled?: boolean,
-  modalTarget?: string,
   onClick?: () => void,
+  children?: ReactNode
+};
+
+type ToggleModalButtonProps = {
+  buttonStyle?: ButtonStyle,
+  buttonSize?: ButtonSize,
+  disabled?: boolean,
+  modalTarget: string,
+  onClick: 'modal-toggle',
+  children?: ReactNode
+};
+
+type DismissModalButtonProps = {
+  buttonStyle?: ButtonStyle,
+  buttonSize?: ButtonSize,
+  disabled?: boolean,
+  onClick: 'modal-dismiss',
   children?: ReactNode
 };
 
 const noop = () => {};
 
-export default function Button({
-  buttonType = ButtonType.Button,
-  buttonStyle = ButtonStyle.Secondary,
-  buttonSize = ButtonSize.Normal,
-  disabled = false,
-  modalTarget = '',
-  onClick = noop,
-  children,
-}: Props) {
-  const className = `btn ${buttonStyle} ${buttonSize}`;
+export default function Button(props: ButtonWithHandlerProps | ToggleModalButtonProps | DismissModalButtonProps) {
+  const {
+    buttonStyle = 'secondary',
+    buttonSize,
+    disabled,
+    children
+  } = props;
 
-  if (buttonType === ButtonType.Modal) {
-    return (
-      <button type="button" className={className} disabled={disabled} data-bs-toggle="modal" data-bs-target={modalTarget}>{children}</button>
-    );
+  const className = classNames('btn', `btn-${buttonStyle}`, {
+    'btn-lg': buttonSize === 'large',
+    'btn-sm': buttonSize === 'small'
+  });
+
+  if (props.onClick === 'modal-dismiss') {
+    return <button type="button" className={className} disabled={disabled} data-bs-dismiss="modal">{children}</button>;
   }
 
-  return (
-    <button type={buttonType} className={className} disabled={disabled} onClick={onClick}>{children}</button>
-  );
+  if (props.onClick === 'modal-toggle') {
+    return <button type="button" className={className} disabled={disabled} data-bs-toggle="modal" data-bs-target={props.modalTarget}>{children}</button>;
+  }
+
+  return <button type={props.buttonType} className={className} disabled={disabled} onClick={props.onClick}>{children}</button>;
 };
