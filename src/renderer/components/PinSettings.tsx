@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as Api from '../api';
 import PinInput from './PinInput';
-import PinSetForm from './PinSetForm';
 import Button from './Button';
 
 export default function PinSettings() {
@@ -11,7 +10,6 @@ export default function PinSettings() {
   const [isLoading, setLoading] = useState(true);
   const [isPinExist, setPinExist] = useState(false);
   const [oldPin, setOldPin] = useState('');
-  const [newPin, setNewPin] = useState('');
 
   useEffect(() => {
     Api.isPinExist()
@@ -53,7 +51,6 @@ export default function PinSettings() {
       event.preventDefault();
       setLoading(true);
       setOldPin('');
-      setNewPin('');
       try {
         const result = await Api.setPin(oldPin, null);
         setPinExist(!result);
@@ -75,22 +72,6 @@ export default function PinSettings() {
     );
   }
 
-  const handleSetPinSubmit = async (pin: string) => {
-    setLoading(true);
-    try {
-      const result = await Api.setPin(null, pin);
-      setPinExist(result);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const isDisabled = isLoading || Boolean(error);
-
-  const actualMessage = error ? error.message : '';
-
   return (
     <section>
       <h5>PIN code</h5>
@@ -102,9 +83,6 @@ export default function PinSettings() {
           ? <Button buttonStyle='danger' onClick="modal-toggle" modalTarget="#delete-pin-modal">Delete PIN</Button>
           : <Button buttonStyle="outline-dark" onClick="modal-toggle" modalTarget="#set-pin-modal">Set PIN</Button>
       }
-
-      <PinSetForm pinSize={pinSize} message={actualMessage} disabled={isDisabled} onSubmit={handleSetPinSubmit} />;
     </section>
-  )
-
+  );
 }
