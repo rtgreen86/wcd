@@ -2,33 +2,26 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import Modal, { ModalHeader, ModalBody, ModalFooter } from './Modal';
 import InputPin from './InputPin';
 import Button from './Button';
+import { useModal } from '../hooks/useModal';
 
 type Props = {
   id: string,
-  onApply?: (pin: string) => void
 };
 
 const PIN_LENGTH = 4;
 
-const noop = () => {};
-
 export default function SetPinModal({
   id,
-  onApply = noop,
 }: Props) {
   const [pin, setPin] = useState('');
 
   const [reenterPin, setReenterPin] = useState('');
 
-  useEffect(() => {
-    const input = document.getElementById(`${id}-pin`);
-    const handleShown = () => {
-      input.focus();
-    };
-    document.addEventListener('shown.bs.modal', handleShown);
+  const modal = useModal<{ pin: string }>(id);
 
-    return () => document.removeEventListener('shown.bs.modal', handleShown);
-  }, []);
+  modal.onShown((event: Event) => {
+    document.getElementById(`${id}-pin`).focus();
+  });
 
   const isDisabled = pin.length !== PIN_LENGTH || pin !== reenterPin;
 
@@ -66,13 +59,7 @@ export default function SetPinModal({
     event.preventDefault();
     setPin('');
     setReenterPin('');
-    onApply(pin);
-
-    const event1 = new CustomEvent('apply.modal', {
-      detail: { pin }
-    });
-
-    document.getElementById(id).dispatchEvent(event1);
+    modal.apply({ pin });
   }
 
   return (
