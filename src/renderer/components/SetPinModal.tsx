@@ -2,7 +2,6 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import Modal, { ModalHeader, ModalBody, ModalFooter } from './Modal';
 import InputPin from './InputPin';
 import Button from './Button';
-import {Modal as BootstrapModal} from 'bootstrap';
 
 type Props = {
   id: string,
@@ -65,6 +64,8 @@ export default function SetPinModal({
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setPin('');
+    setReenterPin('');
     onApply(pin);
   }
 
@@ -77,11 +78,11 @@ export default function SetPinModal({
             <div className="row align-items-start"><div className="col">{message}</div></div>
             <div className="row align-items-start">
               <div className="col text-end"><label htmlFor={`${id}-pin`}>New PIN code:</label></div>
-              <div className="col text-start"><InputPin id={`${id}-pin`} name="pin" maxLength={PIN_LENGTH} onChange={handlePinChanged}></InputPin></div>
+              <div className="col text-start"><InputPin id={`${id}-pin`} name="pin" maxLength={PIN_LENGTH} value={pin} onChange={handlePinChanged}></InputPin></div>
             </div>
             <div className="row align-items-start">
               <div className="col text-end"><label htmlFor={`${id}-reenter-pin`}>Reenter PIN code:</label></div>
-              <div className="col text-start"><InputPin id={`${id}-reenter-pin`} name="pin-reenter" maxLength={PIN_LENGTH} onChange={handleReenterPinChanged}></InputPin></div>
+              <div className="col text-start"><InputPin id={`${id}-reenter-pin`} name="pin-reenter" maxLength={PIN_LENGTH} value={reenterPin} onChange={handleReenterPinChanged}></InputPin></div>
             </div>
           </div>
         </ModalBody>
