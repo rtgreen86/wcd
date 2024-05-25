@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import BackPanel from '../components/back-panel';
 import packageInfo from '../../../package.json';
 import { DispatchContext, StateContext } from '../App';
@@ -6,8 +6,9 @@ import TestFsApi from '../components/TestFsApi';
 import ShowPinCode from '../components/show-pin-code';
 import PinSettings from '../components/PinSettings';
 import Button from '../components/Button';
-import Modal, {ModalHeader, ModalBody, ModalFooter} from '../components/Modal';
-import InputPin from '../components/InputPin';
+import Modal from '../components/Modal';
+import DeletePinModalContent from '../components/DeletePinModalContent';
+import SetPinModalContent from '../components/SetPinModalContent';
 
 export default function SettingsScreen() {
   const state = useContext(StateContext);
@@ -71,47 +72,8 @@ export default function SettingsScreen() {
         </section>
       </main>
 
-      <Modal id="delete-pin-modal">
-        <form onSubmit={event => event.preventDefault()}>
-          <ModalHeader title='Delete PIN' />
-          <ModalBody>
-            <p>Enter current PIN code to remove.</p>
-            <InputPin name="pin-code" maxLength={4}></InputPin>
-          </ModalBody>
-          <ModalFooter>
-            <Button buttonStyle="outline-secondary" onClick="modal-dismiss">Cancel</Button>
-            <Button buttonType="submit" buttonStyle="danger" disabled>Delete</Button>
-          </ModalFooter>
-        </form>
-      </Modal>
-
-      <Modal id="set-pin-modal">
-        <form onSubmit={event => event.preventDefault()}>
-          <ModalHeader title='Set PIN' />
-          <ModalBody>
-            <div className="container-fluid text-center">
-              <div className="row align-items-start"><div className="col">
-                Enter new PIN code to protect your application data.
-              </div></div>
-              <div className="row align-items-start">
-                <div className="col text-end"><label htmlFor="pin-1">New PIN code:</label></div>
-                <div className="col text-start"><InputPin id="pin-1" name="pin-1" maxLength={4}></InputPin></div>
-              </div>
-              <div className="row align-items-start">
-                <div className="col text-end"><label htmlFor="pin-2">Reenter PIN code:</label></div>
-                <div className="col text-start"><InputPin id="pin-2" name="pin-2" maxLength={4}></InputPin></div>
-              </div>
-              <div className="row align-items-start">
-                <div className="col">Information or Error message.</div>
-              </div>
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button buttonStyle="secondary" onClick="modal-dismiss">Cancel</Button>
-            <Button buttonType="submit" buttonStyle="primary" disabled>Set</Button>
-          </ModalFooter>
-        </form>
-      </Modal>
+      <Modal id="delete-pin-modal"><DeletePinModalContent /></Modal>
+      <Modal id="set-pin-modal"><SetPinModalContent /></Modal>
     </>
   )
 }
