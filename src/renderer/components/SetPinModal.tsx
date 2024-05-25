@@ -5,7 +5,7 @@ import Button from './Button';
 
 type Props = {
   id: string,
-  onApply: (pin: string) => void
+  onApply?: (pin: string) => void
 };
 
 const PIN_LENGTH = 4;
@@ -67,6 +67,12 @@ export default function SetPinModal({
     setPin('');
     setReenterPin('');
     onApply(pin);
+
+    const event1 = new CustomEvent('apply.modal', {
+      detail: { pin }
+    });
+
+    document.getElementById(id).dispatchEvent(event1);
   }
 
   return (

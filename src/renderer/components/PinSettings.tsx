@@ -20,12 +20,30 @@ export default function PinSettings() {
       .then(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    const handle = async (event: CustomEvent<{ pin: string }>) => {
+      const pin = event.detail.pin;
+
+      setLoading(true);
+      try {
+        const result = await Api.setPin(null, pin);
+        setPinExist(result);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    document.getElementById('set-pin-modal').addEventListener('apply.modal', handle);
+  }, []);
+
   if (error) {
     return <span>{error.message}</span>;
   }
 
   if (isLoading) {
-    return null;
+    return <div>Loading...</div>;
   }
 
   let message = 'You can protect your application data by settings PIN code.';
