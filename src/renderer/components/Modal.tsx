@@ -37,7 +37,7 @@ export function Modal({
   children?: ReactNode
 }) {
   return (
-    <div className="modal fade" id={id} aria-hidden="true" tabIndex={-1}>
+    <div className="modal fade" id={id} data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" tabIndex={-1}>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">{ children }</div>
       </div>
