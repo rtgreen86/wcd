@@ -85,40 +85,33 @@ export default function SettingsScreen() {
         </form>
       </Modal>
 
-      <div className="modal fade" id="set-pin-modal" aria-hidden="true" tabIndex={-1}>
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <form onSubmit={event => event.preventDefault()}>
-              <div className="modal-header">
-                <h5 className="modal-title">Set PIN</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <Modal id="set-pin-modal">
+        <form onSubmit={event => event.preventDefault()}>
+          <ModalHeader title='Set PIN' />
+          <ModalBody>
+            <div className="container-fluid text-center">
+              <div className="row align-items-start"><div className="col">
+                Enter new PIN code to protect your application data.
+              </div></div>
+              <div className="row align-items-start">
+                <div className="col text-end"><label htmlFor="pin-1">New PIN code:</label></div>
+                <div className="col text-start"><InputPin id="pin-1" name="pin-1" maxLength={4}></InputPin></div>
               </div>
-              <div className="modal-body">
-                <div className="container-fluid text-center">
-                  <div className="row align-items-start"><div className="col">
-                    Enter new PIN code to protect your application data.
-                  </div></div>
-                  <div className="row align-items-start">
-                    <div className="col text-end"><label htmlFor="pin-1">New PIN code:</label></div>
-                    <div className="col text-start"><input type="password" id="pin-1" name="pin-1" maxLength={4}></input></div>
-                  </div>
-                  <div className="row align-items-start">
-                    <div className="col text-end"><label htmlFor="pin-2">Reenter PIN code:</label></div>
-                    <div className="col text-start"><input type="password" id="pin-2" name="pin-2" maxLength={4}></input></div>
-                  </div>
-                  <div className="row align-items-start">
-                    <div className="col">Information or Error message.</div>
-                  </div>
-                </div>
+              <div className="row align-items-start">
+                <div className="col text-end"><label htmlFor="pin-2">Reenter PIN code:</label></div>
+                <div className="col text-start"><InputPin id="pin-2" name="pin-2" maxLength={4}></InputPin></div>
               </div>
-              <div className="modal-footer">
-                <Button buttonStyle="secondary" onClick="modal-dismiss">Cancel</Button>
-                <Button buttonType="submit" buttonStyle="primary" disabled>Set</Button>
+              <div className="row align-items-start">
+                <div className="col">Information or Error message.</div>
               </div>
-            </form>
-          </div>
-        </div>
-      </div>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button buttonStyle="secondary" onClick="modal-dismiss">Cancel</Button>
+            <Button buttonType="submit" buttonStyle="primary" disabled>Set</Button>
+          </ModalFooter>
+        </form>
+      </Modal>
     </>
   )
 }
