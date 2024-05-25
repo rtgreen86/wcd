@@ -7,6 +7,7 @@ import ShowPinCode from '../components/show-pin-code';
 import PinSettings from '../components/PinSettings';
 import Button from '../components/Button';
 import Modal, {ModalHeader, ModalBody, ModalFooter} from '../components/Modal';
+import InputPin from '../components/InputPin';
 
 export default function SettingsScreen() {
   const state = useContext(StateContext);
@@ -75,7 +76,7 @@ export default function SettingsScreen() {
           <ModalHeader title='Delete PIN' />
           <ModalBody>
             <p>Enter current PIN code to remove.</p>
-            <input type="password" name="pin-code" maxLength={4}></input>
+            <InputPin name="pin-code" maxLength={4}></InputPin>
           </ModalBody>
           <ModalFooter>
             <Button buttonStyle="outline-secondary" onClick="modal-dismiss">Cancel</Button>
