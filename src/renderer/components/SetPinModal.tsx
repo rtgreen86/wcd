@@ -1,73 +1,93 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Modal, { ModalHeader, ModalBody, ModalFooter } from './Modal';
 import InputPin from './InputPin';
 import Button from './Button';
+import {Modal as BootstrapModal} from 'bootstrap';
 
-const PinLength = 4;
+type Props = {
+  id: string,
+  onApply: (pin: string) => void
+};
+
+const PIN_LENGTH = 4;
+
+const noop = () => {};
 
 export default function SetPinModal({
-  id
-}: {
-  id: string
-}) {
-  const [pin1, setPin1] = useState('');
+  id,
+  onApply = noop,
+}: Props) {
+  const [pin, setPin] = useState('');
 
-  const [pin2, setPin2] = useState('');
+  const [reenterPin, setReenterPin] = useState('');
 
   useEffect(() => {
-    const input = document.getElementById(`${id}-pin-1`);
+    const input = document.getElementById(`${id}-pin`);
     const handleShown = () => {
       input.focus();
     };
     document.addEventListener('shown.bs.modal', handleShown);
+
     return () => document.removeEventListener('shown.bs.modal', handleShown);
   }, []);
 
-  const handlePin1Changed = (value: string) => {
-    setPin1(value);
-    if (value.length < 4) return;
-    document.getElementById(`${id}-pin-2`).focus();
-  };
+  const isDisabled = pin.length !== PIN_LENGTH || pin !== reenterPin;
 
-  const handlePin2Changed = (value: string) => {
-    setPin2(value);
+  useEffect(() => {
+    if (!isDisabled) {
+      document.getElementById(`${id}-submit`).focus();
+    }
+  }, [isDisabled]);
+
+  let message = 'Press Set button.';
+
+  if (pin.length < PIN_LENGTH) {
+    message = 'Enter new PIN code to protect your application data.';
   }
 
-  let message = 'Enter new PIN code to protect your application data.';
-
-  if (pin1.length === PinLength && pin2 !== pin1) {
-    message = 'Reenter same PIN to second field.';
+  if (pin.length === PIN_LENGTH && reenterPin !== pin) {
+    message = 'Reenter PIN to second field.';
   }
 
-  if (pin2.length === PinLength && pin2 !== pin1) {
+  if (reenterPin.length === PIN_LENGTH && reenterPin !== pin) {
     message = 'Entried PIN codes are different.';
   }
 
-  const isDisabled = pin1.length !== PinLength || pin1 !== pin2;
+  const handlePinChanged = (value: string) => {
+    setPin(value);
+    if (value.length < PIN_LENGTH) return;
+    document.getElementById(`${id}-reenter-pin`).focus();
+  };
+
+  const handleReenterPinChanged = (value: string) => {
+    setReenterPin(value);
+  }
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onApply(pin);
+  }
 
   return (
     <Modal id={id}>
-      <form onSubmit={event => event.preventDefault()}>
-        <ModalHeader title='Set PIN' canClose={false} />
+      <form onSubmit={handleSubmit}>
+        <ModalHeader title='Set PIN' />
         <ModalBody>
           <div className="container-fluid text-center">
             <div className="row align-items-start"><div className="col">{message}</div></div>
             <div className="row align-items-start">
-              <div className="col text-end"><label htmlFor={`${id}-pin-1`}>New PIN code:</label></div>
-              <div className="col text-start"><InputPin id={`${id}-pin-1`} name="pin-1" maxLength={4} onChange={handlePin1Changed}></InputPin></div>
+              <div className="col text-end"><label htmlFor={`${id}-pin`}>New PIN code:</label></div>
+              <div className="col text-start"><InputPin id={`${id}-pin`} name="pin" maxLength={PIN_LENGTH} onChange={handlePinChanged}></InputPin></div>
             </div>
             <div className="row align-items-start">
-              <div className="col text-end"><label htmlFor={`${id}-pin-2`}>Reenter PIN code:</label></div>
-              <div className="col text-start"><InputPin id={`${id}-pin-2`} name="pin-2" maxLength={4} onChange={handlePin2Changed}></InputPin></div>
-            </div>
-            <div className="row align-items-start">
-              <div className="col">Information or Error message.</div>
+              <div className="col text-end"><label htmlFor={`${id}-reenter-pin`}>Reenter PIN code:</label></div>
+              <div className="col text-start"><InputPin id={`${id}-reenter-pin`} name="pin-reenter" maxLength={PIN_LENGTH} onChange={handleReenterPinChanged}></InputPin></div>
             </div>
           </div>
         </ModalBody>
         <ModalFooter>
           <Button buttonStyle="secondary" onClick="modal-dismiss">Cancel</Button>
-          <Button buttonType="submit" buttonStyle="primary" disabled={isDisabled}>Set</Button>
+          <Button id={`${id}-submit`} buttonType="submit" buttonStyle="primary" onClick="modal-dismiss" disabled={isDisabled}>Set</Button>
         </ModalFooter>
       </form>
     </Modal>

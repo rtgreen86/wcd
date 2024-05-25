@@ -9,6 +9,7 @@ type ButtonSize = 'large' | 'small';
 type ButtonType = 'button' | 'submit' | 'reset';
 
 type ButtonWithHandlerProps = {
+  id?: string,
   buttonType?: ButtonType,
   buttonStyle?: ButtonStyle,
   buttonSize?: ButtonSize,
@@ -18,6 +19,8 @@ type ButtonWithHandlerProps = {
 };
 
 type ToggleModalButtonProps = {
+  id?: string,
+  buttonType?: ButtonType,
   buttonStyle?: ButtonStyle,
   buttonSize?: ButtonSize,
   disabled?: boolean,
@@ -27,6 +30,8 @@ type ToggleModalButtonProps = {
 };
 
 type DismissModalButtonProps = {
+  id?: string,
+  buttonType?: ButtonType,
   buttonStyle?: ButtonStyle,
   buttonSize?: ButtonSize,
   disabled?: boolean,
@@ -38,6 +43,8 @@ const noop = () => {};
 
 export default function Button(props: ButtonWithHandlerProps | ToggleModalButtonProps | DismissModalButtonProps) {
   const {
+    id,
+    buttonType = 'button',
     buttonStyle = 'secondary',
     buttonSize,
     disabled,
@@ -50,12 +57,12 @@ export default function Button(props: ButtonWithHandlerProps | ToggleModalButton
   });
 
   if (props.onClick === 'modal-dismiss') {
-    return <button type="button" className={className} disabled={disabled} data-bs-dismiss="modal">{children}</button>;
+    return <button id={id} type={buttonType} className={className} disabled={disabled} data-bs-dismiss="modal">{children}</button>;
   }
 
   if (props.onClick === 'modal-toggle') {
-    return <button type="button" className={className} disabled={disabled} data-bs-toggle="modal" data-bs-target={props.modalTarget}>{children}</button>;
+    return <button id={id} type={buttonType} className={className} disabled={disabled} data-bs-toggle="modal" data-bs-target={props.modalTarget}>{children}</button>;
   }
 
-  return <button type={props.buttonType} className={className} disabled={disabled} onClick={props.onClick}>{children}</button>;
+  return <button id={id} type={buttonType} className={className} disabled={disabled} onClick={props.onClick}>{children}</button>;
 };
