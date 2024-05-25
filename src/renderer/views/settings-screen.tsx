@@ -7,8 +7,8 @@ import ShowPinCode from '../components/show-pin-code';
 import PinSettings from '../components/PinSettings';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
-import DeletePinModalContent from '../components/DeletePinModalContent';
-import SetPinModalContent from '../components/SetPinModalContent';
+import DeletePinModal from '../components/DeletePinModal';
+import SetPinModal from '../components/SetPinModal';
 
 export default function SettingsScreen() {
   const state = useContext(StateContext);
@@ -72,8 +72,8 @@ export default function SettingsScreen() {
         </section>
       </main>
 
-      <Modal id="delete-pin-modal"><DeletePinModalContent /></Modal>
-      <Modal id="set-pin-modal"><SetPinModalContent /></Modal>
+      <DeletePinModal id="delete-pin-modal" />
+      <SetPinModal id="set-pin-modal" />
     </>
   )
 }
