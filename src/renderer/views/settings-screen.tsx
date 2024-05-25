@@ -5,8 +5,6 @@ import { DispatchContext, StateContext } from '../App';
 import TestFsApi from '../components/TestFsApi';
 import ShowPinCode from '../components/show-pin-code';
 import PinSettings from '../components/PinSettings';
-import Button from '../components/Button';
-import Modal from '../components/Modal';
 import DeletePinModal from '../components/DeletePinModal';
 import SetPinModal from '../components/SetPinModal';
 
@@ -23,22 +21,7 @@ export default function SettingsScreen() {
     <>
       <BackPanel />
       <main>
-        <section>
-          <h5>Modal</h5>
-
-          <p>You can protect your application data by settings PIN code.</p>
-
-          <Button buttonStyle='danger' onClick="modal-toggle" modalTarget="#delete-pin-modal">
-            Delete PIN
-          </Button> <Button buttonStyle="outline-dark" onClick="modal-toggle" modalTarget="#set-pin-modal">
-            Set PIN
-          </Button>
-        </section>
-
-        <section>
-          <h6>PIN</h6>
-          <PinSettings />
-        </section>
+        <PinSettings />
 
         <section>
           <h1>Global State</h1>

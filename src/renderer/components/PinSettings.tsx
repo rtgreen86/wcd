@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as Api from '../api';
 import PinInput from './PinInput';
 import PinSetForm from './PinSetForm';
+import Button from './Button';
 
 export default function PinSettings() {
   const pinSize = 4;
@@ -24,8 +25,10 @@ export default function PinSettings() {
   }
 
   if (isLoading) {
-    return <span>loading...</span>;
+    return null;
   }
+
+  let message = 'You can protect your application data by settings PIN code.';
 
   if (isPinExist) {
     const handleRemovePin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,5 +73,20 @@ export default function PinSettings() {
 
   const actualMessage = error ? error.message : '';
 
-  return <PinSetForm pinSize={pinSize} message={actualMessage} disabled={isDisabled} onSubmit={handleSetPinSubmit} />;
+  return (
+    <section>
+      <h5>PIN code</h5>
+
+      <p>{message}</p>
+
+      {
+        isPinExist
+          ? <Button buttonStyle='danger' onClick="modal-toggle" modalTarget="#delete-pin-modal">Delete PIN</Button>
+          : <Button buttonStyle="outline-dark" onClick="modal-toggle" modalTarget="#set-pin-modal">Set PIN</Button>
+      }
+
+      <PinSetForm pinSize={pinSize} message={actualMessage} disabled={isDisabled} onSubmit={handleSetPinSubmit} />;
+    </section>
+  )
+
 }
