@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as Api from '../api';
 import PinInput from './PinInput';
 import Button from './Button';
+import ModalButton from './ModalButton';
 
 export default function PinSettings() {
   const pinSize = 4;
@@ -80,8 +81,8 @@ export default function PinSettings() {
 
       {
         isPinExist
-          ? <Button buttonStyle='danger' onClick="modal-toggle" modalTarget="#delete-pin-modal">Delete PIN</Button>
-          : <Button buttonStyle="outline-dark" onClick="modal-toggle" modalTarget="#set-pin-modal">Set PIN</Button>
+          ? <ModalButton buttonStyle='danger' modalAction="modal-toggle" modalTarget="#delete-pin-modal">Delete PIN</ModalButton>
+          : <ModalButton buttonStyle="outline-dark" modalAction="modal-toggle" modalTarget="#set-pin-modal">Set PIN</ModalButton>
       }
     </section>
   );

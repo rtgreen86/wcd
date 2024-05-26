@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
-import Modal, { ModalHeader, ModalBody, ModalFooter } from './Modal';
+import Modal from './Modal';
+import ModalHeader from './ModalHeader';
+import ModalBody from './ModalBody';
+import ModalFooter from './ModalFooter';
+import ModalButton from './ModalButton';
 import InputPin from './InputPin';
 import Button from './Button';
 
@@ -32,7 +36,7 @@ export default function DeletePinModal({
           <InputPin id={`${id}-pin-code`} name="pin-code" maxLength={4}></InputPin>
         </ModalBody>
         <ModalFooter>
-          <Button buttonStyle="outline-secondary" onClick="modal-dismiss">Cancel</Button>
+          <ModalButton buttonStyle="outline-secondary" modalAction="modal-dismiss">Cancel</ModalButton>
           <Button buttonType="submit" buttonStyle="danger" disabled>Delete</Button>
         </ModalFooter>
       </form>

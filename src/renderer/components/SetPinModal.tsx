@@ -1,5 +1,9 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import Modal, { ModalHeader, ModalBody, ModalFooter } from './Modal';
+import Modal from './Modal';
+import ModalHeader from './ModalHeader';
+import ModalBody from './ModalBody';
+import ModalFooter from './ModalFooter';
+import ModalButton from './ModalButton';
 import InputPin from './InputPin';
 import Button from './Button';
 import { useModal } from '../hooks/ModalHooks';
@@ -85,8 +89,8 @@ export default function SetPinModal({
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button buttonStyle="secondary" onClick="modal-dismiss">Cancel</Button>
-          <Button id={submitButtonId} buttonType="submit" buttonStyle="primary" onClick="modal-dismiss" disabled={isDisabled}>Set</Button>
+          <ModalButton buttonStyle="secondary" modalAction="modal-dismiss">Cancel</ModalButton>
+          <ModalButton id={submitButtonId} buttonType="submit" buttonStyle="primary" modalAction="modal-dismiss" disabled={isDisabled}>Set</ModalButton>
         </ModalFooter>
       </form>
     </Modal>
