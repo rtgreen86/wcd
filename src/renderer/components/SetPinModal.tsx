@@ -31,9 +31,9 @@ export default function SetPinModal({
 
   const isDisabled = pin.length !== PIN_LENGTH || pin !== reenterPin;
 
-  const modal = useModal<SetPinModalData>(id);
+  const modal = useModal(id);
 
-  modal.onShownModal((event: Event) => {
+  modal.on('shown.bs.modal', (event: Event) => {
     document.getElementById(pinFieldId).focus();
   });
 
@@ -71,7 +71,6 @@ export default function SetPinModal({
     event.preventDefault();
     setPin('');
     setReenterPin('');
-    // modal.triggerApply({ pin });
   };
 
   return (

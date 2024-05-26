@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as Api from '../api';
 import PinInput from './PinInput';
 import ModalButton from './ModalButton';
+import { useFormModal } from '../hooks/FormModalHooks';
 
 export default function PinSettings() {
   const pinSize = 4;
@@ -18,25 +19,23 @@ export default function PinSettings() {
       .then(() => setLoading(false));
   }, []);
 
-  useEffect(() => {
-    const handle = async (event: CustomEvent<FormData>) => {
-      const pin = event.detail.get('pin');
+  const modal = useFormModal('set-pin-modal');
 
-      if (typeof pin === 'string') {
-        setLoading(true);
-        try {
-          const result = await Api.setPin(null, pin);
-          setPinExist(result);
-        } catch (error) {
-          setError(error);
-        } finally {
-          setLoading(false);
-        }
+  modal.onApply(async (event: CustomEvent<FormData>) => {
+    const pin = event.detail.get('pin');
+
+    if (typeof pin === 'string') {
+      setLoading(true);
+      try {
+        const result = await Api.setPin(null, pin);
+        setPinExist(result);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
       }
     }
-
-    document.getElementById('set-pin-modal').addEventListener('apply.modal', handle);
-  }, []);
+  });
 
   if (error) {
     return <span>{error.message}</span>;

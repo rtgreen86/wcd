@@ -6,7 +6,7 @@ import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
 import ModalButton from './ModalButton';
 
-import { useModal } from '../hooks/ModalHooks';
+import { useFormModal } from '../hooks/FormModalHooks';
 
 export interface FormModalProps {
   id: string,
@@ -35,11 +35,12 @@ export default function FormModal({
 }: FormModalProps) {
   const submitId = `${id}-submit`;
 
+  const modal = useFormModal(id);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
     const detail = new FormData(form);
-    const modal = document.getElementById(id)
-    const cancelled = !modal.dispatchEvent(new CustomEvent<FormData>('apply.modal', { detail }));
+    const cancelled = !modal.dispatchApplyEvent(detail)
     if (!cancelled) onSubmit(event);
   };
 
