@@ -63,13 +63,16 @@ export default function PinSettings() {
     };
 
     return (
-      <form onSubmit={handleRemovePin} >
-        <p>
-          Entrer your current PIN code:<br />
-          <label>Current PIN: <PinInput name="pin-code" maxLength={pinSize} onChange={value => setOldPin(value)} /></label>
-        </p>
-        <p><input className='btn' type="submit" value="Delete" /></p>
-      </form>
+      <div>
+        <ModalButton buttonStyle='danger' modalAction="modal-toggle" modalTarget="#delete-pin-modal">Delete PIN</ModalButton>
+        <form onSubmit={handleRemovePin} >
+          <p>
+            Entrer your current PIN code:<br />
+            <label>Current PIN: <PinInput name="pin-code" maxLength={pinSize} onChange={value => setOldPin(value)} /></label>
+          </p>
+          <p><input className='btn' type="submit" value="Delete" /></p>
+        </form>
+      </div>
     );
   }
 
