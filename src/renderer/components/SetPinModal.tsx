@@ -2,32 +2,37 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import Modal, { ModalHeader, ModalBody, ModalFooter } from './Modal';
 import InputPin from './InputPin';
 import Button from './Button';
-import { useModal } from '../hooks/useModal';
+import { useModal } from '../hooks/ModalHooks';
 
-type Props = {
-  id: string,
+export type SetPinModalData = {
+  pin: string,
 };
 
 const PIN_LENGTH = 4;
 
 export default function SetPinModal({
   id,
-}: Props) {
+}: {
+  id: string,
+}) {
   const [pin, setPin] = useState('');
-
   const [reenterPin, setReenterPin] = useState('');
 
-  const modal = useModal<{ pin: string }>(id);
-
-  modal.onShown((event: Event) => {
-    document.getElementById(`${id}-pin`).focus();
-  });
+  const pinFieldId = `${id}-pin`;
+  const reenterPinFieldId = `${id}-reenter-pin`;
+  const submitButtonId = `${id}-submit`;
 
   const isDisabled = pin.length !== PIN_LENGTH || pin !== reenterPin;
 
+  const modal = useModal<SetPinModalData>(id);
+
+  modal.onShownModal((event: Event) => {
+    document.getElementById(pinFieldId).focus();
+  });
+
   useEffect(() => {
     if (!isDisabled) {
-      document.getElementById(`${id}-submit`).focus();
+      document.getElementById(submitButtonId).focus();
     }
   }, [isDisabled]);
 
@@ -48,19 +53,19 @@ export default function SetPinModal({
   const handlePinChanged = (value: string) => {
     setPin(value);
     if (value.length < PIN_LENGTH) return;
-    document.getElementById(`${id}-reenter-pin`).focus();
+    document.getElementById(reenterPinFieldId).focus();
   };
 
   const handleReenterPinChanged = (value: string) => {
     setReenterPin(value);
-  }
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setPin('');
     setReenterPin('');
-    modal.apply({ pin });
-  }
+    modal.triggerApply({ pin });
+  };
 
   return (
     <Modal id={id}>
@@ -70,18 +75,18 @@ export default function SetPinModal({
           <div className="container-fluid text-center">
             <div className="row align-items-start"><div className="col">{message}</div></div>
             <div className="row align-items-start">
-              <div className="col text-end"><label htmlFor={`${id}-pin`}>New PIN code:</label></div>
-              <div className="col text-start"><InputPin id={`${id}-pin`} name="pin" maxLength={PIN_LENGTH} value={pin} onChange={handlePinChanged}></InputPin></div>
+              <div className="col text-end"><label htmlFor={pinFieldId}>New PIN code:</label></div>
+              <div className="col text-start"><InputPin id={pinFieldId} name="pin" maxLength={PIN_LENGTH} value={pin} onChange={handlePinChanged}></InputPin></div>
             </div>
             <div className="row align-items-start">
-              <div className="col text-end"><label htmlFor={`${id}-reenter-pin`}>Reenter PIN code:</label></div>
-              <div className="col text-start"><InputPin id={`${id}-reenter-pin`} name="pin-reenter" maxLength={PIN_LENGTH} value={reenterPin} onChange={handleReenterPinChanged}></InputPin></div>
+              <div className="col text-end"><label htmlFor={reenterPinFieldId}>Reenter PIN code:</label></div>
+              <div className="col text-start"><InputPin id={reenterPinFieldId} name="pin-reenter" maxLength={PIN_LENGTH} value={reenterPin} onChange={handleReenterPinChanged}></InputPin></div>
             </div>
           </div>
         </ModalBody>
         <ModalFooter>
           <Button buttonStyle="secondary" onClick="modal-dismiss">Cancel</Button>
-          <Button id={`${id}-submit`} buttonType="submit" buttonStyle="primary" onClick="modal-dismiss" disabled={isDisabled}>Set</Button>
+          <Button id={submitButtonId} buttonType="submit" buttonStyle="primary" onClick="modal-dismiss" disabled={isDisabled}>Set</Button>
         </ModalFooter>
       </form>
     </Modal>
