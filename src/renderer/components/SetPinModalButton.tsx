@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
-import Button from './Button';
-import { SetPinModalData } from './SetPinModal';
+import ModalButton from './ModalButton'
 import { useModal } from '../hooks/ModalHooks';
 
 const noop = () => {};
@@ -11,15 +10,14 @@ export default function SetPinModalButton({
   children
 }: {
   modalId: string,
-  onApply: (data: SetPinModalData) => void,
+  onApply: (data: FormData) => void,
   children: ReactNode
 }) {
-  const modal = useModal<SetPinModalData>(modalId);
+  const modal = useModal<FormData>(modalId);
 
-  modal.onApplyModal((event: CustomEvent<SetPinModalData>) => {
-    const detail = event.detail;
-    onApply(detail);
+  modal.onApplyModal((event: CustomEvent<FormData>) => {
+    onApply(event.detail);
   });
 
-  return <Button buttonStyle="outline-secondary" onClick="modal-toggle" modalTarget={`#${modalId}`}>{ children }</Button>;
+  return <ModalButton buttonStyle="outline-secondary" modalAction="modal-toggle" modalTarget={`#${modalId}`}>{ children }</ModalButton>;
 }

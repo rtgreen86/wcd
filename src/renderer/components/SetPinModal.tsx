@@ -1,4 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+
+import FormModal from './FormModal';
+
 import Modal from './Modal';
 import ModalHeader from './ModalHeader';
 import ModalBody from './ModalBody';
@@ -68,31 +71,22 @@ export default function SetPinModal({
     event.preventDefault();
     setPin('');
     setReenterPin('');
-    modal.triggerApply({ pin });
+    // modal.triggerApply({ pin });
   };
 
   return (
-    <Modal id={id}>
-      <form onSubmit={handleSubmit}>
-        <ModalHeader title='Set PIN' />
-        <ModalBody>
-          <div className="container-fluid text-center">
-            <div className="row align-items-start"><div className="col">{message}</div></div>
-            <div className="row align-items-start">
-              <div className="col text-end"><label htmlFor={pinFieldId}>New PIN code:</label></div>
-              <div className="col text-start"><InputPin id={pinFieldId} name="pin" maxLength={PIN_LENGTH} value={pin} onChange={handlePinChanged}></InputPin></div>
-            </div>
-            <div className="row align-items-start">
-              <div className="col text-end"><label htmlFor={reenterPinFieldId}>Reenter PIN code:</label></div>
-              <div className="col text-start"><InputPin id={reenterPinFieldId} name="pin-reenter" maxLength={PIN_LENGTH} value={reenterPin} onChange={handleReenterPinChanged}></InputPin></div>
-            </div>
-          </div>
-        </ModalBody>
-        <ModalFooter>
-          <ModalButton buttonStyle="secondary" modalAction="modal-dismiss">Cancel</ModalButton>
-          <ModalButton id={submitButtonId} buttonType="submit" buttonStyle="primary" modalAction="modal-dismiss" disabled={isDisabled}>Set</ModalButton>
-        </ModalFooter>
-      </form>
-    </Modal>
+    <FormModal id={id} title="Set PIN" disabled={isDisabled} okBtnCaption="Set" onSubmit={handleSubmit}>
+      <div className="container-fluid text-center">
+        <div className="row align-items-start"><div className="col">{message}</div></div>
+        <div className="row align-items-start">
+          <div className="col text-end"><label htmlFor={pinFieldId}>New PIN code:</label></div>
+          <div className="col text-start"><InputPin id={pinFieldId} name="pin" maxLength={PIN_LENGTH} value={pin} onChange={handlePinChanged}></InputPin></div>
+        </div>
+        <div className="row align-items-start">
+          <div className="col text-end"><label htmlFor={reenterPinFieldId}>Reenter PIN code:</label></div>
+          <div className="col text-start"><InputPin id={reenterPinFieldId} name="pin-reenter" maxLength={PIN_LENGTH} value={reenterPin} onChange={handleReenterPinChanged}></InputPin></div>
+        </div>
+      </div>
+    </FormModal>
   );
 }

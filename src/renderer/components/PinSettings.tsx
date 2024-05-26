@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as Api from '../api';
 import PinInput from './PinInput';
-import Button from './Button';
 import ModalButton from './ModalButton';
 
 export default function PinSettings() {
@@ -20,17 +19,19 @@ export default function PinSettings() {
   }, []);
 
   useEffect(() => {
-    const handle = async (event: CustomEvent<{ pin: string }>) => {
-      const pin = event.detail.pin;
+    const handle = async (event: CustomEvent<FormData>) => {
+      const pin = event.detail.get('pin');
 
-      setLoading(true);
-      try {
-        const result = await Api.setPin(null, pin);
-        setPinExist(result);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
+      if (typeof pin === 'string') {
+        setLoading(true);
+        try {
+          const result = await Api.setPin(null, pin);
+          setPinExist(result);
+        } catch (error) {
+          setError(error);
+        } finally {
+          setLoading(false);
+        }
       }
     }
 

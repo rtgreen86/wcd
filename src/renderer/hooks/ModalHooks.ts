@@ -8,7 +8,7 @@ export type EventType = typeof EventTypes[keyof typeof EventTypes];
 
 export type ModalEventHandler = (event: Event) => void;
 
-export type ApplyModalEventHandler<T = void> = (event: CustomEvent<T>) => void;
+export type ApplyModalEventHandler<DataType = void> = (event: CustomEvent<DataType>) => void;
 
 function getElementById(id: string) {
   return document.getElementById(id);
@@ -28,7 +28,7 @@ function on<T>(id: string, eventType: EventType, handler: ModalEventHandler | Ap
   }, []);
 }
 
-export const useModal = <ModalData = void>(id: string) => ({
+export const useModal = <DataType = void>(id: string) => ({
   dispose() {
     getOrCreateInstance(id).dispose();
   },
@@ -49,7 +49,7 @@ export const useModal = <ModalData = void>(id: string) => ({
     return getOrCreateInstance(id).toggle();
   },
 
-  triggerApply(detail: ModalData) {
+  triggerApply(detail: DataType) {
     getElementById(id).dispatchEvent(new CustomEvent(EventTypes.ApplyModal, {detail}));
   },
 
@@ -73,7 +73,7 @@ export const useModal = <ModalData = void>(id: string) => ({
     on(id, EventTypes.ShownModal, handler);
   },
 
-  onApplyModal(handler: ApplyModalEventHandler<ModalData>) {
+  onApplyModal(handler: ApplyModalEventHandler<DataType>) {
     on(id, EventTypes.ApplyModal, handler);
   },
 });
