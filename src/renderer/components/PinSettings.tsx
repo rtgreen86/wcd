@@ -19,9 +19,10 @@ export default function PinSettings() {
       .then(() => setLoading(false));
   }, []);
 
-  const modal = useFormModal('set-pin-modal');
+  const setPinModal = useFormModal('set-pin-modal');
+  const deletePinModal = useFormModal('delete-pin-modal');
 
-  modal.onApply(async (event: CustomEvent<FormData>) => {
+  setPinModal.onApply(async (event: CustomEvent<FormData>) => {
     const pin = event.detail.get('pin');
 
     if (typeof pin === 'string') {
@@ -29,6 +30,22 @@ export default function PinSettings() {
       try {
         const result = await Api.setPin(null, pin);
         setPinExist(result);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  });
+
+  deletePinModal.onApply(async (event: CustomEvent<FormData>) => {
+    const pin = event.detail.get('pin');
+
+    if (typeof pin === 'string') {
+      setLoading(true);
+      try {
+        const result = await Api.setPin(pin, null);
+        setPinExist(!result);
       } catch (error) {
         setError(error);
       } finally {
