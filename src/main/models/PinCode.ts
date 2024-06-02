@@ -11,8 +11,8 @@ export default class PinCode {
 
   async checkPin(pin: Pin) {
     await this.blocker;
-    const _pin = await Secret.get('pin');
-    if (!_pin || _pin === pin) {
+    const savedPin = await Secret.get('pin');
+    if (!savedPin || savedPin === pin) {
       this.resetTrys();
       return true;
     }
