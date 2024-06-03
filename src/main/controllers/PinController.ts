@@ -13,10 +13,10 @@ export default class PinController implements Handler<Request, Response> {
   }
 
   handle(request: electronAPI.Request, next: () => Response): Response {
-    if (request.type === 'get:isPinExist') {
+    if (request.resource === 'get:isPinExists') {
       return this.isPinExist();
     }
-    if (request.type === 'set:pin') {
+    if (request.resource === 'set:pin' && request.payload && request.payload.type === 'set-pin') {
       return this.setPin(request.payload.pin, request.payload.newPin);
     }
     return next();

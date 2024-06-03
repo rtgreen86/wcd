@@ -68,7 +68,7 @@ app.whenReady().then(async () => {
 
   const model = ModelFactory.createModel();
 
-  const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Response>>([
+  const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Request.Payloads.Payload>>([
     new PinController(model),
     new GetData(),
     new PutData(),

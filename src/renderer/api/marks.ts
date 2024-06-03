@@ -1,7 +1,10 @@
 export async function getMarks(): Promise<string[]> {
   const content = await electronAPI.sendRequest({
-    type: 'get:data',
-    payload: 'marks.json'
+    resource: 'get:data',
+    payload: {
+      type: "file",
+      filename: 'marks.json'
+    },
   });
   return JSON.parse(content.content || '[]') as string[];
 }
@@ -9,9 +12,10 @@ export async function getMarks(): Promise<string[]> {
 export async function putMarks(marks: string[]): Promise<void> {
   const content = JSON.stringify(marks);
   await electronAPI.sendRequest({
-    type: 'put:data',
+    resource: 'put:data',
     payload: {
-      name: 'marks.json',
+      type: "file",
+      filename: 'marks.json',
       content,
     }
   });

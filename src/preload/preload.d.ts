@@ -1,44 +1,43 @@
-declare namespace electronAPI.Types {
+declare namespace electronAPI.Entities {
   interface File {
-    name: string;
-    content: string,
-  }
-
-  interface Pin {
-    pin: string | null,
-    newPin?: string | null
+    filename: string;
+    content?: string;
   }
 }
 
-declare namespace electronAPI.Types.Request {
-  type Type = 'get:data' | 'put:data' | 'remove:data' | 'get:isPinExist' | 'set:pin' | 'get:token';
-  interface Token {
-    token?: string,
+declare namespace electronAPI.Payloads {
+  interface PinCode {
+    type: 'pin';
+    pin: string;
   }
 
-  interface Payload<Type> {
-    payload: Type
+  interface SetPinCode {
+    type: 'set-pin';
+    pin: string;
+    newPin: string;
   }
 
-  interface Template<Type extends RequestType, PayloadType = Record<string, unknown>> extends Token, Payload<PayloadType> {
-    type: Type,
+  interface File extends Entities.File {
+    type: 'file';
   }
 }
 
 declare namespace electronAPI {
-  type Request =
-    Types.Request.Template<'get:data', string> |
-    Types.Request.Template<'put:data', Types.File> |
-    Types.Request.Template<'remove:data', string> |
-    Types.Request.Template<'get:isPinExist', void> |
-    Types.Request.Template<'set:pin' | 'get:token', Types.SetPin>;
+  type Payload = Payloads.PinCode | Payloads.SetPinCode | Payloads.File | void;
 
-  type Response = Types.File | boolean | string | void;
+  type Resource = 'get:data' | 'put:data' | 'remove:data' | 'get:isPinExists' | 'set:pin' | 'get:token';
 
-  function sendRequest(request: Request<'get:data', string>): Promise<Types.File>;
-  function sendRequest(request: Request<'put:data', Types.File>): Promise<void>;
-  function sendRequest(request: Request<'remove:data', string>): Promise<void>;
-  function sendRequest(request: Request<'get:isPinExist', void>): Promise<boolean>;
-  function sendRequest(request: Request<'set:pin' | 'get:token', Types.SetPin>): Promise<string>;
-  function sendRequest(request: Request): Promise<Response>;
+  interface Request<R = Resource, P = Payload> {
+    resource: R;
+    payload: P;
+  }
+
+  type Response = Entities.File | string | boolean | null | void;
+
+  function sendRequest(request: Request<'get:data', Payloads.File>): Promise<Entities.File>;
+  function sendRequest(request: Request<'put:data', Payloads.File>): Promise<void>;
+  function sendRequest(request: Request<'remove:data', Payloads.File>): Promise<void>;
+  function sendRequest(request: Request<'get:isPinExists', void>): Promise<boolean>;
+  function sendRequest(request: Request<'set:pin', Payloads.SetPinCode>): Promise<boolean>;
+  function sendRequest(request: Request<'get:token', Payloads.PinCode>): Promise<string | null>;
 }

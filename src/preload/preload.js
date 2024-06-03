@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  sendRequest: (resource, payload) => ipcRenderer.invoke('send-request', resource, payload),
+  sendRequest: (request) => ipcRenderer.invoke('send-request', request),
 
   // Legacy (need types)
 
