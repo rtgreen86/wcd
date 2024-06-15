@@ -8,6 +8,6 @@ export async function isPinExist() {
 export async function setPin(pin: string, newPin: string) {
   return electronAPI.sendRequest({
     resource: 'set:pin',
-    payload: { type: 'set-pin', pin, newPin }
+    payload: { pin, newPin }
   });
 }
