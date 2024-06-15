@@ -1,14 +1,14 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import FormModal from './FormModal';
+import FormModal from './modal/FormModal';
 
-import Modal from './Modal';
-import ModalHeader from './ModalHeader';
-import ModalBody from './ModalBody';
-import ModalFooter from './ModalFooter';
-import ModalButton from './ModalButton';
+// import Modal from './Modal';
+// import ModalHeader from './ModalHeader';
+// import ModalBody from './ModalBody';
+// import ModalFooter from './ModalFooter';
+// import ModalButton from './ModalButton';
 import InputPin from './InputPin';
-import Button from './Button';
+// import Button from './Button';
 import { useModal } from '../hooks/ModalHooks';
 
 export type SetPinModalData = {

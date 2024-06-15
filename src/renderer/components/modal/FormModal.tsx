@@ -6,7 +6,7 @@ import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
 import ModalButton from './ModalButton';
 
-import { useFormModal } from '../hooks/FormModalHooks';
+import { useFormModal } from '../../hooks/FormModalHooks';
 
 export interface FormModalProps {
   id: string,

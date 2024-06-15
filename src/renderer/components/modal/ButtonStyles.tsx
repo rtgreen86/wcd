@@ -1,0 +1,17 @@
+export const Primary = 'primary';
+export const Secondary = 'secondary';
+export const Success = 'success';
+export const Danger = 'danger';
+export const Warning = 'warning';
+export const Info = 'info';
+export const Light = 'light';
+export const Dark = 'dark';
+export const Link = 'link';
+export const OutlinePrimary = 'outline-primary';
+export const OutlineSecondary = 'outline-secondary';
+export const OutlineSuccess = 'outline-success';
+export const OutlineDanger = 'outline-danger';
+export const OutlineWarning = 'outline-warning';
+export const OutlineInfo = 'outline-info';
+export const OutlineLight = 'outline-light';
+export const OutlineDark = 'outline-dark';
