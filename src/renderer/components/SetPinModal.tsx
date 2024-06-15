@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import FormModal from './modal/FormModal';
+import FormModal from './modals/FormModal';
 
 // import Modal from './Modal';
 // import ModalHeader from './ModalHeader';

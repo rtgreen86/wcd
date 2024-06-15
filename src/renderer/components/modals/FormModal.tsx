@@ -4,7 +4,7 @@ import Modal from './Modal';
 import ModalHeader from './ModalHeader';
 import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
-import ModalButton from './ModalButton';
+import Button from '../controls/Button';
 
 import { useFormModal } from '../../hooks/FormModalHooks';
 
@@ -50,8 +50,8 @@ export default function FormModal({
         <ModalHeader title={title} canClose={canClose} />
         <ModalBody>{ children }</ModalBody>
         <ModalFooter>
-          <ModalButton buttonStyle="secondary" modalAction="modal-dismiss">{ cancelBtnCaption }</ModalButton>
-          <ModalButton id={submitId} buttonType="submit" buttonStyle="primary" modalAction="modal-dismiss" disabled={disabled}>{ okBtnCaption }</ModalButton>
+          <Button action="dismiss-modal" type="button" buttonStyle="secondary">{ cancelBtnCaption }</Button>
+          <Button action="dismiss-modal" id={submitId} type="submit" buttonStyle="primary" disabled={disabled}>{ okBtnCaption }</Button>
         </ModalFooter>
       </form>
     </Modal>

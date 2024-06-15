@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import FormModal from './modal/FormModal';
+import FormModal from './modals/FormModal';
 import InputPin from './InputPin';
 import { useFormModal } from '../hooks/FormModalHooks';
 
