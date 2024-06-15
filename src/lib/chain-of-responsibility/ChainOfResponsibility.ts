@@ -1,23 +1,39 @@
-import { Handler } from './Handler';
+import { Handler, FunctionHandler } from './types';
+import { FunctionWrapper } from './FunctionWrapper';
 
-export default class ChainOfResponsibility<Request, Response> {
-  private handlers: Handler<Request, Response>[];
+type SupportedHandler<T, U> = Handler<T, U> | FunctionHandler<T, U>;
 
-  constructor(handlers = [] as Handler<Request, Response>[]) {
-    this.handlers = handlers;
+export class ChainOfResponsibility<T, U extends unknown | null> {
+  private head: Handler<T, U> | null = null;
+
+  private tail: Handler<T, U> | null = null;
+
+  constructor(handlers?: SupportedHandler<T, U> | SupportedHandler<T, U>[]) {
+    if (Array.isArray(handlers)) {
+      handlers.forEach((handler) => this.addHandler(handler));
+    } else if (handlers !== null) {
+      this.addHandler(handlers);
+    }
   }
 
-  addHandler(handler: Handler<Request, Response>) {
-    this.handlers.push(handler);
+  addHandler(handler: SupportedHandler<T, U>) {
+    const wrappedHandler = typeof handler === 'function'
+      ? new FunctionWrapper(handler)
+      : handler;
+
+    if (!this.tail) {
+      this.head = wrappedHandler;
+      this.tail = wrappedHandler;
+      return;
+    }
+
+    this.tail.setNext(wrappedHandler);
+    this.tail = wrappedHandler;
+
     return this;
   }
 
-  handle(request: Request) {
-    const handlers = this.handlers;
-    const invoker:  (index?: number) => Response | null = (index = 0) => {
-      if (!handlers[index]) return null;
-      return handlers[index].handle(request, () => invoker(index + 1));
-    };
-    return invoker();
+  handle(request: T) {
+    return this.head.handle(request);
   }
 }

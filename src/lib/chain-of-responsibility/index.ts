@@ -1,2 +1,3 @@
-export * from './Handler';
-export { default as ChainOfResponsibility } from './ChainOfResponsibility';
+export * from './types';
+export * from './BaseHandler';
+export * from './ChainOfResponsibility';

@@ -1,28 +1,86 @@
-import { Handler, ChainOfResponsibility } from './index';
+import { BaseHandler, ChainOfResponsibility } from './index';
 import { jest } from '@jest/globals';
 
+type Request = {
+  type: string,
+};
+
+type SyncResponse = string;
+
+type AsyncResponse = Promise<string>;
+
+class SyncHandler extends BaseHandler<Request, SyncResponse> {
+  private type: string;
+
+  constructor(type: string) {
+    super();
+    this.type = type;
+  }
+
+  handle(request: Request) {
+    if (request.type === this.type) return this.type;
+    return super.handle(request);
+  }
+}
+
+function syncFunctionHandler(type: string) {
+  return (request: Request, next: (request: Request) => SyncResponse) => {
+    if (request.type === type) return type;
+    return next(request);
+  };
+}
+
+class AsyncHandler extends BaseHandler<Request, AsyncResponse> {
+  private type: string;
+
+  constructor(type: string) {
+    super();
+    this.type = type;
+  }
+
+  async handle(request: Request) {
+    const result = await Promise.resolve(this.type === request.type);
+    if (result) return this.type;
+    return super.handle(request);
+  }
+}
+
+function asyncFunctionHandler(type: string) {
+  return async (request: Request, next: (request: Request) => AsyncResponse) => {
+    const result = await Promise.resolve(request.type === type);
+    if (result) return type;
+    return next(request);
+  }
+}
+
 describe('ChainOfResponsibility', () => {
-  it('should execute all handlers', () => {
-    const handler1 = {handle: jest.fn((request: unknown, next: () => void) => next())};
-    const handler2 = {handle: jest.fn((request: unknown, next: () => void) => next())};
-    const chain = new ChainOfResponsibility([handler1, handler2])
-    expect(chain.handle('request')).toBe(null);
-    expect(handler1.handle).toHaveBeenCalledWith('request', expect.any(Function));
-    expect(handler2.handle).toHaveBeenCalledWith('request', expect.any(Function));
+  describe('synchronously', () => {
+    it.each([
+      ['first', 'first'],
+      ['second', 'second'],
+      ['third', 'third'],
+      ['fourth', null],
+    ])('should get result from %s', async (type, expected) => {
+      expect(new ChainOfResponsibility([
+        new SyncHandler('first'),
+        syncFunctionHandler('second'),
+        new SyncHandler('third'),
+      ]).handle({ type })).toEqual(expected);
+    });
   });
 
-  it('should break chain and return response', () => {
-    const handler1 = {handle: jest.fn((request: unknown, next: () => void) => 'response')};
-    const handler2 = {handle: jest.fn((request: unknown, next: () => void) => 'response 2')};
-    const chain = new ChainOfResponsibility([handler1, handler2])
-    expect(chain.handle('request')).toBe('response');
-    expect(handler1.handle).toHaveBeenCalledWith('request', expect.any(Function));
-    expect(handler2.handle).not.toHaveBeenCalled();
-  });
-
-  it('should throw if handler throw', () => {
-    const handler = {handle: jest.fn((request: unknown, next: () => void) => { throw new Error('Test Error'); })};
-    const chain = new ChainOfResponsibility([handler]);
-    expect(() => chain.handle('request')).toThrow('Test Error');
+  describe('asynchronously', () => {
+    it.each([
+      ['first', 'first'],
+      ['second', 'second'],
+      ['third', 'third'],
+      ['fourth', null],
+    ])('should get result from %s', async (type, expected) => {
+      await expect(new ChainOfResponsibility([
+        new AsyncHandler('first'),
+        asyncFunctionHandler('second'),
+        new AsyncHandler('third'),
+      ]).handle({ type })).resolves.toEqual(expected);
+    });
   });
 });
