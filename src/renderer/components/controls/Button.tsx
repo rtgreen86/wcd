@@ -32,29 +32,26 @@ interface DefaultButtonProps extends CommonButtonProps {
 
 type ButtonProps = ToggleModalButtonProps | DismissModalButtonProps | DefaultButtonProps;
 
+const getClassNames = ({ buttonStyle = 'secondary', buttonSize }: ButtonProps) => classNames(
+  'btn',
+  `btn-${buttonStyle}`,
+  {
+    'btn-lg': buttonSize === 'large',
+    'btn-sm': buttonSize === 'small'
+  }
+);
+
 export default function Button(props: ButtonProps) {
   if (props.action === 'toggle-modal') {
-    const {action, buttonStyle = 'secondary', buttonSize, children, modalTarget, ...restProps } = props;
-    const className = classNames('btn', `btn-${buttonStyle}`, {
-      'btn-lg': buttonSize === 'large',
-      'btn-sm': buttonSize === 'small'
-    });
-    return <button className={className} data-bs-toggle="modal" data-bs-target={props.modalTarget} {...restProps}>{children}</button>;
+    const {action, buttonStyle, buttonSize, children, modalTarget, ...restProps } = props;
+    return <button className={getClassNames(props)} data-bs-toggle="modal" data-bs-target={props.modalTarget} {...restProps}>{children}</button>;
   }
 
   if (props.action === 'dismiss-modal') {
-    const { action, buttonStyle = 'secondary', buttonSize, children, ...restProps } = props;
-    const className = classNames('btn', `btn-${buttonStyle}`, {
-      'btn-lg': buttonSize === 'large',
-      'btn-sm': buttonSize === 'small'
-    });
-    return <button className={className} data-bs-dismiss="modal" {...restProps}>{children}</button>;
+    const { action, buttonStyle, buttonSize, children, ...restProps } = props;
+    return <button className={getClassNames(props)} data-bs-dismiss="modal" {...restProps}>{children}</button>;
   }
 
-  const { action, buttonStyle = 'secondary', buttonSize, children, ...restProps } = props;
-  const className = classNames('btn', `btn-${buttonStyle}`, {
-    'btn-lg': buttonSize === 'large',
-    'btn-sm': buttonSize === 'small'
-  });
-  return <button className={className} {...restProps}>{children}</button>
+  const { action, buttonStyle, buttonSize, children, ...restProps } = props;
+  return <button className={getClassNames(props)} {...restProps}>{children}</button>
 }
