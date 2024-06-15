@@ -1,12 +1,16 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
-import {ChainOfResponsibility} from '../lib/chain-of-responsibility';
 import { initializeKey } from './models/secure-storage';
 import ModelFactory from './models/ModelFactory';
 
-import GetData from './controllers/GetData';
-import PutData from './controllers/PutData';
-import PinController from './controllers/PinController';
+import { ChainOfResponsibility } from '../lib/chain-of-responsibility';
+
+import {
+  GetDataController,
+  PutDataController,
+  IsPinExistsController,
+  SetPinController
+} from './controllers';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -68,10 +72,11 @@ app.whenReady().then(async () => {
 
   const model = ModelFactory.createModel();
 
-  const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Request.Payloads.Payload>>([
-    new PinController(model),
-    new GetData(),
-    new PutData(),
+  const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Response>>([
+    new IsPinExistsController(model),
+    new SetPinController(model),
+    new GetDataController(),
+    new PutDataController(),
   ]);
 
   ipcMain.handle('send-request', (event, request: electronAPI.Request) => router.handle(request));
