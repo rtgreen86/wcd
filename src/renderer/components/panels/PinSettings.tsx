@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import * as Api from '../api';
-import PinInput from './PinInput';
-import ModalButton from './ModalButton';
-import { useFormModal } from '../hooks/FormModalHooks';
+import * as Api from '../../api';
+import Button from '../controls/Button';
+import { useModal } from '../../hooks/useModal';
 
 export default function PinSettings() {
-  const pinSize = 4;
-
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [isPinExist, setPinExist] = useState(false);
-  const [oldPin, setOldPin] = useState('');
+
+  const setPinModal = useModal('set-pin-modal');
+  const deletePinModal = useModal('delete-pin-modal');
 
   useEffect(() => {
     Api.isPinExist()
@@ -18,9 +17,6 @@ export default function PinSettings() {
       .catch((error: Error) => setError(error))
       .then(() => setLoading(false));
   }, []);
-
-  const setPinModal = useFormModal('set-pin-modal');
-  const deletePinModal = useFormModal('delete-pin-modal');
 
   setPinModal.onApply(async (event: CustomEvent<FormData>) => {
     const pin = event.detail.get('pin');
@@ -54,27 +50,19 @@ export default function PinSettings() {
     }
   });
 
-  if (error) {
-    return <span>{error.message}</span>;
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   let message = 'You can protect your application data by settings PIN code.';
+  if (isLoading) message = 'Processing...';
+  if (error) message = error.message;
+
+  const isSetPinVisible = !isLoading && !error && !isPinExist;
+  const isDeletePinVisible = !isLoading && !error && isPinExist;
 
   return (
     <section>
       <h5>PIN code</h5>
-
-      <p>{message}</p>
-
-      {
-        isPinExist
-          ? <ModalButton buttonStyle='danger' modalAction="modal-toggle" modalTarget="#delete-pin-modal">Delete PIN</ModalButton>
-          : <ModalButton buttonStyle="outline-dark" modalAction="modal-toggle" modalTarget="#set-pin-modal">Set PIN</ModalButton>
-      }
+      <p>{ message }</p>
+      { isSetPinVisible && <Button buttonStyle="outline-dark" action="toggle-modal" modalTarget="#set-pin-modal">Set PIN</Button> }
+      { isDeletePinVisible && <Button buttonStyle="danger" action="toggle-modal" modalTarget="#delete-pin-modal">Delete PIN</Button> }
     </section>
   );
 }
