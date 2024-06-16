@@ -4,7 +4,7 @@ import Button from '../controls/Button';
 import { useModal } from '../../hooks/useModal';
 
 export default function PinSettings() {
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [isPinExist, setPinExist] = useState(false);
 
@@ -14,7 +14,7 @@ export default function PinSettings() {
   useEffect(() => {
     Api.isPinExist()
       .then((_isPinExist: boolean) => setPinExist(_isPinExist))
-      .catch((error: Error) => setError(error))
+      .catch((error: Error) => setError(error.message))
       .then(() => setLoading(false));
   }, []);
 
@@ -27,7 +27,7 @@ export default function PinSettings() {
         const result = await Api.setPin(null, pin);
         setPinExist(result);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -41,9 +41,14 @@ export default function PinSettings() {
       setLoading(true);
       try {
         const result = await Api.setPin(pin, null);
+
+        if (!result) {
+          setError('Incorrect PIN code.')
+        }
+
         setPinExist(!result);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -52,7 +57,7 @@ export default function PinSettings() {
 
   let message = 'You can protect your application data by settings PIN code.';
   if (isLoading) message = 'Processing...';
-  if (error) message = error.message;
+  if (error) message = error;
 
   const isSetPinVisible = !isLoading && !error && !isPinExist;
   const isDeletePinVisible = !isLoading && !error && isPinExist;
