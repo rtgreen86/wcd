@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import FormModal from './modals/FormModal';
-import InputPin from './InputPin';
-import { useFormModal } from '../hooks/FormModalHooks';
+import FormModal from './FormModal';
+import InputPin from '../controls/InputPin';
+import { useFormModal } from '../../hooks/FormModalHooks';
 
 const pinLength = 4;
 

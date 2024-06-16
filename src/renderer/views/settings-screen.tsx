@@ -5,8 +5,8 @@ import { DispatchContext, StateContext } from '../App';
 import TestFsApi from '../components/TestFsApi';
 import ShowPinCode from '../components/show-pin-code';
 import PinSettings from '../components/PinSettings';
-import DeletePinModal from '../components/DeletePinModal';
-import SetPinModal from '../components/SetPinModal';
+import DeletePinModal from '../components/modals/DeletePinModal';
+import SetPinModal from '../components/modals/SetPinModal';
 
 export default function SettingsScreen() {
   const state = useContext(StateContext);

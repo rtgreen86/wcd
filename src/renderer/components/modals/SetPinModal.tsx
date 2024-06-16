@@ -1,19 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-
-import FormModal from './modals/FormModal';
-
-// import Modal from './Modal';
-// import ModalHeader from './ModalHeader';
-// import ModalBody from './ModalBody';
-// import ModalFooter from './ModalFooter';
-// import ModalButton from './ModalButton';
-import InputPin from './InputPin';
-// import Button from './Button';
-import { useModal } from '../hooks/ModalHooks';
-
-export type SetPinModalData = {
-  pin: string,
-};
+import FormModal from './FormModal';
+import InputPin from '../controls/InputPin';
+import { useModal } from '../../hooks/ModalHooks';
 
 const PIN_LENGTH = 4;
 

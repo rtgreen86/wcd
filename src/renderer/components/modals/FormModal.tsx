@@ -6,7 +6,7 @@ import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
 import Button from '../controls/Button';
 
-import { useFormModal } from '../../hooks/FormModalHooks';
+import { useModal } from '../../hooks/useModal';
 
 export interface FormModalProps {
   id: string,
@@ -35,7 +35,7 @@ export default function FormModal({
 }: FormModalProps) {
   const submitId = `${id}-submit`;
 
-  const modal = useFormModal(id);
+  const modal = useModal(id);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
