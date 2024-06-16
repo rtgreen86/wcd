@@ -1,9 +1,12 @@
 import React from 'react';
+import FormModal from './FormModal';
 
 export default function AuthenticateModal({
   id
 }: {
   id: string
 }) {
-  return <div id={id}>Hello World!</div>
+  return (
+    <FormModal id={id} title="Enter PIN code" okBtnCaption="Open">Hello World!</FormModal>
+  );
 }

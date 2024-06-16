@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks';
 import LoginForm from '../login-form';
 import AuthenticateModal from '../modals/AuthenticateModal'
+
+import {Modal} from 'bootstrap';
 
 import './LockScreen.css';
 
 export default function LockScreen() {
   const { token, signin } = useAuth();
   const [ pin, setPin ] = useState('');
+
+  useEffect(() => {
+    const myModalAlternative = new Modal('#authenticate-modal');
+    myModalAlternative.show();
+  }, []);
 
   const handlePinEntered = () => {
     signin(pin);
