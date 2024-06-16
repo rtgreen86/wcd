@@ -1,9 +1,10 @@
-import './LockScreen.css';
-
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks';
-import LoginForm from '../components/login-form';
+import { useAuth } from '../../hooks';
+import LoginForm from '../login-form';
+import AuthenticateModal from '../modals/AuthenticateModal'
+
+import './LockScreen.css';
 
 export default function LockScreen() {
   const { token, signin } = useAuth();
@@ -20,6 +21,7 @@ export default function LockScreen() {
   return (
     <section className="login-form-container">
       <LoginForm value={ pin } autoFocus onChangeValue={ setPin } onPinEntered={ handlePinEntered } />
+      <AuthenticateModal id="authenticate-modal" />
     </section>
   );
 }

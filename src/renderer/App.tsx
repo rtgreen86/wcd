@@ -2,7 +2,7 @@ import React, { createContext, useReducer, useState } from 'react';
 
 import StateProvder from './components/state-provider';
 
-import LockScreen from './views/LockScreen';
+import LockScreen from './components/screens/LockScreen';
 import MainScreen from './views/main-screen';
 import CalendarScreen from './views/calendar-screen';
 import SettingsScreen from './views/settings-screen';
