@@ -1,9 +1,9 @@
 import { jest } from '@jest/globals';
 import PinCode from './PinCode';
 
-jest.mock('./secure-storage');
+jest.mock('../secure-storage');
 
-import { Secret } from './secure-storage';
+import { Secret } from '../secure-storage';
 
 describe('PinCode', () => {
   beforeAll(() => jest.useFakeTimers());

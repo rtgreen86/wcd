@@ -5,12 +5,11 @@ import ModelFactory from './models/ModelFactory';
 
 import { ChainOfResponsibility } from '../lib/chain-of-responsibility';
 
-import {
-  GetDataController,
-  PutDataController,
-  IsPinExistsController,
-  SetPinController
-} from './controllers';
+import AuthenticateController from './controllers/AuthenticateController';
+import GetDataController from './controllers/GetDataController';
+import IsPinExistsController from './controllers/IsPinExistsController';
+import PutDataController from './controllers/PutDataController';
+import SetPinController from './controllers/SetPinController';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -74,6 +73,7 @@ app.whenReady().then(async () => {
 
   const router = new ChainOfResponsibility<electronAPI.Request, Promise<electronAPI.Response>>([
     new IsPinExistsController(model),
+    new AuthenticateController(model),
     new SetPinController(model),
     new GetDataController(),
     new PutDataController(),

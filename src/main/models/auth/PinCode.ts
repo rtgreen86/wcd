@@ -1,4 +1,4 @@
-import { Secret } from './secure-storage';
+import { Secret } from '../secure-storage';
 
 type Pin = string | null;
 

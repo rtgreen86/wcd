@@ -1,7 +1,7 @@
 import { BaseHandler } from '../../lib/chain-of-responsibility';
 import { Storage } from '../models/storage';
 
-export class PutDataController extends BaseHandler<electronAPI.Request, Promise<electronAPI.Response>> {
+export default class PutDataController extends BaseHandler<electronAPI.Request, Promise<electronAPI.Response>> {
   private readonly resource = 'put:data';
 
   async handle(request: electronAPI.Request) {

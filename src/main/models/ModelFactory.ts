@@ -1,10 +1,6 @@
-import PinCode from './PinCode';
-import Authenticator from './Authenticator';
-
-export interface Model {
-  pin: PinCode;
-  authenticator: Authenticator;
-}
+import { Model } from './Model';
+import PinCode from './auth/PinCode';
+import Authenticator from './auth/Authenticator';
 
 export default class ModelFactory {
   static createModel(): Model {

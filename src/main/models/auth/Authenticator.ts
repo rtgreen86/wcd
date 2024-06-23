@@ -1,10 +1,10 @@
-import { KeyGenerator } from "./secure-storage";
+import { KeyGenerator } from "../secure-storage";
 import PinCode from './PinCode';
-
-const tokens: string[] = [];
 
 export default class Authenticator {
   private readonly pin;
+
+  #token: string | null;
 
   constructor(pin: PinCode) {
     this.pin = pin;
@@ -15,17 +15,18 @@ export default class Authenticator {
       return null;
     }
 
-    const token = await KeyGenerator.generate();
-    tokens.push(token);
-    return token;
+    if (!this.#token) {
+      this.#token = await KeyGenerator.generate();
+    }
+
+    return this.#token;
   }
 
   validateToken(token: string): boolean {
-    return tokens.includes(token);
+    return this.#token === token;
   }
 
   reset() {
-    tokens.length = 0;
+    this.#token = null;
   }
 }
-
