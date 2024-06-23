@@ -1,23 +1,25 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, FocusEvent } from 'react';
 
 type Props = {
+  autoFocus?: boolean,
   id?: string,
   className?: string,
   name?: string,
   maxLength?: number,
   value?: string,
+  pattern?: string,
+  readOnly?: boolean,
   onChange?: (value: string) => void,
+  onFocus?: (event: FocusEvent<HTMLInputElement, Element>) => void
 };
 
 const noop = () => {};
 
 export default function InputPin({
-  id = '',
-  className = '',
-  name = '',
-  maxLength,
   value,
   onChange = noop,
+  onFocus = noop,
+  ...rest
 }: Props) {
   const [internalValue, setInternalValue] = useState('');
   const acutalValue = value === undefined ? internalValue : value;
@@ -30,5 +32,5 @@ export default function InputPin({
     onChange(filteredValue);
   };
 
-  return <input id={id} className={className} type="password" name={name} maxLength={maxLength} value={acutalValue} onChange={handleChange}></input>
+  return <input type="password" value={acutalValue} autoComplete="off" onChange={handleChange} onFocus={onFocus} {...rest}></input>
 }

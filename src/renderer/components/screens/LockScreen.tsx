@@ -27,7 +27,7 @@ export default function LockScreen() {
 
   return (
     <section className="login-form-container">
-      <LoginForm value={ pin } autoFocus onChangeValue={ setPin } onPinEntered={ handlePinEntered } />
+      <LoginForm autoFocus onPinEntered={ handlePinEntered } />
       <AuthenticateModal id="authenticate-modal" />
     </section>
   );
