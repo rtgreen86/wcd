@@ -16,3 +16,5 @@ export default class Api {
 
 export * from './marks';
 export * from './pin';
+
+export * as Pin from './pin';

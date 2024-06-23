@@ -1,17 +1,33 @@
-import React, { FocusEvent, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect, FocusEvent } from 'react';
 import InputPin from './controls/InputPin';
+import {Pin} from '../api'
 
 import './LoginForm.css';
 
 type Props = {
   autoFocus?: boolean,
+  onLogin: (token: string) => void;
   onPinEntered?: (pin: string) => void
 };
 
 export default function LoginForm({
   autoFocus = false,
+  onLogin,
   onPinEntered = () => {}
 }: Props) {
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const isPinExists = await Pin.isPinExist();
+      setLoading(false);
+
+      if (!isPinExists) {
+        onLogin('token');
+      }
+    })();
+  }, []);
+
   const rxFullPin = /^\d{4}$/;
 
   const handleFocus = (event: FocusEvent) => {
@@ -21,6 +37,7 @@ export default function LoginForm({
   const handleChange = (value: string) => {
     if (rxFullPin.test(value)) {
       onPinEntered(value);
+      onLogin('token');
     }
   }
 
