@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import * as Api from '../../api';
-import Button from '../controls/Button';
-import { useModal } from '../../hooks/useModal';
+import * as Api from '../api';
+import Button from './controls/Button';
+import { useModal } from '../hooks/useModal';
 
 export default function PinSettings() {
   const [error, setError] = useState<string | null>(null);

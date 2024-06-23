@@ -4,7 +4,7 @@ import packageInfo from '../../../package.json';
 import { DispatchContext, StateContext } from '../App';
 import TestFsApi from '../components/TestFsApi';
 import ShowPinCode from '../components/show-pin-code';
-import PinSettings from '../components/panels/PinSettings';
+import PinSettings from '../components/PinSettings';
 import DeletePinModal from '../components/modals/DeletePinModal';
 import SetPinModal from '../components/modals/SetPinModal';
 
