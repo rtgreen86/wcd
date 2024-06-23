@@ -1,5 +1,5 @@
 import React, { useState, ReactNode } from 'react';
-import Api from '../api';
+import { Pin } from '../api';
 import { AuthContext } from '../contexts/AuthContext';
 
 type Props = {
@@ -9,17 +9,17 @@ type Props = {
 export default function AuthProvider({ children }: Props) {
   const [token, setToken] = useState<string | null>(null);
 
-  const signin = (pin: string) => {
-    Api.getToken(pin)
-      .then((token: string) => { setToken(token); })
-      .catch(() => setToken(null));
+  const signin = async (pin: string) => {
+    setToken('token');
   };
 
   const signout = () => {
     setToken(null);
   };
 
-  const value = { token, signin, signout };
+  const isPinExists = Pin.isPinExist;
+
+  const value = { token, signin, signout, isPinExists };
 
   return (<AuthContext.Provider value={value}>{ children }</AuthContext.Provider>);
 }

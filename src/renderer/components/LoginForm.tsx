@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FocusEvent } from 'react';
 import InputPin from './controls/InputPin';
-import {Pin} from '../api'
+import { useAuth } from '../hooks/useAuth';
+import { Pin } from '../api'
 
 import './LoginForm.css';
 
@@ -17,6 +18,8 @@ export default function LoginForm({
 }: Props) {
   const [isLoading, setLoading] = useState(true);
 
+  const {signin} = useAuth();
+
   useEffect(() => {
     (async () => {
       const isPinExists = await Pin.isPinExist();
@@ -24,6 +27,7 @@ export default function LoginForm({
 
       if (!isPinExists) {
         onLogin('token');
+        signin('');
       }
     })();
   }, []);
@@ -38,6 +42,7 @@ export default function LoginForm({
     if (rxFullPin.test(value)) {
       onPinEntered(value);
       onLogin('token');
+      signin(value);
     }
   }
 

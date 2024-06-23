@@ -9,17 +9,14 @@ import {Modal} from 'bootstrap';
 import './LockScreen.css';
 
 export default function LockScreen() {
-  const { token, signin } = useAuth();
-  const [ pin, setPin ] = useState('');
+  const { token } = useAuth();
 
   useEffect(() => {
     const myModalAlternative = new Modal('#authenticate-modal');
     // myModalAlternative.show();
   }, []);
 
-  const handlePinEntered = () => {
-    signin(pin);
-  };
+  const handlePinEntered = () => { };
 
   if (token) {
     return <Navigate to="/" replace />;
