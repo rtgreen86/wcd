@@ -21,12 +21,6 @@ const fillAboutPanel = () => {
   });
 };
 
-const handleIpc = () => {
-  // TODO: delete old handlers
-  ipcMain.handle('get-sysinfo', () => SysInfo.get());
-  ipcMain.handle('show-about', () => app.showAboutPanel());
-}
-
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -37,6 +31,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
@@ -46,7 +41,7 @@ const createWindow = () => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -75,9 +70,9 @@ app.whenReady().then(async () => {
   ]);
 
   ipcMain.handle('send-request', (event, request: WCD.Request) => router.handle(request));
+  ipcMain.handle('show-about', () => app.showAboutPanel());
 
   fillAboutPanel();
-  handleIpc();
   createWindow();
 });
 

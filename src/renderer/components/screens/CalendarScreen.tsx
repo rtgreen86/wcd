@@ -1,7 +1,7 @@
-import './calendar-screen.css';
+import './CalendarScreen.css';
 import React, { useEffect } from 'react';
-import { CalendarLocale } from '../lib/Calendar';
-import CalendarContainer from '../components/calendar-container';
+import { CalendarLocale } from '../../lib/Calendar';
+import CalendarContainer from '../calendar-container';
 
 export default function CalendarScreen() {
   useEffect(() => {

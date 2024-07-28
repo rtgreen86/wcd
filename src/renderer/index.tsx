@@ -35,7 +35,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './App';
-import { ProvideAuth } from './features/auth/ProvideAuth';
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
 
@@ -43,8 +42,4 @@ console.log('👋 This message is being logged by "renderer.js", included via we
 
 const container: Element = document.getElementById('app');
 const root: ReactDOM.Root = ReactDOM.createRoot(container);
-root.render(
-  <ProvideAuth>
-      <App />
-  </ProvideAuth>
-);
+root.render(<App />);
