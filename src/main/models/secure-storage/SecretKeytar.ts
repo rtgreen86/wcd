@@ -1,7 +1,7 @@
 import keytar from 'keytar';
-import { Secret, Key } from './Secret'
+import { Secret, Key } from './Secret';
 
-const service = 'su.malokhatko.wcalendar';
+const service = 'woman-calendar-by-malokhatko';
 
 export const SecretKeytar: Secret = {
   get(key: Key) {

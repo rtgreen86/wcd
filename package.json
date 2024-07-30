@@ -1,8 +1,8 @@
 {
-  "name": "su.malokhatko.wcd",
+  "name": "woman-calendar-by-malokhatko",
   "productName": "Woman Calendar",
-  "version": "0.1.0",
-  "description": "Woman calendar desktop application.",
+  "version": "0.1.0-alpha",
+  "description": "Woman calendar application by Malokhatko.",
   "main": ".webpack/main",
   "private": true,
   "scripts": {
