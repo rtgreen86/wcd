@@ -12,12 +12,14 @@ import { rendererConfig } from './webpack.renderer.config';
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
+    icon: 'images/icon'
   },
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
       noMsi: true,
       setupExe: '${productName} ${version}.exe',
+      setupIcon: 'images/icon.ico'
     }),
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
