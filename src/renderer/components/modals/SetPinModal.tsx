@@ -61,8 +61,13 @@ export default function SetPinModal({
     setReenterPin('');
   };
 
+  const handleHide = () => {
+    setPin('');
+    setReenterPin('');
+  };
+
   return (
-    <FormModal id={id} title="Set PIN" disabled={isDisabled} okBtnCaption="Set" onSubmit={handleSubmit}>
+    <FormModal id={id} title="Set PIN" disabled={isDisabled} okBtnCaption="Set" onSubmit={handleSubmit} onHide={handleHide}>
       <div className="container-fluid text-center">
         <div className="row align-items-start"><div className="col">{message}</div></div>
         <div className="row align-items-start">

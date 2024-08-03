@@ -32,8 +32,12 @@ export default function DeletePinModal({
     setPin('');
   };
 
+  const handleHide = () => {
+    setPin('');
+  };
+
   return (
-    <FormModal id={id} title="Delete PIN" disabled={isDisabled} okBtnCaption="Delete PIN" onSubmit={handleSubmit}>
+    <FormModal id={id} title="Delete PIN" disabled={isDisabled} okBtnCaption="Delete PIN" onSubmit={handleSubmit} onHide={handleHide}>
       <p>Enter current PIN code to remove.</p>
       <InputPin id={pinId} name="pin" maxLength={pinLength} value={pin} onChange={setPin}></InputPin>
     </FormModal>

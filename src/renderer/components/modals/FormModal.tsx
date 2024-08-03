@@ -1,4 +1,4 @@
-import React, { FormEvent, ReactNode } from 'react';
+import React, { FormEvent, ReactNode, useRef, SyntheticEvent } from 'react';
 
 import Modal from './Modal';
 import ModalHeader from './ModalHeader';
@@ -17,6 +17,11 @@ export interface FormModalProps {
   disabled?: boolean,
   method?: string,
   action?: string,
+  onHide?: (event: Event) => void,
+  onHidden?: (event: Event) => void,
+  onHidePrevented?: (event: Event) => void,
+  onShow?: (event: Event) => void,
+  onShown?: (event: Event) => void,
   onSubmit?: (event: FormEvent<HTMLFormElement>) => void,
   children: ReactNode
 }
@@ -30,12 +35,28 @@ export default function FormModal({
   disabled = false,
   method,
   action,
-  onSubmit = () => {},
+  onHide = () => undefined,
+  onHidden = () => undefined,
+  onHidePrevented = () => undefined,
+  onShow = () => undefined,
+  onShown = () => undefined,
+  onSubmit = () => undefined,
   children
 }: FormModalProps) {
+  const formRef = useRef(null);
+
   const submitId = `${id}-submit`;
 
   const modal = useModal(id);
+
+  const handleHide = (event: Event) => {
+    const target = event.currentTarget as HTMLElement;
+    const forms = target.getElementsByTagName('form');
+    for (let i = 0; i < forms.length; i++) {
+      forms[i].reset();
+    }
+    onHide(event);
+  }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
@@ -45,7 +66,14 @@ export default function FormModal({
   };
 
   return (
-    <Modal id={id}>
+    <Modal
+      id={id}
+      onHide={handleHide}
+      onHidden={onHidden}
+      onHidePrevented={onHidePrevented}
+      onShow={onHidePrevented}
+      onShown={onHidePrevented}
+    >
       <form method={method} action={action} onSubmit={handleSubmit}>
         <ModalHeader title={title} canClose={canClose} />
         <ModalBody>{ children }</ModalBody>
