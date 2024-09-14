@@ -1,9 +1,6 @@
-import React from 'react';
 import BackPanel from '../back-panel';
 import packageInfo from '../../../../package.json';
-import PinSettings from '../PinSettings';
-import DeletePinModal from '../modals/DeletePinModal';
-import SetPinModal from '../modals/SetPinModal';
+import { PinCodePanel } from '../panels';
 
 export default function SettingsScreen() {
   return (
@@ -11,8 +8,9 @@ export default function SettingsScreen() {
       <BackPanel />
       <main>
         <h1>Настройки</h1>
-        <PinSettings />
-        <section style={{display: 'none'}}>
+        <PinCodePanel />
+
+        <section style={{ display: 'none' }}>
           <form>
             <section>
               <h2>Цикл</h2>
@@ -22,14 +20,12 @@ export default function SettingsScreen() {
             <br /><input type="submit" value="Сохранить" />
           </form>
         </section>
+
         <section>
           <h1>О программе</h1>
           <p>{packageInfo.productName}<br />Версия {packageInfo.version}<br />{packageInfo.description}</p>
         </section>
       </main>
-
-      <DeletePinModal id="delete-pin-modal" />
-      <SetPinModal id="set-pin-modal" />
     </>
-  )
+  );
 }

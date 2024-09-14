@@ -1,26 +1,25 @@
-import React, { useState, FormEvent, FocusEvent } from 'react';
+import { useState, FormEvent, FocusEvent, forwardRef } from 'react';
 
-type Props = {
-  autoFocus?: boolean,
-  id?: string,
-  className?: string,
-  name?: string,
-  maxLength?: number,
-  value?: string,
-  pattern?: string,
-  readOnly?: boolean,
-  onChange?: (value: string) => void,
-  onFocus?: (event: FocusEvent<HTMLInputElement, Element>) => void
+export interface InputPinProps {
+  autoFocus?: boolean;
+  id?: string;
+  className?: string;
+  name?: string;
+  maxLength?: number;
+  value?: string;
+  pattern?: string;
+  readOnly?: boolean;
+  disabled?: boolean;
+  onChange?: (value: string) => void;
+  onFocus?: (event: FocusEvent<HTMLInputElement, Element>) => void;
 };
 
-const noop = () => {};
-
-export default function InputPin({
+export const InputPin = forwardRef<HTMLInputElement, InputPinProps>(({
   value,
-  onChange = noop,
-  onFocus = noop,
-  ...rest
-}: Props) {
+  onChange = () => undefined,
+  onFocus = () => undefined,
+  ...restProps
+}, forwardedRef) => {
   const [internalValue, setInternalValue] = useState('');
   const acutalValue = value === undefined ? internalValue : value;
 
@@ -32,5 +31,7 @@ export default function InputPin({
     onChange(filteredValue);
   };
 
-  return <input type="password" value={acutalValue} autoComplete="off" onChange={handleChange} onFocus={onFocus} {...rest}></input>
-}
+  return <input ref={forwardedRef} type="password" value={acutalValue} autoComplete="off" onChange={handleChange} onFocus={onFocus} {...restProps}></input>
+});
+
+export default InputPin;

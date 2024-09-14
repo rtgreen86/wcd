@@ -1,84 +1,107 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import FormModal from './FormModal';
+import { useEffect, useState, useRef, forwardRef, useImperativeHandle, FormEvent } from 'react';
+import { ModalEvent } from './Modal';
+import FormModal, { FormModalProps, FormModalRef } from './FormModal';
 import InputPin from '../controls/InputPin';
-import { useModal } from '../../hooks/ModalHooks';
+import { Authenticator } from '../../api';
 
 const PIN_LENGTH = 4;
 
-export default function SetPinModal({
+export interface SetPinModalProps extends Omit<FormModalProps, 'title'> {
+  title?: string,
+  onSuccess?: () => void,
+  onFail?: () => void,
+}
+
+export const SetPinModal = forwardRef<FormModalRef, SetPinModalProps>(({
   id,
-}: {
-  id: string,
-}) {
-  const [pin, setPin] = useState('');
-  const [reenterPin, setReenterPin] = useState('');
+  title = 'Set PIN',
+  disabled = false,
+  onShown = () => undefined,
+  onApply = () => undefined,
+  onHide = () => undefined,
+  onHidden = () => undefined,
+  onSuccess = () => undefined,
+  onFail = () => undefined,
+  ...restProps
+}, forwardedRef) => {
+  const modalRef = useRef<FormModalRef>();
+  const pin1Ref = useRef<HTMLInputElement>();
+  const pin2Ref = useRef<HTMLInputElement>();
+  const blockClosingRef = useRef(false);
 
-  const pinFieldId = `${id}-pin`;
-  const reenterPinFieldId = `${id}-reenter-pin`;
-  const submitButtonId = `${id}-submit`;
+  const [pin1, setPin1] = useState('');
+  const [pin2, setPin2] = useState('');
+  const [isBusy, setBusy] = useState(false);
 
-  const isDisabled = pin.length !== PIN_LENGTH || pin !== reenterPin;
+  function getMessage() {
+    if (isBusy) return 'Applying code. Please Wait.';
+    if (pin1.length < PIN_LENGTH) return 'Enter new PIN code to protect your application data.';
+    if (pin1.length === PIN_LENGTH && pin2 !== pin1) return 'Reenter PIN to second field.';
+    if (pin2.length === PIN_LENGTH && pin1 !== pin2) return 'Entried PIN codes are different.';
+    return 'Press Set button.';
+  }
 
-  const modal = useModal(id);
+  function handlePin1Change(value: string) {
+    setPin1(value);
+    if (value.length === PIN_LENGTH) pin2Ref.current?.focus();
+  }
 
-  modal.on('shown.bs.modal', (event: Event) => {
-    document.getElementById(pinFieldId).focus();
-  });
+  function handleShown(event: ModalEvent) {
+    pin1Ref.current?.focus();
+    onShown(event);
+  }
+
+  async function handleApply(event: CustomEvent<FormData>) {
+    event.preventDefault();
+    blockClosingRef.current = true;
+    setBusy(true);
+
+    const success = await Authenticator.setPin('', pin1);
+
+    onApply(event);
+    blockClosingRef.current = false;
+    if (success) onSuccess(); else onFail();
+    modalRef.current?.hide();
+  }
+
+  function handleHide(event: ModalEvent) {
+    if (blockClosingRef.current) event.preventDefault();
+    onHide(event);
+  }
+
+  function handleHidden(event: ModalEvent) {
+    modalRef.current?.reset();
+    setBusy(false);
+    setPin1('');
+    setPin2('');
+    onHidden(event);
+  }
+
+  useImperativeHandle(forwardedRef, () => modalRef.current);
+
+  const isSubmitDisabled = disabled || isBusy || pin1.length !== PIN_LENGTH || pin1 !== pin2;
 
   useEffect(() => {
-    if (!isDisabled) {
-      document.getElementById(submitButtonId).focus();
+    if (!isSubmitDisabled && modalRef.current) {
+      modalRef.current.focusSubmit();
     }
-  }, [isDisabled]);
-
-  let message = 'Press Set button.';
-
-  if (pin.length < PIN_LENGTH) {
-    message = 'Enter new PIN code to protect your application data.';
-  }
-
-  if (pin.length === PIN_LENGTH && reenterPin !== pin) {
-    message = 'Reenter PIN to second field.';
-  }
-
-  if (reenterPin.length === PIN_LENGTH && reenterPin !== pin) {
-    message = 'Entried PIN codes are different.';
-  }
-
-  const handlePinChanged = (value: string) => {
-    setPin(value);
-    if (value.length < PIN_LENGTH) return;
-    document.getElementById(reenterPinFieldId).focus();
-  };
-
-  const handleReenterPinChanged = (value: string) => {
-    setReenterPin(value);
-  };
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setPin('');
-    setReenterPin('');
-  };
-
-  const handleHide = () => {
-    setPin('');
-    setReenterPin('');
-  };
+  }, [isSubmitDisabled]);
 
   return (
-    <FormModal id={id} title="Set PIN" disabled={isDisabled} okBtnCaption="Set" onSubmit={handleSubmit} onHide={handleHide}>
+    <FormModal ref={modalRef} id={id} title={title} disabled={isSubmitDisabled} onShown={handleShown} onApply={handleApply} onHide={handleHide} onHidden={handleHidden} {...restProps}>
       <div className="container-fluid text-center">
-        <div className="row align-items-start"><div className="col">{message}</div></div>
+        <div className="row align-items-start"><div className="col">{getMessage()}</div></div>
         <div className="row align-items-start">
-          <div className="col text-end"><label htmlFor={pinFieldId}>New PIN code:</label></div>
-          <div className="col text-start"><InputPin id={pinFieldId} name="pin" maxLength={PIN_LENGTH} value={pin} onChange={handlePinChanged}></InputPin></div>
+          <div className="col text-end"><label htmlFor={`${id}-pin-1`}>New PIN code:</label></div>
+          <div className="col text-start"><InputPin ref={pin1Ref} id={`${id}-pin-1`} name="pin-1" maxLength={PIN_LENGTH} value={pin1} autoFocus readOnly={isBusy} disabled={isBusy} onChange={handlePin1Change}></InputPin></div>
         </div>
         <div className="row align-items-start">
-          <div className="col text-end"><label htmlFor={reenterPinFieldId}>Reenter PIN code:</label></div>
-          <div className="col text-start"><InputPin id={reenterPinFieldId} name="pin-reenter" maxLength={PIN_LENGTH} value={reenterPin} onChange={handleReenterPinChanged}></InputPin></div>
+          <div className="col text-end"><label htmlFor={`${id}-pin-2`}>Reenter PIN code:</label></div>
+          <div className="col text-start"><InputPin ref={pin2Ref} id={`${id}-pin-2`} name="pin-2" maxLength={PIN_LENGTH} value={pin2} readOnly={isBusy} disabled={isBusy} onChange={setPin2}></InputPin></div>
         </div>
       </div>
     </FormModal>
   );
-}
+});
+
+export default SetPinModal;

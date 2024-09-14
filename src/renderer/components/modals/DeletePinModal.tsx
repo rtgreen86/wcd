@@ -1,45 +1,92 @@
-import React, { useState, useEffect, FormEvent } from 'react';
-import FormModal from './FormModal';
+import { useState, forwardRef, useRef, useImperativeHandle } from 'react';
+import FormModal, { FormModalProps, FormModalRef } from './FormModal';
+import { ModalEvent } from './Modal';
 import InputPin from '../controls/InputPin';
-import { useFormModal } from '../../hooks/FormModalHooks';
+import { ButtonStyle } from '../controls/Button';
+import { Authenticator } from '../../api';
 
 const pinLength = 4;
 
-export default function DeletePinModal({
-  id
-}: {
-  id: string,
-}) {
+export interface DeletePinModalProps extends Omit<FormModalProps, 'title'> {
+  title?: string;
+  onSuccess?: () => void;
+  onFail?: () => void;
+}
+
+export const DeletePinModal = forwardRef<FormModalRef, DeletePinModalProps>(({
+  id,
+  title = 'Delete PIN',
+  submitCaption = 'Delete',
+  submitButtonStyle = 'danger' as ButtonStyle,
+  disabled = false,
+  onApply = () => undefined,
+  onShown = () => undefined,
+  onHide = () => undefined,
+  onHidden = () => undefined,
+  onSuccess = () => undefined,
+  onFail = () => undefined,
+}, forwardedRef) => {
+  const modalRef = useRef<FormModalRef>();
+  const pinRef = useRef<HTMLInputElement>();
+  const blockClosingRef = useRef(false);
+
   const [pin, setPin] = useState('');
-  const pinId = `${id}-pin-code`;
-  const submitButtonId = `${id}-submit`;
-  const modal = useFormModal(id);
+  const [isBusy, setBusy] = useState(false);
+  const [error, setError] = useState('');
 
-  const isDisabled = pin.length !== pinLength;
+  function handleShown(event: ModalEvent) {
+    pinRef.current?.focus();
+    onShown(event);
+  }
 
-  useEffect(() => {
-    if (!isDisabled) {
-      document.getElementById(submitButtonId).focus();
-    }
-  }, [isDisabled]);
-
-  modal.on('shown.bs.modal', () => {
-    document.getElementById(pinId).focus();
-  });
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  async function handleApply(event: CustomEvent<FormData>) {
     event.preventDefault();
-    setPin('');
-  };
+    blockClosingRef.current = true;
+    setBusy(true);
 
-  const handleHide = () => {
+    const success = await Authenticator.removePin(pin);
+
+    onApply(event);
+    blockClosingRef.current = false;
+    if (success) {
+      onSuccess();
+      modalRef.current?.hide();
+    } else {
+      onFail();
+      setError('Incorrect PIN');
+      setBusy(false);
+    }
+  }
+
+  function handleHide(event: ModalEvent) {
+    if (blockClosingRef.current) event.preventDefault();
+    onHide(event);
+  }
+
+  function handleHidden(event: ModalEvent) {
+    modalRef.current?.reset();
+    setBusy(false);
+    setError('');
     setPin('');
-  };
+    onHidden(event);
+  }
+
+  function getMessage() {
+    if (isBusy) return 'Please Wait';
+    if (error) return error;
+    return 'Enter current PIN code to remove.';
+  }
+
+  useImperativeHandle(forwardedRef, () => modalRef.current);
+
+  const isDisabled = disabled || isBusy || pin.length !== pinLength;
 
   return (
-    <FormModal id={id} title="Delete PIN" disabled={isDisabled} okBtnCaption="Delete PIN" onSubmit={handleSubmit} onHide={handleHide}>
-      <p>Enter current PIN code to remove.</p>
-      <InputPin id={pinId} name="pin" maxLength={pinLength} value={pin} onChange={setPin}></InputPin>
+    <FormModal ref={modalRef} id={id} title={title} submitCaption={submitCaption} submitButtonStyle={submitButtonStyle as ButtonStyle} disabled={isDisabled} onShown={handleShown} onApply={handleApply} onHide={handleHide} onHidden={handleHidden}>
+      <p>{getMessage()}</p>
+      <InputPin ref={pinRef} name="pin-1" maxLength={pinLength} value={pin} onChange={setPin} disabled={isBusy}></InputPin>
     </FormModal>
   );
-}
+});
+
+export default DeletePinModal;

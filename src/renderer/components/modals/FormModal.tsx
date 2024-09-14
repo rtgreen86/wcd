@@ -1,87 +1,120 @@
-import React, { FormEvent, ReactNode, useRef, SyntheticEvent } from 'react';
+import { FormEvent, forwardRef, useRef, useImperativeHandle } from 'react';
 
-import Modal from './Modal';
-import ModalHeader from './ModalHeader';
-import ModalBody from './ModalBody';
-import ModalFooter from './ModalFooter';
-import Button from '../controls/Button';
+import Modal, { ModalProps, ModalRef, ModalEvent } from './Modal';
+import ModalHeader from '../controls/ModalHeader';
+import ModalBody from '../controls/ModalBody';
+import ModalFooter from '../controls/ModalFooter';
+import ModalButtonClose from '../controls/ModalButtonClose';
+import Button, { ButtonStyle } from '../controls/Button';
 
-import { useModal } from '../../hooks/useModal';
-
-export interface FormModalProps {
-  id: string,
-  title: string,
-  canClose?: boolean,
-  okBtnCaption?: string,
-  cancelBtnCaption?: string,
-  disabled?: boolean,
-  method?: string,
-  action?: string,
-  onHide?: (event: Event) => void,
-  onHidden?: (event: Event) => void,
-  onHidePrevented?: (event: Event) => void,
-  onShow?: (event: Event) => void,
-  onShown?: (event: Event) => void,
-  onSubmit?: (event: FormEvent<HTMLFormElement>) => void,
-  children: ReactNode
+export interface FormModalRef extends ModalRef {
+  apply: () => void;
+  reset: () => void;
+  focusSubmit: () => void;
 }
 
-export default function FormModal({
-  id,
+export interface FormModalProps extends ModalProps {
+  title: string,
+  submitCaption?: string,
+  submitButtonStyle?: ButtonStyle,
+  cancelCaption?: string,
+  disabled?: boolean
+  method?: string,
+  action?: string,
+  onSubmit?: (event: FormEvent<HTMLFormElement>) => void,
+  onApply?: (event: CustomEvent<FormData>) => void,
+  onApplied?: (event: CustomEvent<FormData>) => void,
+}
+
+const handleSubmitDefault = (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+};
+
+export const FormModal = forwardRef<FormModalRef, FormModalProps>(({
   title,
-  canClose,
-  okBtnCaption = 'OK',
-  cancelBtnCaption = 'Cancel',
+  submitCaption = 'OK',
+  submitButtonStyle = 'primary' as ButtonStyle,
   disabled = false,
-  method,
+  cancelCaption = 'Cancel',
+  method = 'GET',
   action,
-  onHide = () => undefined,
+  canClose,
+  onApply = () => undefined,
   onHidden = () => undefined,
-  onHidePrevented = () => undefined,
   onShow = () => undefined,
-  onShown = () => undefined,
-  onSubmit = () => undefined,
-  children
-}: FormModalProps) {
-  const formRef = useRef(null);
+  onSubmit = handleSubmitDefault,
+  children,
+  ...rest
+}, forwardRef) => {
+  const modalRef = useRef<ModalRef>();
+  const formRef = useRef<HTMLFormElement>();
+  const submitBtnRef = useRef<HTMLButtonElement>();
+  const toggleBtnRef = useRef<HTMLElement>();
 
-  const submitId = `${id}-submit`;
-
-  const modal = useModal(id);
-
-  const handleHide = (event: Event) => {
-    const target = event.currentTarget as HTMLElement;
-    const forms = target.getElementsByTagName('form');
-    for (let i = 0; i < forms.length; i++) {
-      forms[i].reset();
-    }
-    onHide(event);
+  function show() {
+    if (modalRef.current) modalRef.current.show();
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    const form = event.currentTarget;
-    const detail = new FormData(form);
-    const cancelled = !modal.dispatchApplyEvent(detail)
-    if (!cancelled) onSubmit(event);
-  };
+  function hide() {
+    if (modalRef.current) modalRef.current.hide();
+  }
+
+  function dispatchApplyToButton(detail: FormData) {
+    if (!toggleBtnRef.current) return true;
+    const event = new CustomEvent<FormData>('apply.modal', {detail, bubbles: true, cancelable: true});
+    return toggleBtnRef.current.dispatchEvent(event);
+  }
+
+  function dispatchApplyToModal(detail: FormData) {
+    const event = new CustomEvent<FormData>('apply.modal', {detail, bubbles: true, cancelable: true});
+    onApply(event);
+    return !event.defaultPrevented;
+  }
+
+  function apply () {
+    if (!formRef.current) return;
+    const formData = new FormData(formRef.current);
+    if (dispatchApplyToModal(formData) && dispatchApplyToButton(formData)) hide();
+  }
+
+  function reset() {
+    if (formRef.current) formRef.current.reset();
+  }
+
+  function focusSubmit() {
+    if (submitBtnRef.current) submitBtnRef.current.focus();
+  }
+
+  function handleHidden(event: ModalEvent) {
+    toggleBtnRef.current = undefined;
+    reset();
+    onHidden(event);
+  }
+
+  function handleShow(event: ModalEvent) {
+    toggleBtnRef.current = event.relatedTarget;
+    onShow(event);
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    onSubmit(event);
+    apply();
+  }
+
+  useImperativeHandle(forwardRef, () => ({ apply, focusSubmit, hide, reset, show }), []);
 
   return (
-    <Modal
-      id={id}
-      onHide={handleHide}
-      onHidden={onHidden}
-      onHidePrevented={onHidePrevented}
-      onShow={onHidePrevented}
-      onShown={onHidePrevented}
-    >
-      <form method={method} action={action} onSubmit={handleSubmit}>
-        <ModalHeader title={title} canClose={canClose} />
-        <ModalBody>{ children }</ModalBody>
+    <Modal ref={modalRef} canClose={canClose} onHidden={handleHidden} onShow={handleShow} {...rest}>
+      <form ref={formRef} method={method} action={action} onSubmit={handleSubmit}>
+        <ModalHeader title={title} canClose={canClose}></ModalHeader>
+        <ModalBody>{children}</ModalBody>
         <ModalFooter>
-          <Button action="dismiss-modal" type="button" buttonStyle="secondary">{ cancelBtnCaption }</Button>
-          <Button action="dismiss-modal" id={submitId} type="submit" buttonStyle="primary" disabled={disabled}>{ okBtnCaption }</Button>
+          <Button ref={submitBtnRef} type="submit" buttonStyle={submitButtonStyle as ButtonStyle} disabled={disabled}>{submitCaption}</Button>
+          <ModalButtonClose buttonStyle='secondary' data-bs-dismiss="modal">{cancelCaption}</ModalButtonClose>
         </ModalFooter>
       </form>
     </Modal>
   );
-}
+});
+
+export default FormModal;
