@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import FormModal from './FormModal';
+import FormModal from '../controls/FormModal';
 import InputPin from '../controls/InputPin';
 import { useFormModal } from '../../hooks/FormModalHooks';
 
@@ -14,6 +14,7 @@ export default function DeletePinModal({
   const pinId = `${id}-pin-code`;
   const submitButtonId = `${id}-submit`;
   const modal = useFormModal(id);
+  const [isOpen, setOpen] = useState(false);
 
   const isDisabled = pin.length !== pinLength;
 
@@ -37,7 +38,7 @@ export default function DeletePinModal({
   };
 
   return (
-    <FormModal id={id} title="Delete PIN" disabled={isDisabled} okBtnCaption="Delete PIN" onSubmit={handleSubmit} onHide={handleHide}>
+    <FormModal isOpen={isOpen} id={id} title="Delete PIN" disabled={isDisabled} okCaption="Delete PIN" onSubmit={handleSubmit} onHide={handleHide} onStateChanged={setOpen}>
       <p>Enter current PIN code to remove.</p>
       <InputPin id={pinId} name="pin" maxLength={pinLength} value={pin} onChange={setPin}></InputPin>
     </FormModal>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Authenticator } from '../api';
 import Button from './controls/Button';
 import { useModal } from '../hooks/useModal';
+import ModalButton from './controls/ModalButton';
 
 export default function PinSettings() {
   const [error, setError] = useState<string | null>(null);
@@ -10,6 +11,8 @@ export default function PinSettings() {
 
   const setPinModal = useModal('set-pin-modal');
   const deletePinModal = useModal('delete-pin-modal');
+
+  const ref = useRef(null);
 
   useEffect(() => {
     Authenticator.isPinExist()
@@ -24,8 +27,12 @@ export default function PinSettings() {
     if (typeof pin === 'string') {
       setLoading(true);
       try {
-        const result = await Authenticator.setPin('', pin);
-        setPinExist(result);
+        // Debugging
+        // TODO: enable this code
+        // const result = await Authenticator.setPin('', pin);
+        // setPinExist(result);
+
+        console.log('PIN setted.');
       } catch (error) {
         setError(error.message);
       } finally {
@@ -33,6 +40,33 @@ export default function PinSettings() {
       }
     }
   });
+
+  const handleApply = (event: any) => {
+    console.log('PinSettings: handleApply()', event);
+  };
+
+  useEffect(() => {
+    console.log('subscribe');
+    document.addEventListener('submit.modal', handleApply);
+    return () => {
+      document.removeEventListener('submit.modal', handleApply);
+    };
+  });
+
+  const handleApply2 = (event: any) => {
+    console.log('PinSettings: handleApply2()', event);
+  };
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.addEventListener('submit.modal', handleApply2);
+    }
+    return () => {
+      if (ref.current) {
+        ref.current.removeEventListener('submit.modal', handleApply2);
+      }
+    }
+  })
 
   deletePinModal.onApply(async (event: CustomEvent<FormData>) => {
     const pin = event.detail.get('pin');
@@ -66,8 +100,8 @@ export default function PinSettings() {
     <section>
       <h5>PIN code</h5>
       <p>{ message }</p>
-      { isSetPinVisible && <Button buttonStyle="outline-dark" action="toggle-modal" modalTarget="#set-pin-modal">Set PIN</Button> }
-      { isDeletePinVisible && <Button buttonStyle="danger" action="toggle-modal" modalTarget="#delete-pin-modal">Delete PIN</Button> }
+      { isSetPinVisible && <ModalButton buttonStyle="outline-dark" target="#set-pin-modal">Set PIN</ModalButton> }
+      { isDeletePinVisible && <ModalButton buttonStyle="danger" target="#delete-pin-modal">Delete PIN</ModalButton> }
     </section>
   );
 }

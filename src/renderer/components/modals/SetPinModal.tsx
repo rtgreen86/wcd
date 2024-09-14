@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import FormModal from './FormModal';
+import FormModal from '../controls/FormModal';
 import InputPin from '../controls/InputPin';
 import { useModal } from '../../hooks/ModalHooks';
 
@@ -12,6 +12,7 @@ export default function SetPinModal({
 }) {
   const [pin, setPin] = useState('');
   const [reenterPin, setReenterPin] = useState('');
+  const [isOpen, setOpen] = useState(false);
 
   const pinFieldId = `${id}-pin`;
   const reenterPinFieldId = `${id}-reenter-pin`;
@@ -66,8 +67,12 @@ export default function SetPinModal({
     setReenterPin('');
   };
 
+  const handleShown = (event: Event) => {
+
+  };
+
   return (
-    <FormModal id={id} title="Set PIN" disabled={isDisabled} okBtnCaption="Set" onSubmit={handleSubmit} onHide={handleHide}>
+    <FormModal isOpen={isOpen} id={id} title="Set PIN" disabled={isDisabled} okCaption="Set" onSubmit={handleSubmit} onHide={handleHide} onStateChanged={setOpen}>
       <div className="container-fluid text-center">
         <div className="row align-items-start"><div className="col">{message}</div></div>
         <div className="row align-items-start">

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, MouseEvent, forwardRef } from 'react';
 import classNames from 'classnames';
 import * as ButtonStyles from './ButtonStyles';
 
@@ -8,31 +8,20 @@ type ButtonType = 'button' | 'submit' | 'reset';
 
 type ButtonSize = 'large' | 'small';
 
-interface CommonButtonProps {
+export interface ButtonProps {
   id?: string;
   buttonStyle?: ButtonStyle;
   buttonSize?: ButtonSize;
   type?: ButtonType;
   disabled?: boolean;
   children?: ReactNode;
-}
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+};
 
-interface ToggleModalButtonProps extends CommonButtonProps {
-  action: 'toggle-modal';
-  modalTarget: string;
-}
-
-interface DismissModalButtonProps extends CommonButtonProps {
-  action: 'dismiss-modal';
-}
-
-interface DefaultButtonProps extends CommonButtonProps {
-  action?: 'default',
-}
-
-type ButtonProps = ToggleModalButtonProps | DismissModalButtonProps | DefaultButtonProps;
-
-const getClassNames = ({ buttonStyle = 'secondary', buttonSize }: ButtonProps) => classNames(
+export const getClassName = ({
+  buttonStyle = 'secondary',
+  buttonSize
+}: Pick<ButtonProps, 'buttonStyle' | 'buttonSize'>) => classNames(
   'btn',
   `btn-${buttonStyle}`,
   {
@@ -41,17 +30,11 @@ const getClassNames = ({ buttonStyle = 'secondary', buttonSize }: ButtonProps) =
   }
 );
 
-export default function Button(props: ButtonProps) {
-  if (props.action === 'toggle-modal') {
-    const {action, buttonStyle, buttonSize, children, modalTarget, ...restProps } = props;
-    return <button className={getClassNames(props)} data-bs-toggle="modal" data-bs-target={props.modalTarget} {...restProps}>{children}</button>;
-  }
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
+  buttonStyle, buttonSize, children,
+  ...restProps
+}: ButtonProps, ref) => {
+  return <button ref={ref} className={getClassName({ buttonStyle, buttonSize })} { ...restProps }>{ children }</button>
+});
 
-  if (props.action === 'dismiss-modal') {
-    const { action, buttonStyle, buttonSize, children, ...restProps } = props;
-    return <button className={getClassNames(props)} data-bs-dismiss="modal" {...restProps}>{children}</button>;
-  }
-
-  const { action, buttonStyle, buttonSize, children, ...restProps } = props;
-  return <button className={getClassNames(props)} {...restProps}>{children}</button>
-}
+export default Button;

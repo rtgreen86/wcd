@@ -1,18 +1,61 @@
-import React from 'react';
+import React, {useState, MouseEvent, useEffect, useRef, FormEvent} from 'react';
 import BackPanel from '../back-panel';
 import packageInfo from '../../../../package.json';
 import PinSettings from '../PinSettings';
 import DeletePinModal from '../modals/DeletePinModal';
 import SetPinModal from '../modals/SetPinModal';
 
+import ModalToggleButton from '../controls/ModalToggleButton';
+import ModalWithForm from '../controls/ModalWithForm';
+import Modal, {ModalRef} from '../controls/Modal';
+import ModalHeader from '../controls/ModalHeader';
+import ModalBody from '../controls/ModalBody';
+import ModalFooter from '../controls/ModalFooter';
+import ModalButton from '../controls/ModalButton';
+import Button from '../controls/Button';
+
 export default function SettingsScreen() {
+  const myDialogRef = useRef<ModalRef>();
+
+  const [isDialog1Open, setDialog1Open] = useState(false);
+  const [isDialog2Open, setDialog2Open] = useState(false);
+
+  useEffect(() => {
+    console.log('STATUS:');
+    console.log('isDialog1Open', isDialog1Open);
+    console.log('isDialog2Open', isDialog2Open);
+  });
+
+  const handleOpenButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setDialog1Open(true);
+  };
+
+  const handleCloseButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (myDialogRef.current) myDialogRef.current.close();
+  }
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log('Event: Form Submit');
+  };
+
+  const handleApply = (formData: FormData) => {
+    console.log('Event: Dialog Apply', [...formData.values()]);
+  }
+
+  const handleApplyOnButton = (formData: FormData) => {
+    console.log('Event: Dialog Apply on Button', [...formData.values()]);
+  }
+
   return (
     <>
       <BackPanel />
       <main>
         <h1>Настройки</h1>
         <PinSettings />
-        <section style={{display: 'none'}}>
+        <section style={{ display: 'none' }}>
           <form>
             <section>
               <h2>Цикл</h2>
@@ -26,10 +69,34 @@ export default function SettingsScreen() {
           <h1>О программе</h1>
           <p>{packageInfo.productName}<br />Версия {packageInfo.version}<br />{packageInfo.description}</p>
         </section>
+
+        <section>
+          <div>Modal Dialogs development</div>
+          <div>
+            <ModalToggleButton target="#my-form-modal" onApply={handleApplyOnButton}>Open FORM Modal (BS)</ModalToggleButton>
+            <Button onClick={handleOpenButtonClick}>Open FORM Modal (JS)</Button>
+          </div>
+          <div>
+            <ModalToggleButton target="#my-modal">Open Modal (BS)</ModalToggleButton>
+          </div>
+        </section>
       </main>
 
       <DeletePinModal id="delete-pin-modal" />
       <SetPinModal id="set-pin-modal" />
+
+      <ModalWithForm isOpen={isDialog1Open} id="my-form-modal" title='My Form' onStateChanged={setDialog1Open} onApply={handleApply} onSubmit={handleSubmit}>
+        <label>Field: <input type="text" name="pin"></input></label>
+      </ModalWithForm>
+
+      <Modal ref={myDialogRef} id='my-modal' isOpen={isDialog2Open} onStateChanged={setDialog2Open}>
+        <ModalHeader title='Hello World' canClose={true}></ModalHeader>
+        <ModalBody>Hello World!</ModalBody>
+        <ModalFooter>
+          <Button onClick={handleCloseButtonClick}>Close!</Button>
+        </ModalFooter>
+      </Modal>
+
     </>
   )
 }
