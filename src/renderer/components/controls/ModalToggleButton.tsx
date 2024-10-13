@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Button, { ButtonProps } from './Button';
 
 interface ModalToggleButtonProps extends ButtonProps {
   target: `#${string}`,
-  onApply?: (formData: FormData) => void;
+  onApply?: (formData: CustomEvent<FormData>) => void;
 }
 
 export const ModalToggleButton = ({
@@ -14,19 +14,13 @@ export const ModalToggleButton = ({
 }: ModalToggleButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>();
 
-  const handleApply = (event: CustomEvent<FormData>) => {
-    onApply(event.detail);
-  };
-
   useEffect(() => {
-    console.log('effect');
     if (buttonRef.current) {
-      console.log('subscribe', buttonRef.current);
-      buttonRef.current.addEventListener('apply.modal', handleApply);
+      buttonRef.current.addEventListener('apply.modal', onApply);
     }
     return () => {
       if (buttonRef.current) {
-        buttonRef.current.removeEventListener('apply.modal', handleApply);
+        buttonRef.current.removeEventListener('apply.modal', onApply);
       }
     };
   }, []);

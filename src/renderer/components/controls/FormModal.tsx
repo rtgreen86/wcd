@@ -1,119 +1,98 @@
-import React, { FormEvent, ReactNode, useRef, SyntheticEvent, ElementRef, useState } from 'react';
-import * as bootstrap from 'bootstrap';
+import { FormEvent, forwardRef, useRef, useImperativeHandle } from 'react';
 
-import Modal, {ModalProps} from './Modal';
+import Modal, { ModalProps, ModalRef, ModalEvent } from './Modal';
 import ModalHeader from './ModalHeader';
 import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
-import Button from '../controls/Button';
-import CancelButton from './CancelButton';
+import ModalButtonClose from './ModalButtonClose';
+import Button from './Button';
 
-import { useModal } from '../../hooks/useModal';
-
-interface Props extends ModalProps {
+interface FormModalProps extends ModalProps {
   title: string,
-  canClose?: boolean,
-  okCaption?: string,
-  cancelCaption?: string,
+  submitCaption: string,
+  cancelCaption: string,
   disabled?: boolean,
   method?: string,
   action?: string,
   onSubmit?: (event: FormEvent<HTMLFormElement>) => void,
+  onApply?: (formData: FormData) => void,
 }
 
-type ModalHandle = ElementRef<typeof Modal>;
+const handleSubmitDefault = (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+};
 
-export default function FormModal({
-  id,
+export const FormModal = forwardRef<ModalRef, FormModalProps>(({
   title,
-  canClose = true,
-  okCaption = 'OK',
-  cancelCaption = 'Cancel',
+  canClose,
+  submitCaption,
+  cancelCaption,
   disabled = false,
   method = 'GET',
-  action = '',
-  onHide = () => undefined,
+  action,
   onHidden = () => undefined,
-  onHidePrevented = () => undefined,
   onShow = () => undefined,
-  onShown = () => undefined,
-  onSubmit = () => undefined,
-  children
-}: Props) {
-  const triggerRef = useRef<HTMLElement>(null);
-  const modalRef = useRef<ElementRef<typeof Modal>>(null);
+  onSubmit = handleSubmitDefault,
+  onApply = () => undefined,
+  children,
+  ...rest
+}: FormModalProps, forwardRef) => {
+  const modalRef = useRef<ModalRef>();
+  const formRef = useRef<HTMLFormElement>();
+  const toggleButtonRef = useRef<HTMLElement>();
 
-  const [isOpen, setOpen] = useState(false);
-
-  const submitId = `${id}-submit`;
-
-  const modal = useModal(id);
-
-  const handleHide = (event: Event) => {
-    triggerRef.current = null;
-
-    const target = event.currentTarget as HTMLElement;
-    const forms = target.getElementsByTagName('form');
-    for (let i = 0; i < forms.length; i++) {
-      forms[i].reset();
-    }
-
-    onHide(event);
+  const show = () => {
+    if (modalRef.current) modalRef.current.show();
   };
 
-  const handleShow = (event: Event) => {
-    if ('relatedTarget' in event) {
-      triggerRef.current = event.relatedTarget as HTMLElement;
-    }
-
-    onShow(event);
+  const hide = () => {
+    if (modalRef.current) modalRef.current.hide();
   };
+
+  useImperativeHandle(forwardRef, () => ({ show, hide }), []);
+
+  const resetForm = () => {
+    if (formRef.current) formRef.current.reset();
+  }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    const formData = new FormData(event.currentTarget);
 
-    if (triggerRef.current) {
-      const event = new CustomEvent<FormData>('submit.modal', { detail: formData, bubbles: true });
-      console.log('Trigger');
-      const cancelled = !triggerRef.current.dispatchEvent(event);
-      // document.dispatchEvent(event);
-      if (cancelled) return;
+    if (toggleButtonRef.current) {
+      toggleButtonRef.current.dispatchEvent(new CustomEvent<FormData>('apply.modal', {
+        detail: formData, bubbles: true
+      }));
     }
 
-    if (modalRef.current) {
-      modalRef.current.close();
-      // modalRef.current.open();
+    onSubmit(event);
+    onApply(formData);
 
-      // bootstrap.Modal.getInstance(modalRef.current).hide();
-    }
+    if (modalRef.current) modalRef.current.hide();
+  };
 
-    const cancelled = !modal.dispatchApplyEvent(formData)
-    if (!cancelled) onSubmit(event);
+  const handleShow = (event: ModalEvent) => {
+    toggleButtonRef.current = event.relatedTarget;
+    onShow(event);
+  }
 
-    event.preventDefault();
+  const handleHidden = (event: ModalEvent) => {
+    toggleButtonRef.current = undefined;
+    resetForm();
+    onHidden(event);
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      ref={modalRef}
-      id={id}
-      onHide={handleHide}
-      onHidden={onHidden}
-      onHidePrevented={onHidePrevented}
-      onShow={handleShow}
-      onShown={onShown}
-      onStateChanged={setOpen}
-    >
-      <form method={method} action={action} onSubmit={handleSubmit}>
-        <ModalHeader title={title} canClose={canClose} />
-        <ModalBody>{ children }</ModalBody>
+    <Modal ref={modalRef} canClose={canClose} onHidden={handleHidden} onShow={handleShow} {...rest}>
+      <form ref={formRef} method={method} action={action} onSubmit={handleSubmit}>
+        <ModalHeader title={title} canClose={canClose}></ModalHeader>
+        <ModalBody>{children}</ModalBody>
         <ModalFooter>
-          <CancelButton type="button" buttonStyle="secondary">{ cancelCaption }</CancelButton>
-          <Button id={submitId} type="submit" buttonStyle="primary" disabled={disabled}>{ okCaption }</Button>
+          <Button type="submit" buttonStyle='primary' disabled={disabled}>{ submitCaption }</Button>
+          <ModalButtonClose buttonStyle='secondary' data-bs-dismiss="modal">{cancelCaption}</ModalButtonClose>
         </ModalFooter>
       </form>
     </Modal>
   );
-}
+});
+
+export default FormModal;

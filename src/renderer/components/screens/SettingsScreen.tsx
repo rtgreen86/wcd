@@ -16,9 +16,9 @@ import Button from '../controls/Button';
 
 // Debug imports
 
-import ModalButtonClose from '../controls/ModalButtonClose';
 import MessageBox from '../controls/MessageBox';
 import ProgressBox from '../controls/ProgressBox';
+import FormModal from '../controls/FormModal';
 
 // End of Debug imports
 
@@ -54,8 +54,8 @@ export default function SettingsScreen() {
     console.log('Event: Dialog Apply', [...formData.values()]);
   }
 
-  const handleApplyOnButton = (formData: FormData) => {
-    console.log('Event: Dialog Apply on Button', [...formData.values()]);
+  const handleApplyOnButton = (event: CustomEvent<FormData>) => {
+    console.log('Event: Dialog Apply on Button', [...event.detail.values()]);
   }
 
   // DEBUG
@@ -81,6 +81,20 @@ export default function SettingsScreen() {
     }
   };
 
+  const handleMyApply = (formData: FormData) => {
+    console.log('handleMyApply');
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+  };
+
+  const handleMyApplyButton = (event: CustomEvent<FormData>) => {
+    console.log('handleMyApplyButton');
+    for (const [key, value] of event.detail.entries()) {
+      console.log(key, value);
+    }
+  };
+
   // END of DEBUG
 
   return (
@@ -102,6 +116,12 @@ export default function SettingsScreen() {
           <button onClick={() => startProcess()}>Start</button>
 
           <ProgressBox id="my-progress" ref={myProgressRef} title='The Process!'>Loading...</ProgressBox>
+
+          <ModalToggleButton target="#my-form-modal" onApply={handleMyApplyButton}>toggle form</ModalToggleButton>
+
+          <FormModal id="my-form-modal" title="Form!" submitCaption="Apply" cancelCaption="Cancel" onApply={handleMyApply}>
+            <label>Test Field:<input type="text" name="test"></input></label>
+          </FormModal>
 
         </section>
         {/* End of Debug */}
