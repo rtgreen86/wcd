@@ -14,6 +14,15 @@ import ModalFooter from '../controls/ModalFooter';
 import ModalButton from '../controls/ModalButton';
 import Button from '../controls/Button';
 
+// Debug imports
+
+import ModalButtonClose from '../controls/ModalButtonClose';
+import MessageBox from '../controls/MessageBox';
+import ProgressBox from '../controls/ProgressBox';
+
+// End of Debug imports
+
+
 export default function SettingsScreen() {
   const myDialogRef = useRef<ModalRef>();
 
@@ -33,7 +42,7 @@ export default function SettingsScreen() {
 
   const handleCloseButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    if (myDialogRef.current) myDialogRef.current.close();
+    if (myDialogRef.current) myDialogRef.current.hide();
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -49,10 +58,54 @@ export default function SettingsScreen() {
     console.log('Event: Dialog Apply on Button', [...formData.values()]);
   }
 
+  // DEBUG
+
+  const [isOpen, setOpen] = useState(false);
+  const myModalRef = useRef<ModalRef>();
+
+  const open = () => {
+    if (myModalRef.current) myModalRef.current.show();
+  };
+
+  const close = () => {
+    if (myModalRef.current) myModalRef.current.hide();
+  };
+
+  const myProgressRef = useRef<ModalRef>();
+
+  const startProcess = () => {
+    if (myProgressRef.current) {
+        const current = myProgressRef.current;
+        current.show();
+        setTimeout(() => current.hide(), 3000);
+    }
+  };
+
+  // END of DEBUG
+
   return (
     <>
       <BackPanel />
       <main>
+        {/* Debug */}
+        <section>
+          <div>Dialog debug</div>
+
+          <button onClick={() => setOpen(true)}>Open props</button>
+          <button onClick={() => open()}>Open</button>
+          <ModalToggleButton target="#test-id">toggle button</ModalToggleButton>
+
+          <MessageBox id="test-id" ref={myModalRef} title="The Title" okButtonTitle="OK" isOpen={isOpen} onStateChanged={setOpen}>
+            Hello World! <button onClick={() => close()}>Close</button>
+          </MessageBox>
+
+          <button onClick={() => startProcess()}>Start</button>
+
+          <ProgressBox id="my-progress" ref={myProgressRef} title='The Process!'>Loading...</ProgressBox>
+
+        </section>
+        {/* End of Debug */}
+
         <h1>Настройки</h1>
         <PinSettings />
         <section style={{ display: 'none' }}>

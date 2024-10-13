@@ -7,40 +7,45 @@ export interface ModalEvent extends Event {
 
 export interface ModalProps {
   id: string,
-  isOpen: boolean,
+  isOpen?: boolean,
+  canClose?: boolean,
   children?: ReactNode,
   onHide?: (event: ModalEvent) => void,
   onHidden?: (event: ModalEvent) => void,
   onHidePrevented?: (event: ModalEvent) => void,
   onShow?: (event: ModalEvent) => void,
   onShown?: (event: ModalEvent) => void,
-  onStateChanged: (isOpen: boolean) => void;
+  onStateChanged?: (isOpen: boolean) => void;
 }
 
 export interface ModalRef {
-  close: () => undefined,
+  show: () => void,
+  hide: () => void,
 }
 
 export const Modal = forwardRef<ModalRef, ModalProps>(({
   id,
-  isOpen = false,
+  isOpen,
   children,
+  canClose = true,
   onHide = () => undefined,
   onHidden = () => undefined,
   onHidePrevented = () => undefined,
   onShow = () => undefined,
   onShown = () => undefined,
-  onStateChanged
+  onStateChanged = () => undefined,
 }, forwardedRef) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  useImperativeHandle(forwardedRef, () => ({
-    close() {
-      if (modalRef.current) {
-        BootstrapModal.getInstance(modalRef.current).hide();
-      }
-    }
-  }), []);
+  const show = () => {
+    if (modalRef.current) BootstrapModal.getInstance(modalRef.current).show();
+  };
+
+  const hide = () => {
+    if (modalRef.current) BootstrapModal.getInstance(modalRef.current).hide();
+  };
+
+  useImperativeHandle(forwardedRef, () => ({ show, hide }), []);
 
   useEffect(() => {
     if (modalRef.current) {
@@ -63,15 +68,7 @@ export const Modal = forwardRef<ModalRef, ModalProps>(({
     };
   }, []);
 
-  useEffect(() => {
-    if (modalRef.current) {
-      if (isOpen) {
-        BootstrapModal.getInstance(modalRef.current).show();
-      } else {
-        BootstrapModal.getInstance(modalRef.current).hide();
-      }
-    }
-  }, [isOpen])
+  useEffect(() => { if (isOpen) show(); else hide(); }, [ isOpen ]);
 
   const handleShown = (event: Event) => {
     onStateChanged(true);
@@ -83,8 +80,10 @@ export const Modal = forwardRef<ModalRef, ModalProps>(({
     onHidden(event);
   };
 
+  const backdrop = canClose ? 'true' : 'static';
+
   return (
-    <div ref={modalRef} className="modal fade" id={id} aria-hidden="true" tabIndex={-1}>
+    <div ref={modalRef} className="modal fade" id={id} aria-hidden="true" tabIndex={-1} data-bs-backdrop={backdrop} data-bs-keyboard={canClose}>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">{children}</div>
       </div>
