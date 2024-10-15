@@ -1,13 +1,15 @@
 import { FormEvent, forwardRef, useRef, useImperativeHandle } from 'react';
 
 import Modal, { ModalProps, ModalRef, ModalEvent } from './Modal';
-import ModalHeader from './ModalHeader';
-import ModalBody from './ModalBody';
-import ModalFooter from './ModalFooter';
-import ModalButtonClose from './ModalButtonClose';
-import Button from './Button';
+import ModalHeader from '../controls/ModalHeader';
+import ModalBody from '../controls/ModalBody';
+import ModalFooter from '../controls/ModalFooter';
+import ModalButtonClose from '../controls/ModalButtonClose';
+import Button from '../controls/Button';
 
-interface FormModalProps extends ModalProps {
+export { ModalRef, ModalEvent } from './Modal';
+
+export interface FormModalProps extends ModalProps {
   title: string,
   submitCaption: string,
   cancelCaption: string,

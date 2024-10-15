@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import Modal, { ModalRef, ModalProps } from '../controls/Modal';
+import Modal, { ModalRef, ModalProps } from './Modal';
 import ModalHeader from '../controls/ModalHeader';
 import ModalBody from '../controls/ModalBody';
 

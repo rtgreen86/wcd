@@ -7,7 +7,7 @@ import SetPinModal from '../modals/SetPinModal';
 
 import ModalToggleButton from '../controls/ModalToggleButton';
 import ModalWithForm from '../controls/ModalWithForm';
-import Modal, {ModalRef} from '../controls/Modal';
+import Modal, {ModalRef} from '../modals/Modal';
 import ModalHeader from '../controls/ModalHeader';
 import ModalBody from '../controls/ModalBody';
 import ModalFooter from '../controls/ModalFooter';
@@ -16,9 +16,9 @@ import Button from '../controls/Button';
 
 // Debug imports
 
-import MessageBox from '../controls/MessageBox';
-import ProgressBox from '../controls/ProgressBox';
-import FormModal from '../controls/FormModal';
+import MessageBox from '../modals/MessageBox';
+import ProgressBox from '../modals/ProgressBox';
+import FormModal from '../modals/FormModal';
 
 // End of Debug imports
 
@@ -123,6 +123,9 @@ export default function SettingsScreen() {
             <label>Test Field:<input type="text" name="test"></input></label>
           </FormModal>
 
+          <ModalToggleButton target="#my-set-pin-modal">setpin dg</ModalToggleButton>
+
+          <SetPinModal id="my-set-pin-modal" />
         </section>
         {/* End of Debug */}
 
@@ -157,10 +160,6 @@ export default function SettingsScreen() {
 
       <DeletePinModal id="delete-pin-modal" />
       <SetPinModal id="set-pin-modal" />
-
-      <ModalWithForm isOpen={isDialog1Open} id="my-form-modal" title='My Form' onStateChanged={setDialog1Open} onApply={handleApply} onSubmit={handleSubmit}>
-        <label>Field: <input type="text" name="pin"></input></label>
-      </ModalWithForm>
 
       <Modal ref={myDialogRef} id='my-modal' isOpen={isDialog2Open} onStateChanged={setDialog2Open}>
         <ModalHeader title='Hello World' canClose={true}></ModalHeader>
