@@ -5,14 +5,19 @@ import ModalHeader from '../controls/ModalHeader';
 import ModalBody from '../controls/ModalBody';
 import ModalFooter from '../controls/ModalFooter';
 import ModalButtonClose from '../controls/ModalButtonClose';
-import Button from '../controls/Button';
+import Button, { ButtonStyle } from '../controls/Button';
 
-export { ModalRef, ModalEvent } from './Modal';
+export { ModalEvent } from './Modal';
+
+export interface FormModalRef extends ModalRef {
+  focusSubmit: () => void;
+}
 
 export interface FormModalProps extends ModalProps {
   title: string,
   submitCaption: string,
   cancelCaption: string,
+  submitButtonStyle?: ButtonStyle,
   disabled?: boolean,
   method?: string,
   action?: string,
@@ -24,11 +29,12 @@ const handleSubmitDefault = (event: FormEvent<HTMLFormElement>) => {
   event.preventDefault();
 };
 
-export const FormModal = forwardRef<ModalRef, FormModalProps>(({
+export const FormModal = forwardRef<FormModalRef, FormModalProps>(({
   title,
   canClose,
   submitCaption,
   cancelCaption,
+  submitButtonStyle = 'primary' as ButtonStyle,
   disabled = false,
   method = 'GET',
   action,
@@ -38,9 +44,10 @@ export const FormModal = forwardRef<ModalRef, FormModalProps>(({
   onApply = () => undefined,
   children,
   ...rest
-}: FormModalProps, forwardRef) => {
+}, forwardRef) => {
   const modalRef = useRef<ModalRef>();
   const formRef = useRef<HTMLFormElement>();
+  const submitRef = useRef<HTMLButtonElement>();
   const toggleButtonRef = useRef<HTMLElement>();
 
   const show = () => {
@@ -51,7 +58,11 @@ export const FormModal = forwardRef<ModalRef, FormModalProps>(({
     if (modalRef.current) modalRef.current.hide();
   };
 
-  useImperativeHandle(forwardRef, () => ({ show, hide }), []);
+  const focusSubmit = () => {
+    if (submitRef.current) submitRef.current.focus();
+  };
+
+  useImperativeHandle(forwardRef, () => ({ show, hide, focusSubmit }), []);
 
   const resetForm = () => {
     if (formRef.current) formRef.current.reset();
@@ -89,7 +100,7 @@ export const FormModal = forwardRef<ModalRef, FormModalProps>(({
         <ModalHeader title={title} canClose={canClose}></ModalHeader>
         <ModalBody>{children}</ModalBody>
         <ModalFooter>
-          <Button type="submit" buttonStyle='primary' disabled={disabled}>{ submitCaption }</Button>
+          <Button ref={submitRef} type="submit" buttonStyle={submitButtonStyle as ButtonStyle} disabled={disabled}>{ submitCaption }</Button>
           <ModalButtonClose buttonStyle='secondary' data-bs-dismiss="modal">{cancelCaption}</ModalButtonClose>
         </ModalFooter>
       </form>

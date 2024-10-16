@@ -1,46 +1,48 @@
-import React, { useState, useEffect, FormEvent } from 'react';
-import FormModal from './FormModal';
+import { useState, forwardRef, useRef } from 'react';
+import FormModal, { FormModalProps, FormModalRef, ModalEvent } from './FormModal';
 import InputPin from '../controls/InputPin';
-import { useFormModal } from '../../hooks/FormModalHooks';
+import { ButtonStyle } from '../controls/Button';
 
 const pinLength = 4;
 
-export default function DeletePinModal({
-  id
-}: {
-  id: string,
-}) {
+export interface DeletePinModalProps extends Omit<FormModalProps, 'title' | 'submitCaption' | 'cancelCaption'> {
+  title?: string,
+  submitCaption?: string,
+  cancelCaption?: string,
+}
+
+export const DeletePinModal = forwardRef<FormModalRef, DeletePinModalProps>(({
+  id,
+  title = 'Delete PIN',
+  submitCaption = 'Delete',
+  cancelCaption = 'Cancel',
+  submitButtonStyle = 'danger' as ButtonStyle,
+  disabled = false,
+  onShown = () => undefined,
+  onHidden = () => undefined,
+}, forwardedRef) => {
   const [pin, setPin] = useState('');
-  const pinId = `${id}-pin-code`;
-  const submitButtonId = `${id}-submit`;
-  const modal = useFormModal(id);
-  const [isOpen, setOpen] = useState(false);
 
-  const isDisabled = pin.length !== pinLength;
+  const pinRef = useRef<HTMLInputElement>();
 
-  useEffect(() => {
-    if (!isDisabled) {
-      document.getElementById(submitButtonId).focus();
-    }
-  }, [isDisabled]);
+  const isDisabled = disabled || pin.length !== pinLength;
 
-  modal.on('shown.bs.modal', () => {
-    document.getElementById(pinId).focus();
-  });
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setPin('');
+  const handleShown = (event: ModalEvent) => {
+    if (pinRef.current !== null) pinRef.current.focus();
+    onShown(event);
   };
 
-  const handleHide = () => {
+  const handleHidden = (event: ModalEvent) => {
     setPin('');
+    onHidden(event);
   };
 
   return (
-    <FormModal isOpen={isOpen} id={id} title="Delete PIN" disabled={isDisabled} okCaption="Delete PIN" onSubmit={handleSubmit} onHide={handleHide} onStateChanged={setOpen}>
+    <FormModal ref={forwardedRef} id={id} title={title} submitCaption={submitCaption} cancelCaption={cancelCaption} submitButtonStyle={submitButtonStyle as ButtonStyle} disabled={isDisabled} onHidden={handleHidden} onShown={handleShown} >
       <p>Enter current PIN code to remove.</p>
-      <InputPin id={pinId} name="pin" maxLength={pinLength} value={pin} onChange={setPin}></InputPin>
+      <InputPin ref={pinRef} name="pin" maxLength={pinLength} value={pin} onChange={setPin}></InputPin>
     </FormModal>
   );
-}
+});
+
+export default DeletePinModal;

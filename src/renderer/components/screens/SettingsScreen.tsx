@@ -123,9 +123,13 @@ export default function SettingsScreen() {
             <label>Test Field:<input type="text" name="test"></input></label>
           </FormModal>
 
-          <ModalToggleButton target="#my-set-pin-modal">setpin dg</ModalToggleButton>
+          <ModalToggleButton target="#my-set-pin-modal" onApply={handleMyApplyButton}>setpin dg</ModalToggleButton>
 
           <SetPinModal id="my-set-pin-modal" />
+
+          <ModalToggleButton target="#my-delete-modal" onApply={handleMyApplyButton}>delete pin</ModalToggleButton>
+
+          <DeletePinModal id="my-delete-modal" />
         </section>
         {/* End of Debug */}
 

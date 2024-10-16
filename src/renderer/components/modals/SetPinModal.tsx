@@ -1,7 +1,6 @@
-import { FormEvent, useEffect, useState, useRef, forwardRef } from 'react';
-import FormModal, { FormModalProps, ModalRef, ModalEvent } from './FormModal';
+import { useEffect, useState, useRef, forwardRef, useImperativeHandle } from 'react';
+import FormModal, { FormModalProps, FormModalRef, ModalEvent } from './FormModal';
 import InputPin from '../controls/InputPin';
-import { useModal } from '../../hooks/ModalHooks';
 
 const PIN_LENGTH = 4;
 
@@ -11,26 +10,45 @@ export interface SetPinModalProps extends Omit<FormModalProps, 'title' | 'submit
   cancelCaption?: string,
 }
 
-export const SetPinModal = forwardRef<ModalRef, SetPinModalProps>(({
+export const SetPinModal = forwardRef<FormModalRef, SetPinModalProps>(({
   id,
-  disabled = false,
   title = 'Set PIN',
   submitCaption = 'OK',
   cancelCaption = 'Cancel',
+  disabled = false,
   onShown = () => undefined,
+  onHidden = () => undefined,
   ...restProps
 }, forwardedRef) => {
   const [pin1, setPin1] = useState('');
   const [pin2, setPin2] = useState('');
 
+  const modalRef = useRef<FormModalRef>();
   const pin1Ref = useRef<HTMLInputElement>();
   const pin2Ref = useRef<HTMLInputElement>();
 
   const isDisabled = disabled || pin1.length !== PIN_LENGTH || pin1 !== pin2;
 
+  let message = 'Press Set button.';
+  if (pin1.length < PIN_LENGTH) message = 'Enter new PIN code to protect your application data.';
+  if (pin1.length === PIN_LENGTH && pin2 !== pin1) message = 'Reenter PIN to second field.';
+  if (pin2.length === PIN_LENGTH && pin1 !== pin2) message = 'Entried PIN codes are different.';
+
+  useEffect(() => {
+    if (!isDisabled && modalRef.current) {
+      modalRef.current.focusSubmit();
+    }
+  }, [isDisabled]);
+
   const handleShown = (event: ModalEvent) => {
     if (pin1Ref.current !== null) pin1Ref.current.focus();
     onShown(event);
+  };
+
+  const handleHidden = (event: ModalEvent) => {
+    setPin1('');
+    setPin2('');
+    onHidden(event);
   };
 
   const handlePin1Change = (value: string) => {
@@ -38,41 +56,10 @@ export const SetPinModal = forwardRef<ModalRef, SetPinModalProps>(({
     if (value.length === PIN_LENGTH && pin2Ref.current !== null) pin2Ref.current.focus();
   };
 
-  // const modal = useModal(id);
-
-
-  // useEffect(() => {
-  //   if (!isDisabled) {
-  //     document.getElementById(submitButtonId).focus();
-  //   }
-  // }, [isDisabled]);
-
-  let message = 'Press Set button.';
-  if (pin1.length < PIN_LENGTH) message = 'Enter new PIN code to protect your application data.';
-  if (pin1.length === PIN_LENGTH && pin2 !== pin1) message = 'Reenter PIN to second field.';
-  if (pin2.length === PIN_LENGTH && pin1 !== pin2) message = 'Entried PIN codes are different.';
-
-  // const handleReenterPinChanged = (value: string) => {
-  //   setReenterPin(value);
-  // };
-
-  // const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   setPin('');
-  //   setReenterPin('');
-  // };
-
-  // const handleHide = () => {
-  //   setPin('');
-  //   setReenterPin('');
-  // };
-
-  // const handleShown = (event: Event) => {
-
-  // };
+  useImperativeHandle(forwardedRef, () => modalRef.current);
 
   return (
-    <FormModal ref={forwardedRef} id={id} title={title} disabled={isDisabled} submitCaption={submitCaption} cancelCaption={cancelCaption} onShown={handleShown} {...restProps}>
+    <FormModal ref={modalRef} id={id} title={title} disabled={isDisabled} submitCaption={submitCaption} cancelCaption={cancelCaption} onShown={handleShown} onHidden={handleHidden} {...restProps}>
       <div className="container-fluid text-center">
         <div className="row align-items-start"><div className="col">{message}</div></div>
         <div className="row align-items-start">

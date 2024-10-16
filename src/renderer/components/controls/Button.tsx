@@ -2,7 +2,7 @@ import React, { ReactNode, MouseEvent, forwardRef } from 'react';
 import classNames from 'classnames';
 import * as ButtonStyles from './ButtonStyles';
 
-type ButtonStyle = typeof ButtonStyles[keyof typeof ButtonStyles];
+export type ButtonStyle = typeof ButtonStyles[keyof typeof ButtonStyles];
 
 type ButtonType = 'button' | 'submit' | 'reset';
 
