@@ -1,0 +1,1 @@
+26.01.25 @vercel/webpack-asset-relocator-loader @ 1.7.3 - работат нормально. Но версия 1.7.4 не работает с Electron Forge.
