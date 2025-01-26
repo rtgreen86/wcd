@@ -1,7 +1,6 @@
 import './YearCalendar.css';
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import MonthCalendar from './MonthCalendar';
 
 export default function YearCalendar({
@@ -17,9 +16,3 @@ export default function YearCalendar({
     }</div>
   );
 }
-
-YearCalendar.propTypes = {
-  year: PropTypes.number,
-  marks: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  onClick: PropTypes.func
-};

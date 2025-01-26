@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import './Toolbar.css';
 
@@ -10,11 +9,6 @@ export default function Toolbar({ className, children }) {
     </ul></nav>
   );
 }
-
-Toolbar.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node
-};
 
 Toolbar.defaultProps = {
   className: 'uikit-toolbar'

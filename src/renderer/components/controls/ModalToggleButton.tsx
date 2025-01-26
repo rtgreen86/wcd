@@ -12,7 +12,7 @@ export const ModalToggleButton = ({
   onApply = () => undefined,
   ...restProps
 }: ModalToggleButtonProps) => {
-  const buttonRef = useRef<HTMLButtonElement>();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (buttonRef.current) {

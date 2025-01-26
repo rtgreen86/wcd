@@ -24,9 +24,9 @@ export const SetPinModal = forwardRef<FormModalRef, SetPinModalProps>(({
   onFail = () => undefined,
   ...restProps
 }, forwardedRef) => {
-  const modalRef = useRef<FormModalRef>();
-  const pin1Ref = useRef<HTMLInputElement>();
-  const pin2Ref = useRef<HTMLInputElement>();
+  const modalRef = useRef<FormModalRef>(null);
+  const pin1Ref = useRef<HTMLInputElement>(null);
+  const pin2Ref = useRef<HTMLInputElement>(null);
   const blockClosingRef = useRef(false);
 
   const [pin1, setPin1] = useState('');

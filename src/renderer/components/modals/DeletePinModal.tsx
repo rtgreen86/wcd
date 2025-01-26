@@ -26,8 +26,8 @@ export const DeletePinModal = forwardRef<FormModalRef, DeletePinModalProps>(({
   onSuccess = () => undefined,
   onFail = () => undefined,
 }, forwardedRef) => {
-  const modalRef = useRef<FormModalRef>();
-  const pinRef = useRef<HTMLInputElement>();
+  const modalRef = useRef<FormModalRef>(null);
+  const pinRef = useRef<HTMLInputElement>(null);
   const blockClosingRef = useRef(false);
 
   const [pin, setPin] = useState('');

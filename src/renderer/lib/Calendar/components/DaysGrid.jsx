@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import useDays from '../hooks/useDays';
 import { gridColumns } from '../lib/Const';
 import { noop } from '../lib/utils';
@@ -38,10 +37,3 @@ export default function DaysGrid({ year, month, marks = {}, onClick = noop }) {
     return grid;
   }, [[]]);
 }
-
-DaysGrid.propTypes = {
-  year: PropTypes.number,
-  month: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
-  marks: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  onClick: PropTypes.func
-};

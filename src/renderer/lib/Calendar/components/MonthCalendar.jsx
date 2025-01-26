@@ -1,6 +1,5 @@
 import './MonthCalendar.css';
 import React from 'react';
-import PropTypes from 'prop-types';
 import useMonthsCaptions from '../hooks/useMonthsCaptions';
 import DaysGrid from './DaysGrid';
 import WeekDays from './WeekDays';
@@ -21,10 +20,3 @@ export default function MonthCalendar({
     </table>
   );
 }
-
-MonthCalendar.propTypes = {
-  year: PropTypes.number,
-  month: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
-  marks: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  onClick: PropTypes.func
-};

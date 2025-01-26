@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from "react-router-dom";
 import { MainNavBar, NavItem } from '../lib/UIKit';
 import { yearDecrement, yearIncrement } from '../actions';
@@ -19,9 +18,4 @@ export default function MainPanel({ year }: { year: number }) {
       <NavItem position="right"><NavLink className="btn" to="/settings"><i className="material-icons">settings</i></NavLink></NavItem>
     </MainNavBar>
   );
-}
-
-MainPanel.propTypes = {
-  year: PropTypes.number.isRequired,
-  onDispatch: PropTypes.func.isRequired
 }

@@ -46,10 +46,10 @@ export const FormModal = forwardRef<FormModalRef, FormModalProps>(({
   children,
   ...rest
 }, forwardRef) => {
-  const modalRef = useRef<ModalRef>();
-  const formRef = useRef<HTMLFormElement>();
-  const submitBtnRef = useRef<HTMLButtonElement>();
-  const toggleBtnRef = useRef<HTMLElement>();
+  const modalRef = useRef<ModalRef>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const submitBtnRef = useRef<HTMLButtonElement>(null);
+  const toggleBtnRef = useRef<HTMLElement>(null);
 
   function show() {
     if (modalRef.current) modalRef.current.show();
