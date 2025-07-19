@@ -5,10 +5,7 @@ export * from './secure-storage';
 
 export * from './storage';
 
-export class Model {
-  readonly validator = new PinValidator();
-  readonly authenticator = new Authenticator(this.validator);
-}
+export { default as Model } from './Model';
 
 export async function initializeKey() {
   const existsKey = await Secret.get('key');
