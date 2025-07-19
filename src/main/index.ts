@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
 
-import { initializeKey, Model } from './models';
+import Application from '@main/services/Application';
 
 import { ChainOfResponsibility } from '../lib/chain-of-responsibility';
 
@@ -9,6 +9,12 @@ import AuthenticateController from './controllers/AuthenticateController';
 import GetDataController from './controllers/GetDataController';
 import PutDataController from './controllers/PutDataController';
 import RemoveDataController from './controllers/RemoveDataController';
+
+import AuthenticateHandler from './handlers/AuthenticateHandler';
+import DataHandler from './handlers/DataHandler';
+import PinHandler from './handlers/PinHandler';
+import { RequestType } from '@shared/enums';
+import { convertLegacyRequest, convertLegacyResponse } from './ConvertLegacyRequest';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -59,18 +65,29 @@ app.whenReady().then(async () => {
   //       .then((name) => console.log(`Added Extension:  ${name}`))
   //       .catch((err) => console.log('An error occurred: ', err));
 
-  await initializeKey();
-  const model = new Model();
+  const model = await Application.initializeModel();
 
   const router = new ChainOfResponsibility<WCD.Request, Promise<WCD.Response>>([
     new AuthenticateController(model),
-    new GetDataController(),
-    new PutDataController(),
+    new GetDataController({ model }),
+    new PutDataController({ model }),
     new RemoveDataController()
   ]);
 
-  ipcMain.handle('send-request', (event, request: WCD.Request) => router.handle(request));
   ipcMain.handle('show-about', () => app.showAboutPanel());
+
+  const handlers = new AuthenticateHandler({ model })
+  .append(new DataHandler({ model }))
+  .append(new PinHandler({ model }));
+
+  ipcMain.handle('ipc-request', (event, request) => handlers.handle(request));
+
+  ipcMain.handle('send-request', async (event, request: WCD.Request) => {
+    const newRequest = convertLegacyRequest(request);
+    const response = await handlers.handle(newRequest);
+    const oldResponse = convertLegacyResponse(response);
+    return oldResponse;
+  });
 
   fillAboutPanel();
   createWindow();

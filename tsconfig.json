@@ -12,6 +12,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "paths": {
+      "@shared/*": ["src/shared/*"],
+      "@main/*": ["src/main/*"],
       "*": ["node_modules/*"]
     },
     "jsx": "react-jsx",
