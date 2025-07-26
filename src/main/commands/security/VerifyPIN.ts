@@ -1,4 +1,4 @@
-import { Command } from '@main/types';
+import { Command } from '@shared/types';
 import PinGuard from '@main/services/PinGuard';
 
 export default class VerifyPIN implements Command<Promise<boolean>> {

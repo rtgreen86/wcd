@@ -1,5 +1,5 @@
 import keytar from 'keytar';
-import { Command } from '@main/types';
+import { Command } from '@shared/types';
 import * as CONST from '@main/CONST';
 
 export default class GetSecretValue implements Command<Promise<string | null>> {

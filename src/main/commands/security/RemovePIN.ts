@@ -1,4 +1,4 @@
-import { Command } from '@main/types';
+import { Command } from '@shared/types';
 import PinGuard from '@main/services/PinGuard';
 
 export default class RemovePIN implements Command<Promise<boolean>> {

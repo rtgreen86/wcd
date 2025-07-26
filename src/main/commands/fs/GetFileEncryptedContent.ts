@@ -2,7 +2,7 @@ import { Buffer } from 'node:buffer';
 import { createReadStream } from 'node:fs';
 import { createDecipheriv } from 'node:crypto';
 import { Readable } from 'node:stream';
-import { Command } from '@main/types';
+import { Command } from '@shared/types';
 import * as CONST from '@main/CONST';
 
 export default class GetFileEncryptedContent implements Command<Promise<string>> {

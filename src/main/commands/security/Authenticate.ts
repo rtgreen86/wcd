@@ -1,4 +1,4 @@
-import { Command } from '@main/types';
+import { Command } from '@shared/types';
 import { Model } from '@main/models';
 import TokenGenerator from '@main/services/security/TokenGenerator';
 import VerifyPIN from './VerifyPIN';

@@ -1,4 +1,4 @@
-import { Command } from '@main/types';
+import { Command } from '@shared/types';
 import { buildAbsolutePath } from '@main/utils/appData';
 import PutFileEncryptedContent from './PutFileEncryptedContent';
 

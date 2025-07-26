@@ -1,5 +1,5 @@
 import { writeFile, readFile } from 'node:fs/promises';
-import { Command } from '@main/types';
+import { Command } from '@shared/types';
 
 export default class PutFileContent implements Command<Promise<void>> {
   constructor(private params: {

@@ -1,5 +1,5 @@
 import { Model } from '@main/models';
-import { Command } from '@main/types';
+import { Command } from '@shared/types';
 import DataStorage from '@main/facades/DataStorage';
 
 export default class PutData implements Command<Promise<void>> {
