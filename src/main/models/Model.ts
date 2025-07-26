@@ -1,8 +1,7 @@
 import { Authenticator, PinValidator } from './authenticator';
 
 export default class Model {
-  data: string;
-  key: string;
+  data: string = '';
   sessionTokens = new Set<string>();
 
   // Legacy

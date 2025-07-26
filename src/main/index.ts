@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
 
 import { Model } from './models';
-import DataStorage from '@main/facades/DataStorage';
+import Application from '@main/facades/Application';
 
 import { ChainOfResponsibility } from '../lib/chain-of-responsibility';
 
@@ -60,13 +60,12 @@ app.whenReady().then(async () => {
   //       .then((name) => console.log(`Added Extension:  ${name}`))
   //       .catch((err) => console.log('An error occurred: ', err));
 
-  await DataStorage.initializeFSKey();
-  const model = new Model();
+  const model = await Application.initializeModel();
 
   const router = new ChainOfResponsibility<WCD.Request, Promise<WCD.Response>>([
     new AuthenticateController(model),
-    new GetDataController(),
-    new PutDataController(),
+    new GetDataController({model}),
+    new PutDataController({model}),
     new RemoveDataController()
   ]);
 

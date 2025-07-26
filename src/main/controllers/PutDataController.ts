@@ -1,12 +1,23 @@
 import { BaseHandler } from '../../lib/chain-of-responsibility';
 import DataStorage from '@main/facades/DataStorage';
+import { Model } from '@main/models';
+import PutData from '@main/commands/data/PutData';
 
 export default class PutDataController extends BaseHandler<WCD.Request, Promise<WCD.Response>> {
+  constructor(private params: {
+    model: Model,
+  }) {
+    super();
+  }
+
   async handle(request: WCD.Request): Promise<WCD.Response> {
     if (request.type !== 'put:data') {
       return super.handle(request);
     }
-    const content = request.payload.content || '';
-    await DataStorage.put(content);
+    const data = request.payload.content || '';
+    await new PutData({
+      model: this.params.model,
+      data,
+    }).execute();
   }
 }
