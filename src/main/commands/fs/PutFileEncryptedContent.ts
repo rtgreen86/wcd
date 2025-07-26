@@ -2,7 +2,7 @@ import { Buffer } from 'node:buffer';
 import { createWriteStream } from 'node:fs';
 import { createCipheriv, randomBytes } from 'node:crypto';
 import { pipeline, finished } from 'node:stream/promises';
-import { Command } from '@shared/types';
+import { Command } from '@main/types';
 import * as CONST from '@main/CONST';
 
 export default class PutFileEncryptedContent implements Command<Promise<void>> {

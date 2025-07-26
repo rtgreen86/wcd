@@ -1,8 +1,8 @@
 import keytar from 'keytar';
-import { Command } from '@shared/types';
+import { Command } from '@main/types';
 import * as CONST from '@main/CONST';
 
-export default class GetValue implements Command<Promise<void>> {
+export default class PutSecretValue implements Command<Promise<void>> {
   constructor(private params: {
     key: string,
     value: string

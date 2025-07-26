@@ -1,5 +1,5 @@
-import GetValue from '@main/commands/secureStorage/GetValue';
-import PutValue from '@main/commands/secureStorage/PutValue';
+import GetValue from '@main/commands/secureStorage/GetSecretValue';
+import PutValue from '@main/commands/secureStorage/PutSecretValue';
 import RemoveKey from '@main/commands/secureStorage/RemoveKey';
 
 export default class SecretFacade {

@@ -1,4 +1,4 @@
-import { Command } from '@shared/types';
+import { Command } from '@main/types';
 import { buildAbsolutePath } from '@main/utils/appData';
 import GetFileContent from './GetFileContent';
 
