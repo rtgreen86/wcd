@@ -1,5 +1,6 @@
 import { File } from './File';
-import EncryptedFileSystem from '../../main/storage/EncryptedFileSystem';
+import GetFileEncryptedContent from '../../main/commands/fs/GetFileEncryptedContent';
+import PutFileEncryptedContent from '../../main/commands/fs/PutFileEncryptedContent';
 
 export class FileEncryptedText implements File<string> {
   readonly path: string;
@@ -12,10 +13,17 @@ export class FileEncryptedText implements File<string> {
   }
 
   async read() {
-    return new EncryptedFileSystem(this.path, this.hexKey).load();
+    return new GetFileEncryptedContent({
+      filename: this.path,
+      hexKey: this.hexKey
+    }).execute();
   }
 
   async write(content: string) {
-    await new EncryptedFileSystem(this.path, this.hexKey).save(content);
+    await new PutFileEncryptedContent({
+      filename: this.path,
+      hexKey: this.hexKey,
+      content: content
+    }).execute();
   }
 }

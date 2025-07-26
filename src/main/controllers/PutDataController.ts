@@ -9,6 +9,6 @@ export default class PutDataController extends BaseHandler<WCD.Request, Promise<
 
     const filename = request.payload.name;
     const content = request.payload.content || '';
-    await Storage.encryptPut(filename, content);
+    await Storage.encryptPut(filename + '.json', content);
   }
 }

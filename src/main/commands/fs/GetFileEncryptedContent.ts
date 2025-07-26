@@ -1,34 +1,21 @@
 import { Buffer } from 'node:buffer';
-import { createReadStream, createWriteStream } from 'node:fs';
-import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
-import { pipeline, finished } from 'node:stream/promises';
+import { createReadStream } from 'node:fs';
+import { createDecipheriv } from 'node:crypto';
 import { Readable } from 'node:stream';
-import { Storage } from '@main/types';
+import { Command } from '@shared/types';
+import * as CONST from '@main/CONST';
 
-const keySize = 24;
-const ivSize = 16;
-const algorithm = 'aes-192-cbc';
+export default class GetFileEncryptedContent implements Command<Promise<string>> {
+  constructor(private params: {
+    filename: string,
+    hexKey: string,
+  }) {}
 
-export default class EncryptedFileSystem implements Storage {
-  constructor(private file: string, private hexKey: string) {}
-
-  async save(content: string): Promise<void> {
-    const stream = createWriteStream(this.file);
-    const iv = randomBytes(ivSize);
-    const bufferWithKey = Buffer.alloc(keySize, this.hexKey, 'hex');
-    const cipher = createCipheriv(algorithm, bufferWithKey, iv);
-    pipeline(cipher, stream);
-    stream.write(iv);
-    cipher.write(content);
-    cipher.end();
-    return finished(cipher);
-  }
-
-  async load(): Promise<string> {
-    const stream = createReadStream(this.file);
-    const key = Buffer.alloc(keySize, this.hexKey, 'hex');
-    const iv = await readBytes(stream, ivSize);
-    const decipher = createDecipheriv(algorithm, key, iv);
+  async execute() {
+    const stream = createReadStream(this.params.filename);
+    const key = Buffer.alloc(CONST.FS_ENCRYPTION_KEY_SIZE, this.params.hexKey, 'hex');
+    const iv = await readBytes(stream, CONST.FS_ENCRYPTION_IV_SIZE);
+    const decipher = createDecipheriv(CONST.FS_ALGORITHM, key, iv);
     stream.pipe(decipher);
     return readAllText(decipher);
   }
@@ -98,3 +85,5 @@ const readAllText = (stream: Readable) => new Promise<string>((resolve, reject) 
   stream.once('end', handleEnd);
   handleReadable();
 });
+
+

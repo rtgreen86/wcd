@@ -1,9 +1,4 @@
-export interface Command {
-  execute(): this;
-  undo(): this;
-}
-
-export interface AsyncCommand {
-  execute(): Promise<this>,
-  undo(): Promise<this>,
+export interface Command<T = unknown, K = T> {
+  execute(): T;
+  undo?(): K;
 }

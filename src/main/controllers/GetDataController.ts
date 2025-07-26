@@ -7,7 +7,7 @@ export default class GetDataController extends BaseHandler<WCD.Request, Promise<
       return super.handle(request);
     }
     const name = request.payload;
-    const content = await Storage.encryptGetSafe(name);
+    const content = await Storage.encryptGetSafe(name + '.json');
     return { name, content };
   }
 }

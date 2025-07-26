@@ -16,7 +16,8 @@ export const rendererConfig: Configuration = {
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
     alias: {
-      "@shared": path.join(__dirname, 'src', 'shared')
+      "@shared": path.join(__dirname, 'src', 'shared'),
+      "@main": path.join(__dirname, 'src', 'main')
     }
   },
 };
