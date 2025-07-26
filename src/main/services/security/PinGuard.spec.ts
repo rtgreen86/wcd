@@ -5,9 +5,9 @@ import GetSecretValue from '@main/commands/secureStorage/GetSecretValue';
 import PutSecretValue from '@main/commands/secureStorage/PutSecretValue';
 import RemoveSecretKey from '@main/commands/secureStorage/RemoveSecretKey';
 
-jest.mock('../commands/secureStorage/GetSecretValue')
-jest.mock('../commands/secureStorage/PutSecretValue')
-jest.mock('../commands/secureStorage/RemoveSecretKey')
+jest.mock('../../commands/secureStorage/GetSecretValue')
+jest.mock('../../commands/secureStorage/PutSecretValue')
+jest.mock('../../commands/secureStorage/RemoveSecretKey')
 
 describe('PinGuard', () => {
   beforeEach(() => {

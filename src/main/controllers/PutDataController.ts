@@ -1,5 +1,5 @@
 import { BaseHandler } from '../../lib/chain-of-responsibility';
-import DataStorage from '@main/facades/DataStorage';
+import DataStorage from '@main/services/data/DataStorage';
 import { Model } from '@main/models';
 import PutData from '@main/commands/data/PutData';
 
