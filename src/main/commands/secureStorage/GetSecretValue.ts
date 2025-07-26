@@ -2,7 +2,7 @@ import keytar from 'keytar';
 import { Command } from '@main/types';
 import * as CONST from '@main/CONST';
 
-export default class GetSecretValue implements Command<Promise<string>> {
+export default class GetSecretValue implements Command<Promise<string | null>> {
   constructor(private params: {
     key: string,
   }) { }
