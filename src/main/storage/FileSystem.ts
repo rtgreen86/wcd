@@ -1,7 +1,7 @@
 import { writeFile, readFile } from 'node:fs/promises';
-import { Storage } from './Storage';
+import { Storage } from '@main/types';
 
-export default class FileSystem implements Storage<string> {
+export default class FileSystem implements Storage {
   constructor(private file: string) {}
 
   async save(content: string): Promise<void> {

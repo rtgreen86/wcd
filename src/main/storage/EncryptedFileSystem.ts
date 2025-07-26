@@ -3,13 +3,13 @@ import { createReadStream, createWriteStream } from 'node:fs';
 import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
 import { pipeline, finished } from 'node:stream/promises';
 import { Readable } from 'node:stream';
-import { Storage } from './Storage';
+import { Storage } from '@main/types';
 
 const keySize = 24;
 const ivSize = 16;
 const algorithm = 'aes-192-cbc';
 
-export default class EncryptedFileSystem implements Storage<string> {
+export default class EncryptedFileSystem implements Storage {
   constructor(private file: string, private hexKey: string) {}
 
   async save(content: string): Promise<void> {

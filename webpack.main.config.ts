@@ -15,7 +15,8 @@ export const mainConfig: Configuration = {
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
     alias: {
-      "@shared": path.join(__dirname, 'src', 'shared')
+      "@shared": path.join(__dirname, 'src', 'shared'),
+      "@main": path.join(__dirname, 'src', 'shared'),
     }
   },
 };
