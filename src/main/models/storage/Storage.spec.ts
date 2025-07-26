@@ -6,9 +6,9 @@ import { Storage } from './Storage';
 import { KeyGenerator } from '../secure-storage';
 
 jest.mock('electron');
-jest.mock('../secure-storage');
+jest.mock('../../facades/SecretFacade');
 
-import { Secret } from '../secure-storage';
+import SecretFacade from '@main/facades/SecretFacade';
 import { app } from 'electron';
 
 describe('Storage', () => {
@@ -30,7 +30,7 @@ describe('Storage', () => {
 
   beforeAll(async () => {
     const hexKey = KeyGenerator.generate();
-    jest.mocked(Secret.get).mockResolvedValue(hexKey);
+    jest.mocked(SecretFacade.get).mockResolvedValue(hexKey);
   });
 
   it('should save / load content', async () => {

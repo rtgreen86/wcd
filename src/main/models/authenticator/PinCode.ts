@@ -1,16 +1,16 @@
-import { Secret } from '../secure-storage';
+import SecretFacade from '@main/facades/SecretFacade';
 
 export default class PinCode {
   static async check(pin: string) {
-    const _pin = await Secret.get('pin') || '';
+    const _pin = await SecretFacade.get('pin') || '';
     return _pin === pin;
   }
 
   static async set(pin: string) {
-    await Secret.put('pin', pin);
+    await SecretFacade.put('pin', pin);
   }
 
   static async remove() {
-    await Secret.remove('pin');
+    await SecretFacade.remove('pin');
   }
 }
