@@ -1,17 +1,19 @@
 import { Command } from '@shared/types';
 import { buildAbsolutePath } from '@main/utils/appData';
-import GetFileEncryptedContent from './GetFileEncryptedContent';
+import PutFileEncryptedContent from './PutFileEncryptedContent';
 
-export default class GetAppDataEncryptedContent implements Command<Promise<string>> {
+export default class PutAppDataEncryptedContent implements Command<Promise<void>> {
   constructor(private params: {
     filename: string,
     hexKey: string,
+    content: string,
   }) {}
 
-  execute() {
-    return new GetFileEncryptedContent({
+  async execute() {
+    return new PutFileEncryptedContent({
       filename: buildAbsolutePath(this.params.filename),
       hexKey: this.params.hexKey,
+      content: this.params.content,
     }).execute();
   }
 }
