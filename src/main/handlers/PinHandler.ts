@@ -1,7 +1,6 @@
 import { IPCRequest, IPCResponse } from '@shared/types';
 import { RequestType } from '@shared/enums';
-import SetPIN from '@main/commands/security/SetPIN';
-import RemovePIN from '@main/commands/security/RemovePIN';
+import PinGuard from '@main/services/PinGuard';
 import BaseHandler from './BaseHandler';
 
 export default class PinHandler extends BaseHandler<IPCRequest, IPCResponse> {
@@ -10,10 +9,10 @@ export default class PinHandler extends BaseHandler<IPCRequest, IPCResponse> {
       return {
         type: RequestType.PIN_SET,
         payload: {
-          success: await new SetPIN({
-            pin: request.payload.pin,
-            newPin: request.payload.newPin
-          }).execute()
+          success: await PinGuard.getInstance().setPin(
+            request.payload.pin,
+            request.payload.newPin
+          )
         }
       }
     }
@@ -22,9 +21,7 @@ export default class PinHandler extends BaseHandler<IPCRequest, IPCResponse> {
       return {
         type: RequestType.PIN_REMOVE,
         payload: {
-          success: await new RemovePIN({
-            pin: request.payload.pin,
-          }).execute()
+          success: await PinGuard.getInstance().removePin(request.payload.pin)
         }
       }
     }

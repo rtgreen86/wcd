@@ -30,20 +30,20 @@ export default class PinGuard {
     return result;
   }
 
-  async setPIN(pin: string | null, newPin: string) {
+  async setPin(pin: string | null, newPin: string) {
     if (!await this.verify(pin)) return false;
     if (!isValidFormat(newPin)) return false;
     await setNow(newPin);
     return true;
   }
 
-  async removePIN(pin: string | null) {
+  async removePin(pin: string | null) {
     if (!await this.verify(pin)) return false;
     await removeNow();
     return true;
   }
 
-  async isSettedPIN() {
+  async isSettedPin() {
     return !await this.verify(null);
   }
 

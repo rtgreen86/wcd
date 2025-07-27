@@ -1,5 +1,5 @@
 import Model from '@main/models/Model';
-import LoadData from '@main/commands/data/LoadData';
+import LoadData from '@main/commands/LoadData';
 import DataStorage from '@main/services/storage/DataStorage';
 
 export default class Application {
