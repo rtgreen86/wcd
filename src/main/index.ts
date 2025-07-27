@@ -5,11 +5,6 @@ import Application from '@main/facades/Application';
 
 import { ChainOfResponsibility } from '../lib/chain-of-responsibility';
 
-import AuthenticateController from './controllers/AuthenticateController';
-import GetDataController from './controllers/GetDataController';
-import PutDataController from './controllers/PutDataController';
-import RemoveDataController from './controllers/RemoveDataController';
-
 import AuthenticateHandler from './handlers/AuthenticateHandler';
 import DataHandler from './handlers/DataHandler';
 import PinHandler from './handlers/PinHandler';
@@ -66,13 +61,6 @@ app.whenReady().then(async () => {
   //       .catch((err) => console.log('An error occurred: ', err));
 
   const model = await Application.initializeModel();
-
-  const router = new ChainOfResponsibility<WCD.Request, Promise<WCD.Response>>([
-    new AuthenticateController(model),
-    new GetDataController({ model }),
-    new PutDataController({ model }),
-    new RemoveDataController()
-  ]);
 
   ipcMain.handle('show-about', () => app.showAboutPanel());
 
