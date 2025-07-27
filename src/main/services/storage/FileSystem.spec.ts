@@ -1,10 +1,9 @@
 import os from 'node:os';
 import path from 'node:path';
 import { mkdtemp, rm } from 'node:fs/promises';
-import GetFileContent from './GetFileContent';
-import PutFileContent from './PutFileContent';
+import FileSystem from './FileSystem';
 
-describe('File', () => {
+describe('FileSystem', () => {
   const testContent = 'Hello, world!';
   const file = 'test.txt';
 
@@ -23,13 +22,8 @@ describe('File', () => {
   });
 
   it('should save and load string content from file', async () => {
-    await new PutFileContent({
-      filename: tempFile,
-      content: testContent
-    }).execute();
-    const actual = await new GetFileContent({
-      filename: tempFile
-    }).execute();
+    await FileSystem.put(tempFile, testContent);
+    const actual = await FileSystem.get(tempFile);
     expect(actual).toBe(testContent);
   });
 });

@@ -1,13 +1,12 @@
 import { jest } from '@jest/globals';
-import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { buildAbsolutePath } from './appData';
+import { buildAbsolutePath } from './utils';
 
 jest.mock('electron');
 
 import { app } from 'electron';
 
-describe('appData', () => {
+describe('utils', () => {
   describe('buildAbsolutePath', () => {
     beforeEach(() => {
       jest.mocked(app.getPath).mockReturnValue('test-app-data');

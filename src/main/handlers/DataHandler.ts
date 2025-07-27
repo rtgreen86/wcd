@@ -1,4 +1,4 @@
-import { Model } from '@main/models';
+import Model from '@main/models/Model';
 import { IPCRequest, IPCResponse } from '@shared/types';
 import { RequestType } from '@shared/enums';
 import PutData from '@main/commands/data/PutData';

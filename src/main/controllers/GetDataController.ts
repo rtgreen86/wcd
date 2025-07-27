@@ -1,5 +1,5 @@
 import { BaseHandler } from '../../lib/chain-of-responsibility';
-import { Model } from '@main/models';
+import Model from '@main/models/Model';
 
 export default class GetDataController extends BaseHandler<WCD.Request, Promise<WCD.Response>> {
   constructor(private params: {

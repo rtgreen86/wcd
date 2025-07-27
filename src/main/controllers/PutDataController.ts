@@ -1,6 +1,6 @@
 import { BaseHandler } from '../../lib/chain-of-responsibility';
-import DataStorage from '@main/services/data/DataStorage';
-import { Model } from '@main/models';
+import DataStorage from '@main/services/storage/DataStorage';
+import Model from '@main/models/Model';
 import PutData from '@main/commands/data/PutData';
 
 export default class PutDataController extends BaseHandler<WCD.Request, Promise<WCD.Response>> {

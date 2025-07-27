@@ -1,13 +1,9 @@
 import { jest } from '@jest/globals';
 import PinGuard from './PinGuard';
 
-import GetSecretValue from '@main/commands/secureStorage/GetSecretValue';
-import PutSecretValue from '@main/commands/secureStorage/PutSecretValue';
-import RemoveSecretKey from '@main/commands/secureStorage/RemoveSecretKey';
+import SecureStorage from '@main/services/storage/SecureStorage';
 
-jest.mock('../../commands/secureStorage/GetSecretValue')
-jest.mock('../../commands/secureStorage/PutSecretValue')
-jest.mock('../../commands/secureStorage/RemoveSecretKey')
+jest.mock('../services/storage/SecureStorage');
 
 describe('PinGuard', () => {
   beforeEach(() => {
@@ -29,7 +25,7 @@ describe('PinGuard', () => {
       [true, '0000', '0000'],
       [false, '1111', '0000']
     ])('should return %s for %s when stored PIN %s', async (expected, pin, storedPin) => {
-      jest.mocked(GetSecretValue.prototype.execute).mockResolvedValue(storedPin);
+      jest.mocked(SecureStorage.get).mockResolvedValue(storedPin);
       const promise = PinGuard.getInstance().verify(pin);
       jest.runAllTimers();
       await expect(promise).resolves.toEqual(expected);
@@ -38,37 +34,37 @@ describe('PinGuard', () => {
 
   describe('setPIN', () => {
     it('should set PIN', async () => {
-      jest.mocked(GetSecretValue.prototype.execute).mockResolvedValue(null);
+      jest.mocked(SecureStorage.get).mockResolvedValue(null);
       const promise = PinGuard.getInstance().setPIN(null, '0000');
       jest.runAllTimers();
       await expect(promise).resolves.toEqual(true);
-      expect(PutSecretValue.prototype.execute).toHaveBeenCalled();
+      expect(SecureStorage.put).toHaveBeenCalled();
     });
 
     it('should not set PIN when old PIN incorrect', async () => {
-      jest.mocked(GetSecretValue.prototype.execute).mockResolvedValue('0000');
+      jest.mocked(SecureStorage.get).mockResolvedValue('0000');
       const promise = PinGuard.getInstance().setPIN(null, '0000');
       jest.runAllTimers();
       await expect(promise).resolves.toEqual(false);
-      expect(PutSecretValue.prototype.execute).not.toHaveBeenCalled();
+      expect(SecureStorage.put).not.toHaveBeenCalled();
     });
   });
 
   describe('removePIN', () => {
     it('should remove PIN', async () => {
-      jest.mocked(GetSecretValue.prototype.execute).mockResolvedValue('0000');
+      jest.mocked(SecureStorage.get).mockResolvedValue('0000');
       const promise = PinGuard.getInstance().removePIN('0000');
       jest.runAllTimers();
       await expect(promise).resolves.toEqual(true);
-      expect(RemoveSecretKey.prototype.execute).toHaveBeenCalled();
+      expect(SecureStorage.remove).toHaveBeenCalled();
     });
 
     it('should not remove PIN when old PIN incorrect', async () => {
-      jest.mocked(GetSecretValue.prototype.execute).mockResolvedValue('0000');
+      jest.mocked(SecureStorage.get).mockResolvedValue('0000');
       const promise = PinGuard.getInstance().removePIN('1111');
       jest.runAllTimers();
       await expect(promise).resolves.toEqual(false);
-      expect(PutSecretValue.prototype.execute).not.toHaveBeenCalled();
+      expect(SecureStorage.put).not.toHaveBeenCalled();
     });
   });
 
@@ -77,7 +73,7 @@ describe('PinGuard', () => {
       [false, null],
       [true, '0000']
     ])('should return %s when stored PIN %s', async (expected, storedPin) => {
-      jest.mocked(GetSecretValue.prototype.execute).mockResolvedValue(storedPin);
+      jest.mocked(SecureStorage.get).mockResolvedValue(storedPin);
       const promise = PinGuard.getInstance().isSettedPIN();
       jest.runAllTimers();
       await expect(promise).resolves.toEqual(expected);

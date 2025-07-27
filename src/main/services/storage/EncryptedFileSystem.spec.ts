@@ -1,8 +1,7 @@
 import os from 'node:os';
 import path from 'node:path';
 import { mkdtemp, rm } from 'node:fs/promises';
-import GetFileEncryptedContent from './GetFileEncryptedContent';
-import PutFileEncryptedContent from './PutFileEncryptedContent';
+import EncryptedFileSystem from './EncryptedFileSystem';
 import * as CONST from '@main/CONST';
 
 describe('FileEncrypted', () => {
@@ -25,17 +24,8 @@ describe('FileEncrypted', () => {
   });
 
   it('should save and load string content from file', async () => {
-    await new PutFileEncryptedContent({
-      filename: tempFile,
-      hexKey,
-      content: testContent
-    }).execute();
-
-    const actual = await new GetFileEncryptedContent({
-      filename: tempFile,
-      hexKey
-    }).execute();
-
+    await EncryptedFileSystem.put(tempFile, hexKey, testContent);
+    const actual = await EncryptedFileSystem.get(tempFile, hexKey);
     expect(actual).toBe(testContent);
   });
 });

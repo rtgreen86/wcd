@@ -1,6 +1,6 @@
-import { Model } from '@main/models';
+import Model from '@main/models/Model';
 import { Command } from '@shared/types';
-import DataStorage from '@main/services/data/DataStorage';
+import DataStorage from '@main/services/storage/DataStorage';
 
 export default class LoadData implements Command<Promise<void>> {
   constructor(private params: {

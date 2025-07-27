@@ -1,4 +1,4 @@
-import { Model } from '@main/models';
+import Model from '@main/models/Model';
 
 type BaseRequest = {
   type: string,

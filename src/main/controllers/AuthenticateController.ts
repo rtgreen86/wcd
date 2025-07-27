@@ -1,5 +1,5 @@
 import { BaseHandler } from '../../lib/chain-of-responsibility';
-import { Model } from "../models";
+import Model from "../models/Model";
 import RemovePIN from '@main/commands/security/RemovePIN';
 import SetPIN from '@main/commands/security/SetPIN';
 import VerifyPIN from '@main/commands/security/VerifyPIN';

@@ -1,6 +1,6 @@
 import { Command } from '@shared/types';
-import { Model } from '@main/models';
-import TokenGenerator from '@main/services/security/TokenGenerator';
+import Model from '@main/models/Model';
+import TokenGenerator from '@main/services/TokenGenerator';
 import VerifyPIN from './VerifyPIN';
 
 export default class Authenticate implements Command<Promise<string | null>> {

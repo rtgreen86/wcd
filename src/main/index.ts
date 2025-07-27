@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
 
-import Application from '@main/services/Application';
+import Application from '@main/facades/Application';
 
 import { ChainOfResponsibility } from '../lib/chain-of-responsibility';
 
