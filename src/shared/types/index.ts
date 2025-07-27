@@ -1,2 +1,2 @@
 export * from './Command';
-export * from './ipc';
+export * from './IpcRequest';

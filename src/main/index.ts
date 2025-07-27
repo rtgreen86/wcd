@@ -3,12 +3,13 @@ import SysInfo from './SysInfo';
 
 import Application from '@main/facades/Application';
 
-import { ChainOfResponsibility } from '../lib/chain-of-responsibility';
-
 import AuthenticateHandler from './handlers/AuthenticateHandler';
-import DataHandler from './handlers/DataHandler';
-import PinHandler from './handlers/PinHandler';
-import { RequestType } from '@shared/enums';
+import DeletePinHandler from './handlers/DeletePinHandler';
+import GetDataHandler from './handlers/GetDataHandler'
+import PinIsExistsHandler from './handlers/PinIsExistsHandler';
+import PutDataHandler from './handlers/PutDataHandler';
+import PutPinHandler from './handlers/PutPinHandler';
+
 import { convertLegacyRequest, convertLegacyResponse } from './ConvertLegacyRequest';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -64,16 +65,17 @@ app.whenReady().then(async () => {
 
   ipcMain.handle('show-about', () => app.showAboutPanel());
 
-  const handlers = new AuthenticateHandler({ model })
-  .append(new DataHandler({ model }))
-  .append(new PinHandler({ model }));
-
-  ipcMain.handle('ipc-request', (event, request) => handlers.handle(request));
+  const handlers = new PinIsExistsHandler({ model })
+    .append(new AuthenticateHandler({ model }))
+    .append(new PutPinHandler({ model }))
+    .append(new DeletePinHandler({ model }))
+    .append(new GetDataHandler({ model }))
+    .append(new PutDataHandler({ model }));
 
   ipcMain.handle('send-request', async (event, request: WCD.Request) => {
     const newRequest = convertLegacyRequest(request);
     const response = await handlers.handle(newRequest);
-    const oldResponse = convertLegacyResponse(response);
+    const oldResponse = convertLegacyResponse(newRequest, response);
     return oldResponse;
   });
 
