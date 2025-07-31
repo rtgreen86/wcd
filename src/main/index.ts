@@ -4,11 +4,9 @@ import SysInfo from './SysInfo';
 import Application from '@main/facades/Application';
 
 import AuthenticateHandler from './handlers/AuthenticateHandler';
-import DeletePinHandler from './handlers/DeletePinHandler';
-import GetDataHandler from './handlers/GetDataHandler'
-import PinIsExistsHandler from './handlers/PinIsExistsHandler';
-import PutDataHandler from './handlers/PutDataHandler';
-import PutPinHandler from './handlers/PutPinHandler';
+import DataHandler from './handlers/DataHandler'
+import PinExistsHandler from './handlers/PinExistsHandler';
+import PinHandler from './handlers/PinHandler';
 
 import { convertLegacyRequest, convertLegacyResponse } from './ConvertLegacyRequest';
 
@@ -65,12 +63,10 @@ app.whenReady().then(async () => {
 
   ipcMain.handle('show-about', () => app.showAboutPanel());
 
-  const handlers = new PinIsExistsHandler({ model })
-    .append(new AuthenticateHandler({ model }))
-    .append(new PutPinHandler({ model }))
-    .append(new DeletePinHandler({ model }))
-    .append(new GetDataHandler({ model }))
-    .append(new PutDataHandler({ model }));
+  const handlers = new PinExistsHandler(model)
+    .append(new AuthenticateHandler(model))
+    .append(new PinHandler(model))
+    .append(new DataHandler(model));
 
   ipcMain.handle('send-request', async (event, request: WCD.Request) => {
     const newRequest = convertLegacyRequest(request);

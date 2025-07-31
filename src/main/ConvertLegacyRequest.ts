@@ -1,90 +1,68 @@
-import { IpcRequest, IpcPayload, RequestType } from '@shared/types';
-
-export function convertLegacyRequest(request: any): IpcRequest {
+export function convertLegacyRequest(request: any): electronAPI.IpcRequest {
   if (request.type === 'get:isPinExists') {
     return {
-      type: RequestType.getPinIsExists,
+      type: 'get:pin-exists',
     };
   }
 
   if (request.type === 'set:pin') {
     return {
-      type: RequestType.putPin,
-      payload: {
-        strings: {
-          pin: request.payload.pin === '' ? null : request.payload.pin,
-          newPin: request.payload.newPin,
-        }
-      }
+      type: 'put:pin',
+      currentPin: request.payload.pin === '' ? null : request.payload.pin,
+      newPin: request.payload.newPin === '' ? null : request.payload.newPin
     }
   }
 
   if (request.type === 'remove:pin') {
     return {
-      type: RequestType.deletePin,
-      payload: {
-        strings: {
-          pin: request.payload.pin === '' ? null : request.payload.pin
-        }
-      }
+      type: 'delete:pin',
+      pin: request.payload.pin === '' ? null : request.payload.pin
     }
   }
 
   if (request.type === 'get:token') {
     return {
-      type: RequestType.getAuthenticate,
-      payload: {
-        strings: {
-          pin: request.payload.pin === '' ? null : request.payload.pin,
-        }
-      }
+      type: 'get:authenticate',
+      pin: request.payload.pin === '' ? null : request.payload.pin,
     }
   }
 
   if (request.type === 'get:data') {
     return {
-      type: RequestType.getData,
-      payload: {
-        strings: {
-          token: request.payload.token,
-        }
-      }
+      type: 'get:data',
+      token: request.payload.token,
     }
   }
 
   if (request.type === 'put:data') {
     return {
-      type: RequestType.putData,
-      payload: {
-        strings: {
-          token: request.payload.token,
-          data: request.payload.content,
-        }
-      }
+      type: 'put:data',
+      token: request.payload.token,
+      data: request.payload.content,
     }
   }
 }
 
-export function convertLegacyResponse(requst: IpcRequest, payload: IpcPayload) {
-  if (requst.type === RequestType.getPinIsExists) {
+export function convertLegacyResponse(requst: electronAPI.IpcRequest, payload: electronAPI.IpcResponse) {
+  if (requst.type === 'get:pin-exists') {
     return payload?.flags?.pinExists;
   }
-  if (requst.type === RequestType.putPin) {
-    return payload.flags?.success;
+  if (requst.type === 'put:pin') {
+    return payload.success;
   }
-  if (requst.type === RequestType.deletePin) {
-    return payload.flags?.success;
+  if (requst.type === 'delete:pin') {
+    return payload.success;
   }
-  if (requst.type === RequestType.getAuthenticate) {
+  if (requst.type === 'get:authenticate') {
     return payload.strings?.token;
   }
-  if (requst.type === RequestType.getData) {
+  if (requst.type === 'get:data') {
     return {
       name: '',
       content: payload.strings?.data
     }
   }
-  if (requst.type === RequestType.putData) {
+  if (requst.type === 'put:data') {
     return {
       name: '',
     }

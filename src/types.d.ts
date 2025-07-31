@@ -57,115 +57,55 @@ declare namespace WCD {
 }
 
 declare namespace electronAPI {
-  export enum RequestType {
-    PIN_IS_EXISTS = 'get:pin-is-exists',
-    PIN_SET = 'set:pin',
-    PIN_REMOVE = 'remove:pin',
-    AUTHENTICATE = 'get:authenticate',
-    DATA_GET = 'get:data',
-    DATA_PUT = 'put:data'
-  }
-
-
-type AuthenticateRequest = {
-  type: RequestType.AUTHENTICATE,
-  payload: {
-    token?: string,
+  type AuthenticateRequest = {
+    type: 'get:authenticate',
     pin: string | null
-  }
-};
+  };
 
-type PinIsExistsRequest = {
-  type: RequestType.PIN_IS_EXISTS
-};
-
-type PinSetRequest = {
-  type: RequestType.PIN_SET,
-  payload: {
+  type PutPinRequest = {
+    type: 'put:pin',
     token?: string,
-    pin: string,
-    newPin: string
-  }
-};
+    currentPin: string | null,
+    newPin: string | null
+  };
 
-type PinRemoveRequest = {
-  type: RequestType.PIN_REMOVE,
-  payload: {
+  type DeletePinRequest = {
+    type: 'delete:pin',
     token?: string,
-    pin: string
-  }
-};
+    pin: string | null,
+  };
 
+  type GetPinExistsRequest = {
+    type: 'get:pin-exists',
+  };
 
-type DataGetRequest = {
-  type: RequestType.DATA_GET,
-  payload: {
-    token?: string
-  }
-};
-
-type DataPutRequest = {
-  type: RequestType.DATA_PUT,
-  payload: {
+  type GetDataRequest = {
+    type: 'get:data',
     token?: string,
-    data: string
-  }
-};
+  };
 
-export type IPCRequest = AuthenticateRequest
-  | PinIsExistsRequest
-  | PinSetRequest
-  | PinRemoveRequest
-  | DataGetRequest
-  | DataPutRequest;
+  type PutDataRequest = {
+    type: 'put:data',
+    token?: string,
+    data: string,
+  };
+
+  export type IpcRequest = AuthenticateRequest
+    | PutPinRequest
+    | DeletePinRequest
+    | GetPinExistsRequest
+    | GetDataRequest
+    | PutDataRequest
 }
 
 declare namespace electronAPI {
-type AuthenticateResponse = {
-  type: RequestType.AUTHENTICATE,
-  payload: {
-    token?: string | null,
-  }
-};
-
-type PinIsExistsResponse = {
-  type: RequestType.PIN_IS_EXISTS,
-  payload: {
-    isExists: boolean,
-  }
-};
-
-type PinSetResponse = {
-  type: RequestType.PIN_SET,
-  payload: {
+  export type IpcResponse = {
     success: boolean,
+    strings?: Record<string, string>,
+    numbers?: Record<string, number>,
+    flags?: Record<string, boolean>,
+    data?: Record<string, unknown>
   }
-};
-
-type PinRemoveResponse = {
-  type: RequestType.PIN_REMOVE,
-  payload: {
-    success: boolean,
-  }
-};
-
-type DataGetResponse = {
-  type: RequestType.DATA_GET,
-  payload: {
-    data: string,
-  }
-};
-
-type DataPutResponse = {
-  type: RequestType.DATA_PUT
-};
-
-export type IPCResponse = AuthenticateResponse
-  | PinIsExistsResponse
-  | PinSetResponse
-  | PinRemoveResponse
-  | DataGetResponse
-  | DataPutResponse;
 }
 
 declare namespace electronAPI {
@@ -176,5 +116,5 @@ declare namespace electronAPI {
   function sendRequest(request: WCD.Requests.SetPin): Promise<boolean>;
   function sendRequest(request: WCD.Requests.RemovePin): Promise<boolean>;
   function sendRequest(request: WCD.Requests.GetToken): Promise<string>;
-  function ipcRequest(request: IPCRequest): Promise<IPCResponse>;
+  function ipcRequest(request: IpcRequest): Promise<IpcResponse>;
 }
