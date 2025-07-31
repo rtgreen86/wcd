@@ -8,8 +8,6 @@ import DataHandler from './handlers/DataHandler'
 import PinExistsHandler from './handlers/PinExistsHandler';
 import PinHandler from './handlers/PinHandler';
 
-import { convertLegacyRequest, convertLegacyResponse } from './ConvertLegacyRequest';
-
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -67,13 +65,6 @@ app.whenReady().then(async () => {
     .append(new AuthenticateHandler(model))
     .append(new PinHandler(model))
     .append(new DataHandler(model));
-
-  ipcMain.handle('send-request', async (event, request: WCD.Request) => {
-    const newRequest = convertLegacyRequest(request);
-    const response = await handlers.handle(newRequest);
-    const oldResponse = convertLegacyResponse(newRequest, response);
-    return oldResponse;
-  });
 
   ipcMain.handle('ipc-request', async (_, request: electronAPI.IpcRequest) => handlers.handle(request));
 
