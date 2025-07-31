@@ -75,6 +75,8 @@ app.whenReady().then(async () => {
     return oldResponse;
   });
 
+  ipcMain.handle('ipc-request', async (_, request: electronAPI.IpcRequest) => handlers.handle(request));
+
   fillAboutPanel();
   createWindow();
 });
