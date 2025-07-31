@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
     "allowJs": true,
     "module": "commonjs",
     "skipLibCheck": true,
@@ -14,6 +15,7 @@
     "paths": {
       "@shared/*": ["src/shared/*"],
       "@main/*": ["src/main/*"],
+      "@api/*": ["src/renderer/api/*"],
       "*": ["node_modules/*"]
     },
     "jsx": "react-jsx",

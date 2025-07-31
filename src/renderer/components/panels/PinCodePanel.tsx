@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Authenticator } from '../../api';
+import { isPinExists } from '@api/apiBridge';
 import { ModalToggleButton } from '../controls';
 import { SetPinModal, DeletePinModal } from '../modals';
 
@@ -10,7 +10,7 @@ export const PinCodePanel = () => {
 
   async function checkPinCode() {
     try {
-      const exist = await Authenticator.isPinExist();
+      const exist = await isPinExists();
       setPinExist(exist);
       setLoading(false);
     } catch (err) {

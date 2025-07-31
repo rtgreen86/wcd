@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { CalendarLocale, YearCalendar } from '../lib/Calendar';
 import { useDispatch, useStore } from '../hooks';
-import { Marks } from '../api';
+import { getMarks, putMarks } from '@api/apiBridge';
 
 export default function CalendarContainer() {
   const store = useStore();
@@ -12,7 +12,7 @@ export default function CalendarContainer() {
     if (!store.isLoading) return;
 
     const asyncOp = async () => {
-      const marks = await Marks.get();
+      const marks = await getMarks();
 
       const marks2 = {} as Record<string, string[]>;
 
@@ -32,7 +32,7 @@ export default function CalendarContainer() {
     }
 
     const asyncOp = async () => {
-      await Marks.put(Object.keys(store.marks));
+      await putMarks(Object.keys(store.marks));
       dispatch({ type: 'marks/saved' });
     }
 

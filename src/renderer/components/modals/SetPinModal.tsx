@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, forwardRef, useImperativeHandle, FormEvent
 import { ModalEvent } from './Modal';
 import FormModal, { FormModalProps, FormModalRef } from './FormModal';
 import InputPin from '../controls/InputPin';
-import { Authenticator } from '../../api';
+import { setPin } from '@api/apiBridge';
 
 const PIN_LENGTH = 4;
 
@@ -56,7 +56,7 @@ export const SetPinModal = forwardRef<FormModalRef, SetPinModalProps>(({
     blockClosingRef.current = true;
     setBusy(true);
 
-    const success = await Authenticator.setPin('', pin1);
+    const success = await setPin(null, pin1);
 
     onApply(event);
     blockClosingRef.current = false;

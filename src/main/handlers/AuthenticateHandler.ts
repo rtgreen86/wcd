@@ -8,7 +8,7 @@ export default class AuthenticateHandler extends BaseHandler<electronAPI.IpcRequ
       const pin = request.pin || null;
       const token = await new Authenticate({ model, pin }).execute();
       return {
-        success: true,
+        success: Boolean(token),
         strings: { token }
       };
     }

@@ -3,7 +3,7 @@ import FormModal, { FormModalProps, FormModalRef } from './FormModal';
 import { ModalEvent } from './Modal';
 import InputPin from '../controls/InputPin';
 import { ButtonStyle } from '../controls/Button';
-import { Authenticator } from '../../api';
+import { deletePin } from '@api/apiBridge';
 
 const pinLength = 4;
 
@@ -44,7 +44,7 @@ export const DeletePinModal = forwardRef<FormModalRef, DeletePinModalProps>(({
     blockClosingRef.current = true;
     setBusy(true);
 
-    const success = await Authenticator.removePin(pin);
+    const success = await deletePin(pin);
 
     onApply(event);
     blockClosingRef.current = false;
