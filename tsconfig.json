@@ -16,6 +16,7 @@
       "@shared/*": ["src/shared/*"],
       "@main/*": ["src/main/*"],
       "@api/*": ["src/renderer/api/*"],
+      "@components/*": ["src/renderer/components/*"],
       "*": ["node_modules/*"]
     },
     "jsx": "react-jsx",

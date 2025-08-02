@@ -43,7 +43,8 @@ export const rendererConfig: Configuration = {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
     alias: {
       "@shared": path.join(__dirname, 'src', 'shared'),
-      "@api": path.join(__dirname, 'src', 'renderer', 'api')
+      "@api": path.join(__dirname, 'src', 'renderer', 'api'),
+      "@components": path.join(__dirname, 'src', 'renderer', 'components'),
     }
   },
 };
