@@ -37,11 +37,6 @@ export async function putEncryptedFile(filename: string, hexKey: string, content
   return finished(cipher);
 }
 
-export async function generateFSKey() {
-  const buffer = randomBytes(CONST.FS_ENCRYPTION_KEY_SIZE);
-  return buffer.toString('hex');
-}
-
 const readBytes = (stream: Readable, byteSize: number) => new Promise<Buffer>((resolve, reject) => {
   let buffer: Buffer;
 

@@ -1,6 +1,6 @@
 import Model from '@main/models/Model';
 import LoadData from '@main/commands/LoadData';
-import DataStorage from '@main/services/storage/DataStorage';
+import DataStorage from '@main/services/DataStorage';
 
 export default class Application {
   static async initializeModel() {
