@@ -1,3 +1,4 @@
+import { readFile, writeFile } from 'node:fs/promises';
 import { Buffer } from 'node:buffer';
 import { createReadStream } from 'node:fs';
 import { createDecipheriv } from 'node:crypto';
@@ -7,32 +8,38 @@ import { createCipheriv, randomBytes } from 'node:crypto';
 import { pipeline, finished } from 'node:stream/promises';
 import * as CONST from '@main/CONST';
 
-export default class FileSystem {
-  static async get(filename: string, hexKey: string) {
-    const stream = createReadStream(filename);
-    const key = Buffer.alloc(CONST.FS_ENCRYPTION_KEY_SIZE, hexKey, 'hex');
-    const iv = await readBytes(stream, CONST.FS_ENCRYPTION_IV_SIZE);
-    const decipher = createDecipheriv(CONST.FS_ALGORITHM, key, iv);
-    stream.pipe(decipher);
-    return readAllText(decipher);
-  }
+export function getTextFile(filename: string): Promise<string> {
+  return readFile(filename, 'utf8');
+}
 
-  static async put(filename: string, hexKey: string, content: string) {
-    const stream = createWriteStream(filename);
-    const iv = randomBytes(CONST.FS_ENCRYPTION_IV_SIZE);
-    const bufferWithKey = Buffer.alloc(CONST.FS_ENCRYPTION_KEY_SIZE, hexKey, 'hex');
-    const cipher = createCipheriv(CONST.FS_ALGORITHM, bufferWithKey, iv);
-    pipeline(cipher, stream);
-    stream.write(iv);
-    cipher.write(content);
-    cipher.end();
-    return finished(cipher);
-  }
+export async function putTextFile(filename: string, content: string) {
+  await writeFile(filename, content, 'utf8');
+}
 
-  static async generateFSKey() {
-    const buffer = randomBytes(CONST.FS_ENCRYPTION_KEY_SIZE);
-    return buffer.toString('hex');
-  }
+export async function getEncryptedFile(filename: string, hexKey: string): Promise<string> {
+  const stream = createReadStream(filename);
+  const key = Buffer.alloc(CONST.FS_ENCRYPTION_KEY_SIZE, hexKey, 'hex');
+  const iv = await readBytes(stream, CONST.FS_ENCRYPTION_IV_SIZE);
+  const decipher = createDecipheriv(CONST.FS_ALGORITHM, key, iv);
+  stream.pipe(decipher);
+  return readAllText(decipher);
+}
+
+export async function putEncryptedFile(filename: string, hexKey: string, content: string) {
+  const stream = createWriteStream(filename);
+  const iv = randomBytes(CONST.FS_ENCRYPTION_IV_SIZE);
+  const bufferWithKey = Buffer.alloc(CONST.FS_ENCRYPTION_KEY_SIZE, hexKey, 'hex');
+  const cipher = createCipheriv(CONST.FS_ALGORITHM, bufferWithKey, iv);
+  pipeline(cipher, stream);
+  stream.write(iv);
+  cipher.write(content);
+  cipher.end();
+  return finished(cipher);
+}
+
+export async function generateFSKey() {
+  const buffer = randomBytes(CONST.FS_ENCRYPTION_KEY_SIZE);
+  return buffer.toString('hex');
 }
 
 const readBytes = (stream: Readable, byteSize: number) => new Promise<Buffer>((resolve, reject) => {
