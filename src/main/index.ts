@@ -1,13 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
-
-import Application from '@main/facades/Application';
-
-import AuthenticateHandler from './handlers/AuthenticateHandler';
-import DataHandler from './handlers/DataHandler'
-import PinExistsHandler from './handlers/PinExistsHandler';
-import PinHandler from './handlers/PinHandler';
 import { subscribeHandlers } from './handlers/subscription';
+import Model from './models/Model';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -58,17 +52,8 @@ app.whenReady().then(async () => {
   //       .then((name) => console.log(`Added Extension:  ${name}`))
   //       .catch((err) => console.log('An error occurred: ', err));
 
-  const model = await Application.initializeModel();
-
   ipcMain.handle('show-about', () => app.showAboutPanel());
-
-  const handlers = new PinExistsHandler(model)
-    .append(new AuthenticateHandler(model))
-    .append(new PinHandler(model))
-    .append(new DataHandler(model));
-
-  ipcMain.handle('ipc-request', async (_, request: electronAPI.IpcRequest) => handlers.handle(request));
-  subscribeHandlers(model);
+  subscribeHandlers(new Model());
 
   fillAboutPanel();
   createWindow();

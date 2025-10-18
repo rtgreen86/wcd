@@ -1,21 +1,51 @@
 import PinGuard from '@main/services/PinGuard';
-import BaseHandler from './BaseHandler';
+import IpcHandler from './IpcHandler';
 
-export default class PinHandler extends BaseHandler<electronAPI.IpcRequest, electronAPI.IpcResponse> {
-  async handle(request: electronAPI.IpcRequest): Promise<electronAPI.IpcResponse> {
-    if (request.type === 'put:pin') {
-      const currentPin = request.currentPin || null;
-      const newPin = request.newPin || null;
-      const success = await PinGuard.getInstance().setPin(currentPin, newPin);
-      return { success };
+type Request = electronAPI.IpcRequest;
+type Response = electronAPI.IpcResponse;
+
+export default class PinHandler extends IpcHandler {
+  async execte(request: Request): Promise<Response> {
+    if (request.endpoint === 'put:pin') {
+      return setPin(request);
     }
 
-    if (request.type === 'delete:pin') {
-      const pin = request.pin || null;
-      const success = await PinGuard.getInstance().removePin(pin)
-      return { success };
+    if (request.endpoint === 'put:remove-pin') {
+      return removePin(request);
     }
 
-    return super.handle(request);
+    return super.execute(request);
   }
+}
+
+async function setPin(request: Request): Promise<Response> {
+  const pin = request.payload?.strings?.pin || null;
+  const newPin = request.payload?.strings?.newPin || null;
+
+  if (!newPin) return {
+    success: false,
+    message: 'New PIN is not set.'
+  };
+
+  const success = await PinGuard.getInstance().setPin(pin, newPin);
+
+  if (!success) return {
+    success: false,
+    message: 'Incorrect PIN.'
+  }
+
+  return { success };
+}
+
+async function removePin(request: Request): Promise<Response> {
+  const pin = request.payload?.strings?.pin || null;
+
+  const success = await PinGuard.getInstance().removePin(pin);
+
+  if (!success) return {
+    success: false,
+    message: 'Incorrect PIN.',
+  }
+
+  return { success };
 }
