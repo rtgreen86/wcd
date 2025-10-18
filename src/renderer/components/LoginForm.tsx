@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FocusEvent } from 'react';
 import InputPin from './controls/InputPin';
 import { useAuth } from '../hooks/useAuth';
-import { isPinExists } from '@api/apiBridge';
+import { isPinExists } from 'src/renderer/apiBridge';
 
 import './LoginForm.css';
 

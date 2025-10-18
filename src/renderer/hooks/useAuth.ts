@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
-import { isPinExists, getToken } from '@api/apiBridge';
+import { isPinExists, getToken } from 'src/renderer/apiBridge';
 
 export function useAuth() {
   const {token, setToken} = useContext(AuthContext);

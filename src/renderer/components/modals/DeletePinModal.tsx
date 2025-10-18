@@ -3,7 +3,7 @@ import FormModal, { FormModalProps, FormModalRef } from './FormModal';
 import { ModalEvent } from './Modal';
 import InputPin from '../controls/InputPin';
 import { ButtonStyle } from '../controls/Button';
-import { deletePin } from '@api/apiBridge';
+import { deletePin } from 'src/renderer/apiBridge';
 
 const pinLength = 4;
 

@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, forwardRef, useImperativeHandle, FormEvent
 import { ModalEvent } from './Modal';
 import FormModal, { FormModalProps, FormModalRef } from './FormModal';
 import InputPin from '../controls/InputPin';
-import { setPin } from '@api/apiBridge';
+import { setPin } from 'src/renderer/apiBridge';
 
 const PIN_LENGTH = 4;
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { isPinExists } from '@api/apiBridge';
+import { isPinExists } from 'src/renderer/apiBridge';
 import { ModalToggleButton } from '../controls';
 import { SetPinModal, DeletePinModal } from '../modals';
 
