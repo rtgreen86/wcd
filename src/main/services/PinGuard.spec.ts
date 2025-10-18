@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
 import PinGuard from './PinGuard';
 
-import SecureStorage from '@main/services/storage/SecureStorage';
+import SecureStorage from '@main/services/SecureStorage';
 
 jest.mock('../services/storage/SecureStorage');
 

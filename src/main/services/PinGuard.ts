@@ -1,4 +1,4 @@
-import SecureStorage from '@main/services/storage/SecureStorage';
+import SecureStorage from '@main/services/SecureStorage';
 import * as Messages from '@main/Messages';
 import * as CONST from '@main/CONST';
 

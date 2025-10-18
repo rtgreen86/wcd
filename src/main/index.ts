@@ -7,6 +7,7 @@ import AuthenticateHandler from './handlers/AuthenticateHandler';
 import DataHandler from './handlers/DataHandler'
 import PinExistsHandler from './handlers/PinExistsHandler';
 import PinHandler from './handlers/PinHandler';
+import { subscribeHandlers } from './handlers/subscription';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -67,6 +68,7 @@ app.whenReady().then(async () => {
     .append(new DataHandler(model));
 
   ipcMain.handle('ipc-request', async (_, request: electronAPI.IpcRequest) => handlers.handle(request));
+  subscribeHandlers(model);
 
   fillAboutPanel();
   createWindow();
