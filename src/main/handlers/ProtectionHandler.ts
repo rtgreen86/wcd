@@ -1,5 +1,5 @@
 import PinGuard from '@main/services/PinGuard';
-import TokenGenerator from '@main/services/TokenGenerator';
+import {generateToken} from '@main/services/tokens';
 import Model from '@main/models/Model';
 import IpcHandler from './IpcHandler';
 
@@ -48,7 +48,7 @@ export default class ProtectionHandler extends IpcHandler {
       message: 'Incorrect PIN.',
     };
 
-    const token = await TokenGenerator.generate();
+    const token = await generateToken();
     this.model.sessionTokens.add(token);
 
     return {

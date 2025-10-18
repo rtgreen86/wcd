@@ -1,32 +1,32 @@
-import SecureStorage from '@main/services/SecureStorage';
+import {getSecret, putSecret, removeSecret} from '@main/services/secureStorage';
 import * as Messages from '@main/Messages';
 import * as CONST from '@main/CONST';
 
+let busy = false;
+let attempts = 0;
+
 export default class PinGuard {
-  static instance = new PinGuard();
+  private static instance?: PinGuard;
 
   private constructor() { }
 
-  static getInstance() {
+  static getInstance(): PinGuard {
+    if (!PinGuard.instance) PinGuard.instance = new PinGuard();
     return PinGuard.instance;
   }
 
-  #busy = false;
-
-  #attempts = 0;
-
   async verify(pin: string | null): Promise<boolean> {
-    if (this.#busy) throw new Error(Messages.ERROR_PIN_TOO_MANY_ATTEMPTS);
-    this.#busy = true;
+    if (busy) throw new Error(Messages.ERROR_PIN_TOO_MANY_ATTEMPTS);
+    busy = true;
     let validFormat = true;
     if (pin !== null) {
-      await this.#wait();
-      this.#attempts++;
+      await wait();
+      attempts++;
       validFormat = isValidFormat(pin)
     }
     const result = validFormat && await checkNow(pin);
-    if (result) this.#attempts = 0;
-    this.#busy = false;
+    if (result) attempts = 0;
+    busy = false;
     return result;
   }
 
@@ -47,13 +47,14 @@ export default class PinGuard {
     return !await this.verify(null);
   }
 
-  #wait() {
-    return new Promise<void>(resolve => {
-      setTimeout(resolve, this.#attempts < CONST.PIN_UNLOCK_FAST_TRYS
-        ? 0
-        : CONST.PIN_UNLOCK_TRY_TIMEOUT);
-    });
-  }
+}
+
+function wait() {
+  return new Promise<void>(resolve => {
+    setTimeout(resolve, attempts < CONST.PIN_UNLOCK_FAST_TRYS
+      ? 0
+      : CONST.PIN_UNLOCK_TRY_TIMEOUT);
+  });
 }
 
 function isValidFormat(pin: string): pin is string {
@@ -61,14 +62,14 @@ function isValidFormat(pin: string): pin is string {
 }
 
 async function checkNow(pin: string | null) {
-  const storedPin = await SecureStorage.get('pin');
+  const storedPin = await getSecret('pin');
   return pin === storedPin;
 }
 
 async function setNow(value: string) {
-  await SecureStorage.put('pin', value);
+  await putSecret('pin', value);
 }
 
 async function removeNow() {
-  await SecureStorage.remove('pin');
+  await removeSecret('pin');
 }
