@@ -74,6 +74,9 @@ export async function putData(data: string) {
 
 export async function getMarks(): Promise<string[]> {
   const data = await getData();
+  if (data === '') {
+    return [];
+  }
   try {
     return JSON.parse(data);
   } catch (error) {
