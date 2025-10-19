@@ -20,12 +20,12 @@ export default class ProtectionHandler extends IpcHandler {
       return this.getToken(request);
     }
 
-    if (!this.checkToken(request)) {
-      return {
-        success: false,
-        message: 'Invalid token.'
-      };
-    }
+    // if (!this.checkToken(request)) {
+    //   return {
+    //     success: false,
+    //     message: 'Invalid token.'
+    //   };
+    // }
 
     if (request.endpoint === 'put:reset-tokens') {
       return this.resetTokens();

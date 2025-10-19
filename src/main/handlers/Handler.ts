@@ -6,13 +6,9 @@ export default abstract class Handler<Request, Response> {
   }
 
   execute(request: Request): Response {
-    console.log('Process', this.constructor.name, request.endpoint);
-
     if (this.next) {
-      console.log(1);
       return this.next.execute(request)
     }
-    console.log(2);
     return this.handleEndOfChain(request);
   }
 

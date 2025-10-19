@@ -11,7 +11,7 @@ export async function checkPinExists() {
     throw new Error(response.message || 'Unexpected error on checkPinExists');
   }
 
-  return response.payload?.flags?.isExists || true;
+  return Boolean(response.payload?.flags?.hasPin);
 }
 
 export async function getToken(pin: string | null) {
