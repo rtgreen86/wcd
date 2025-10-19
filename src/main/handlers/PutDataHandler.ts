@@ -13,7 +13,7 @@ export default class PutDataHandler extends IpcHandler {
     this.model = model;
   }
 
-  async execute(request: Request): Promise<Response> {
+  override async execute(request: Request): Promise<Response> {
     if (request.endpoint !== 'put:data') {
       return await super.execute(request);
     }

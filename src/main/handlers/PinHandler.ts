@@ -5,7 +5,7 @@ type Request = electronAPI.IpcRequest;
 type Response = electronAPI.IpcResponse;
 
 export default class PinHandler extends IpcHandler {
-  async execte(request: Request): Promise<Response> {
+  override async execute(request: Request): Promise<Response> {
     if (request.endpoint === 'put:pin') {
       return setPin(request);
     }

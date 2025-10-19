@@ -4,7 +4,7 @@ export async function init() {
 
 export async function checkPinExists() {
   const response = await window.electronAPI.ipcRequest({
-    endpoint: 'get:check-pin-exists'
+    endpoint: 'get:check-has-pin'
   });
 
   if (!response.success) {

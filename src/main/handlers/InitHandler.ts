@@ -14,7 +14,7 @@ export default class InitHandler extends IpcHandler {
     this.model = model;
   }
 
-  async execute(request: Request): Promise<Response> {
+  override async execute(request: Request): Promise<Response> {
     if (request.endpoint !== 'put:init') {
       return await super.execute(request);
     }

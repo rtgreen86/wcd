@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
-import { isPinExists, getToken } from 'src/renderer/apiBridge';
+import { checkPinExists, getToken } from '../api';
 
 export function useAuth() {
   const {token, setToken} = useContext(AuthContext);
@@ -15,5 +15,5 @@ export function useAuth() {
     setToken(null);
   };
 
-  return {token, login, logout, isPinExist: isPinExists};
+  return {token, login, logout, isPinExist: checkPinExists};
 }

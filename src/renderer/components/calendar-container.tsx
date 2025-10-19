@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { CalendarLocale, YearCalendar } from '../lib/Calendar';
 import { useDispatch, useStore } from '../hooks';
-import { getMarks, putMarks } from 'src/renderer/apiBridge';
+import { getMarks, putMarks } from '../api';
 
 export default function CalendarContainer() {
   const store = useStore();

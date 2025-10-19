@@ -15,7 +15,7 @@ export default class ProtectionHandler extends IpcHandler {
     this.model = model;
   }
 
-  async execte(request: Request): Promise<Response> {
+  override async execute(request: Request): Promise<Response> {
     if (request.endpoint === 'get:token') {
       return this.getToken(request);
     }

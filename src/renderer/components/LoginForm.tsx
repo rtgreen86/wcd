@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FocusEvent } from 'react';
 import InputPin from './controls/InputPin';
 import { useAuth } from '../hooks/useAuth';
-import { isPinExists } from 'src/renderer/apiBridge';
+import { checkPinExists } from '../api';
 
 import './LoginForm.css';
 
@@ -22,7 +22,7 @@ export default function LoginForm({
 
   useEffect(() => {
     (async () => {
-      const pinExists = await isPinExists();
+      const pinExists = await checkPinExists();
       setLoading(false);
       if (!pinExists) {
         login('');

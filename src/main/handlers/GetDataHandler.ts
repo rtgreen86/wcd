@@ -13,7 +13,7 @@ export default class GetDataHandler extends IpcHandler {
     this.model = model;
   }
 
-  async execute(request: Request): Promise<Response> {
+  override async execute(request: Request): Promise<Response> {
     if (request.endpoint !== 'get:data') {
       return await super.execute(request);
     }
