@@ -2,6 +2,7 @@ import './CalendarScreen.css';
 import React, { useEffect } from 'react';
 import { CalendarLocale } from '../../lib/Calendar';
 import CalendarContainer from '../calendar-container';
+import {Modal, ModalHeader, ModalContent, ModalFooter, ModalToggleButton, ModalDismissButton} from '../Modal';
 
 export default function CalendarScreen() {
   useEffect(() => {
@@ -10,9 +11,20 @@ export default function CalendarScreen() {
 
   return (
     <main className="container-xxl">
-        <CalendarLocale locale="ru-RU">
-          <CalendarContainer />
-        </CalendarLocale>
+      <div><ModalToggleButton target='#test-modal' className='btn-primary'>Open!</ModalToggleButton></div>
+
+      <CalendarLocale locale="ru-RU">
+        <CalendarContainer />
+      </CalendarLocale>
+
+      <Modal id="test-modal">
+        <ModalHeader>Test Modal</ModalHeader>
+        <ModalContent><p>Hello World!</p></ModalContent>
+        <ModalFooter>
+          <ModalDismissButton className="btn-secondary">Close</ModalDismissButton>
+          <button type="button" className="btn btn-primary">Save changes</button>
+        </ModalFooter>
+      </Modal>
     </main>
   );
 }
