@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { CalendarLocale } from '../../lib/Calendar';
 import CalendarContainer from '../calendar-container';
 import {Modal, ModalHeader, ModalContent, ModalFooter, ModalToggleButton, ModalDismissButton} from '../Modal';
+import {InputPIN} from '../Form';
 
 export default function CalendarScreen() {
   useEffect(() => {
@@ -19,7 +20,7 @@ export default function CalendarScreen() {
 
       <Modal id="test-modal">
         <ModalHeader>Test Modal</ModalHeader>
-        <ModalContent><p>Hello World!</p></ModalContent>
+        <ModalContent><p><InputPIN></InputPIN></p></ModalContent>
         <ModalFooter>
           <ModalDismissButton className="btn-secondary">Close</ModalDismissButton>
           <button type="button" className="btn btn-primary">Save changes</button>

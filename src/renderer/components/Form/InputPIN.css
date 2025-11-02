@@ -1,0 +1,16 @@
+.input-pin {
+  text-align: center;
+}
+
+.input-pin {
+  width: 250px;
+  text-align: center;
+  font-size: 3em;
+  margin: 25px;
+  border: none;
+  color: var(--tropical-indigo);
+}
+
+.input-pin:focus {
+  outline: 1px solid var(--tropical-indigo);
+}
