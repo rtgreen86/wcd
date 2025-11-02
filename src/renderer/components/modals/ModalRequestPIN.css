@@ -1,9 +1,9 @@
-.enter-pin-modal .modal-body {
+.modal-request-pin .modal-body {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.enter-pin-modal .spacer {
+.modal-request-pin .spacer {
   flex-grow: 1;
 }

@@ -1,4 +1,4 @@
 export * from './Modal';
-export * from './ModalEvent';
+export { ModalProps } from './types';
+export * from './enums';
 export * from './ModalToggleButton';
-export * from './ModalTypes';
