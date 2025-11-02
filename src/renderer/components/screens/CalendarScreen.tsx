@@ -18,7 +18,7 @@ export default function CalendarScreen() {
         <CalendarContainer />
       </CalendarLocale>
 
-      <EnterPINModal id="test-modal" modalTypes={ModalTypes.Centered} title="Enter PIN"/>
+      <EnterPINModal id="test-modal" modalTypes={ModalTypes.FullScreen} title="Enter PIN"/>
     </main>
   );
 }

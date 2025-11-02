@@ -6,3 +6,6 @@ export * from './ModalFooter';
 export * from './ModalHeader';
 export * from './ModalToggleButton';
 export * from './ModalTypes';
+export * from './ModalBody';
+export * from './ModalContent';
+export * from './ModalContentForm';

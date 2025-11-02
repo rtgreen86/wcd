@@ -1,4 +1,4 @@
-import { Modal, ModalHeader, ModalContent, ModalFooter, ModalDismissButton, ModalTypes } from '../Modal';
+import { Modal, ModalHeader, ModalContentForm, ModalFooter, ModalDismissButton, ModalTypes, ModalBody } from '../Modal';
 import { InputPIN } from '../Form';
 import './EnterPINModal.css';
 
@@ -12,14 +12,18 @@ export const EnterPINModal = ({
   title?: string
 }) => {
   return (
-    <Modal id={id} modalTypes={modalTypes}>
-      <form className="enter-pin-form">
+    <Modal id={id} modalTypes={modalTypes} className="enter-pin-modal">
+      <ModalContentForm>
         <ModalHeader modalTypes={modalTypes}>{title}</ModalHeader>
-        <ModalContent><p><InputPIN></InputPIN></p></ModalContent>
+        <ModalBody>
+          <div className="spacer" />
+          <InputPIN></InputPIN>
+          <div className="spacer" />
+        </ModalBody>
         <ModalFooter>
           <ModalDismissButton className="btn-secondary">Cancel</ModalDismissButton>
         </ModalFooter>
-      </form>
+      </ModalContentForm>
     </Modal>
   );
 };

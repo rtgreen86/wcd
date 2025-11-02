@@ -12,6 +12,7 @@ const getDialogClasses = (modalTypes: ModalTypes) => [
 
 export const Modal = ({
   id,
+  className = '',
   modalTypes = ModalTypes.None,
   isOpen = false,
   ariaLabel = '',
@@ -24,6 +25,7 @@ export const Modal = ({
   onStateChanged = () => undefined,
 }: {
   id: string,
+  className?: string,
   modalTypes?: ModalTypes,
   isOpen?: boolean,
   ariaLabel?: string,
@@ -93,10 +95,8 @@ export const Modal = ({
   const backdrop = canClose ? 'true' : 'static';
 
   return (
-    <div ref={modalRef} className="modal fade" id={id} tabIndex={-1} aria-label={ariaLabel} role="dialog" aria-modal="true" data-bs-backdrop={backdrop} data-bs-keyboard={canClose}>
-      <div className={getDialogClasses(modalTypes)}>
-        <div className="modal-content">{children}</div>
-      </div>
+    <div ref={modalRef} className={`modal fade ${className}`} id={id} tabIndex={-1} aria-label={ariaLabel} role="dialog" aria-modal="true" data-bs-backdrop={backdrop} data-bs-keyboard={canClose}>
+      <div className={getDialogClasses(modalTypes)}>{children}</div>
     </div>
   );
 };
