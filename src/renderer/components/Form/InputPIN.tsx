@@ -34,13 +34,9 @@ export const InputPIN = ({
     if (actualValue.length < maxLength && currentValue.length === maxLength) onPinEntried(currentValue);
   };
 
-  const handleBlur = () => {
-    if (forceFocus && !disabled) ref1.current?.focus();
-  }
-
   useEffect(() => {
     if (forceFocus && !disabled) ref1.current?.focus();
   }, [forceFocus, disabled]);
 
-  return (<input ref={ref1} className="input-pin" type="password" name={name} maxLength={maxLength} value={actualValue} disabled={disabled} onChange={handleChange} autoComplete="off" onBlur={handleBlur}></input>);
+  return (<input ref={ref1} className="input-pin" type="password" name={name} maxLength={maxLength} value={actualValue} disabled={disabled} onChange={handleChange} autoComplete="off"></input>);
 };

@@ -27,6 +27,7 @@ export type ModalProps = ModalHandlers & ButtonCaptions & {
     modalTypes?: ModalTypes,
     modalButtons?: ModalButtons,
     isOpen?: boolean,
+    disabled?: boolean,
     ariaLabel?: string,
     children?: ReactNode,
 };

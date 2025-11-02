@@ -17,12 +17,13 @@ const ModalHeader = ({
 
 const ModalFooter = ({
   modalButtons,
+  disabled,
   captionOK = 'OK',
   captionCancel = 'Cancel'
-}: Pick<ModalProps, 'modalButtons' | 'captionOK' | 'captionCancel'>) => (
+}: Pick<ModalProps, 'modalButtons' | 'disabled' | 'captionOK' | 'captionCancel'>) => (
   <div className="modal-footer">
     {modalButtons & ModalButtons.ButtonCancel ? <button type="button" className='btn btn-secondary' data-bs-dismiss="modal">{captionCancel}</button> : null}
-    {modalButtons & ModalButtons.ButtonOK ? <button type="submit" className='btn btn-primary'>{captionOK}</button>: null}
+    {modalButtons & ModalButtons.ButtonOK ? <button type="submit" className='btn btn-primary' disabled={disabled}>{captionOK}</button>: null}
   </div>
 );
 
@@ -40,6 +41,7 @@ export const Modal = ({
     modalTypes = ModalTypes.None,
     modalButtons = ModalButtons.ButtonOK | ModalButtons.ButtonCancel,
     isOpen,
+    disabled = false,
     ariaLabel,
     children,
     captionOK,
@@ -110,7 +112,7 @@ export const Modal = ({
         <form className="modal-content" onSubmit={onSubmit}>
           <ModalHeader modalTypes={modalTypes}>{title}</ModalHeader>
           <div className="modal-body">{children}</div>
-          <ModalFooter modalButtons={modalButtons} captionOK={captionOK} captionCancel={captionCancel}></ModalFooter>
+          <ModalFooter modalButtons={modalButtons} captionOK={captionOK} captionCancel={captionCancel} disabled={disabled}></ModalFooter>
         </form>
       </div>
     </div>
