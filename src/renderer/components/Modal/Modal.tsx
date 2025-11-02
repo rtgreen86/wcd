@@ -1,7 +1,9 @@
-import { ReactNode, useRef, useEffect, useCallback } from 'react';
+import { ReactNode, useRef, useEffect, useCallback, FormEvent } from 'react';
 import { Modal as BootstrapModal } from 'bootstrap';
 import { ModalEvent } from './ModalEvent';
 import { ModalTypes } from './ModalTypes';
+import { ModalHeader } from './ModalHeader';
+import { ModalFooter } from './ModalFooter';
 
 const noop = () => {};
 
@@ -15,7 +17,10 @@ const getDialogClasses = (modalTypes: ModalTypes) => [
 export const Modal = ({
   id,
   className = '',
-  modalTypes = ModalTypes.None,
+  modalTypes = ModalTypes.ButtonOK | ModalTypes.ButtonCancel,
+  title,
+  captionCancel,
+  captionOK,
   isOpen = false,
   ariaLabel = '',
   children,
@@ -25,10 +30,14 @@ export const Modal = ({
   onShow = noop,
   onShown = noop,
   onStateChanged = noop,
+  onSubmit = noop,
 }: {
   id: string,
   className?: string,
   modalTypes?: ModalTypes,
+  title?: string,
+  captionCancel?: string,
+  captionOK?: string,
   isOpen?: boolean,
   ariaLabel?: string,
   children?: ReactNode,
@@ -37,7 +46,8 @@ export const Modal = ({
   onHidePrevented?: (event: ModalEvent) => void,
   onShow?: (event: ModalEvent) => void,
   onShown?: (event: ModalEvent) => void,
-  onStateChanged?: (isOpen: boolean) => void;
+  onStateChanged?: (isOpen: boolean) => void,
+  onSubmit?: (event: FormEvent<HTMLFormElement>) => void
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -49,16 +59,10 @@ export const Modal = ({
     if (modalRef.current) BootstrapModal.getInstance(modalRef.current).hide();
   };
 
-  const handleHide = onHide;
-
   const handleHidden = useCallback((event: ModalEvent) => {
     onStateChanged(false);
     onHidden(event);
   }, [onStateChanged, onHidden]);
-
-  const handleHidePrevented = onHidePrevented;
-
-  const handleShow = onShow;
 
   const handleShown = useCallback((event: ModalEvent) => {
     onStateChanged(true);
@@ -74,22 +78,22 @@ export const Modal = ({
 
   useEffect(() => {
     if (modalRef.current) {
-      modalRef.current.addEventListener('hide.bs.modal', handleHide);
+      modalRef.current.addEventListener('hide.bs.modal', onHide);
       modalRef.current.addEventListener('hidden.bs.modal', handleHidden);
-      modalRef.current.addEventListener('hidePrevented.bs.modal', handleHidePrevented);
-      modalRef.current.addEventListener('show.bs.modal', handleShow);
+      modalRef.current.addEventListener('hidePrevented.bs.modal', onHidePrevented);
+      modalRef.current.addEventListener('show.bs.modal', onShow);
       modalRef.current.addEventListener('shown.bs.modal', handleShown);
     }
     return () => {
       if (modalRef.current) {
-        modalRef.current.removeEventListener('hide.bs.modal', handleHide);
+        modalRef.current.removeEventListener('hide.bs.modal', onHide);
         modalRef.current.removeEventListener('hidden.bs.modal', handleHidden);
-        modalRef.current.removeEventListener('hidePrevented.bs.modal', handleHidePrevented);
-        modalRef.current.removeEventListener('show.bs.modal', handleShow);
+        modalRef.current.removeEventListener('hidePrevented.bs.modal', onHidePrevented);
+        modalRef.current.removeEventListener('show.bs.modal', onShow);
         modalRef.current.removeEventListener('shown.bs.modal', handleShown);
       }
     };
-  }, [handleHide, handleHidden, handleHidePrevented, handleShow, handleShown]);
+  }, [onHide, handleHidden, onHidePrevented, onShow, handleShown]);
 
   useEffect(() => { if (isOpen) show(); else hide(); }, [isOpen]);
 
@@ -98,7 +102,13 @@ export const Modal = ({
 
   return (
     <div ref={modalRef} className={`modal fade ${className}`} id={id} tabIndex={-1} aria-label={ariaLabel} aria-hidden="true" role="dialog" aria-modal="true" data-bs-backdrop={backdrop} data-bs-keyboard={canClose}>
-      <div className={getDialogClasses(modalTypes)}>{children}</div>
+      <div className={getDialogClasses(modalTypes)}>
+        <form className="modal-content" onSubmit={onSubmit}>
+          <ModalHeader modalTypes={modalTypes}>{title}</ModalHeader>
+          <div className="modal-body">{children}</div>
+          <ModalFooter modalTypes={modalTypes} captionOK={captionOK} captionCancel={captionCancel}></ModalFooter>
+        </form>
+      </div>
     </div>
   );
 };
