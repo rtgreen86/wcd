@@ -1,21 +1,23 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, forwardRef } from 'react';
 import './InputPIN.css';
 
-export const InputPIN =({
-  name = '',
-  maxLength = 4,
-  value,
-  disabled = false,
-  onChange = () => undefined,
-  onPinEntried = () => undefined,
-}: {
+type InputPINProps = {
   name?: string,
   maxLength?: number,
   value?: string,
   disabled?: boolean,
   onChange?: (value: string) => void;
   onPinEntried?: (value: string) => void;
-}) => {
+};
+
+export const InputPIN = forwardRef<HTMLInputElement, InputPINProps>(({
+  name = '',
+  maxLength = 4,
+  value,
+  disabled = false,
+  onChange = () => undefined,
+  onPinEntried = () => undefined,
+}: InputPINProps, ref) => {
   const [entriedValue, setEntriedValue] = useState('');
 
   const actualValue = value === undefined ? entriedValue : value;
@@ -29,5 +31,5 @@ export const InputPIN =({
     if (actualValue.length < maxLength && currentValue.length === maxLength) onPinEntried(currentValue);
   };
 
-  return (<input className="input-pin" type="password" name={name} maxLength={maxLength} value={actualValue} disabled={disabled} onChange={handleChange}></input>);
-}
+  return (<input ref={ref} className="input-pin" type="password" name={name} maxLength={maxLength} value={actualValue} disabled={disabled} onChange={handleChange} autoComplete="off"></input>);
+})

@@ -3,6 +3,8 @@ import { Modal as BootstrapModal } from 'bootstrap';
 import { ModalEvent } from './ModalEvent';
 import { ModalTypes } from './ModalTypes';
 
+const noop = () => {};
+
 const getDialogClasses = (modalTypes: ModalTypes) => [
   'modal-dialog',
   (modalTypes & ModalTypes.Centered) !== 0 ? 'modal-dialog-centered' : '',
@@ -17,12 +19,12 @@ export const Modal = ({
   isOpen = false,
   ariaLabel = '',
   children,
-  onHide = () => undefined,
-  onHidden = () => undefined,
-  onHidePrevented = () => undefined,
-  onShow = () => undefined,
-  onShown = () => undefined,
-  onStateChanged = () => undefined,
+  onHide = noop,
+  onHidden = noop,
+  onHidePrevented = noop,
+  onShow = noop,
+  onShown = noop,
+  onStateChanged = noop,
 }: {
   id: string,
   className?: string,
