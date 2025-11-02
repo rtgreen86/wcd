@@ -1,14 +1,16 @@
 import './CalendarScreen.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CalendarLocale } from '../../lib/Calendar';
 import CalendarContainer from '../calendar-container';
-import {Modal, ModalHeader, ModalContent, ModalFooter, ModalToggleButton, ModalDismissButton, ModalTypes} from '../Modal';
+import {Modal, ModalToggleButton, ModalTypes} from '../Modal';
 import {EnterPINModal} from '../modals/EnterPINModal';
 
 export default function CalendarScreen() {
   useEffect(() => {
     runPrototypeCode();
   });
+
+  const [pin, setPin] = useState('Enter PIN');
 
   return (
     <main className="container-xxl">
@@ -18,7 +20,7 @@ export default function CalendarScreen() {
         <CalendarContainer />
       </CalendarLocale>
 
-      <EnterPINModal id="test-modal" modalTypes={ModalTypes.FullScreen} title="Enter PIN"/>
+      <EnterPINModal id="test-modal" modalTypes={ModalTypes.FullScreen} title={pin} onPinEntered={setPin}/>
     </main>
   );
 }
