@@ -1,9 +1,17 @@
 import { ReactNode, useRef, useEffect, useCallback } from 'react';
 import { Modal as BootstrapModal } from 'bootstrap';
 import { ModalEvent } from './ModalEvent';
+import { ModalTypes } from './ModalTypes';
+
+const getDialogClasses = (modalTypes: ModalTypes) => [
+  'modal-dialog',
+  (modalTypes & ModalTypes.Centered) !== 0 ? 'modal-dialog-centered' : '',
+  (modalTypes & ModalTypes.Scrollable) !== 0 ? 'modal-dialog-scrollable' : '',
+].filter(val => val !== '').join(' ');
 
 export const Modal = ({
   id,
+  modalTypes = ModalTypes.None,
   isOpen = false,
   ariaLabel = '',
   canClose = true,
@@ -16,6 +24,7 @@ export const Modal = ({
   onStateChanged = () => undefined,
 }: {
   id: string,
+  modalTypes?: ModalTypes,
   isOpen?: boolean,
   ariaLabel?: string,
   canClose?: boolean,
@@ -77,17 +86,23 @@ export const Modal = ({
         modalRef.current.removeEventListener('shown.bs.modal', handleShown);
       }
     };
-  }, [ handleHide, handleHidden, handleHidePrevented, handleShow, handleShown ]);
+  }, [handleHide, handleHidden, handleHidePrevented, handleShow, handleShown]);
 
-  useEffect(() => { if (isOpen) show(); else hide(); }, [ isOpen ]);
+  useEffect(() => { if (isOpen) show(); else hide(); }, [isOpen]);
 
   const backdrop = canClose ? 'true' : 'static';
 
   return (
     <div ref={modalRef} className="modal fade" id={id} tabIndex={-1} aria-label={ariaLabel} role="dialog" aria-modal="true" data-bs-backdrop={backdrop} data-bs-keyboard={canClose}>
-      <div className="modal-dialog">
+      <div className={getDialogClasses(modalTypes)}>
         <div className="modal-content">{children}</div>
       </div>
     </div>
   );
 };
+
+
+
+
+
+

@@ -4,6 +4,7 @@ import { CalendarLocale } from '../../lib/Calendar';
 import CalendarContainer from '../calendar-container';
 import {Modal, ModalHeader, ModalContent, ModalFooter, ModalToggleButton, ModalDismissButton} from '../Modal';
 import {InputPIN} from '../Form';
+import {EnterPINModal} from '../modals/EnterPINModal';
 
 export default function CalendarScreen() {
   useEffect(() => {
@@ -18,14 +19,7 @@ export default function CalendarScreen() {
         <CalendarContainer />
       </CalendarLocale>
 
-      <Modal id="test-modal">
-        <ModalHeader>Test Modal</ModalHeader>
-        <ModalContent><p><InputPIN></InputPIN></p></ModalContent>
-        <ModalFooter>
-          <ModalDismissButton className="btn-secondary">Close</ModalDismissButton>
-          <button type="button" className="btn btn-primary">Save changes</button>
-        </ModalFooter>
-      </Modal>
+      <EnterPINModal id="test-modal" title="Enter PIN"/>
     </main>
   );
 }
