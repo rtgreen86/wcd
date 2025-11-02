@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Modal, ModalHeader, ModalContentForm, ModalFooter, ModalDismissButton, ModalTypes, ModalBody } from '../Modal';
 import { InputPIN } from '../Form';
 import './EnterPINModal.css';
@@ -12,19 +12,23 @@ export const EnterPINModal = ({
   modalTypes?: ModalTypes,
   title?: string
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleShown = () => {
-    inputRef.current?.focus();
+    setIsOpen(true);
+  }
+
+  const handleHidden = () => {
+    setIsOpen(false);
   }
 
   return (
-    <Modal id={id} modalTypes={modalTypes} className="enter-pin-modal" onShown={handleShown}>
+    <Modal id={id} modalTypes={modalTypes} className="enter-pin-modal" onShown={handleShown} onHidden={handleHidden}>
       <ModalContentForm>
         <ModalHeader modalTypes={modalTypes}>{title}</ModalHeader>
         <ModalBody>
           <div className="spacer" />
-          <InputPIN ref={inputRef} name="pin" maxLength={4}></InputPIN>
+          <InputPIN name="pin" maxLength={4} forceFocus={isOpen}></InputPIN>
           <div className="spacer" />
         </ModalBody>
         <ModalFooter>

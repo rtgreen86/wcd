@@ -1,23 +1,26 @@
-import { useState, FormEvent, forwardRef } from 'react';
+import { useState, FormEvent, useRef, useEffect } from 'react';
 import './InputPIN.css';
 
-type InputPINProps = {
-  name?: string,
-  maxLength?: number,
-  value?: string,
-  disabled?: boolean,
-  onChange?: (value: string) => void;
-  onPinEntried?: (value: string) => void;
-};
+const noop = () => {};
 
-export const InputPIN = forwardRef<HTMLInputElement, InputPINProps>(({
+export const InputPIN = ({
   name = '',
   maxLength = 4,
   value,
   disabled = false,
-  onChange = () => undefined,
-  onPinEntried = () => undefined,
-}: InputPINProps, ref) => {
+  forceFocus = false,
+  onChange = noop,
+  onPinEntried = noop,
+}: {
+  name?: string,
+  maxLength?: number,
+  value?: string,
+  disabled?: boolean,
+  forceFocus?: boolean,
+  onChange?: (value: string) => void;
+  onPinEntried?: (value: string) => void;
+}) => {
+  const ref1 = useRef<HTMLInputElement>(null);
   const [entriedValue, setEntriedValue] = useState('');
 
   const actualValue = value === undefined ? entriedValue : value;
@@ -31,5 +34,13 @@ export const InputPIN = forwardRef<HTMLInputElement, InputPINProps>(({
     if (actualValue.length < maxLength && currentValue.length === maxLength) onPinEntried(currentValue);
   };
 
-  return (<input ref={ref} className="input-pin" type="password" name={name} maxLength={maxLength} value={actualValue} disabled={disabled} onChange={handleChange} autoComplete="off"></input>);
-})
+  const handleBlur = () => {
+    if (forceFocus && !disabled) ref1.current?.focus();
+  }
+
+  useEffect(() => {
+    if (forceFocus && !disabled) ref1.current?.focus();
+  }, [forceFocus, disabled]);
+
+  return (<input ref={ref1} className="input-pin" type="password" name={name} maxLength={maxLength} value={actualValue} disabled={disabled} onChange={handleChange} autoComplete="off" onBlur={handleBlur}></input>);
+};

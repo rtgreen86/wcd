@@ -97,7 +97,7 @@ export const Modal = ({
   const backdrop = canClose ? 'true' : 'static';
 
   return (
-    <div ref={modalRef} className={`modal fade ${className}`} id={id} tabIndex={-1} aria-label={ariaLabel} role="dialog" aria-modal="true" data-bs-backdrop={backdrop} data-bs-keyboard={canClose}>
+    <div ref={modalRef} className={`modal fade ${className}`} id={id} tabIndex={-1} aria-label={ariaLabel} aria-hidden="true" role="dialog" aria-modal="true" data-bs-backdrop={backdrop} data-bs-keyboard={canClose}>
       <div className={getDialogClasses(modalTypes)}>{children}</div>
     </div>
   );
