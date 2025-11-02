@@ -7,6 +7,7 @@ const getDialogClasses = (modalTypes: ModalTypes) => [
   'modal-dialog',
   (modalTypes & ModalTypes.Centered) !== 0 ? 'modal-dialog-centered' : '',
   (modalTypes & ModalTypes.Scrollable) !== 0 ? 'modal-dialog-scrollable' : '',
+  (modalTypes & ModalTypes.FullScreen) !== 0 ? 'modal-fullscreen' : '',
 ].filter(val => val !== '').join(' ');
 
 export const Modal = ({
@@ -14,7 +15,6 @@ export const Modal = ({
   modalTypes = ModalTypes.None,
   isOpen = false,
   ariaLabel = '',
-  canClose = true,
   children,
   onHide = () => undefined,
   onHidden = () => undefined,
@@ -27,7 +27,6 @@ export const Modal = ({
   modalTypes?: ModalTypes,
   isOpen?: boolean,
   ariaLabel?: string,
-  canClose?: boolean,
   children?: ReactNode,
   onHide?: (event: ModalEvent) => void,
   onHidden?: (event: ModalEvent) => void,
@@ -90,6 +89,7 @@ export const Modal = ({
 
   useEffect(() => { if (isOpen) show(); else hide(); }, [isOpen]);
 
+  const canClose = (modalTypes & ModalTypes.BlockingModal) === 0;
   const backdrop = canClose ? 'true' : 'static';
 
   return (

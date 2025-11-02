@@ -1,14 +1,15 @@
 import { ReactNode } from 'react';
+import { ModalTypes } from './ModalTypes';
 
 export const ModalHeader = ({
-  canClose = true,
+  modalTypes = ModalTypes.None,
   children
 }: {
-  canClose?: boolean,
+  modalTypes?: ModalTypes,
   children?: ReactNode
 }) => (
   <div className="modal-header">
     <h1 className="modal-title fs-5">{children}</h1>
-    {canClose ? <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> : null}
+    {modalTypes & ModalTypes.BlockingModal ? null : <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>}
   </div>
 );

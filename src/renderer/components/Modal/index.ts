@@ -5,3 +5,4 @@ export * from './ModalEvent';
 export * from './ModalFooter';
 export * from './ModalHeader';
 export * from './ModalToggleButton';
+export * from './ModalTypes';

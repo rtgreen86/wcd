@@ -2,8 +2,7 @@ import './CalendarScreen.css';
 import React, { useEffect } from 'react';
 import { CalendarLocale } from '../../lib/Calendar';
 import CalendarContainer from '../calendar-container';
-import {Modal, ModalHeader, ModalContent, ModalFooter, ModalToggleButton, ModalDismissButton} from '../Modal';
-import {InputPIN} from '../Form';
+import {Modal, ModalHeader, ModalContent, ModalFooter, ModalToggleButton, ModalDismissButton, ModalTypes} from '../Modal';
 import {EnterPINModal} from '../modals/EnterPINModal';
 
 export default function CalendarScreen() {
@@ -19,7 +18,7 @@ export default function CalendarScreen() {
         <CalendarContainer />
       </CalendarLocale>
 
-      <EnterPINModal id="test-modal" title="Enter PIN"/>
+      <EnterPINModal id="test-modal" modalTypes={ModalTypes.Centered} title="Enter PIN"/>
     </main>
   );
 }
