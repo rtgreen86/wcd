@@ -10,7 +10,7 @@ export const InputPIN = ({
   disabled = false,
   forceFocus = false,
   onChange = noop,
-  onPinEntried = noop,
+  onPinEntered = noop,
 }: {
   name?: string,
   maxLength?: number,
@@ -18,7 +18,7 @@ export const InputPIN = ({
   disabled?: boolean,
   forceFocus?: boolean,
   onChange?: (value: string) => void;
-  onPinEntried?: (value: string) => void;
+  onPinEntered?: (value: string) => void;
 }) => {
   const ref1 = useRef<HTMLInputElement>(null);
   const [entriedValue, setEntriedValue] = useState('');
@@ -31,7 +31,7 @@ export const InputPIN = ({
     if (currentValue.length > maxLength) return;
     setEntriedValue(currentValue);
     onChange(currentValue);
-    if (actualValue.length < maxLength && currentValue.length === maxLength) onPinEntried(currentValue);
+    if (actualValue.length < maxLength && currentValue.length === maxLength) onPinEntered(currentValue);
   };
 
   useEffect(() => {
