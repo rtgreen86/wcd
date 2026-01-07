@@ -13,16 +13,7 @@ enum Step {
   Done
 };
 
-type State = {
-  step: Step,
-  requestId: number,
-  attempt: number,
-  currentPin: string,
-  newPin: string,
-  repeatPin: string,
-  loading: boolean,
-  message: string
-};
+// TODO: delete
 
 enum ActionType {
   Reset = 'Reset',
@@ -36,22 +27,31 @@ enum ActionType {
   NewPinMatchingFailed = 'NewPinMatchingFailed',
   PinChanged = 'PinChanged',
   ErrorOccurred = 'ErrorOccurred'
-}
+};
+
+type State = {
+  step: Step,
+  requestId: number,
+  key: number,
+  currentPin: string,
+  newPin: string,
+  repeatPin: string,
+  loading: boolean,
+  message: string
+};
 
 type Action = {
-  type: ActionType,
+  type: string,
   requestId: number,
   payload?: string,
 };
 
 let nextId = 0;
 
-const getNextId = () => nextId++;
-
 const getInitialState: () => State = () => ({
   step: Step.Initializing,
-  requestId: getNextId(),
-  attempt: getNextId(),
+  requestId: nextId++,
+  key: nextId++,
   currentPin: '',
   newPin: '',
   repeatPin: '',
@@ -59,70 +59,90 @@ const getInitialState: () => State = () => ({
   message: ''
 });
 
-export const ChangePINModal = ({
+let tmp = 0;
+
+export function ChangePINModal({
   id,
   modalTypes = ModalTypes.Centered,
   modalButtons = ModalButtons.ButtonCancel,
   ...rest
-}: ModalProps) => {
+}: ModalProps) {
   const [state, dispatch] = useReducer(reducer, getInitialState());
-  const { loading, requestId } = state;
+  const { loading, requestId, key } = state;
   const message = loading ? 'Please wait...' : state.message;
   const isFocused = !loading;
 
-  const checkPin = async (pin: string) => {
-    await _checkPin(pin)
-      ? dispatch({ type: ActionType.CurrentPinCheckPassed, requestId })
-      : dispatch({ type: ActionType.CurrentPinCheckFailed, requestId });
-  };
 
+
+  // TODO: delete
   const changePin = async () => {
-    const result = await new Promise((resolve) => setTimeout(() => resolve(Boolean(state.newPin === '9999')), 500));
+    // const result = await new Promise((resolve) => setTimeout(() => resolve(Boolean(state.newPin === '9999')), 500));
   }
 
-  const handleShown = async () => {
-    if (await checkPinSetted()) {
-      dispatch({ type: ActionType.PinRequired, requestId });
+
+  async function checkPinSetted() {
+    const hasPin = await new Promise((resolve) => setTimeout(() => resolve(Boolean(tmp++)), 200));
+    if (hasPin) {
+      dispatch({ type: 'pin-required', requestId });
     } else {
-      dispatch({ type: ActionType.CurrentPinCheckPassed, requestId });
+      dispatch({ type: 'pin-check-passed', requestId });
     }
-  };
+  }
 
-  const handleHidden = async () => {
-    dispatch({ type: ActionType.Reset, requestId });
-  };
-
-  const handlePinEntered = (pin: string) => {
-    switch (state.step) {
-      case Step.EnterCurrentPin: {
-        dispatch({ type: ActionType.CurrentPinEntered, requestId, payload: pin });
-        checkPin(pin);
-        return;
-      }
-      case Step.EnterNewPin: {
-        if (pin === state.currentPin) {
-          dispatch({ type: ActionType.NewPinValidationFailed, requestId });
-        } else {
-          dispatch({ type: ActionType.NewPinEntered, requestId, payload: pin })
-        }
-        return;
-      }
-      case Step.RepeatNewPin: {
-        if (pin !== state.newPin) {
-          dispatch({ type: ActionType.NewPinMatchingFailed, requestId });
-        } else {
-          dispatch({ type: ActionType.RepeatPinEntered, requestId, payload: pin });
-          changePin();
-          return;
-        }
-      }
+  async function checkPin(pin: string) {
+    const isPinCorrect = await new Promise((resolve) => setTimeout(() => resolve(Boolean(pin === '0000')), 500));
+    if (isPinCorrect) {
+      dispatch({ type: 'pin-check-passed', requestId })
+    } else {
+      dispatch({ type: 'pin-check-failed', requestId });
     }
+  }
+
+  function handleShown() {
+    checkPinSetted();
+  }
+
+  function handleHidden() {
+    dispatch({ type: 'reset', requestId });
+  }
+
+  function handlePinEntered(pin: string) {
+    if (state.step === Step.EnterCurrentPin) {
+      dispatch({  })
+    }
+
+
+
+    // switch (state.step) {
+    //   case Step.EnterCurrentPin: {
+    //     dispatch({ type: ActionType.CurrentPinEntered, requestId, payload: pin });
+    //     checkPin(pin);
+    //     return;
+    //   }
+    //   case Step.EnterNewPin: {
+    //     if (pin === state.currentPin) {
+    //       dispatch({ type: ActionType.NewPinValidationFailed, requestId });
+    //     } else {
+    //       dispatch({ type: ActionType.NewPinEntered, requestId, payload: pin })
+    //     }
+    //     return;
+    //   }
+    //   case Step.RepeatNewPin: {
+    //     if (pin !== state.newPin) {
+    //       dispatch({ type: ActionType.NewPinMatchingFailed, requestId });
+    //     } else {
+    //       dispatch({ type: ActionType.RepeatPinEntered, requestId, payload: pin });
+    //       changePin();
+    //       return;
+    //     }
+    //   }
+    // }
   }
 
   return (
     <ModalRequestPIN id={id} disabled={loading} title="Change PIN code" modalTypes={modalTypes} modalButtons={modalButtons} captionCancel="Close" onShown={handleShown} onHidden={handleHidden} {...rest}>
       <div>{message}</div>
-      <InputPIN name="pin" key={state.attempt} maxLength={CONST.PIN_LENGTH} forceFocus={isFocused} disabled={loading} onPinEntered={handlePinEntered}></InputPIN>
+      <InputPIN name="pin" key={key} maxLength={CONST.PIN_LENGTH} forceFocus={isFocused} disabled={loading} onPinEntered={handlePinEntered}></InputPIN>
       {loading ? <Spinner /> : null}
     </ModalRequestPIN>
   );
@@ -135,15 +155,19 @@ function reducer(state: State, action: Action): State {
     return state;
   }
   switch (action.type) {
-    case ActionType.Reset: {
-      return getInitialState()
+    case 'reset': {
+      return getInitialState();
     }
-    case ActionType.PinRequired: return {
-      ...state,
-      loading: false,
-      message: 'Enter your current PIN code:',
-      step: Step.EnterCurrentPin
+
+    case 'pin-required': {
+      return {
+        ...state,
+        step: Step.EnterCurrentPin,
+        loading: false,
+        message: 'Enter your current PIN code:'
+      };
     }
+
     case ActionType.CurrentPinEntered: return {
       ...state,
       currentPin: action.payload || '',
@@ -154,16 +178,20 @@ function reducer(state: State, action: Action): State {
       newPin: action.payload || '',
       loading: true,
     }
-    case ActionType.CurrentPinCheckPassed: return {
-      ...state,
-      attempt: getNextId(),
-      loading: false,
-      message: 'Enter new PIN code:',
-      step: Step.EnterNewPin,
+
+    case 'pin-check-passed': {
+      return {
+        ...state,
+        step: Step.EnterNewPin,
+        key: nextId++,
+        loading: false,
+        message: 'Enter new PIN code:',
+      };
     }
+
     case ActionType.CurrentPinCheckFailed: return {
       ...state,
-      attempt: getNextId(),
+      // attempt: getNextId(),
       currentPin: '',
       loading: false,
       message: 'Incorrect PIN code. Please try again:',
@@ -171,7 +199,7 @@ function reducer(state: State, action: Action): State {
     }
     case ActionType.NewPinValidationFailed: return {
       ...state,
-      attempt: getNextId(),
+      // attempt: getNextId(),
       newPin: '',
       loading: false,
       message: 'The new PIN matches the old one. Enter new PIN code:',
@@ -181,12 +209,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-let tmp = 1;
-
-function checkPinSetted() {
-  return new Promise((resolve) => setTimeout(() => resolve(Boolean(tmp++)), 200));
-}
-
-function _checkPin(pin: string) {
-  return new Promise((resolve) => setTimeout(() => resolve(Boolean(pin === '0000')), 500));
+function changePin(pin: string, newPin: string) {
+  console.log(pin, newPin);
+  return new Promise((resolve) => setTimeout(() => resolve(true), 500));
 }
