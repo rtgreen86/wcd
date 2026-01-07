@@ -12,7 +12,7 @@ export default function CalendarScreen() {
 
   return (
     <main className="container-xxl">
-      <div><ModalToggleButton target='#test-modal' className='btn-primary'>Open!</ModalToggleButton></div>
+      {/* <div><ModalToggleButton target='#test-modal' className='btn-primary'>Open!</ModalToggleButton></div> */}
 
       <CalendarLocale locale="ru-RU">
         <CalendarContainer />
