@@ -1,9 +1,9 @@
 import { jest } from '@jest/globals';
 import PinGuard from './PinGuard';
 
-import {getSecret, putSecret, removeSecret} from '@main/services/secureStorage';
+import {getSecret, putSecret, removeSecret} from '@main/services/SecureStorage';
 
-jest.mock('../services/secureStorage');
+jest.mock('../services/SecureStorage');
 
 describe('PinGuard', () => {
   beforeEach(() => {

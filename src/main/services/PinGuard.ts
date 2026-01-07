@@ -1,4 +1,4 @@
-import {getSecret, putSecret, removeSecret} from '@main/services/secureStorage';
+import {getSecret, putSecret, removeSecret} from '@main/services/SecureStorage';
 import * as Messages from '@main/Messages';
 import * as CONST from '@main/CONST';
 
