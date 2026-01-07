@@ -15,11 +15,7 @@ export default class InitHandler extends IpcHandler {
     this.model = model;
   }
 
-  override async execute(request: Request): Promise<Response> {
-    if (request.endpoint !== 'put:init') {
-      return await super.execute(request);
-    }
-
+  override async execute(): Promise<Response> {
     await initializeFSKey();
 
     try {

@@ -11,7 +11,6 @@ import InitHandler from './InitHandler';
 
 export function subscribeHandlers(model: Model) {
   const handlers = Handler.CreateChain([
-    new InitHandler(model),
     new CheckHasPinHandler(),
     new ProtectionHandler(model),
     new PinHandler(),
@@ -20,4 +19,5 @@ export function subscribeHandlers(model: Model) {
   ]);
 
   ipcMain.handle('ipc-request', (event, request) => handlers.execute(request));
+  ipcMain.handle('init', () => new InitHandler(model).execute());
 }
