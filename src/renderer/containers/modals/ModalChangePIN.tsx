@@ -108,7 +108,7 @@ export function ChangePINModal({
 
   function handlePinEntered(pin: string) {
     if (state.step === Step.EnterCurrentPin) {
-      dispatch({  })
+
     }
 
 

@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import { getSecret, putSecret } from './secureStorage';
+import { getSecret, putSecret } from './SecureStorage';
 import * as CONST from '@main/CONST';
 
 export async function generateFSKey() {
