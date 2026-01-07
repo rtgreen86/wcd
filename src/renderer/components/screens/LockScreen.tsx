@@ -11,7 +11,7 @@ export default function LockScreen() {
   const handlePinEntered = () => { };
 
   if (token) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/app" replace />;
   }
 
   return (

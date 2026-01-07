@@ -22,7 +22,6 @@ export default function LoginForm({
 
   useEffect(() => {
     (async () => {
-      await init();
       const pinExists = await checkPinExists();
       setLoading(false);
       if (!pinExists) {

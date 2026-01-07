@@ -6,6 +6,7 @@ import LockScreen from './components/screens/LockScreen';
 import MainScreen from './components/screens/MainScreen';
 import CalendarScreen from './components/screens/CalendarScreen';
 import SettingsScreen from './components/screens/SettingsScreen';
+import InitScreen from '@components/screens/InitScreen';
 
 import RequireAuth from './components/RequireAuth';
 import AuthProvider from './components/AuthProvider';
@@ -30,7 +31,7 @@ export default function App() {
               <Route index element={<CalendarScreen />} />
             </Route>
             <Route path="/settings" element={<RequireAuth><SettingsScreen /></RequireAuth>} />
-            <Route path="*" element={<RequireAuth><Navigate to="/app" replace /></RequireAuth>} />
+            <Route path="*" element={<InitScreen />} />
           </Routes>
 
         </MemoryRouter>

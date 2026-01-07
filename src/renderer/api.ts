@@ -1,5 +1,5 @@
-export async function init() {
-  await window.electronAPI.ipcRequest({ endpoint: 'put:init' });
+export function init() {
+  return window.electronAPI.init();
 }
 
 export async function checkPinExists() {
