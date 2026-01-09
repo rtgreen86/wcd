@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
+import './menu/AppMenu';
 import SysInfo from './SysInfo';
 import { subscribeHandlers } from './handlers/subscription';
 import Model from './models/Model';
