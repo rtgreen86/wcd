@@ -1,4 +1,4 @@
-import {getEncryptedFile, putEncryptedFile} from './appDataStorage';
+import FileSystem from './FileSystem';
 import * as CONST from '@main/CONST';
 
 export default class DataStorage {
@@ -9,12 +9,12 @@ export default class DataStorage {
   }
 
   async put(content: string) {
-    await putEncryptedFile(CONST.DATA_ENCRYPTED_FILENAME, this.hexKey, content);
+    await FileSystem.putAppDataEncryptedFile(CONST.DATA_ENCRYPTED_FILENAME, this.hexKey, content);
   }
 
   async get() {
     try {
-      return await getEncryptedFile(CONST.DATA_ENCRYPTED_FILENAME, this.hexKey);
+      return await FileSystem.getAppDataEncryptedFile(CONST.DATA_ENCRYPTED_FILENAME, this.hexKey);
     } catch (error) {
       if (error.code === 'ENOENT') return '';
       throw error;

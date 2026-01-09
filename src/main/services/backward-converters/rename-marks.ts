@@ -2,7 +2,7 @@
 
 import { app } from 'electron';
 import { join } from 'node:path';
-import { buildAbsolutePath } from '../appDataStorage';
+import FileSystem from '../FileSystem';
 import { existsSync } from "fs";
 import { rename } from "fs/promises";
 
@@ -16,7 +16,7 @@ export async function renameMarks() {
     return;
   }
 
-  const newp = buildAbsolutePath(newfn);
+  const newp = FileSystem.buildAppDataPath(newfn);
 
   if (existsSync(newp)) {
     throw new Error('New File aready exists. Data from old version is not converted.');
