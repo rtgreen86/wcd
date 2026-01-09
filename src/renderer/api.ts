@@ -27,6 +27,12 @@ export async function getToken(pin: string | null) {
     : null;
 }
 
+export async function signOut() {
+  await window.electronAPI.ipcRequest({
+    endpoint: 'put:reset-tokens'
+  });
+};
+
 export async function setPin(pin: string | null, newPin: string | null) {
   const response = await window.electronAPI.ipcRequest({
     endpoint: 'put:pin',

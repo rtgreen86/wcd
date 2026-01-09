@@ -7,13 +7,29 @@ const menu = Menu.buildFromTemplate([
   {
     role: 'fileMenu',
     submenu: [
-      { label: 'Export', accelerator: 'CommandOrControl+Alt+E', enabled: false },
-      { label: 'Import', accelerator: 'CommandOrControl+Alt+I', enabled: false },
+      { id: 'export', label: 'Export', accelerator: 'CommandOrControl+Alt+E', enabled: false },
+      { id: 'import', label: 'Import', accelerator: 'CommandOrControl+Alt+I', enabled: false },
       { type: 'separator' },
       isMac ? { role: 'close' } : { role: 'quit' }
     ]
   },
-  { role: 'viewMenu' },
+  // { role: 'viewMenu' },
 ]);
 
+export class AppMenu {
+  static handleSignIn() {
+    const menu = Menu.getApplicationMenu();
+    menu.getMenuItemById('export').enabled = true;
+    menu.getMenuItemById('import').enabled = true;
+  }
+
+  static handleSignOut() {
+    const menu = Menu.getApplicationMenu();
+    menu.getMenuItemById('export').enabled = false;
+    menu.getMenuItemById('import').enabled = false;
+  }
+}
+
 Menu.setApplicationMenu(menu);
+
+export default AppMenu;

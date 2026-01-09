@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
-import { checkPinExists, getToken } from '../api';
+import { checkPinExists, getToken, signOut } from '../api';
 
 export function useAuth() {
   const {token, setToken} = useContext(AuthContext);
@@ -11,8 +11,9 @@ export function useAuth() {
     return Boolean(token);
   };
 
-  const logout = () => {
+  const logout = async () => {
     setToken(null);
+    await signOut();
   };
 
   return {token, login, logout, isPinExist: checkPinExists};

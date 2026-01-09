@@ -3,6 +3,7 @@ import {generateToken} from '@main/services/tokens';
 import {getKey} from '@main/services/fileSystemKey';
 import Model from '@main/models/Model';
 import IpcHandler from './IpcHandler';
+import AppMenu from '@main/menu/AppMenu'; '../menu/AppMenu';
 
 type Request = electronAPI.IpcRequest;
 type Response = electronAPI.IpcResponse;
@@ -17,7 +18,13 @@ export default class ProtectionHandler extends IpcHandler {
 
   override async execute(request: Request): Promise<Response> {
     if (request.endpoint === 'get:token') {
-      return this.getToken(request);
+      const result = await this.getToken(request);
+
+      if (result.success) {
+        AppMenu.handleSignIn();
+      }
+
+      return result;
     }
 
     // if (!this.checkToken(request)) {
@@ -28,6 +35,7 @@ export default class ProtectionHandler extends IpcHandler {
     // }
 
     if (request.endpoint === 'put:reset-tokens') {
+      AppMenu.handleSignOut();
       return this.resetTokens();
     }
 
