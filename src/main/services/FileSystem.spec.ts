@@ -59,6 +59,7 @@ describe('FileSystem', () => {
 
       it('should save and load content from file', async () => {
         await FileSystem.putAppDataEncryptedFile(testFile, hexKey, testContent);
+        await Promise.resolve();
         const actual = await FileSystem.getAppDataEncryptedFile(testFile, hexKey);
         expect(actual).toBe(testContent);
       });

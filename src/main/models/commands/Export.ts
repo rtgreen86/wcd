@@ -1,4 +1,4 @@
-import { Command } from '@shared/types';
+import { Command } from '@shared/infrastructure';
 import FileSystem from '@main/services/FileSystem';
 import Model from '../Model';
 
