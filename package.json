@@ -1,7 +1,7 @@
 {
   "name": "woman-calendar-by-malokhatko",
   "productName": "Woman Calendar",
-  "version": "0.2.0-alpha",
+  "version": "0.2.1-alpha",
   "description": "Woman calendar application by Malokhatko.",
   "main": ".webpack/main",
   "private": true,
