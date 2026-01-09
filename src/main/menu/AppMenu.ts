@@ -13,7 +13,7 @@ const menu = Menu.buildFromTemplate([
       isMac ? { role: 'close' } : { role: 'quit' }
     ]
   },
-  // { role: 'viewMenu' },
+  { role: 'viewMenu' },
 ]);
 
 export class AppMenu {

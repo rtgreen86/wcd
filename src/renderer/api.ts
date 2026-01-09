@@ -93,3 +93,7 @@ export async function getMarks(): Promise<string[]> {
 export async function putMarks(marks: string[]) {
   return await putData(JSON.stringify(marks));
 }
+
+export async function exportData() {
+  window.electronAPI2.export();
+}

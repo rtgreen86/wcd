@@ -1,8 +1,13 @@
 import BackPanel from '../back-panel';
 import packageInfo from '../../../../package.json';
 import { PinCodePanel } from '../panels';
+import { exportData } from '../../api';
 
 export default function SettingsScreen() {
+  const handleExport = () => {
+    exportData();
+  };
+
   return (
     <>
       <BackPanel />
@@ -19,6 +24,10 @@ export default function SettingsScreen() {
             </section>
             <br /><input type="submit" value="Сохранить" />
           </form>
+        </section>
+
+        <section>
+          <button onClick={handleExport}>Export</button>
         </section>
 
         <section>

@@ -1,3 +1,17 @@
+declare namespace WCD {
+  type ExportRequest = {
+    type: 'export',
+  }
+
+  type ImportRequest = {
+    type: 'import',
+  }
+
+  export type Request = ExportRequest | ImportRequest;
+
+  export type ActionType = Request['type'];
+}
+
 declare namespace electronAPI {
   export type IpcPayload = {
     strings?: Record<string, string>,
@@ -23,3 +37,5 @@ declare namespace electronAPI {
   function init(): Promise<IpcResponse>;
   function ipcRequest(request: IpcRequest): Promise<IpcResponse>;
 }
+
+
