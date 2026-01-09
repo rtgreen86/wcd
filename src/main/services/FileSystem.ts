@@ -59,6 +59,10 @@ export default class FileSystem {
   static buildAppDataPath(filename: string) {
     return path.join(app.getPath('userData'), `wcd-${path.basename(filename)}`);
   }
+
+  static buildExportPath(filename: string) {
+    return path.join(app.getPath('documents'), path.basename(filename));
+  }
 }
 
 
