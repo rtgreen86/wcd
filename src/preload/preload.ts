@@ -7,6 +7,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
 });
 
 contextBridge.exposeInMainWorld('electronAPI2', {
-  export: () => ipcRenderer.invoke('ipc-request-2', { type: 'export' })
+  export: () => ipcRenderer.invoke('ipc-request-2', { type: 'export' }),
+  dispatch: (request: WCD.Request) => ipcRenderer.invoke('ipc-request-2', request)
 });
-

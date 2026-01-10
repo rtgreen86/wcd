@@ -1,11 +1,19 @@
 import BackPanel from '../back-panel';
 import packageInfo from '../../../../package.json';
 import { PinCodePanel } from '../panels';
-import { exportData } from '../../api';
+import { exportData, importData, wipeData } from '../../api';
 
 export default function SettingsScreen() {
   const handleExport = () => {
     exportData();
+  };
+
+  const handleImport = () => {
+    importData();
+  };
+
+    const handleWipe = () => {
+    wipeData();
   };
 
   return (
@@ -28,6 +36,8 @@ export default function SettingsScreen() {
 
         <section>
           <button onClick={handleExport}>Export</button>
+          <button onClick={handleImport}>Import</button>
+          <button onClick={handleWipe}>Wipe</button>
         </section>
 
         <section>

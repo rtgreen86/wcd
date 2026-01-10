@@ -97,3 +97,11 @@ export async function putMarks(marks: string[]) {
 export async function exportData() {
   window.electronAPI2.export();
 }
+
+export async function importData() {
+  window.electronAPI2.dispatch({ type: "import" });
+}
+
+export async function wipeData() {
+  window.electronAPI2.dispatch({ type: "wipe" });
+}

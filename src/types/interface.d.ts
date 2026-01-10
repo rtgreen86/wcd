@@ -1,6 +1,6 @@
 export interface ElectronAPI2 {
   export(): Promise<void>;
-  import(): Promise<void>;
+  dispatch(request: WCD.Request);
 }
 
 declare global {
