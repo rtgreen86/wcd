@@ -2,11 +2,13 @@ import { Handler } from './Handler';
 
 export class DataHandler extends Handler<IpcRequest, IpcResponse> {
   handle(request: IpcRequest): Promise<void> | Promise<IpcResponse> {
-    switch(request.type) {
+    switch (request.type) {
       case 'data:load':
         return this.load();
       case 'data:save':
         return this.save();
+      case 'data:wipe':
+        return this.wipe();
       default:
         return this.next(request);
     }
@@ -26,5 +28,12 @@ export class DataHandler extends Handler<IpcRequest, IpcResponse> {
       status: 'success',
       payload: undefined,
     } as IpcResponseFor<'data:save'>);
+  }
+
+  private wipe() {
+    return Promise.resolve({
+      type: 'data:wipe',
+      status: 'success',
+    } as IpcResponseFor<'data:wipe'>);
   }
 }
