@@ -7,7 +7,6 @@ interface IpcRequestMap {
   'data:init': { token: string },
   'data:load': { token: string },
   'data:save': { token: string, content: data },
-  'test': { content: string, token: string },
 }
 
 interface IpcResponseMap {
@@ -19,7 +18,6 @@ interface IpcResponseMap {
   'data:init': void,
   'data:load': { content: string },
   'data:save': void,
-  'test': { content: string },
 }
 
 declare global {

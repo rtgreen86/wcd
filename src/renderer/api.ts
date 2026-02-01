@@ -1,4 +1,6 @@
-export function init() {
+export async function init() {
+  const result = await electronAPI3.dispatch({ type: 'data:init', payload: { token: 'token' } });
+  console.log(result);
   return window.electronAPI.init();
 }
 
@@ -104,12 +106,4 @@ export async function importData() {
 
 export async function wipeData() {
   window.electronAPI2.dispatch({ type: "wipe" });
-}
-
-export async function test(content: string) {
-  return electronAPI3.dispatch({ type: 'test', payload: { content, token: 'asdf' } });
-}
-
-export async function test2() {
-  return electronAPI3.dispatch({ type: "data:init", payload: { token: 'asdf' } });
 }
