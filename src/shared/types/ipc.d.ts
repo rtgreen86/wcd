@@ -31,7 +31,7 @@ declare global {
 
   type IpcResponse = {
     [K in IpcRequestType]: { type: K, status: 'success', payload: IpcResponseMap[K] }
-    | { type: K, status: 'fail', payload: string, error?: Error }
+    | { type: K, status: 'fail', payload: { message: string, error?: Error } }
   }[IpcRequestType];
 
   type IpcResponseFor<T extends IpcRequestType> = Extract<IpcResponse, { type: T }>;

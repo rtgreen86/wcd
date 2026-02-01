@@ -20,14 +20,16 @@ export default function InitScreen() {
   };
 
   const initAsync = async () => {
-    try {
-      const result = await init();
-      if (!result) handleError('Main process returns empty result.');
-      if (!result.success) handleError(result.message);
-      else handleSuccess();
-    } catch (error) {
-      handleError(error);
+    const result = await init();
+    if (!result) {
+      handleError('Main process returns empty result.');
+      return;
     }
+    if (result.status === 'fail') {
+      handleError(result.payload);
+      return;
+    }
+    handleSuccess();
   };
 
   useState(() => { initAsync(); });

@@ -1,7 +1,5 @@
-export async function init() {
-  const result = await electronAPI3.dispatch({ type: 'data:init', payload: { token: 'token' } });
-  console.log(result);
-  return window.electronAPI.init();
+export function init() {
+  return electronAPI3.dispatch({ type: 'data:init', payload: { token: 'token' } });
 }
 
 export async function checkPinExists() {

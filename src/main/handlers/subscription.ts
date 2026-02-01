@@ -8,7 +8,6 @@ import PinHandler from './PinHandler';
 import ProtectionHandler from './ProtectionHandler';
 import GetDataHandler from './GetDataHandler';
 import PutDataHandler from './PutDataHandler';
-import InitHandler from './InitHandler';
 
 import ExportHandler from './ExportHandler';
 
@@ -22,7 +21,6 @@ export function subscribeHandlers(model: Model) {
   ]);
 
   ipcMain.handle('ipc-request', (event, request) => handlers.execute(request));
-  ipcMain.handle('init', () => new InitHandler(model).execute());
 
   const pipeline = new Pipeline([
     new ExportHandler(model),

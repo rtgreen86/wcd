@@ -1,7 +1,7 @@
 import { Handler } from './Handler';
 
 export class ProtectionHandler extends Handler<IpcRequest, IpcResponse> {
-  handle(request: IpcRequest): Promise<void> | Promise<IpcResponse> {
+  handle(request: IpcRequest): Promise<void | IpcResponse> {
     const token = request.payload && 'token' in request.payload
       ? request.payload.token
       : null;
@@ -13,7 +13,7 @@ export class ProtectionHandler extends Handler<IpcRequest, IpcResponse> {
     return Promise.resolve({
       type: request.type,
       status: 'fail',
-      payload: 'Unauthorized',
+      payload: { message: 'Unauthorized' },
     } as IpcResponse)
   }
 }

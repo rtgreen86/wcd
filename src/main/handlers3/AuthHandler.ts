@@ -1,7 +1,7 @@
 import { Handler } from './Handler';
 
 export class AuthHandler extends Handler<IpcRequest, IpcResponse> {
-  handle(request: IpcRequest): Promise<void> | Promise<IpcResponse> {
+  handle(request: IpcRequest): Promise<void | IpcResponse> {
     switch (request.type) {
       case 'auth:sign-in':
         return this.signIn();

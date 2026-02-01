@@ -38,7 +38,6 @@ declare namespace electronAPI {
 }
 
 declare namespace electronAPI {
-  function init(): Promise<IpcResponse>;
   function ipcRequest(request: IpcRequest): Promise<IpcResponse>;
 }
 

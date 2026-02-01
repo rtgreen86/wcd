@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FocusEvent } from 'react';
 import InputPin from './controls/InputPin';
 import { useAuth } from '../hooks/useAuth';
-import { checkPinExists, init } from '../api';
+import { checkPinExists } from '../api';
 
 import './LoginForm.css';
 

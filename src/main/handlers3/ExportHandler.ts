@@ -1,7 +1,7 @@
 import { Handler } from './Handler';
 
 export class ExportHandler extends Handler<IpcRequest, IpcResponse> {
-  handle(request: IpcRequest): Promise<void> | Promise<IpcResponse> {
+  handle(request: IpcRequest): Promise<void | IpcResponse> {
     switch(request.type) {
       case 'data:export':
         return this.export();

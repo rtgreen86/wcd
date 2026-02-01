@@ -7,7 +7,7 @@ export abstract class Handler<T, K> {
     return handlers.reduce((chain, handler) => chain.setNext(handler));
   }
 
-  abstract handle(request: T): Promise<K> | Promise<void>;
+  abstract handle(request: T): Promise<K | void>;
 
   setNext(handler: Handler<T, K>) {
     if (handler === this) {
@@ -21,7 +21,7 @@ export abstract class Handler<T, K> {
     return this;
   }
 
-  protected next(request: T): Promise<K> | Promise<void> {
+  protected next(request: T): Promise<K | void> {
     if (!this.nextHandler) return Promise.resolve();
     return this.nextHandler.handle(request);
   }

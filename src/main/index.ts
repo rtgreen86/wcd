@@ -56,8 +56,9 @@ app.whenReady().then(async () => {
 
   ipcMain.handle('show-about', () => app.showAboutPanel());
 
-  subscribeHandlers(new Model());
-  subscribe();
+  const model = new Model();
+  subscribeHandlers(model);
+  subscribe(model);
 
   fillAboutPanel();
   createWindow();
