@@ -18,5 +18,6 @@ export default abstract class Handler<Request, Response> {
     return this;
   }
 
+
   protected abstract handleEndOfChain(request: Request): Response;
 }

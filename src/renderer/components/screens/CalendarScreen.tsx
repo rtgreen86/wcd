@@ -4,7 +4,7 @@ import { CalendarLocale } from '../../lib/Calendar';
 import CalendarContainer from '../calendar-container';
 import {ModalToggleButton} from '../Modal';
 import { ChangePINModal } from '../../containers/modals/ModalChangePIN';
-import { test } from '../../api';
+import { test, test2 } from '../../api';
 
 export default function CalendarScreen() {
   useEffect(() => {
@@ -19,11 +19,17 @@ export default function CalendarScreen() {
     }
   }
 
+  const handleClick2 = async () => {
+    const data = await test2();
+    console.log(data);
+  }
+
   return (
     <main className="container-xxl">
       {/* <div><ModalToggleButton target='#test-modal' className='btn-primary'>Open!</ModalToggleButton></div> */}
 
       <button onClick={handleClick} >Hello World!</button>
+      <button onClick={handleClick2} >Crash</button>
 
       <CalendarLocale locale="ru-RU">
         <CalendarContainer />

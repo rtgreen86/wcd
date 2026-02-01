@@ -109,3 +109,7 @@ export async function wipeData() {
 export async function test(content: string) {
   return electronAPI3.dispatch({ type: 'test', payload: { content } });
 }
+
+export async function test2() {
+  return electronAPI3.dispatch({ type: "data:init", payload: undefined });
+}

@@ -3,6 +3,9 @@ import './menu/AppMenu';
 import SysInfo from './SysInfo';
 import { subscribeHandlers } from './handlers/subscription';
 import Model from './models/Model';
+import { TestHandler } from './handlers3/TestHandler';
+import { Handler } from './handlers3/Handler';
+import { UnsupportedHandler } from './handlers3/UnsupportedHandler';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -55,10 +58,14 @@ app.whenReady().then(async () => {
 
   ipcMain.handle('show-about', () => app.showAboutPanel());
 
-  ipcMain.handle('ipc-dispatch', (event, request: IpcRequest) => {
-    if (request.type === 'test') {
-      return { type: request.type, status: 'success', payload: { content: request.payload.content } } as IpcResponseFor<typeof request.type>;
-    }
+  const myChain = Handler.chain([
+    new TestHandler(),
+    new UnsupportedHandler(),
+  ]);
+
+  ipcMain.handle('ipc-dispatch', async (event, request: IpcRequest) => {
+    const data = await myChain.handle(request);
+    return data;
   });
 
   subscribeHandlers(new Model());
