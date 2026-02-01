@@ -1,23 +1,25 @@
 interface IpcRequestMap {
-  'test': { content: string, token: string },
+  'auth:change-pin': { oldPin: string | null, newPin: string | null },
+  'auth:sign-in': { pin: string | null },
+  'auth:sign-out': void,
+  'data:export': { token: string, content: data },
+  'data:import': { token: string },
   'data:init': { token: string },
   'data:load': { token: string },
   'data:save': { token: string, content: data },
-  'data:import': { token: string },
-  'data:export': { token: string, content: data },
-  'auth:get-token': { pin: string | null },
-  'auth:change-pin': { oldPin: string | null, newPin: string | null },
+  'test': { content: string, token: string },
 }
 
 interface IpcResponseMap {
-  'test': { content: string },
+  'auth:change-pin': void,
+  'auth:sign-in': { token: string },
+  'auth:sign-out': void,
+  'data:export': void,
+  'data:import': { content: string },
   'data:init': void,
   'data:load': { content: string },
   'data:save': void,
-  'data:import': { content: string },
-  'data:export': void,
-  'auth:get-token': { token: string },
-  'auth:change-pin': void,
+  'test': { content: string },
 }
 
 declare global {
