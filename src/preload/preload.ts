@@ -17,9 +17,9 @@ const electronApi3: ElectronAPI3 = {
       return await ipcRenderer.invoke('ipc-dispatch', request);
     } catch (error) {
       if (error instanceof Error) {
-        return { status: 'fail', payload: error };
+        return { type: request.type, status: 'fail', payload: error.message, error };
       }
-      return { status: 'fail', payload: new Error(String(error)) };
+      return { type: request.type, status: 'fail', payload: String(error), error: new Error(String(error)) };
     }
   },
 }

@@ -6,6 +6,7 @@ import Model from './models/Model';
 import { TestHandler } from './handlers3/TestHandler';
 import { Handler } from './handlers3/Handler';
 import { UnsupportedHandler } from './handlers3/UnsupportedHandler';
+import { ProtectionHandler } from './handlers3/ProtectionHandler';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -59,6 +60,7 @@ app.whenReady().then(async () => {
   ipcMain.handle('show-about', () => app.showAboutPanel());
 
   const myChain = Handler.chain([
+    new ProtectionHandler(),
     new TestHandler(),
     new UnsupportedHandler(),
   ]);

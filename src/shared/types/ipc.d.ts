@@ -1,5 +1,5 @@
 interface IpcRequestMap {
-  'test': { content: string },
+  'test': { content: string, token: string },
   'data:init': { token: string },
   'data:load': { token: string },
   'data:save': { token: string, content: data },
@@ -29,7 +29,7 @@ declare global {
 
   type IpcResponse = {
     [K in IpcRequestType]: { type: K, status: 'success', payload: IpcResponseMap[K] }
-    | { type: K, status: 'fail', payload: Error }
+    | { type: K, status: 'fail', payload: string, error?: Error }
   }[IpcRequestType];
 
   type IpcResponseFor<T extends IpcRequestType> = Extract<IpcResponse, { type: T }>;

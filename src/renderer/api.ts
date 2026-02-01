@@ -107,9 +107,9 @@ export async function wipeData() {
 }
 
 export async function test(content: string) {
-  return electronAPI3.dispatch({ type: 'test', payload: { content } });
+  return electronAPI3.dispatch({ type: 'test', payload: { content, token: 'asdf' } });
 }
 
 export async function test2() {
-  return electronAPI3.dispatch({ type: "data:init", payload: undefined });
+  return electronAPI3.dispatch({ type: "data:init", payload: { token: 'asdf' } });
 }
