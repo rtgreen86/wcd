@@ -105,3 +105,7 @@ export async function importData() {
 export async function wipeData() {
   window.electronAPI2.dispatch({ type: "wipe" });
 }
+
+export async function test(content: string) {
+  return electronAPI3.dispatch({ type: 'test', payload: { content } });
+}

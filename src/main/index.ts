@@ -54,6 +54,13 @@ app.whenReady().then(async () => {
   //       .catch((err) => console.log('An error occurred: ', err));
 
   ipcMain.handle('show-about', () => app.showAboutPanel());
+
+  ipcMain.handle('ipc-dispatch', (event, request: IpcRequest) => {
+    if (request.type === 'test') {
+      return { type: request.type, status: 'success', payload: { content: request.payload.content } } as IpcResponseFor<typeof request.type>;
+    }
+  });
+
   subscribeHandlers(new Model());
 
   fillAboutPanel();
@@ -80,3 +87,4 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
