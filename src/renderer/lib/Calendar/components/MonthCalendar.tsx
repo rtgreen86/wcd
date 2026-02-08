@@ -2,8 +2,8 @@ import './MonthCalendar.css';
 import { useContext, useMemo } from 'react';
 import DaysGrid from './DaysGrid';
 import WeekDays from './WeekDays';
-import { LocaleContext } from './LocaleContext';
-import { getMonthsCaptions } from './utils';
+import { LocaleContext } from '../contexts/LocaleContext';
+import { getMonthsCaptions } from '../utils';
 
 export default function MonthCalendar({
   year = new Date().getUTCFullYear(),

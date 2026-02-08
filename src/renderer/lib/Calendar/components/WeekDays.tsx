@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { DEFAULT_LOCALE } from './CONST';
-import { getDaysOfWeek } from './utils';
+import { DEFAULT_LOCALE } from '../CONST';
+import { getDaysOfWeek } from '../utils';
 
 export default function WeekDays({
   locale = DEFAULT_LOCALE

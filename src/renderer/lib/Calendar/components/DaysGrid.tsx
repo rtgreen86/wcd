@@ -1,6 +1,6 @@
 import { useMemo, MouseEvent } from 'react';
-import { DEFAULT_LOCALE, GRID_COLUMNS } from './CONST';
-import { getDays, getWeekInfo } from './utils';
+import { DEFAULT_LOCALE, GRID_COLUMNS } from '../CONST';
+import { getDays, getWeekInfo } from '../utils';
 
 export default function DaysGrid({
   year,
