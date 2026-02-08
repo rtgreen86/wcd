@@ -1,5 +1,5 @@
 import { useMemo, useContext } from 'react';
-import { LocaleContext } from '../context/LocaleContext';
+import { LocaleContext } from '../LocaleContext';
 import { WeekInfo } from '../types';
 import { getWeekInfo } from '../utils';
 

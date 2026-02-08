@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { LocaleContext } from './context/LocaleContext';
+import { LocaleContext } from './LocaleContext';
 
 const CalendarLocale = ({
   locale = 'en-US',

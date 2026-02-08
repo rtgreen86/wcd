@@ -1,6 +1,6 @@
 import { useMemo, useContext } from 'react';
 import { capitalizeFirstLetter } from '../lib/utils';
-import { LocaleContext } from '../context/LocaleContext';
+import { LocaleContext } from '../LocaleContext';
 
 /**
  * Get localized month caption

@@ -4,7 +4,7 @@ import useMonthsCaptions from './hooks/useMonthsCaptions';
 import DaysGrid from './DaysGrid';
 import WeekDays from './WeekDays';
 import { noop } from './lib/utils';
-import { LocaleContext } from './context/LocaleContext';
+import { LocaleContext } from './LocaleContext';
 
 export default function MonthCalendar({
   year = new Date().getUTCFullYear(),
