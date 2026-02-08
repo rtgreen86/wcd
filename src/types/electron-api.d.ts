@@ -7,11 +7,7 @@ declare namespace WCD {
     type: 'import',
   }
 
-  type WipeRequest = {
-    type: 'wipe',
-  }
-
-  export type Request = ExportRequest | ImportRequest | WipeRequest;
+  export type Request = ExportRequest | ImportRequest ;
 
   export type ActionType = Request['type'];
 }
