@@ -29,3 +29,15 @@ export type DayInfo = {
   /** true for current month */
   visible: boolean
 };
+
+export type WeekDaysCaption = {
+  cellNumber: number,
+
+  /** [1..7] where 1 is monday*/
+  day: number,
+
+  /** localized caption */
+  caption: string,
+
+  marks: string[]
+};

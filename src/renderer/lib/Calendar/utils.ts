@@ -7,7 +7,6 @@ export function getWeekInfo(locale: string = DEFAULT_LOCALE): WeekInfo {
   return IntlWrapper.getWeekInfo(locale);
 };
 
-
 export function getDays(year: number, month: number, weekInfo: WeekInfo): DayInfo[] {
   const normalizeDay = (day: number) => day === 0 ? 7 : day;
 
@@ -31,4 +30,34 @@ export function getDays(year: number, month: number, weekInfo: WeekInfo): DayInf
     visible: item.month === month,
     marks: weekInfo.weekend.includes(item.day) ? ['weekend'] : [],
   }));
+}
+
+export function daysOfWeekCaption(locale: string = DEFAULT_LOCALE): Record<string, string> {
+  const formatter = new Intl.DateTimeFormat(locale, { weekday: 'short' });
+  return Array.from({ length: 7 }).reduce<Record<string, string>>((result, value, index) => {
+    const dateObj = new Date();
+    dateObj.setDate(index + 1);
+    const day = dateObj.getDay();
+    const caption = capitalizeFirstLetter(formatter.format(dateObj));
+    result[day] = caption;
+    return result;
+  }, {});
+}
+
+export function daysOfWeek(locale: string = DEFAULT_LOCALE) {
+  const weekInfo = getWeekInfo(locale);
+  const captions = daysOfWeekCaption(locale);
+  return Array.from({ length: 7 }, (val, index) => {
+    const day = index + weekInfo.firstDay > 7 ? index : index + weekInfo.firstDay;
+    return {
+      cellNumber: index,
+      day,
+      caption: day === 7 ? captions[0] : captions[day],
+      marks: weekInfo.weekend.includes(day) ? ['weekend'] : []
+    };
+  })
+}
+
+function capitalizeFirstLetter(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }

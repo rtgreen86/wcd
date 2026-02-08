@@ -1,15 +1,7 @@
 import { useMemo } from 'react';
 import useWeekInfo from './useWeekInfo';
 import useDaysOfWeekCaptions from './useDaysOfWeekCaptions';
-
-/**
- * Week Days Captions
- * @typeof {Object} WeekDaysCaption
- * @prop {number} cellNumber
- * @prop {number} day - [1..7] where 1 is monday
- * @prop {string} caption - localized caption
- * @prop {string[]} marks
- */
+import { WeekDaysCaption } from '../types';
 
 /**
  * Memoized Days Captions
