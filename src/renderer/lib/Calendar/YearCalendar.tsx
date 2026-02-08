@@ -1,12 +1,14 @@
 import './YearCalendar.css';
-
-import React from 'react';
 import MonthCalendar from './MonthCalendar';
 
 export default function YearCalendar({
   year = new Date().getUTCFullYear(),
-  marks,
-  onClick
+  marks = {},
+  onClick = () => undefined,
+} : {
+  year?: number,
+  marks?: Record<string, string[]>,
+  onClick?: (date: string) => void
 }) {
   return (
     <div className="calendar-year">{
