@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`WeekDays rendered match snapshot 1`] = `
+<DocumentFragment>
+  <table>
+    <thead>
+      <tr>
+        <td
+          class="weekend"
+        >
+          Sun
+        </td>
+        <td
+          class=""
+        >
+          Mon
+        </td>
+        <td
+          class=""
+        >
+          Tue
+        </td>
+        <td
+          class=""
+        >
+          Wed
+        </td>
+        <td
+          class=""
+        >
+          Thu
+        </td>
+        <td
+          class=""
+        >
+          Fri
+        </td>
+        <td
+          class="weekend"
+        >
+          Sat
+        </td>
+      </tr>
+    </thead>
+  </table>
+</DocumentFragment>
+`;

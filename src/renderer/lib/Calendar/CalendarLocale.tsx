@@ -1,15 +1,13 @@
-import React, { ReactNode } from 'react';
-import { LocaleContext } from '../context/LocaleContext';
-
-type Props = {
-  locale?: string,
-  children?: ReactNode
-};
+import { ReactNode } from 'react';
+import { LocaleContext } from './context/LocaleContext';
 
 const CalendarLocale = ({
   locale = 'en-US',
   children
-}: Props) => {
+}: {
+  locale?: string,
+  children?: ReactNode
+}) => {
   return (
     <LocaleContext.Provider value={locale}>{
       children
