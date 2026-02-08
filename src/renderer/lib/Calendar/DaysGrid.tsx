@@ -1,6 +1,5 @@
 import { useMemo, MouseEvent } from 'react';
-import { gridColumns } from './lib/Const';
-import { DEFAULT_LOCALE } from './CONST';
+import { DEFAULT_LOCALE, GRID_COLUMNS } from './CONST';
 import { getDays, getWeekInfo } from './utils';
 
 export default function DaysGrid({
@@ -36,7 +35,7 @@ export default function DaysGrid({
   const grid = cells.reduce((_grid, cell, index, { length }) => {
     const row = _grid[_grid.length - 1];
     row.push(cell);
-    if ((index + 1) % gridColumns === 0 && index !== length - 1) {
+    if ((index + 1) % GRID_COLUMNS === 0 && index !== length - 1) {
       _grid.push([]);
     }
     return _grid;

@@ -32,7 +32,7 @@ export function getDays(year: number, month: number, weekInfo: WeekInfo): DayInf
   }));
 }
 
-export function daysOfWeekCaption(locale: string = DEFAULT_LOCALE): Record<string, string> {
+export function getDaysOfWeekCaption(locale: string = DEFAULT_LOCALE): Record<string, string> {
   const formatter = new Intl.DateTimeFormat(locale, { weekday: 'short' });
   return Array.from({ length: 7 }).reduce<Record<string, string>>((result, value, index) => {
     const dateObj = new Date();
@@ -44,9 +44,9 @@ export function daysOfWeekCaption(locale: string = DEFAULT_LOCALE): Record<strin
   }, {});
 }
 
-export function daysOfWeek(locale: string = DEFAULT_LOCALE) {
+export function getDaysOfWeek(locale: string = DEFAULT_LOCALE) {
   const weekInfo = getWeekInfo(locale);
-  const captions = daysOfWeekCaption(locale);
+  const captions = getDaysOfWeekCaption(locale);
   return Array.from({ length: 7 }, (val, index) => {
     const day = index + weekInfo.firstDay > 7 ? index : index + weekInfo.firstDay;
     return {
