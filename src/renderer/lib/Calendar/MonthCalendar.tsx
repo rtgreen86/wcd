@@ -1,24 +1,23 @@
 import './MonthCalendar.css';
-import { useContext } from 'react';
-import useMonthsCaptions from './hooks/useMonthsCaptions';
+import { useContext, useMemo } from 'react';
 import DaysGrid from './DaysGrid';
 import WeekDays from './WeekDays';
-import { noop } from './lib/utils';
 import { LocaleContext } from './LocaleContext';
+import { getMonthsCaptions } from './utils';
 
 export default function MonthCalendar({
   year = new Date().getUTCFullYear(),
   month = new Date().getUTCMonth() + 1,
   marks = {},
-  onClick = noop
+  onClick = () => undefined
 }: {
   year?: number,
   month?: number,
   marks?: Record<string, string[]>,
   onClick?: (date: string) => void
 }) {
-  const monthCaptions = useMonthsCaptions();
   const locale = useContext(LocaleContext);
+  const monthCaptions = useMemo(() => getMonthsCaptions(locale), [locale]);
 
   return (
     <table className="calendar-month">

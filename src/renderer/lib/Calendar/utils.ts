@@ -58,6 +58,16 @@ export function daysOfWeek(locale: string = DEFAULT_LOCALE) {
   })
 }
 
+export function getMonthsCaptions(locale: string = DEFAULT_LOCALE) {
+  const formatter = new Intl.DateTimeFormat(locale, { month: 'long' });
+  return Array.from({ length: 12 }, (value, index) => {
+    const date = new Date();
+    date.setDate(1);
+    date.setMonth(index);
+    return capitalizeFirstLetter(formatter.format(date));
+  });
+}
+
 function capitalizeFirstLetter(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
