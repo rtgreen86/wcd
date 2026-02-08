@@ -3,11 +3,11 @@ interface IpcRequestMap {
   'auth:sign-in': { pin: string | null },
   'auth:sign-out': void,
   'data:export': { token: string, content: data },
+  'data:get': { token: string, key: string },
   'data:import': { token: string },
   'data:init': { token: string },
-  'data:load': { token: string },
-  'data:save': { token: string, content: data },
-  'data:wipe': { token: string },
+  'data:put': { token: string, key: string, content: data },
+  'data:wipe': { token: string, key: string },
 }
 
 interface IpcResponseMap {
@@ -15,10 +15,10 @@ interface IpcResponseMap {
   'auth:sign-in': { token: string },
   'auth:sign-out': void,
   'data:export': void,
+  'data:get': { content: string },
   'data:import': { content: string },
   'data:init': void,
-  'data:load': { content: string },
-  'data:save': void,
+  'data:put': void,
   'data:wipe': void,
 }
 
@@ -33,6 +33,8 @@ declare global {
     [K in IpcRequestType]: { type: K, status: 'success', payload: IpcResponseMap[K] }
     | { type: K, status: 'fail', payload: { message: string, error?: Error } }
   }[IpcRequestType];
+
+  type IpcRequestFor<T extends IpcRequestType> = Extract<IpcRequest, { type: T }>;
 
   type IpcResponseFor<T extends IpcRequestType> = Extract<IpcResponse, { type: T }>;
 

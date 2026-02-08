@@ -12,10 +12,10 @@ import { UnsupportedHandler } from './UnsupportedHandler';
 export function subscribe(model: Model) {
   const handlers = Handler.chain([
     new AuthHandler(),
-    new ProtectionHandler(),
     new InitHandler(model),
+    new ProtectionHandler(),
     new ChangePinHandler(),
-    new DataHandler(),
+    new DataHandler(model),
     new ExportHandler(),
     new UnsupportedHandler(),
   ]);

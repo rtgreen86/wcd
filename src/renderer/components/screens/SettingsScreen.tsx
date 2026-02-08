@@ -1,7 +1,7 @@
 import BackPanel from '../back-panel';
 import packageInfo from '../../../../package.json';
 import { PinCodePanel } from '../panels';
-import { exportData, importData, wipeData } from '../../api';
+import { exportData, importData, wipeMarks } from '../../api';
 
 export default function SettingsScreen() {
   const handleExport = () => {
@@ -12,8 +12,8 @@ export default function SettingsScreen() {
     importData();
   };
 
-    const handleWipe = () => {
-    wipeData();
+  const handleWipe = () => {
+    wipeMarks('token');
   };
 
   return (

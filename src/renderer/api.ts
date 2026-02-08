@@ -1,7 +1,3 @@
-export function init() {
-  return electronAPI3.dispatch({ type: 'data:init', payload: { token: 'token' } });
-}
-
 export async function checkPinExists() {
   const response = await window.electronAPI.ipcRequest({
     endpoint: 'get:check-has-pin'
@@ -53,47 +49,6 @@ export async function removePin(pin: string | null) {
   return response.success;
 }
 
-export async function getData() {
-  const response = await window.electronAPI.ipcRequest({
-    endpoint: 'get:data'
-  });
-
-  if (!response.success) {
-    throw new Error(response.message || 'Unexpected error on read data.');
-  }
-
-  return response.payload?.strings?.data;
-}
-
-export async function putData(data: string) {
-  const response = await window.electronAPI.ipcRequest({
-    endpoint: 'put:data',
-    payload: {
-      strings: { data }
-    }
-  });
-
-  if (!response.success) {
-    throw new Error(response.message || 'Unexpected error on put data.');
-  }
-}
-
-export async function getMarks(): Promise<string[]> {
-  const data = await getData();
-  if (data === '') {
-    return [];
-  }
-  try {
-    return JSON.parse(data);
-  } catch (error) {
-    throw new Error('Error while receiving data.', { cause: error });
-  }
-}
-
-export async function putMarks(marks: string[]) {
-  return await putData(JSON.stringify(marks));
-}
-
 export async function exportData() {
   window.electronAPI2.export();
 }
@@ -102,6 +57,64 @@ export async function importData() {
   window.electronAPI2.dispatch({ type: "import" });
 }
 
-export async function wipeData() {
-  window.electronAPI2.dispatch({ type: "wipe" });
+
+
+export function init() {
+  return electronAPI3.dispatch({ type: 'data:init', payload: { token: 'token' } });
+};
+
+export function getData(token: string, key: string) {
+  return electronAPI3.dispatch({
+    type: 'data:get',
+    payload: { token, key }
+  });
+}
+
+export function putData(token: string, key: string, content: string) {
+  return electronAPI3.dispatch({
+    type: 'data:put',
+    payload: { token, key, content }
+  });
+}
+
+export function wipeData(token: string, key: string) {
+  return electronAPI3.dispatch({
+    type: 'data:wipe',
+    payload: { token, key }
+  });
+}
+
+export async function getMarks(token: string): Promise<string[]> {
+  const response = await getData(token, 'marks.json');
+
+  if (response.status === 'fail') {
+    throw new Error(response.payload.message, { cause: response.payload.error });
+  }
+
+  const { content } = response.payload;
+
+  if (content === '') {
+    return [];
+  }
+
+  try {
+    return JSON.parse(content);
+  } catch (error) {
+    throw new Error('Error while receiving data.', { cause: error });
+  }
+}
+
+export async function putMarks(token: string, marks: string[]): Promise<void> {
+  const content = JSON.stringify(marks);
+  const response = await putData(token, 'marks.json', content);
+  if (response.status === 'fail') {
+    throw new Error(response.payload.message, { cause: response.payload.error });
+  }
+}
+
+export async function wipeMarks(token: string): Promise<void> {
+  const response = await wipeData(token, 'marks.json');
+  if (response.status === 'fail') {
+    throw new Error(response.payload.message, { cause: response.payload.error });
+  }
 }

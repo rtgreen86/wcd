@@ -12,7 +12,14 @@ export default function CalendarContainer() {
     if (!store.isLoading) return;
 
     const asyncOp = async () => {
-      const marks = await getMarks();
+      let marks: string[];
+
+      try {
+        marks = await getMarks('token');
+      } catch (error) {
+        console.error(error);
+        return;
+      }
 
       const marks2 = {} as Record<string, string[]>;
 
@@ -32,7 +39,14 @@ export default function CalendarContainer() {
     }
 
     const asyncOp = async () => {
-      await putMarks(Object.keys(store.marks));
+      const marks = Object.keys(store.marks);
+
+      try {
+        await putMarks('token', marks);
+      } catch (error) {
+        console.error(error);
+        return;
+      }
       dispatch({ type: 'marks/saved' });
     }
 
