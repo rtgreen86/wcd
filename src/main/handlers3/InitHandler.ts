@@ -1,6 +1,6 @@
 import Model from '../models/Model';
 import { Handler } from './Handler';
-import { initializeFSKey } from '../services/fileSystemKey';
+import { initializeFSKey } from '../services/FileSystemKey';
 import { BackwardFacade } from '../services/backward-converters';
 
 export class InitHandler extends Handler<IpcRequest, IpcResponse> {

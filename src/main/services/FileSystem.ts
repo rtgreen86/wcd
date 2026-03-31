@@ -5,9 +5,20 @@ import { createReadStream } from 'node:fs';
 import { createWriteStream } from 'node:fs';
 import { pipeline, finished } from 'node:stream/promises';
 import { Readable } from 'node:stream';
-import { readFile, writeFile } from 'node:fs/promises';
-import * as CONST from '@main/CONST';
+import { readFile, writeFile, unlink, access, constants } from 'node:fs/promises';
+import * as CONST from '../Const';
 
+export async function canRead(filename: string) {
+  try {
+    console.log('canRead', filename);
+    await access(filename, constants.R_OK);
+    console.log('canRead', filename, 'true');
+    return true;
+  } catch (error) {
+    console.log('canRead', filename, 'false');
+    return false;
+  }
+}
 
 export function getBinnaryFile(filename: string): Promise<Buffer> {
   return readFile(filename);
@@ -46,6 +57,9 @@ export async function putEncryptedFile(filename: string, hexKey: string, content
   return finished(cipher);
 }
 
+export async function removeFile(filename: string) {
+  await unlink(filename);
+}
 
 function readBytes(stream: Readable, byteSize: number) {
   return new Promise<Buffer>((resolve, reject) => {

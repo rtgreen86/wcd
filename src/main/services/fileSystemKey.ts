@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto';
-import { getSecret, putSecret } from './SecureStorage';
-import * as CONST from '@main/CONST';
+import { getSecret, putSecret, Key } from './SecureStorage';
+import * as CONST from '../Const';
 
 export async function generateFSKey() {
   const buffer = randomBytes(CONST.FS_ENCRYPTION_KEY_SIZE);
@@ -8,13 +8,13 @@ export async function generateFSKey() {
 }
 
 export function getKey(): Promise<string> {
-  return getSecret('key');
+  return getSecret(Key.CryptoKey);
 }
 
 export async function initializeFSKey() {
-  const existsKey = await getSecret('key');
+  const existsKey = await getSecret(Key.CryptoKey);
   if (!existsKey) {
     const newKey = await generateFSKey();
-    await putSecret('key', newKey);
+    await putSecret(Key.CryptoKey, newKey);
   }
 }

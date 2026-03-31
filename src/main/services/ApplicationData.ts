@@ -4,6 +4,10 @@ import { Readable } from 'node:stream';
 import path from 'node:path';
 import * as FileSystem from './FileSystem'
 
+export function canRead(filename: string) {
+  return FileSystem.canRead(buildAppDataPath(filename));
+}
+
 export function getBinnaryFile(filename: string): Promise<Buffer> {
   return FileSystem.getBinnaryFile(buildAppDataPath(filename));
 }
@@ -26,6 +30,10 @@ export async function putTextFile(filename: string, content: string) {
 
 export async function putEncryptedFile(filename: string, hexKey: string, content: string) {
   await FileSystem.putEncryptedFile(buildAppDataPath(filename), hexKey, content);
+}
+
+export async function removeFile(filename: string) {
+  await FileSystem.removeFile(buildAppDataPath(filename));
 }
 
 export function buildAppDataPath(filename: string) {

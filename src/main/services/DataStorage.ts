@@ -1,5 +1,5 @@
 import FileSystem from './FileSystem';
-import * as CONST from '@main/CONST';
+import * as CONST from '@main/Const';
 
 export default class DataStorage {
   private readonly hexKey: string;

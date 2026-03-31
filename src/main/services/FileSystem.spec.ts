@@ -1,7 +1,7 @@
 import { app } from 'electron';
 import { jest } from '@jest/globals';
 import { mkdtemp, rm } from 'node:fs/promises';
-import * as CONST from '@main/CONST';
+import * as CONST from '@main/Const';
 import os from 'node:os';
 import path, { join } from 'node:path';
 import * as FileSystem from './FileSystem';

@@ -1,6 +1,6 @@
-import {getSecret, putSecret, removeSecret} from '@main/services/SecureStorage';
+import {getSecret, putSecret, removeSecret, Key} from '@main/services/SecureStorage';
 import * as Messages from '@main/Messages';
-import * as CONST from '@main/CONST';
+import * as CONST from '@main/Const';
 
 let busy = false;
 let attempts = 0;
@@ -62,14 +62,14 @@ function isValidFormat(pin: string): pin is string {
 }
 
 async function checkNow(pin: string | null) {
-  const storedPin = await getSecret('pin');
+  const storedPin = await getSecret(Key.PIN);
   return pin === storedPin;
 }
 
 async function setNow(value: string) {
-  await putSecret('pin', value);
+  await putSecret(Key.PIN, value);
 }
 
 async function removeNow() {
-  await removeSecret('pin');
+  await removeSecret(Key.PIN);
 }
