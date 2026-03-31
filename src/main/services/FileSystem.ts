@@ -1,4 +1,3 @@
-import { app } from 'electron';
 import { Buffer } from 'node:buffer';
 import { createCipheriv, randomBytes } from 'node:crypto';
 import { createDecipheriv } from 'node:crypto';
@@ -8,61 +7,43 @@ import { pipeline, finished } from 'node:stream/promises';
 import { Readable } from 'node:stream';
 import { readFile, writeFile } from 'node:fs/promises';
 import * as CONST from '@main/CONST';
-import path from 'node:path';
 
-export default class FileSystem {
-  static getTextFile(filename: string): Promise<string> {
-    return readFile(filename, 'utf8');
-  }
 
-  static async putTextFile(filename: string, content: string) {
-    await writeFile(filename, content, 'utf8');
-  }
+export function getBinnaryFile(filename: string): Promise<Buffer> {
+  return readFile(filename);
+}
 
-  static async getEncryptedFile(filename: string, hexKey: string): Promise<string> {
-    const stream = createReadStream(filename);
-    const key = Buffer.alloc(CONST.FS_ENCRYPTION_KEY_SIZE, hexKey, 'hex');
-    const iv = await readBytes(stream, CONST.FS_ENCRYPTION_IV_SIZE);
-    const decipher = createDecipheriv(CONST.FS_ALGORITHM, key, iv);
-    stream.pipe(decipher);
-    return readAllText(decipher);
-  }
+export async function getEncryptedFile(filename: string, hexKey: string): Promise<string> {
+  const stream = createReadStream(filename);
+  const key = Buffer.alloc(CONST.FS_ENCRYPTION_KEY_SIZE, hexKey, 'hex');
+  const iv = await readBytes(stream, CONST.FS_ENCRYPTION_IV_SIZE);
+  const decipher = createDecipheriv(CONST.FS_ALGORITHM, key, iv);
+  stream.pipe(decipher);
+  return readAllText(decipher);
+}
 
-  static async putEncryptedFile(filename: string, hexKey: string, content: string) {
-    const stream = createWriteStream(filename);
-    const iv = randomBytes(CONST.FS_ENCRYPTION_IV_SIZE);
-    const bufferWithKey = Buffer.alloc(CONST.FS_ENCRYPTION_KEY_SIZE, hexKey, 'hex');
-    const cipher = createCipheriv(CONST.FS_ALGORITHM, bufferWithKey, iv);
-    pipeline(cipher, stream);
-    stream.write(iv);
-    cipher.write(content);
-    cipher.end();
-    return finished(cipher);
-  }
+export function getTextFile(filename: string): Promise<string> {
+  return readFile(filename, 'utf8');
+}
 
-  static getAppDataTextFile(filename: string): Promise<string> {
-    return FileSystem.getTextFile(FileSystem.buildAppDataPath(filename));
-  }
+export async function putBinnaryFile(filename: string, content: Buffer) {
+  await writeFile(filename, content);
+}
 
-  static putAppDataTextFile(filename: string, content: string) {
-    return FileSystem.putTextFile(FileSystem.buildAppDataPath(filename), content);
-  }
+export async function putTextFile(filename: string, content: string) {
+  await writeFile(filename, content, 'utf8');
+}
 
-  static getAppDataEncryptedFile(filename: string, hexKey: string): Promise<string> {
-    return FileSystem.getEncryptedFile(FileSystem.buildAppDataPath(filename), hexKey);
-  }
-
-  static putAppDataEncryptedFile(filename: string, hexKey: string, content: string) {
-    return FileSystem.putEncryptedFile(FileSystem.buildAppDataPath(filename), hexKey, content);
-  }
-
-  static buildAppDataPath(filename: string) {
-    return path.join(app.getPath('userData'), `wcd-${path.basename(filename)}`);
-  }
-
-  static buildExportPath(filename: string) {
-    return path.join(app.getPath('documents'), path.basename(filename));
-  }
+export async function putEncryptedFile(filename: string, hexKey: string, content: string) {
+  const stream = createWriteStream(filename);
+  const iv = randomBytes(CONST.FS_ENCRYPTION_IV_SIZE);
+  const bufferWithKey = Buffer.alloc(CONST.FS_ENCRYPTION_KEY_SIZE, hexKey, 'hex');
+  const cipher = createCipheriv(CONST.FS_ALGORITHM, bufferWithKey, iv);
+  pipeline(cipher, stream);
+  stream.write(iv);
+  cipher.write(content);
+  cipher.end();
+  return finished(cipher);
 }
 
 
@@ -100,7 +81,6 @@ function readBytes(stream: Readable, byteSize: number) {
     handleReadable();
   });
 }
-
 
 function readAllText(stream: Readable) {
   return new Promise<string>((resolve, reject) => {
