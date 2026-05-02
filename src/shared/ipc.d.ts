@@ -1,25 +1,25 @@
 interface IpcRequestMap {
+  'auth:get-token': { pin: string | null },
+  'auth:dispose-token': { token: string },
   'auth:change-pin': { oldPin: string | null, newPin: string | null },
-  'auth:sign-in': { pin: string | null },
-  'auth:sign-out': void,
-  'data:export': { token: string, content: data },
-  'data:get': { token: string, key: string },
+  'data:init': void,
+  'data:get': { token: string },
+  'data:put': { token: string, content: string },
+  'data:export': { token: string, content: string },
   'data:import': { token: string },
-  'data:init': { token: string },
-  'data:put': { token: string, key: string, content: data },
-  'data:wipe': { token: string, key: string },
+  'data:wipe': { token: string, pin: string | null }
 }
 
 interface IpcResponseMap {
+  'auth:get-token': { token: string },
+  'auth:dispose-token': void,
   'auth:change-pin': void,
-  'auth:sign-in': { token: string },
-  'auth:sign-out': void,
-  'data:export': void,
-  'data:get': { content: string },
-  'data:import': { content: string },
   'data:init': void,
+  'data:get': { content: string },
   'data:put': void,
-  'data:wipe': void,
+  'data:export': void,
+  'data:import': { content: string },
+  'data:wipe': void
 }
 
 declare global {
@@ -39,7 +39,7 @@ declare global {
   type IpcResponseFor<T extends IpcRequestType> = Extract<IpcResponse, { type: T }>;
 
   interface ElectronAPI3 {
-    dispatch<T extends IpcRequestType>(request: { type: T, payload: IpcRequestMap[T] }): Promise<IpcResponseFor<T>>;
+    dispatch<T extends IpcRequestType>(request: IpcRequestFor<T>): Promise<IpcResponseFor<T>>;
   }
 
   var electronAPI3: ElectronAPI3;
