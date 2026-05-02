@@ -1,7 +1,7 @@
 import { Command } from '@shared/infrastructure';
 import FileSystem from '../../services/FileSystem';
 import Model from '../Model';
-import DataStorage from '../../services/DataStorage';
+import DataStorage from '../../services/legacy-services/DataStorage';
 
 export default class Import implements Command<Promise<void>> {
   readonly model;

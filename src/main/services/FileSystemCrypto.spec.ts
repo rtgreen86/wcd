@@ -3,13 +3,16 @@ import { jest } from '@jest/globals';
 import { mkdtemp, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import * as FileSystem from './FileSystem';
+import * as FileSystemCrypto from './FileSystemCrypto';
 
 jest.mock('electron');
 
-describe('FileSystem', () => {
+describe('FileSystemCrypto', () => {
+  const CRYPTO_KEY_SIZE = 24;
+
   const testContent = 'Hello, world!';
-  const textFile = 'text-file.txt';
+  const encryptedFile = 'encrypted-file.enc';
+  const hexKey = new Array(CRYPTO_KEY_SIZE / 2).fill('0').join('');
 
   let tempDir: string;
 
@@ -28,10 +31,10 @@ describe('FileSystem', () => {
     await rm(tempDir, { recursive: true });
   });
 
-  it('should save and load text files', async () => {
-    const file = path.join(tempDir, textFile);
-    await FileSystem.putTextFile(file, testContent);
-    const actual = await FileSystem.getTextFile(file);
+  it('should save and load encrypted content', async () => {
+    const file = path.join(tempDir, encryptedFile);
+    await FileSystemCrypto.putEncryptedFile(file, hexKey, testContent);
+    const actual = await FileSystemCrypto.getEncryptedFile(file, hexKey);
     expect(actual).toBe(testContent);
   });
 });

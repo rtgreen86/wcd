@@ -1,13 +1,13 @@
 import { ipcMain } from 'electron';
 import Model from '../models/Model';
-import { AuthHandler } from './AuthHandler';
-import { ChangePinHandler } from './ChangePinHandler';
-import { DataHandler } from './DataHandler';
-import { ExportHandler } from './ExportHandler';
+// import { AuthHandler } from './AuthHandler';
+// import { ChangePinHandler } from './ChangePinHandler';
+// import { DataHandler } from './DataHandler';
+// import { ExportHandler } from './ExportHandler';
 import { Handler } from '@shared/infra/Handler';
 import { InitHandler } from '../handlers/InitHandler';
-import { ProtectionHandler } from './ProtectionHandler';
-import { UnsupportedHandler } from './UnsupportedHandler';
+// import { ProtectionHandler } from './ProtectionHandler';
+// import { UnsupportedHandler } from './UnsupportedHandler';
 
 export function subscribe(model: Model) {
   const handlers = Handler.chain([

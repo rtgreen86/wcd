@@ -1,6 +1,6 @@
 import PinGuard from '@main/services/PinGuard';
 import {generateToken} from '@main/services/tokens';
-import {getKey} from '@main/services/FileSystemKey';
+import {getKey} from '@main/services/FileSystemCrypto';
 import Model from '@main/models/Model';
 import IpcHandler from './IpcHandler';
 import AppMenu from '@main/menu/AppMenu'; '../menu/AppMenu';

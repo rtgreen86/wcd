@@ -3,7 +3,7 @@ import './menu/AppMenu';
 import SysInfo from './SysInfo';
 import { subscribeHandlers } from './handlers/subscription';
 import Model from './models/Model';
-import { subscribe } from './handlers3/subscribe';
+import { subscribe } from './handlers/subscribe';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -57,7 +57,6 @@ app.whenReady().then(async () => {
   ipcMain.handle('show-about', () => app.showAboutPanel());
 
   const model = new Model();
-  subscribeHandlers(model);
   subscribe(model);
 
   fillAboutPanel();

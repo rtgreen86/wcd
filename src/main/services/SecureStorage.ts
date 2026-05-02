@@ -1,7 +1,7 @@
 import { Buffer } from 'node:buffer';
 import { safeStorage } from 'electron';
 import * as CONST from '../Const';
-import * as AppData from './ApplicationData';
+import * as AppData from './AppData';
 import * as Messages from '../Messages';
 
 export enum Key {
@@ -30,7 +30,6 @@ export async function removeSecret(key: Key) {
 function getFilename(key: Key) {
   switch (key) {
     case Key.PIN: return CONST.PIN_ENCRYPTED_FILENAME;
-    case Key.CryptoKey: return CONST.MASTERKEY_ENCRYPTED_FILENAME;
     default: throw new Error(Messages.ERROR_UNSUPPORTED_SECRET_KEY, {cause: key});
   }
 }

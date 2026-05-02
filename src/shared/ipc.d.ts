@@ -1,8 +1,8 @@
 interface IpcRequestMap {
+  'app:init': void,
   'auth:get-token': { pin: string | null },
   'auth:dispose-token': { token: string },
   'auth:change-pin': { oldPin: string | null, newPin: string | null },
-  'data:init': void,
   'data:get': { token: string },
   'data:put': { token: string, content: string },
   'data:export': { token: string, content: string },
@@ -11,10 +11,10 @@ interface IpcRequestMap {
 }
 
 interface IpcResponseMap {
+  'app:init': { protected: boolean },
   'auth:get-token': { token: string },
   'auth:dispose-token': void,
   'auth:change-pin': void,
-  'data:init': void,
   'data:get': { content: string },
   'data:put': void,
   'data:export': void,

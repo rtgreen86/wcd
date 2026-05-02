@@ -1,4 +1,4 @@
-import FileSystem from './FileSystem';
+import FileSystem from '../FileSystem';
 import * as CONST from '@main/Const';
 
 export default class DataStorage {
