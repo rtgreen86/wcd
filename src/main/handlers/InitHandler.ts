@@ -1,6 +1,6 @@
 import { Handler } from '@shared/infra/Handler';
 import Model from '../models/Model';
-import InitCommand from '../commands/InitCommand';
+import InitCommand from '../commands/InitEncryptionCommand';
 
 import { BackwardFacade } from '../services/backward-converters';
 

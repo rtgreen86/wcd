@@ -57,12 +57,9 @@ const handleIpc = (model: Model) => {
   ipcMain.handle('get-system-locale', () => app.getLocale());
   ipcMain.handle('ipc-dispatch', async (event, request: IpcRequest) => {
     try {
-      return handlers.handle(request);
+      return await handlers.handle(request);
     } catch (error) {
-      if (error instanceof Error) {
-        return { type: request.type, status: 'fail', payload: error.message, error };
-      }
-      return { type: request.type, status: 'fail', payload: String(error), error: new Error(String(error)) };
+      return { type: request.type, status: 'fail', payload: { message: String(error), error: error } };
     }
   });
 }

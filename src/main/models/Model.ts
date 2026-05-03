@@ -1,6 +1,5 @@
 export default class Model {
-  fsKey: string | null = null;
-  isSafeStorageSupported: boolean = false;
   isEncryptionSupported: boolean = false;
+  encryptionKey: string | null = null;
   sessionTokens = new Set<string>();
 }

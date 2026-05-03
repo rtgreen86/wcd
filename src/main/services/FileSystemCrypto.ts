@@ -36,7 +36,7 @@ export function isKeyExists() {
   return canRead(filePath);
 }
 
-export function isSafeStorageSupported() {
+export function isEncryptionSupported() {
   if (!safeStorage.isEncryptionAvailable()) {
     return false;
   }
@@ -48,12 +48,11 @@ export function isSafeStorageSupported() {
     }
   }
 
-  return true;
-}
+  if (!getCiphers().includes(CRYPTO_ALGORITHM)) {
+    return false;
+  }
 
-export function isEncryptionSupported() {
-  const ciphers = getCiphers();
-  return ciphers.includes(CRYPTO_ALGORITHM);
+  return true;
 }
 
 export async function getEncryptedFile(filename: string, hexKey: string): Promise<string> {
