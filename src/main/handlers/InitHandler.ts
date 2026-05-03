@@ -15,7 +15,7 @@ export class InitHandler extends Handler<IpcRequest, IpcResponse> {
   async handle(request: IpcRequest): Promise<IpcResponse> {
     if (request.type !== 'app:init') return this.next(request);
 
-    await new InitCommand(this.model).execute();
+    // await new InitCommand(this.model).execute();
 
 
     // await initializeFSKey();
@@ -51,7 +51,7 @@ export class InitHandler extends Handler<IpcRequest, IpcResponse> {
     return {
       type: 'app:init',
       status: 'fail',
-      payload: { message: 'PIN code not initialized.' + JSON.stringify(this.model), }
+      payload: { message: 'not initialized.' + JSON.stringify(this.model), }
     };
   }
 }

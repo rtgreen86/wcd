@@ -1,5 +1,5 @@
 interface IpcRequestMap {
-  'app:init': { lang: string },
+  'app:init': { locale: string },
   'auth:get-token': { pin: string | null },
   'auth:dispose-token': { token: string },
   'auth:change-pin': { oldPin: string | null, newPin: string | null },

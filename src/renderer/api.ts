@@ -58,11 +58,6 @@ export async function importData() {
 }
 
 
-
-export function init() {
-  return electronAPI3.dispatch({ type: 'data:init', payload: { token: 'token' } });
-};
-
 export function getData(token: string, key: string) {
   return electronAPI3.dispatch({
     type: 'data:get',
@@ -118,3 +113,15 @@ export async function wipeMarks(token: string): Promise<void> {
     throw new Error(response.payload.message, { cause: response.payload.error });
   }
 }
+
+
+
+
+
+
+export function init({ locale }: { locale: string }) {
+  return electronAPI.dispatch({
+    type: 'app:init',
+    payload: { locale },
+  });
+};

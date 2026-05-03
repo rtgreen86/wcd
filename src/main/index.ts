@@ -1,10 +1,12 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
-import i18n from '@shared/translations';
+import '@shared/translations';
 import './menu/AppMenu';
+
+import { app, BrowserWindow, ipcMain } from 'electron';
 import SysInfo from './SysInfo';
-import { subscribeHandlers } from './handlers/subscription';
 import Model from './models/Model';
-import { subscribe } from './handlers/subscribe';
+
+import { Handler } from '@shared/infra/Handler';
+import { InitHandler } from './handlers/InitHandler';
 
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -40,6 +42,31 @@ const createWindow = () => {
   // mainWindow.webContents.openDevTools();
 };
 
+const handleIpc = (model: Model) => {
+  const handlers = Handler.chain([
+    new InitHandler(model),
+    // new AuthHandler(),
+    // new ProtectionHandler(),
+    // new ChangePinHandler(),
+    // new DataHandler(model),
+    // new ExportHandler(),
+    // new UnsupportedHandler(),
+  ]);
+
+  ipcMain.handle('show-about', () => app.showAboutPanel());
+  ipcMain.handle('get-system-locale', () => app.getLocale());
+  ipcMain.handle('ipc-dispatch', async (event, request: IpcRequest) => {
+    try {
+      return handlers.handle(request);
+    } catch (error) {
+      if (error instanceof Error) {
+        return { type: request.type, status: 'fail', payload: error.message, error };
+      }
+      return { type: request.type, status: 'fail', payload: String(error), error: new Error(String(error)) };
+    }
+  });
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -56,12 +83,7 @@ app.whenReady().then(async () => {
   //       .catch((err) => console.log('An error occurred: ', err));
 
   const model = new Model();
-
-  ipcMain.handle('show-about', () => app.showAboutPanel());
-  ipcMain.handle('get-system-locale', () => app.getLocale());
-
-  subscribe(model);
-
+  handleIpc(model);
   fillAboutPanel();
   createWindow();
 });
