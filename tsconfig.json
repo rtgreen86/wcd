@@ -19,7 +19,8 @@
       "@components/*": ["./src/renderer/components/*"]
     },
     "jsx": "react-jsx",
-    "types": ["node"]
+    "types": ["node"],
+    "rootDir": "./"
   },
   "include": [
     "src/**/*",
