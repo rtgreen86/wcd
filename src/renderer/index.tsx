@@ -39,6 +39,6 @@ console.log('👋 This message is being logged by "renderer.js", included via we
 
 // Next https://redux.js.org/tutorials/essentials/part-6-performance-normalization#normalizing-data
 
-const container: Element = document.getElementById('app');
+const container = document.getElementById('app') as Element;
 const root: ReactDOM.Root = ReactDOM.createRoot(container);
 root.render(<App />);

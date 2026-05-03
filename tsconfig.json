@@ -3,23 +3,23 @@
     "target": "ES2022",
     "lib": ["ES2022", "DOM", "ESNext"],
     "allowJs": true,
-    "module": "commonjs",
+    "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "isolatedModules": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "baseUrl": ".",
     "outDir": "dist",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "paths": {
-      "@shared/*": ["src/shared/*"],
-      "@main/*": ["src/main/*"],
-      "@api/*": ["src/renderer/api/*"],
-      "@components/*": ["src/renderer/components/*"],
-      "*": ["node_modules/*"]
+      "@shared/*": ["./src/shared/*"],
+      "@main/*": ["./src/main/*"],
+      "@api/*": ["./src/renderer/api/*"],
+      "@components/*": ["./src/renderer/components/*"]
     },
     "jsx": "react-jsx",
+    "types": ["node"]
   },
   "include": ["src/**/*"]
 }
