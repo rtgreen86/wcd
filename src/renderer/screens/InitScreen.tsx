@@ -2,7 +2,7 @@ import './InitScreen.css';
 
 import { useState } from 'react';
 import { Navigate } from "react-router-dom";
-import { init } from '../../api';
+import { init } from '../api';
 
 export default function InitScreen() {
   const [isSuccess, setSuccess] = useState(false);
@@ -32,7 +32,7 @@ export default function InitScreen() {
     handleSuccess();
   };
 
-  useState(() => { initAsync(); });
+  // useState(() => { initAsync(); });
 
   if (isSuccess) {
     return <Navigate to="/app" replace />;
