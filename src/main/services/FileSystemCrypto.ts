@@ -37,13 +37,18 @@ export function isKeyExists() {
 }
 
 export function isSafeStorageSupported() {
-  const isAvailable = safeStorage.isEncryptionAvailable();
-  if (isAvailable) {
-    const backend = safeStorage.getSelectedStorageBackend();
-    console.log(backend)
-    return backend !== 'basic_text' && backend !== 'unknown';
+  if (!safeStorage.isEncryptionAvailable()) {
+    return false;
   }
-  return false;
+
+  if (process.platform === 'linux') {
+    const backend = safeStorage.getSelectedStorageBackend();
+    if (backend === 'basic_text') {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 export function isEncryptionSupported() {
