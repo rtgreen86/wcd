@@ -1,5 +1,5 @@
 interface IpcRequestMap {
-  'app:init': void,
+  'app:init': { lang: string },
   'auth:get-token': { pin: string | null },
   'auth:dispose-token': { token: string },
   'auth:change-pin': { oldPin: string | null, newPin: string | null },
@@ -38,14 +38,15 @@ declare global {
 
   type IpcResponseFor<T extends IpcRequestType> = Extract<IpcResponse, { type: T }>;
 
-  interface ElectronAPI3 {
+  interface ElectronAPI {
     dispatch<T extends IpcRequestType>(request: IpcRequestFor<T>): Promise<IpcResponseFor<T>>;
+    getSystemLocale(): string,
   }
 
-  var electronAPI3: ElectronAPI3;
+  var electronAPI: ElectronAPI;
 
   interface Window {
-    electronAPI3: ElectronAPI3;
+    electronAPI: ElectronAPI;
   }
 }
 

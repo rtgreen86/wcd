@@ -9,6 +9,7 @@
     "test": "jest",
     "update-snapshot": "jest -u",
     "start": "electron-forge start",
+    "start-en": "electron-forge start -- --lang=en",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish"

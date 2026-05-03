@@ -1,16 +1,11 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  ipcRequest: (request: electronAPI.IpcRequest) => ipcRenderer.invoke('ipc-request', request),
-  showAbout: () => ipcRenderer.invoke('show-about'),
-});
-
 contextBridge.exposeInMainWorld('electronAPI2', {
   export: () => ipcRenderer.invoke('ipc-request-2', { type: 'export' }),
   dispatch: (request: WCD.Request) => ipcRenderer.invoke('ipc-request-2', request)
 });
 
-const electronApi3: ElectronAPI3 = {
+const electronApi: ElectronAPI = {
   async dispatch(request) {
     try {
       return await ipcRenderer.invoke('ipc-dispatch', request);
@@ -21,6 +16,12 @@ const electronApi3: ElectronAPI3 = {
       return { type: request.type, status: 'fail', payload: String(error), error: new Error(String(error)) };
     }
   },
+
+  getSystemLocale: () => ipcRenderer.invoke('get-system-locale'),
+
+  // @ts-ignore
+  ipcRequest: (request: any) => ipcRenderer.invoke('ipc-request', request), // @ts-ignore
+  showAbout: () => ipcRenderer.invoke('show-about'),
 }
 
-contextBridge.exposeInMainWorld('electronAPI3', electronApi3);
+contextBridge.exposeInMainWorld('electronAPI', electronApi);

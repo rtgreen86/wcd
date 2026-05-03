@@ -1,5 +1,3 @@
-import React from 'react';
-
 import StateProvder from './components/state-provider';
 
 import LockScreen from './components/screens/LockScreen';

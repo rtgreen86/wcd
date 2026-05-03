@@ -55,13 +55,11 @@ app.whenReady().then(async () => {
   //       .then((name) => console.log(`Added Extension:  ${name}`))
   //       .catch((err) => console.log('An error occurred: ', err));
 
-  const systemLocale = app.getLocale();
-  console.log('LANG', systemLocale);
-  i18n.changeLanguage(systemLocale);
+  const model = new Model();
 
   ipcMain.handle('show-about', () => app.showAboutPanel());
+  ipcMain.handle('get-system-locale', () => app.getLocale());
 
-  const model = new Model();
   subscribe(model);
 
   fillAboutPanel();

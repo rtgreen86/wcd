@@ -4,12 +4,16 @@ import { useState } from 'react';
 import { Navigate } from "react-router-dom";
 import i18n, { t } from '@shared/translations';
 import { init } from '../api';
+import { Spinner } from '../components/Spinner';
 
 export default function InitScreen() {
-  i18n.changeLanguage('ru');
+  const initialized = useState(false);
+  const [message, setMessage] = useState('');
+
+
+
 
   const [isSuccess, setSuccess] = useState(false);
-  const [message, setMessage] = useState(t('Welcome to React'));
 
   const handleError = (error: unknown) => {
     if (error instanceof Error) setMessage(`Initialization failed. ${error.message}`);
@@ -22,20 +26,33 @@ export default function InitScreen() {
     setMessage('');
   };
 
+
+
+
   const initAsync = async () => {
-    const result = await init();
-    if (!result) {
-      handleError('Main process returns empty result.');
-      return;
-    }
-    if (result.status === 'fail') {
-      handleError(result.payload);
-      return;
-    }
-    handleSuccess();
+    const systemLocale = await electronAPI.getSystemLocale();
+    i18n.changeLanguage(systemLocale);
+    setMessage(t('Initializing the application...'));
+
+    // TODO: Initialize application
+
+
+
+
+
+    // const result = await init();
+    // if (!result) {
+    //   handleError('Main process returns empty result.');
+    //   return;
+    // }
+    // if (result.status === 'fail') {
+    //   handleError(result.payload);
+    //   return;
+    // }
+    // handleSuccess();
   };
 
-  // useState(() => { initAsync(); });
+  useState(() => { initAsync(); });
 
   if (isSuccess) {
     return <Navigate to="/app" replace />;
@@ -43,9 +60,11 @@ export default function InitScreen() {
 
   return (
     <main id="init-screen">
-      <div className="spacer"></div>
+      <Spinner stop={!initialized}/>
       <div className="message">{message}</div>
-      <div className="spacer"></div>
+      {/* <div className="spacer"></div>
+      <div className="message">{message}</div>
+      <div className="spacer"></div> */}
     </main>
   );
 }

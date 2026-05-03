@@ -30,15 +30,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './lib/GoogleIcons';
 import './styles/styles.css';
 
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import '@shared/translations';
 
 import App from './App';
-
-console.log('👋 This message is being logged by "renderer.js", included via webpack');
-
-// Next https://redux.js.org/tutorials/essentials/part-6-performance-normalization#normalizing-data
 
 const container = document.getElementById('app') as Element;
 const root: ReactDOM.Root = ReactDOM.createRoot(container);

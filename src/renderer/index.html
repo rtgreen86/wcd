@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Woman Calendar</title>
 
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <!-- https://content-security-policy.com/examples/allow-inline-style/ -->
-    <!-- https://www.electronjs.org/ru/docs/latest/tutorial/security#7-define-a-content-security-policy -->
+<head>
+  <meta charset="UTF-8" />
+  <title>Woman Calendar</title>
 
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="style-src 'nonce-wcd'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'nonce-wcd'"
-    />
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <!-- https://content-security-policy.com/examples/allow-inline-style/ -->
+  <!-- https://www.electronjs.org/ru/docs/latest/tutorial/security#7-define-a-content-security-policy -->
 
-  </head>
-  <body>
-    <div id="app" class="clearfix">Loading Application...</div>
-  </body>
+  <meta http-equiv="Content-Security-Policy" content="style-src 'nonce-wcd'" />
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'nonce-wcd'" />
+</head>
+
+<body>
+  <div id="app" class="clearfix">
+    <style nonce="wcd">
+      .loader-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+    </style>
+    <div class="loader-container">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>

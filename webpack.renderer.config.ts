@@ -4,13 +4,6 @@ import { plugins } from './webpack.plugins';
 
 const isPreload = process.env.WEBPACK_RENDERER_TARGET === 'preload'; // <-- Electron Forge так определяет preload
 
-// rules.push({
-//   test: /\.css$/,
-//   use: [{ loader: 'style-loader', options: { attributes: { nonce: "wcd" } } }, { loader: 'css-loader' }]
-// });
-
-console.log('isPreload', isPreload, process.env.WEBPACK_RENDERER_TARGET);
-
 export const rendererConfig: Configuration = {
   module: {
     rules: [{
