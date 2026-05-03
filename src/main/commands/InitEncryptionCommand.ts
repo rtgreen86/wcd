@@ -9,9 +9,11 @@ export default class InitCommand implements Command<Promise<void>> {
 
   async execute() {
     this.model.isEncryptionSupported = isEncryptionSupported();
-    this.model.encryptionKey = null
+    this.model.encryptionKey = null;
 
-    if (this.model.isEncryptionSupported) {
+    const keyExists = await isKeyExists();
+
+    if (this.model.isEncryptionSupported && keyExists) {
       try {
         this.model.encryptionKey = await getKey();
       } catch (error) {
