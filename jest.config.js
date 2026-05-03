@@ -4,6 +4,44 @@
  */
 
 module.exports = {
+  // Automatically clear mock calls, instances, contexts and results before every test
+  clearMocks: true,
+
+  // Indicates which provider should be used to instrument code for coverage
+  coverageProvider: "babel",
+
+  // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
+  moduleNameMapper: {
+    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
+    'electron': '<rootDir>/__mocks__/electronMock.js',
+    '@shared': '<rootDir>/src/shared',
+    '@main/(.*)': '<rootDir>/src/main/$1',
+  },
+
+  // The test environment that will be used for testing
+  testEnvironment: "jsdom",
+
+  // A map from regular expressions to paths to transformers
+  transform: {
+    '\\.[jt]sx?$': [
+      'ts-jest',
+      {
+        diagnostics: {
+          ignoreCodes: [6.0, 5107, 6133]
+        },
+        tsconfig: {
+          moduleResolution: 'node',
+          allowSyntheticDefaultImports: true,
+          esModuleInterop: true
+        },
+      }
+    ]
+  },
+
+
+
+
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -12,9 +50,6 @@ module.exports = {
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "C:\\Users\\pavel\\AppData\\Local\\Temp\\jest",
-
-  // Automatically clear mock calls, instances, contexts and results before every test
-  clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -29,9 +64,6 @@ module.exports = {
   // coveragePathIgnorePatterns: [
   //   "\\\\node_modules\\\\"
   // ],
-
-  // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "babel",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -87,14 +119,6 @@ module.exports = {
   //   "node"
   // ],
 
-  // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  moduleNameMapper: {
-    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
-    'electron': '<rootDir>/__mocks__/electronMock.js',
-    '@shared': '<rootDir>/src/shared',
-    '@main/(.*)': '<rootDir>/src/main/$1',
-  },
-
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
 
@@ -148,9 +172,6 @@ module.exports = {
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],
 
-  // The test environment that will be used for testing
-  testEnvironment: "jsdom",
-
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
 
@@ -176,11 +197,6 @@ module.exports = {
 
   // This option allows use of a custom test runner
   // testRunner: "jest-circus/runner",
-
-  // A map from regular expressions to paths to transformers
-  transform: {
-    '\\.[jt]sx?$': 'ts-jest'
-  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [

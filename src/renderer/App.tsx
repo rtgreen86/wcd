@@ -23,17 +23,14 @@ export default function App() {
     <AuthProvider>
       <StateProvder>
         <MemoryRouter>
-
           <Routes>
             <Route path="/lock" element={<LockScreen />} />
-
             <Route path="/app" element={<RequireAuth><MainScreen /></RequireAuth>}>
               <Route index element={<CalendarScreen />} />
             </Route>
             <Route path="/settings" element={<RequireAuth><SettingsScreen /></RequireAuth>} />
             <Route path="*" element={<InitScreen />} />
           </Routes>
-
         </MemoryRouter>
       </StateProvder>
     </AuthProvider>
