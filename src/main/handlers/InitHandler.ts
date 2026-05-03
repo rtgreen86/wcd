@@ -1,7 +1,9 @@
 import { Handler } from '@shared/infra/Handler';
 import i18n from '@shared/translations';
 import Model from '../models/Model';
-import InitCommand from '../commands/InitEncryptionCommand';
+
+import InitEncryptionCmd from '../commands/InitEncryptionCmd';
+import InitTranslationsCmd from '../commands/InitTranslationsCmd';
 
 import { BackwardFacade } from '../services/backward-converters';
 
@@ -16,11 +18,8 @@ export class InitHandler extends Handler<IpcRequest, IpcResponse> {
   async handle(request: IpcRequest): Promise<IpcResponse> {
     if (request.type !== 'app:init') return this.next(request);
 
-    await i18n.changeLanguage(request.payload.locale);
-    await new InitCommand(this.model).execute();
-
-
-    // await initializeFSKey();
+    await new InitTranslationsCmd(request.payload.locale).execute();
+    await new InitEncryptionCmd(this.model).execute();
 
     // try {
     //   await BackwardFacade.processAll();
@@ -52,8 +51,11 @@ export class InitHandler extends Handler<IpcRequest, IpcResponse> {
 
     return {
       type: 'app:init',
-      status: 'fail',
-      payload: { message: 'not initialized.' + JSON.stringify(this.model), }
+      status: 'success',
+      payload: {
+        encryptionsSupported: this.model.encryptionSupported,
+        protected: this.model.encryptionKey !== null,
+      }
     };
   }
 }

@@ -11,7 +11,7 @@ interface IpcRequestMap {
 }
 
 interface IpcResponseMap {
-  'app:init': { protected: boolean },
+  'app:init': { protected: boolean, encryptionsSupported: boolean },
   'auth:get-token': { token: string },
   'auth:dispose-token': void,
   'auth:change-pin': void,

@@ -38,9 +38,9 @@ export default function InitScreen() {
 
   useState(() => { initAsync(); });
 
-  if (isSuccess) {
-    return <Navigate to="/app" replace />;
-  }
+  // if (isSuccess) {
+  //   return <Navigate to="/app" replace />;
+  // }
 
   return (
     <main id="init-screen">
