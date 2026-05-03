@@ -1,4 +1,5 @@
 import { Handler } from '@shared/infra/Handler';
+import i18n from '@shared/translations';
 import Model from '../models/Model';
 import InitCommand from '../commands/InitEncryptionCommand';
 
@@ -15,6 +16,7 @@ export class InitHandler extends Handler<IpcRequest, IpcResponse> {
   async handle(request: IpcRequest): Promise<IpcResponse> {
     if (request.type !== 'app:init') return this.next(request);
 
+    await i18n.changeLanguage(request.payload.locale);
     await new InitCommand(this.model).execute();
 
 

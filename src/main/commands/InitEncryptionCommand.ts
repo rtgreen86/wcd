@@ -15,8 +15,6 @@ export default class InitCommand implements Command<Promise<void>> {
       try {
         this.model.encryptionKey = await getKey();
       } catch (error) {
-        console.log(t('The operating system cannot decrypt the master key.'))
-
         throw new Error(t('The operating system cannot decrypt the master key.'), {
           cause: error
         });

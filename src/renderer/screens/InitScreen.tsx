@@ -13,7 +13,7 @@ export default function InitScreen() {
 
   const initAsync = async () => {
     const systemLocale = await electronAPI.getSystemLocale();
-    i18n.changeLanguage(systemLocale);
+    await i18n.changeLanguage(systemLocale);
     setMessage(t('Initializing the application...'));
 
     try {

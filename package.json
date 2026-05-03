@@ -12,7 +12,8 @@
     "start-en": "electron-forge start -- --lang=en",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "publish": "electron-forge publish"
+    "publish": "electron-forge publish",
+    "search-translation-keys": "i18next-cli extract"
   },
   "keywords": [
     "woman",
@@ -46,6 +47,7 @@
     "electron-devtools-installer": "^4.0.0",
     "fork-ts-checker-webpack-plugin": "^9.1.0",
     "i18next": "^26.0.8",
+    "i18next-cli": "^1.56.9",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "node-loader": "^2.0.0",

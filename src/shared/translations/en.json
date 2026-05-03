@@ -1,5 +1,6 @@
 {
   "translation": {
-    "Initializing the application...": "Initializing the application..."
+    "Initializing the application...": "Initializing the application...",
+    "The operating system cannot decrypt the master key.": "The operating system cannot decrypt the master key."
   }
 }

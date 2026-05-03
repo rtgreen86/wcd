@@ -1,5 +1,6 @@
-  {
-    "translation": {
-      "Initializing the application...": "Инициализация приложения..."
-    }
+{
+  "translation": {
+    "Initializing the application...": "Инициализация приложения...",
+    "The operating system cannot decrypt the master key.": "Операционная система не может расшифровать мастер-ключ."
   }
+}
