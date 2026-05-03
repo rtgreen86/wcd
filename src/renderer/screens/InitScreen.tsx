@@ -2,11 +2,14 @@ import './InitScreen.css';
 
 import { useState } from 'react';
 import { Navigate } from "react-router-dom";
+import i18n, { t } from '@shared/translations';
 import { init } from '../api';
 
 export default function InitScreen() {
+  i18n.changeLanguage('ru');
+
   const [isSuccess, setSuccess] = useState(false);
-  const [message, setMessage] = useState('Starting...');
+  const [message, setMessage] = useState(t('Welcome to React'));
 
   const handleError = (error: unknown) => {
     if (error instanceof Error) setMessage(`Initialization failed. ${error.message}`);

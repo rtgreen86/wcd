@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
+import i18n from '@shared/translations';
 import './menu/AppMenu';
 import SysInfo from './SysInfo';
 import { subscribeHandlers } from './handlers/subscription';
@@ -53,6 +54,10 @@ app.whenReady().then(async () => {
   // installExtension(REDUX_DEVTOOLS)
   //       .then((name) => console.log(`Added Extension:  ${name}`))
   //       .catch((err) => console.log('An error occurred: ', err));
+
+  const systemLocale = app.getLocale();
+  console.log('LANG', systemLocale);
+  i18n.changeLanguage(systemLocale);
 
   ipcMain.handle('show-about', () => app.showAboutPanel());
 

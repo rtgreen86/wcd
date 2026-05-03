@@ -32,6 +32,7 @@ import './styles/styles.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import '@shared/translations';
 
 import App from './App';
 

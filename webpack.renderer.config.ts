@@ -44,7 +44,7 @@ export const rendererConfig: Configuration = {
     alias: {
       "@shared": path.join(__dirname, 'src', 'shared'),
       "@api": path.join(__dirname, 'src', 'renderer', 'api'),
-      "@components": path.join(__dirname, 'src', 'renderer', 'components'),
+      "@components": path.join(__dirname, 'src', 'renderer', 'components')
     }
   },
 };
