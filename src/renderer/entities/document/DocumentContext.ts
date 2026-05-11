@@ -10,4 +10,4 @@ const emptyDocument = createDocument();
 
 const noop: (action: Action) => void = () => { };
 
-export const DocumentContext = createContext([emptyDocument, noop]);
+export const DocumentContext = createContext({document: emptyDocument, dispatch: noop});

@@ -14,6 +14,7 @@ import {
   MemoryRouter
 } from "react-router-dom";
 
+import { DocumentProvider } from '../entities/document';
 import InitProvider from './providers/InitProvider';
 
 
@@ -21,22 +22,24 @@ import MainScreen from '../screens/MainScreen';
 
 export default function App() {
   return (
-    <InitProvider>
-      <AuthProvider>
-        {/* <StateProvder> */}
-        <MemoryRouter>
-          <Routes>
-            {/* <Route path="/lock" element={<LockScreen />} /> */}
-            {/* <Route path="/app" element={<RequireAuth><MainScreen /></RequireAuth>}> */}
-            {/* <Route index element={<CalendarScreen />} /> */}
-            {/* </Route> */}
-            {/* <Route path="/settings" element={<RequireAuth><SettingsScreen /></RequireAuth>} /> */}
-            {/* <Route path="*" element={<InitScreen />} /> */}
-            <Route path="*" element={<MainScreen />} />
-          </Routes>
-        </MemoryRouter>
-        {/* </StateProvder> */}
-      </AuthProvider>
-    </InitProvider>
+    <DocumentProvider>
+      <InitProvider>
+        <AuthProvider>
+          {/* <StateProvder> */}
+          <MemoryRouter>
+            <Routes>
+              {/* <Route path="/lock" element={<LockScreen />} /> */}
+              {/* <Route path="/app" element={<RequireAuth><MainScreen /></RequireAuth>}> */}
+              {/* <Route index element={<CalendarScreen />} /> */}
+              {/* </Route> */}
+              {/* <Route path="/settings" element={<RequireAuth><SettingsScreen /></RequireAuth>} /> */}
+              {/* <Route path="*" element={<InitScreen />} /> */}
+              <Route path="*" element={<MainScreen />} />
+            </Routes>
+          </MemoryRouter>
+          {/* </StateProvder> */}
+        </AuthProvider>
+      </InitProvider>
+    </DocumentProvider>
   );
 }

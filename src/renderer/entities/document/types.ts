@@ -8,4 +8,4 @@ export type Document = {
 export type Action =
   { type: 'toggleMark', payload: { date: string, marks: string[] } } |
   { type: 'setMarks', payload: Marks } |
-  { type: 'loadingMarks' };
+  { type: 'loading' };

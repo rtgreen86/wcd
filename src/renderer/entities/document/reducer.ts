@@ -2,7 +2,7 @@ import { Document, Marks, Action } from './types';
 
 export function reducer(state: Document, action: Action): Document {
   switch (action.type) {
-    case "loadingMarks":
+    case "loading":
       return { ...state, isLoading: true };
     case "setMarks":
       return { ...state, marks: action.payload, isLoading: false };
