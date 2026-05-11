@@ -1,3 +1,6 @@
+import { useDocument } from '../entities/document';
+
 export default function MainScreen() {
-  return <div>Hello World!</div>;
+  const [document] = useDocument();
+  return <div>{ JSON.stringify(document) }</div>;
 }
