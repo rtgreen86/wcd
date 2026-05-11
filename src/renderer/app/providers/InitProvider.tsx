@@ -1,6 +1,6 @@
 import './InitProvider.css';
 
-import { t } from '@shared/translations';
+import i18n from 'i18next';
 import React, { useEffect, useState } from 'react';
 import { initApp, initLocale } from '../../shared/api/inits';
 import { Spinner } from '../../shared/widgets/Spinner';
@@ -15,7 +15,7 @@ export default function InitProvider({ children }: { children: React.ReactNode }
       try {
         const locale = await initLocale();
 
-        setMessage(t('Initializing the application...'));
+        setMessage(i18n.t('Initializing the application...'));
         const result = await initApp({ locale });
 
         if (result.status === 'fail') {
@@ -27,7 +27,7 @@ export default function InitProvider({ children }: { children: React.ReactNode }
 
         setSuccess(true);
         setInProcess(false);
-        setMessage(t('Done'));
+        setMessage(i18n.t('Done'));
       } catch (error) {
         setSuccess(false);
         setInProcess(false);
