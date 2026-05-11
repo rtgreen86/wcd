@@ -2,7 +2,7 @@ import { useReducer } from 'react';
 import { ModalProps, ModalTypes, ModalButtons } from '@components/Modal';
 import { ModalRequestPIN } from '@components/modals/ModalRequestPIN';
 import { InputPIN } from '@components/Form';
-import { Spinner } from '@components/Spinner';
+import { Spinner } from '../../shared/widgets/Spinner';
 import * as CONST from '@shared/const';
 
 enum Step {

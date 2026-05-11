@@ -114,14 +114,3 @@ export async function wipeMarks(token: string): Promise<void> {
   }
 }
 
-
-
-
-
-
-export function init({ locale }: { locale: string }) {
-  return electronAPI.dispatch({
-    type: 'app:init',
-    payload: { locale },
-  });
-};
