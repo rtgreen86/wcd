@@ -3,7 +3,6 @@ import StateProvder from '../components/state-provider';
 import LockScreen from '../components/screens/LockScreen';
 import CalendarScreen from '../components/screens/CalendarScreen';
 import SettingsScreen from '../components/screens/SettingsScreen';
-import InitScreen from '../screens/InitScreen';
 
 import RequireAuth from '../components/RequireAuth';
 import AuthProvider from '../components/AuthProvider';

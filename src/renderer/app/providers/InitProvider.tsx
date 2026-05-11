@@ -2,31 +2,32 @@ import './InitProvider.css';
 
 import { t } from '@shared/translations';
 import React, { useEffect, useState } from 'react';
-import { init } from '../../shared/api/init';
+import { initApp, initLocale } from '../../shared/api/inits';
 import { Spinner } from '../../shared/widgets/Spinner';
 
 export default function InitProvider({ children }: { children: React.ReactNode }) {
-  const [success, setSuccess] = useState(false);
   const [inProcess, setInProcess] = useState(true);
+  const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     const startInit = async () => {
-      setMessage(t('Initializing the application...'));
-
       try {
-        const result = await init();
+        const locale = await initLocale();
 
-        if (result.status === 'success') {
-          setSuccess(true);
+        setMessage(t('Initializing the application...'));
+        const result = await initApp({ locale });
+
+        if (result.status === 'fail') {
+          setSuccess(false);
           setInProcess(false);
-          setMessage('');
+          setMessage(result.payload.message);
           return;
         }
 
-        setSuccess(false);
+        setSuccess(true);
         setInProcess(false);
-        setMessage(result.payload.message);
+        setMessage(t('Done'));
       } catch (error) {
         setSuccess(false);
         setInProcess(false);
