@@ -1,13 +1,12 @@
 import { createContext } from 'react';
-import { Document, Action } from './types';
+import { State, Context } from './types';
 
-export const createDocument: () => Document = () => ({
+export const defaultState: () => State = () => ({
   marks: {},
   isLoading: true,
 });
 
-const emptyDocument = createDocument();
-
-const noop: (action: Action) => void = () => { };
-
-export const DocumentContext = createContext({document: emptyDocument, dispatch: noop});
+export const DocumentContext = createContext<Context>({
+  state: defaultState(),
+  dispatch: () => { }
+});
