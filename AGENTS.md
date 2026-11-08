@@ -54,6 +54,9 @@ The project follows a strict **Electron Security Model**. Agents must adhere to 
     *   Verifying the full IPC flow (Integration testing).
 *   **Golden Rule:** Prioritize testing the "Happy Path" and "Failure Modes" (e.g., wrong PIN, file corruption) for all security-related flows.
 
+## 📄 Documentation
+*   All technical documentation must be located in the `/doc/technical` subdirectory.
+
 ---
 
 ## 🛠 Standard Implementation Workflow
